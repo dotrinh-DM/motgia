@@ -11,9 +11,10 @@ class Admin extends CI_Controller {
     }
 
     public function index() {
-        $temp['data'] = $this->Adminmodel->getArticleData();
-        $temp['content'] = 'content_right';
-        $this->load->view("block/layout", $temp);
+        echo 'aâ';
+//        $temp['data'] = $this->Adminmodel->getArticleData();
+//        $temp['content'] = 'content_right';
+//        $this->load->view("block/layout", $temp);
     }
 }
 
