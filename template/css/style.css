@@ -1,0 +1,40 @@
+/* 
+    Document   : style
+    Created on : Sep 22, 2013, 2:42:02 PM
+    Author     : LEENGUYEN
+    Description:
+        Purpose of the stylesheet follows.
+*/
+@import url('reset.css');
+@import url('home.css');
+@import url('antimetion.css');
+@import url('tango/skin.css');
+@import url('slideshow.css');
+@import url('idangerous.swiper.css');
+@import url('idangerous.swiper.3dflow.css');
+@import url('tabs.css');
+@import url('contact.css');
+@import url('product.css');
+@import url('detail_product.css');
+@import url('elastislide.css');
+@import url('jquery.jqzoom.css');
+@import url('add_style.css');
+@import url('jquery.mCustomScrollbar.css');
+@import url('user.css');
+@import url('widthdrawal.css');
+@font-face{
+    font-family: OpenSans-Light;
+    src: url('OpenSans-Light.ttf')
+}
+@font-face{
+    font-family: OpenSans-Bold;
+    src: url('OpenSans-Bold.ttf')
+}
+@font-face{
+    font-family: OpenSans-Italic;
+    src: url('OpenSans-Italic.ttf')
+}
+@font-face{
+    font-family: OpenSans-Regular;
+    src: url('OpenSans-Regular.ttf')
+}
