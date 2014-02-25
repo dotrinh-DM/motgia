@@ -926,41 +926,7 @@ padding: 22px 0px 10px 7px;
     width: 960px;
     margin: auto;
 }
-#content_index {
-    float: left;
-    width: 810px;
-}
-#content_index .module {
-    width: 385px;
-    float: left;
-    display: inline;
-    margin-right: 20px;
-    box-shadow: 0px 0px 6px #e7e7e7;
-    margin-bottom: 20px;
-    position: relative;
-    border-radius: 3px;
-    font-size: 12px;
-    font-family: 'OpenSans-Regular';
-    color: #5e5e5e;
-}
-#content_index .module_item {
-    padding: 8px;
-    height: 145px;
-    overflow: hidden;
-}
-#content_index .img_module {
-    display: inline-block;
-    width: 160px;
-    height: 145px;
-    overflow: hidden;
-    float: left;
-    margin-right: 20px;
-    position: relative;
-}
-#content_index .reduced {
-    width: 187px;
-    float: right;
-}
+
 .adv {
     width: 150px;
     float: right;
