@@ -33,16 +33,15 @@
         </script>			
     </head>
     <body>	
-        <section class="bg_back">
+       <section class="bg_back">
             <header class="top_Nav wrap clearfix">
                 <ul class="Top_menu floatLeft">
-                    <li><a href="#">About us </a></li>
-                    <li><a href="#"> contact </a></li>
+                    <li><a href="#">Giới thiệu</a></li>
+                    <li><a href="#">Liên hệ</a></li>
                 </ul><!--End .Top_menu-->
                 <ul class="user clearfix floatRight">
-                    <li><a href="#">Start selling </a></li>
-                    <li><a href="#"> My Account</a></li>
-                    <li><a href="#">login</a>
+                    <li><a href="#">Đăng tin</a></li>
+                    <li><a href="#">Đăng nhập</a>
                         <div class="detail-login">
                             <form class="form clearfix">
                                 <div class="gmail">
@@ -57,20 +56,41 @@
                             </form>
                         </div>
                     </li>
-                    <li><a href="#">sign up</a></li>
+                    <li class="price_user">
+                        <span>100000 VND</span>
+                    </li>
+                    <li>
+                        <a href="#" class="headerTinymanPhoto">
+                            <img src="uploads/1076505_100003738868761_2002716988_q.jpg" alt="user"/>
+                            <span class="headerTinymanName">Hai Le</span>
+                        </a>
+                        <div class="detail_user">
+                            <ul>
+                                <li><h6 class="welcome"> Hai Le</h6></li>
+                                <li><a href="">Profile</a></li>
+                                <li><button id="logout">Đăng xuất</button></li>
+                            </ul>
+                        </div>
+                    </li>
                 </ul>
             </header><!--End .top_Nav-->
         </section><!--End .bg_back-->
 
-        <section class="logo_formSearch">
+         <section class="logo_formSearch">
             <div class="wrap clearfix">
                 <a href="#" id="logo" class="floatLeft"><img src="uploads/logo.png" alt=""/></a>
-                <form id="search" class="error floatRight">
+                <form id="search" >
                     <input type="text" placeholder="search" class="txt-search"/>
                     <input type="button" id="btnSearch" class="btnsearch"/>
                 </form>
+                <section class="cart">
+                    <a class="icon_cart"></a>
+                    <span>0</span>
+
+                </section>
             </div>
         </section><!--End .logo_formSearch-->
+
 
         <nav id="navigation">
             <ul class="wrap clearfix lever1">
@@ -742,42 +762,45 @@
         <script type="text/javascript" src="js/jquery.jcarousel.js"></script>
         <script type="text/javascript" src="js/jquery.leanModal.min.js"></script>
         <script type="text/javascript" src="js/gallery.js"></script>
-
-        <div id="footer" class="bg_back"> 
+    <div id="footer" class="bg_back"> 
             <footer class="wrap">
                 <div class="col floatLeft">
                     <div class="footerlink">
-                        <h2>ABout</h2>
+                        <h2>Giới thiệu</h2>
                         <ul>
-                            <li><a href="#">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has dummy text ever since the ...</a></li>
+                            <li>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has dummy text ever since the ...</li>
                         </ul>
                         <a href="#" class="readmore">Read More</a>
                     </div><!-- .End footerlink-->
                 </div><!-- .End col-->
                 <div class="col floatLeft">
                     <div class="footerlink">
-                        <h2>contact</h2>
-                        <ul>
-                            <li>The Company Name</li>
-                            <li class="maps">DC 999 E Street, N.W.. Washington, DC</li>
-                            <li class="phone">1800-555-3838</li>
-                            <li class="mail">info@yourstore.com</li>
-                        </ul>
+                        <h2>Liên hệ</h2>
+                        <div class="maps_contact">
+                            <ul>
+                                <li>The Company Name</li>
+                                <li><img src="images/icon_maps.png"/>DC 999 E Street, N.W.. Washington, DC</li>
+                                <li><img src="images/mail.png"/>1800-555-3838</li>
+                                <li><img src="images/phone.png"/>info@yourstore.com</li>
+                            </ul>
+                        </div>
                     </div>
                 </div><!-- .End col-->
                 <div class="col floatLeft">
                     <div class="footerlink">
-                        <h2>information</h2>
-                        <ul>
-                            <li><a href="#">Customer Support</a></li>
-                            <li><a href="#">Delivery Information</a></li>
-                            <li><a href="#">Terms & Conditions</a></li>
-                        </ul>
+                        <h2>Thông tin</h2>
+                        <div class="maps_contact">
+                            <ul>
+                                <li><a href="#">Customer Support</a></li>
+                                <li><a href="#">Delivery Information</a></li>
+                                <li><a href="#">Terms & Conditions</a></li>
+                            </ul>
+                        </div>
                     </div>
                 </div><!-- .End col-->
                 <div class="col floatLeft">
                     <div class="footerlink">
-                        <h2>payment</h2>
+                        <h2>Thanh toán</h2>
                         <figure class="img_paypal">
                             <img src="uploads/paypal.png" alt="01"/>
                         </figure>
@@ -788,7 +811,7 @@
 
                 <div class="copyright_social">
                     <div class="floatLeft copyright">
-                        <p >© Copyright 2013 Companyname</p>
+                        <p >© Copyright 2013 1price</p>
                     </div>
                     <div class="social floatRight">
                         <a href="#"><img src="uploads/skype.png" alt=""></a>
