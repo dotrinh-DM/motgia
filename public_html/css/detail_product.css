@@ -1,0 +1,231 @@
+/* 
+    Document   : detail_product
+    Created on : Nov 2, 2013, 5:25:09 PM
+    Author     : LEENGUYEN
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+.product_detail{
+    font-size: 13px;
+    border-radius: 5px;
+    padding: 20px 30px;
+    line-height: 22px;
+    color: #272727;
+}
+
+.product_detail h1{
+    margin-bottom: 20px;
+}
+#product_view{
+    width: 335px;
+    float: left;
+}
+#product_content{
+    width: 260px;
+    float: right;
+}
+#product_view img.view{
+    width: 330px;
+    height: 340px;
+    border:1px solid #e8e8e8;
+    display: block;
+
+}
+
+#sliderthumb ul{
+
+}
+#sliderthumb ul li{
+    border:1px solid #e8e8e8;
+    list-style: none;
+    margin-right: 27px; 
+
+
+}
+#sliderthumb ul li:hover{
+    opacity: .8;
+}
+#sliderthumb ul li img{
+
+}
+#product_detail,#product_detail a{
+
+}
+#product_detail .title{
+    font-size: 17px;
+    padding-bottom: 17px;
+    border-bottom: 1px solid #cecece;
+    margin-top: -5px;
+}
+#product_detail .subdetail{
+    margin-top: 20px;
+}
+#product_detail .thumbUp,#product_detail .thumbDown{
+    display: block;
+    width: 18px;
+    height: 19px;
+    text-indent: -9999px;
+    background: url('../images/items.jpg') no-repeat;
+    float: left;
+    margin-right: 3px;
+}
+#product_detail .thumbUp{
+    background-position: -2px -39px;
+}
+#product_detail .thumbDown{
+    background-position: -22px -39px;
+}
+
+#tabDetail{
+    margin-top: 10px;
+    padding-top: 20px;
+}
+#tabDetail ul.tab{
+    text-transform: capitalize;
+    border-bottom: 2px dotted #908f8f;
+    padding-bottom: 10px;
+}
+#tabDetail ul.tab li{
+    list-style: none;
+    float: left;
+    height: 32px;
+    line-height: 32px;
+    margin: 0px 4px 0px 0px;
+    border-radius: 3px 3px 0px 0px;
+}
+#tabDetail ul.tab li a{
+    display: block;
+    margin-right: 15px;
+    font-size: 20px;
+    color: #908f8f;
+
+}
+#tabDetail ul.tab li a:hover{
+    color: #19586f;
+}
+#tabDetail ul.tab li.active a{
+    color: #19586f;
+}
+#tabDetail ul.tab li.active a:hover{
+    color: #19586f;
+}
+#addCart{
+    
+}
+#addCart label{margin-top: -13px ; margin-right: 10px;}
+#addCart input[type=text]{
+    width: 40px;height: 20px;
+    text-align: center;
+    font-size: 16px;
+    border:1px solid #cecece;
+    color: #2d2f31;
+    margin:0px 4px;
+    background: #e5e6e6;
+    height: 10px;
+}
+#btnAdd{
+    margin-top: 20px;
+    text-indent: 20px;
+    position: relative;
+    background:#1abc9c url(../images/icon-cart.png) 10px no-repeat;
+    margin-bottom: 20px;
+}
+#btnAdd:hover{
+     background:#1abc9c url(../images/icon-cart.png) 10px no-repeat;
+}
+#addCart #up, #addCart #down{
+    background: transparent url(../images/up_down.png) no-repeat;
+    width: 19px;
+    height: 19px;
+    border:none;
+    text-indent: -9999px;
+    cursor: pointer;border-radius: 50%;
+    box-shadow: none;
+    padding: 0px;
+}
+#addCart #up:hover, #addCart #down:hover{ opacity: 0.7;}
+#addCart #up{
+    background-position: top right;
+}
+#addCart #down{
+    background-position: top left;
+}
+.productDetail{
+    padding: 15px 0px;
+    line-height: 22px;
+    display: none;
+    border-radius:0px 5px 5px 5px;
+}
+div.active{
+    display: block;
+}
+.productDetail p label{
+    display: block;
+}
+.productDetail input[type=text]{
+    width: 100%;
+    height: 25px;
+    border:1px solid #ccc;
+    background: #f1f1f1;
+}
+.productDetail textarea{
+    width: 100%;
+    height: 75px;
+    border:1px solid #ccc;
+    background: #f1f1f1;
+}
+
+.productDetail .btn{
+    border-bottom: 1px solid #fff;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+}
+.productDetail input[type=submit]:hover,.productDetail input[type=button]:hover{
+    background: #484848;
+}
+#formContact{
+    width: 290px;
+    float: left;
+}
+#product_detail .tag a{
+    margin-right: 5px;
+    color: #990000;
+    background: #f1f1f1;;
+    padding: 2px 8px;
+    border-radius: 3px;
+}
+#product_detail .tag a:hover{
+    background: #484848;
+    color: #fff;
+}
+#product_content .price {font-size: 14px; margin-top: 20px;}
+#product_content .od_price{
+    color: #787878;
+    font-size: 18px;
+}
+.price_3{
+    margin-top: 20px;
+}
+#product_content .new_price{
+    font-size: 24px;
+    color: #e74c3c;
+    font-weight: bolder;
+}
+.longer_products , .icon_longer_products{
+    margin-bottom: 5px;
+}
+.icon_longer_products{
+    background: transparent url(../images/longer_products.png)0px 2px no-repeat;
+    text-indent: 25px;
+}
+
+.product_detail .menu_tabs{
+    padding-bottom: 8px;
+}
+#product_content h1{
+    color: #1abc9c;
+    font-size: 14px; text-transform: uppercase;
+    border-bottom: 1px solid #dcdcdc;
+    padding-bottom: 10px;
+}
