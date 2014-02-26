@@ -16,24 +16,27 @@
                     validClass: "validationValid"
                 });
                 $(".form").submit(function(evt) {
+                    var x=document.forms["Form"]["passw"].value;
+                    var y=document.forms["Form"]["re-pass"].value;
                     if ($(".form").h5Validate("allValid") === false) {
                         evt.preventDefault();
                     }
+                        if(x!==y){
+                            evt.preventDefault();
+                            document.getElementById("lbpass").focus();
+                            alert('Vui lòng nhập lại mật khẩu');
+                        }
                 });
             });
         </script>			
     </head>
     <body>	
         <?php $this->load->view('layout/header');?>
-         
-        <div class="wrap clearfix">
         <?php 
-              $this->load->view('layout/title');  
-              echo '<section id="content" class="wrap">';
               $this->load->view($template);//noi dung nam o day
-              $this->load->view('layout/sidebar');?>
-        </div>
-         </section>
+              echo '</section><!--End #content-->';
+              ?>
+        <div class="clear"></div>
         <?php $this->load->view('layout/footer');?>
     </body>
 </html>
