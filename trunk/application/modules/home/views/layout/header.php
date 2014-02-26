@@ -26,7 +26,7 @@
                     </li>
                     <li>
                         <a href="#" class="headerTinymanPhoto">
-                            <img src="uploads/1076505_100003738868761_2002716988_q.jpg" alt="user"/>
+                            <img src="<?php echo base_url();?>/template/uploads/1076505_100003738868761_2002716988_q.jpg" alt="user"/>
                             <span class="headerTinymanName">Hai Le</span>
                         </a>
                         <div class="detail_user">
