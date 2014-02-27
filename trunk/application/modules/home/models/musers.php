@@ -48,6 +48,40 @@ class Musers extends CI_Model
             $this->db->insert('user', $data2); 
         }
     }
+    public function login(){
+            $email=  $this->input->post('email');
+            $pass=  $this->input->post('pass');
+            
+            if ($this->checklogin($email, $pass)==TRUE) {
+                $fullname = $this->getName($email);
+                $newdata = array(
+                'fullname' => $fullname,
+                'email' => $email,
+                'logged_in' => TRUE
+                );
+                $this->session->set_userdata('user',$newdata);
+                echo 'đăng nhập thành công'; 
+                redirect('home/chome');
+            }
+            else                 
+                echo 'đăng nhập thất bại';
+    }
     
+    public function logout(){
+        $this->session->unset_userdata('user');
+        redirect('home/chome');
+    }       
+
+        public function checklogin($email=0,$password=0){
+        $check1=$this->db->select('email','password')->FROM('user')->WHERE(array ('email'=>$email,'password'=>$password))->get()->row_array(); 
+        if(count($check1))
+            return $check1=TRUE;
+        else
+            return $check1=FALSE;    
+    }
+    public function getName($email=0){
+        $querry['fullname1'] = $this->db->select('fullname')->WHERE('email',$email)->get('user')->row_array();
+        return $querry['fullname1']['fullname'];
+    }
 }
 ?>

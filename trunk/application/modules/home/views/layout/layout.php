@@ -27,6 +27,16 @@
                             alert('Vui lòng nhập lại mật khẩu');
                         }
                 });
+                
+                $(".formlogin").h5Validate({
+                    errorClass: "validationError",
+                    validClass: "validationValid"
+                });
+                $(".formlogin").submit(function(evt) {
+                    if ($(".formlogin").h5Validate("allValid") === false) {
+                        evt.preventDefault();
+                    }
+                });
             });
         </script>			
     </head>
