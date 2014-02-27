@@ -1,46 +1,51 @@
+<script>
+function ques()
+{confirm('Sure?');
+}
+</script>
 <section class="bg_back">
             <header class="top_Nav wrap clearfix">
-                <ul class="Top_menu floatLeft">
-                    <li><a href="#">Giới thiệu</a></li>
-                    <li><a href="#">Liên hệ</a></li>
-                </ul><!--End .Top_menu-->
-                <ul class="user clearfix floatRight">
-                    <li><a href="#">Đăng tin</a></li>
-                    <li><a href="#">Đăng nhập</a>
-                        <div class="detail-login">
-                            <form class="form clearfix">
-                                <div class="gmail">
-                                    <input type="email" placeholder="Abc@gmail.com" required/>
-                                </div>
-                                <div class="password">
-                                    <input type="password" placeholder="Mật Khẩu" required/>
-                                </div>
-                                <div class="send">
-                                    <input type="submit" value="Đăng Nhập"/>
-                                </div>
-                            </form>
-                        </div>
-                    </li>
+                    <ul class="Top_menu floatLeft">
+                        <li><a onclick="confirm('Bạn có chắc mình muốn đăng xuất?');">Giới thiệu</a></li>
+                        <li><a href="#">Liên hệ</a></li>
+                    </ul><!--End .Top_menu-->
+                    <ul class="user clearfix floatRight">
+                    <?php if(isset($info) && count($info)){
+                        if($info['logged_in']==1){
+                            echo '
                     <li class="price_user">
-                        <span>100000 VND</span>
+                        <span><a href="">100000 VND</a></span>
                     </li>
+                    
                     <li>
                         <a href="#" class="headerTinymanPhoto">
-                            <img src="<?php echo base_url();?>/template/uploads/1076505_100003738868761_2002716988_q.jpg" alt="user"/>
-                            <span class="headerTinymanName">Hai Le</span>
+                            <img src="'.base_url().'template/uploads/1076505_100003738868761_2002716988_q.jpg" alt="user"/>
+                            <span class="headerTinymanName">'.$info['fullname'].'</span>
                         </a>
                         <div class="detail_user">
                             <ul>
-                                <li><h6 class="welcome"> Hai Le</h6></li>
+                                <li><h6 class="welcome">Xin chào '.$info['fullname'].' !</h6></li>
+                                <li><a href="#">Đăng tin</a></li>
                                 <li><a href="">Profile</a></li>
-                                <li><button id="logout">Đăng xuất</button></li>
+                                <li><a href="'.base_url().'index.php/home/chome/logout" onclick="ques();" >Đăng xuất</a></li>
                             </ul>
                         </div>
                     </li>
+                        ';}
+                        else {
+                            echo '
+
+                        <li><a href="#">Đăng tin</a></li>
+                        <li><a href="#">Đăng nhập</a>';
+                        $this->load->view('vusers/login');
+                    echo '
+                        </li>
+                        ';}
+                    } ?>
+                    
                 </ul>
             </header><!--End .top_Nav-->
 </section>
-
         <section class="logo_formSearch">
             <div class="wrap clearfix">
                 <a href="#" id="logo" class="floatLeft"><img src="<?php echo base_url();?>/template/uploads/logo.png" alt=""/></a>
