@@ -11,9 +11,15 @@ class Cuser extends CI_Controller {
         $this->load->model('admin/Adminmodel');
     }
     function index() {
+        
+        $check = $this->session->userdata('admin');
+        if(isset($check) && count($check) && ($check['logged_in']==TRUE)){
+        $temp['info'] = $check;
         $temp['title']='trang quản trị';
         $temp['template']='user_control';
         $temp['data'] = $this->Adminmodel->getAll('user');
         $this->load->view('layout_admin/layout',$temp);
+        }
+        else redirect('admin/adminhome/login');
     }
 }
