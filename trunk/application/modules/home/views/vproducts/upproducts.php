@@ -41,7 +41,7 @@
                         <select name="danhmuc">
                             <?php
                             foreach ($cate as $value) { ?>
-                                <option><?php echo $value->name?></option>
+                            <option value="<?php echo $value->id?>"><?php echo $value->name?></option>
                             <?php } ?>
                         </select>
                     </div>
