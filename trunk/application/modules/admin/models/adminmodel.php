@@ -7,10 +7,10 @@ class Adminmodel extends CI_Model
         $this->load->database();
     }
     
-    public function getArticleData()
+public function getAll($table)
     {
          $this->db->select("*");
-         $this->db->from("tbl_tin,tbl_chuyenmuc");
+         $this->db->from("$table");
          $query = $this->db->get();
          return $query->result_array();
     }   
