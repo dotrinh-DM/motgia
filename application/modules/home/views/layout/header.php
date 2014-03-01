@@ -1,8 +1,3 @@
-<script>
-function ques()
-{confirm('Sure?');
-}
-</script>
 <section class="bg_back">
             <header class="top_Nav wrap clearfix">
                     <ul class="Top_menu floatLeft">
@@ -27,7 +22,7 @@ function ques()
                                 <li><h6 class="welcome">Xin chào '.$info['fullname'].' !</h6></li>
                                 <li><a href="#">Đăng tin</a></li>
                                 <li><a href="">Profile</a></li>
-                                <li><a href="'.base_url().'index.php/home/chome/logout" onclick="ques();" >Đăng xuất</a></li>
+                                <li><a href="'.base_url().'index.php/home/chome/logout">Đăng xuất</a></li>
                             </ul>
                         </div>
                     </li>
