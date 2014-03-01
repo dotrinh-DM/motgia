@@ -17,15 +17,7 @@
 <script type="text/javascript" src="<?php echo base_url(); ?>public/adminstyle/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="<?php echo base_url(); ?>public/adminstyle/js/jquery.dataTables.js"></script>
 
-<script type="text/javascript">
-jQuery('#dyntable').dataTable({
-   "sPaginationType": "full_numbers",
-   "aaSortingFixed": [[2,'asc']],
-   "fnDrawCallback": function(oSettings) {
-      jQuery.uniform.update();
-   }
-});
-</script>
+
 <!--[if lte IE 8]><script language="javascript" type="text/javascript" src="js/excanvas.min.js"></script><![endif]-->
 </head>
 
