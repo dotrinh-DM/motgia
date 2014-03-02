@@ -30,5 +30,37 @@ class Mproducts extends CI_Model
                 );
             $this->db->insert('products', $data);
     }
+    public function editProducts($id){
+         $this->db->select("id,name,quantity,images,intro,hightlight,condition,productinfo,categoriesID");
+         $this->db->from("products");
+         $this->db->where("id",$id);
+         $query = $this->db->get();
+         return $query->result();
+    }
+    public function updateProducts($id,$danhmuc,$soluong,$tensanpham,$motangan,$dacdiemnb,$dieukiensd,$chitietsp,$link_img) {
+        $data = array(
+                'name' => $tensanpham,
+                'quantity'=>$soluong,
+                'images' => $link_img,
+                'intro'=>$motangan,
+                'hightlight'=>$dacdiemnb,
+                'condition'=>$dieukiensd,
+                'productinfo'=>$chitietsp,
+                'categoriesID'=>$danhmuc,
+                );
+    $this->db->where("id","$id");
+    $this->db->update('products',$data);
+   }
+   public function getProductByID($id) {
+       $this->db->select("*");
+       $this->db->where("id","$id");
+       $query = $this->db->get('products');
+       return $query->result();
+   }
+    public function getAllProducts(){
+        $this->db->select("*");
+         $query = $this->db->get("products");
+         return $query->result();
+    }
 }
 ?>
