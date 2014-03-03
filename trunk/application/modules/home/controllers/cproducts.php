@@ -11,6 +11,7 @@ class Cproducts extends CI_Controller {
         $this->load->helper('html');
         $this->load->library('session');
         $this->load->helper('url');
+        
         $this->load->model('Mproducts');
     }
 
@@ -28,6 +29,16 @@ class Cproducts extends CI_Controller {
     }
 
     public function insertProducts() {
+        $this->load->library('form_validation');
+        $this->form_validation->set_rules('soluong', 'Số lượng bắt buộc và phải là số', 'required|numeric|integer');
+        $this->form_validation->set_rules('tensanpham', 'Tên sản phẩm bắt buộc', 'required');
+        $this->form_validation->set_rules('motangan', 'Mô tả ngắn bắt buộc', 'required');
+//        $this->form_validation->set_rules('dacdiemnb', 'Số lượng!', 'required|numeric');
+//        $this->form_validation->set_rules('dieukiensd', 'Số lượng!', 'required|numeric');
+//        $this->form_validation->set_rules('chitietsp', 'Số lượng!', 'required|numeric');
+        if ($this->form_validation->run() == FALSE) {
+            $this->upProducts();
+        }else{
         $url = array();
         $allowed = array('image/jpg', 'image/x-png', 'image/png', 'image/jpeg');
         for ($i = 0; $i < 3; $i++) {
@@ -56,8 +67,8 @@ class Cproducts extends CI_Controller {
         $kq = $this->Mproducts->insertProducts($danhmuc, $soluong, $tensanpham, $motangan, $dacdiemnb, $dieukiensd, $chitietsp,$images);
         $this->session->set_flashdata('addproduct_alert', 'Đã Thêm sản phẩm Thành Công');
         redirect('home/cproducts/upProducts');
+        }
     }
-    
     public function editProducts($id) {
         $data['cate'] = $this->Mproducts->getAllCategories();
         $data['edit'] = $this->Mproducts->editProducts($id);
@@ -114,7 +125,7 @@ class Cproducts extends CI_Controller {
                }//#For i++
            }
          $link_img = json_encode($url);
-         }
+        }
         $danhmuc = $this->input->post('danhmuc');
         $soluong = $this->input->post('soluong');
         $tensanpham = $this->input->post('tensanpham');

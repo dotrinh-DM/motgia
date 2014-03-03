@@ -27,7 +27,7 @@
        </div>
     <section id="primary">
        <?php
-         echo form_open_multipart('home/cproducts/insertProducts');?>
+    echo form_open_multipart('home/cproducts/insertProducts');?>
         <div id="tabs" class="tabs">
             <div class="position">
                 <header class="title_form">
@@ -49,41 +49,43 @@
 
                 <div class="floatLeft">
                     <label>Số lượng<span>*</span></label>
-                    <div class="select width_40">
-                        <input type="text" name="soluong"/>
+                    <div class="select width_60">
+                        <input type="text" name="soluong" />
                         <span class="tooltip">Không được để trống</span>
                     </div>
+                    <?php echo '<b>'.form_error('soluong').'</b>'; ?>
                 </div>
                 <div class="clear"></div>
 
                 <div>
                     <label>Tên sản phẩm<span>*</span></label>
-                    <input type="text" name="tensanpham"/>
+                    <input type="text" name="tensanpham" />
                 </div>
+                <?php echo '<b>'.form_error('tensanpham').'</b>'; ?>
                 <div>
                     <label>Mô tả ngắn<span>*</span></label>
-                    <textarea name="motangan"></textarea>
+                    <textarea name="motangan" > </textarea>
                 </div>
-
+                <?php echo '<b>'.form_error('motangan').'</b>'; ?>
                 <div class="photo_uploads">
                     <h6>Ảnh sản phẩm<span class="color_red">*</span></h6>
                     <ul class="detail_photo_uploads">
                         <li>
                             <label>Ảnh 1</label>
                             <div class="bg-file">
-                                <input type="file" name="img[]"/>
+                                <input type="file" name="img[]" required/>
                             </div>
                         </li>
                         <li>
                             <label>Ảnh 2</label>
                             <div class="bg-file">
-                                <input type="file" name="img[]"/>
+                                <input type="file" name="img[]" required/>
                             </div>
                         </li>
                         <li>
                             <label>Ảnh 3</label>
                             <div class="bg-file">
-                                <input type="file" name="img[]"/>
+                                <input type="file" name="img[]" required/>
                             </div>
                         </li>
                     </ul>
@@ -97,15 +99,16 @@
             <div id="tabs-2">
                     <div>
                         <label>Đặc điểm nổi bật<span>*</span></label>
-                        <textarea class="content_add" name="dacdiemnb"></textarea>
+                        <textarea class="content_add" name="dacdiemnb" ></textarea>
+                        <?php echo form_error('dacdiemnb'); ?>
                     </div>
                     <div>
                         <label>Điều kiện sử dụng <span>*</span></label>
-                        <textarea class="content_add" name="dieukiensd"></textarea>
+                        <textarea class="content_add" name="dieukiensd" ></textarea><?php echo form_error('dieukiensd'); ?>
                     </div>
                     <div>
                         <label>Chi tiết sản phẩm <span>*</span></label>
-                        <textarea class="content_add" name="chitietsp"></textarea>
+                        <textarea class="content_add" name="chitietsp" ></textarea><?php echo form_error('chitietsp'); ?>
                     </div>
                 
             </div><!--End #tabs-2-->
