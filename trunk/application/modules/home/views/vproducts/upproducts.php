@@ -1,3 +1,17 @@
+<!--tan them doan nay-->
+<script type="text/javascript">
+            jQuery(document).ready(function() {
+                $(".uppro").h5Validate({
+                    errorClass: "validationError",
+                    validClass: "validationValid"
+                });
+                $(".uppro").submit(function(evt) {
+                    if ($(".formlogin").h5Validate("allValid") === false) {
+                        evt.preventDefault();
+                    }
+                });
+            });
+</script>	
 <section class="bg_shadow">
     <div class="wrap clearfix">
         <div class="title floatLeft">
@@ -27,7 +41,8 @@
        </div>
     <section id="primary">
        <?php
-    echo form_open_multipart('home/cproducts/insertProducts');?>
+        $attributes = array('id' => 'uppro', 'class'=>'form error');//tan sua cho nay
+         echo form_open_multipart('home/cproducts/insertProducts',$attributes);?>
         <div id="tabs" class="tabs">
             <div class="position">
                 <header class="title_form">
@@ -41,7 +56,7 @@
                         <select name="danhmuc">
                             <?php
                             foreach ($cate as $value) { ?>
-                            <option value="<?php echo $value->id?>"><?php echo $value->name?></option>
+                                <option><?php echo $value->name?></option>
                             <?php } ?>
                         </select>
                     </div>
@@ -49,43 +64,43 @@
 
                 <div class="floatLeft">
                     <label>Số lượng<span>*</span></label>
-                    <div class="select width_60">
-                        <input type="text" name="soluong" />
-                        <span class="tooltip">Không được để trống</span>
+                    <div class="select width_40">
+                        <input  type="text" name="soluong" class="h5-phone" required=""/><!--them required-->
+                        <span class="tooltip">Phải là số</span>
                     </div>
-                    <?php echo '<b>'.form_error('soluong').'</b>'; ?>
                 </div>
                 <div class="clear"></div>
 
-                <div>
+                <div class="position">
                     <label>Tên sản phẩm<span>*</span></label>
-                    <input type="text" name="tensanpham" />
+                    <input type="text" name="tensanpham" required=""/>
+                    <span class="tooltip">Không được để trống</span>
                 </div>
-                <?php echo '<b>'.form_error('tensanpham').'</b>'; ?>
-                <div>
+                <div class="position">
                     <label>Mô tả ngắn<span>*</span></label>
-                    <textarea name="motangan" > </textarea>
+                    <textarea name="motangan" required=""></textarea>
+                    <span class="tooltip">Không được để trống</span>
                 </div>
-                <?php echo '<b>'.form_error('motangan').'</b>'; ?>
+
                 <div class="photo_uploads">
                     <h6>Ảnh sản phẩm<span class="color_red">*</span></h6>
                     <ul class="detail_photo_uploads">
                         <li>
                             <label>Ảnh 1</label>
                             <div class="bg-file">
-                                <input type="file" name="img[]" required/>
+                                <input type="file" name="img[]"/>
                             </div>
                         </li>
                         <li>
                             <label>Ảnh 2</label>
                             <div class="bg-file">
-                                <input type="file" name="img[]" required/>
+                                <input type="file" name="img[]"/>
                             </div>
                         </li>
                         <li>
                             <label>Ảnh 3</label>
                             <div class="bg-file">
-                                <input type="file" name="img[]" required/>
+                                <input type="file" name="img[]"/>
                             </div>
                         </li>
                     </ul>
@@ -99,16 +114,18 @@
             <div id="tabs-2">
                     <div>
                         <label>Đặc điểm nổi bật<span>*</span></label>
-                        <textarea class="content_add" name="dacdiemnb" ></textarea>
-                        <?php echo form_error('dacdiemnb'); ?>
+                        <textarea class="content_add" name="dacdiemnb" required=""></textarea>
+                        <span class="tooltip">Không được để trống</span>
                     </div>
                     <div>
                         <label>Điều kiện sử dụng <span>*</span></label>
-                        <textarea class="content_add" name="dieukiensd" ></textarea><?php echo form_error('dieukiensd'); ?>
+                        <textarea class="content_add" name="dieukiensd" required=""></textarea>
+                        <span class="tooltip">Không được để trống</span>
                     </div>
                     <div>
                         <label>Chi tiết sản phẩm <span>*</span></label>
-                        <textarea class="content_add" name="chitietsp" ></textarea><?php echo form_error('chitietsp'); ?>
+                        <textarea class="content_add" name="chitietsp" required=""></textarea>
+                        <span class="tooltip">Không được để trống</span>
                     </div>
                 
             </div><!--End #tabs-2-->
