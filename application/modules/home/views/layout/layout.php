@@ -56,6 +56,9 @@
                 theme_advanced_resizing: true
             });
         </script>
+        <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.8/jquery.validate.min.js"></script>
+        <script type="text/javascript" src="<?php echo base_url() ?>public/homejs/jquery.validate.js"></script>
+        <script type="text/javascript" src="<?php echo base_url() ?>public/homejs/validate_up.js"></script>
     </head>
     <body>	
         <?php $this->load->view('layout/header');?>
