@@ -40,9 +40,13 @@
             ?>
        </div>
     <section id="primary">
+<<<<<<< .mine
+        <form method="post" action="<?php echo site_url('home/cproducts/insertProducts');?>" enctype="multipart/form-data" id="up_form"/>
+=======
        <?php
         $attributes = array('id' => 'uppro', 'class'=>'form error');//tan sua cho nay
          echo form_open_multipart('home/cproducts/insertProducts',$attributes);?>
+>>>>>>> .r46
         <div id="tabs" class="tabs">
             <div class="position">
                 <header class="title_form">
@@ -64,22 +68,34 @@
 
                 <div class="floatLeft">
                     <label>Số lượng<span>*</span></label>
+<<<<<<< .mine
+                    <input type="text" name="soluong" value="<?php if(isset($_POST['soluong'])){echo $_POST['soluong'];}?>"/>
+=======
                     <div class="select width_40">
                         <input  type="text" name="soluong" class="h5-phone" required=""/><!--them required-->
                         <span class="tooltip">Phải là số</span>
                     </div>
+>>>>>>> .r46
                 </div>
                 <div class="clear"></div>
 
                 <div class="position">
                     <label>Tên sản phẩm<span>*</span></label>
+<<<<<<< .mine
+                    <input type="text" name="tensanpham" value="<?php if(isset($_POST['tensanpham'])){echo $_POST['tensanpham'];}?>"/>
+=======
                     <input type="text" name="tensanpham" required=""/>
                     <span class="tooltip">Không được để trống</span>
+>>>>>>> .r46
                 </div>
                 <div class="position">
                     <label>Mô tả ngắn<span>*</span></label>
+<<<<<<< .mine
+                    <textarea name="motangan"><?php if(isset($_POST['motangan'])){echo $_POST['motangan'];}?></textarea>
+=======
                     <textarea name="motangan" required=""></textarea>
                     <span class="tooltip">Không được để trống</span>
+>>>>>>> .r46
                 </div>
 
                 <div class="photo_uploads">
@@ -88,22 +104,38 @@
                         <li>
                             <label>Ảnh 1</label>
                             <div class="bg-file">
+<<<<<<< .mine
+                                <input type="file" name="img1" id="img1" accept="image/*"/>
+=======
                                 <input type="file" name="img[]"/>
+>>>>>>> .r46
                             </div>
+                            <div id="noti-img1"></div>
                         </li>
                         <li>
                             <label>Ảnh 2</label>
                             <div class="bg-file">
+<<<<<<< .mine
+                                <input type="file" name="img2" id="img2" accept="image/*"/>
+=======
                                 <input type="file" name="img[]"/>
+>>>>>>> .r46
                             </div>
+                            <div id="noti-img2"></div>
                         </li>
                         <li>
                             <label>Ảnh 3</label>
                             <div class="bg-file">
+<<<<<<< .mine
+                                <input type="file" name="img3" id="img3" accept="image/*"/>
+=======
                                 <input type="file" name="img[]"/>
+>>>>>>> .r46
                             </div>
+                            <div id="noti-img3"></div>
                         </li>
                     </ul>
+                     <?php if(isset($thongbao)){echo '<b>'.$thongbao.'</b>';} ?>
                 </div>
 
 
@@ -114,18 +146,31 @@
             <div id="tabs-2">
                     <div>
                         <label>Đặc điểm nổi bật<span>*</span></label>
+<<<<<<< .mine
+                        <textarea class="content_add" name="dacdiemnb" ><?php if(isset($_POST['dacdiemnb'])){echo $_POST['dacdiemnb'];}?></textarea>
+                        <?php echo form_error('dacdiemnb'); ?>
+=======
                         <textarea class="content_add" name="dacdiemnb" required=""></textarea>
                         <span class="tooltip">Không được để trống</span>
+>>>>>>> .r46
                     </div>
                     <div>
                         <label>Điều kiện sử dụng <span>*</span></label>
+<<<<<<< .mine
+                        <textarea class="content_add" name="dieukiensd" ><?php if(isset($_POST['dieukiensd'])){echo $_POST['dieukiensd'];}?></textarea>
+=======
                         <textarea class="content_add" name="dieukiensd" required=""></textarea>
                         <span class="tooltip">Không được để trống</span>
+>>>>>>> .r46
                     </div>
                     <div>
                         <label>Chi tiết sản phẩm <span>*</span></label>
+<<<<<<< .mine
+                        <textarea class="content_add" name="chitietsp" ><?php if(isset($_POST['chitietsp'])){echo $_POST['chitietsp'];}?></textarea>
+=======
                         <textarea class="content_add" name="chitietsp" required=""></textarea>
                         <span class="tooltip">Không được để trống</span>
+>>>>>>> .r46
                     </div>
                 
             </div><!--End #tabs-2-->
