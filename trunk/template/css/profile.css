@@ -1,0 +1,18 @@
+/* 
+    Document   : profile
+    Created on : Mar 6, 2014, 4:14:22 PM
+    Author     : hai
+    Description:
+        Purpose of the stylesheet follows.
+*/
+span.onclick:active input{
+ display: block;
+}
+.detail_profile tr td input[type=text], input[type=password], input[type=email]{
+ 
+ display:none;
+}
+.detail_profile tr td p{
+   
+   
+}

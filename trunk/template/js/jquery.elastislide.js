@@ -75,9 +75,9 @@
 			deferred = $.isFunction($.Deferred) ? $.Deferred() : 0,
 			hasNotify = $.isFunction(deferred.notify),
 			$images = $this.find('img').add( $this.filter('img') ),
-			loaded = [],
-			proper = [],
-			broken = [];
+			loaded = [1],
+			proper = [1],
+			broken = [1];
 
 		// Register deferred callbacks
 		if ($.isPlainObject(callback)) {

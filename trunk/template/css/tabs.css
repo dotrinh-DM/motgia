@@ -5,20 +5,20 @@
     Description:
         Purpose of the stylesheet follows.
 */
-.tabs{
-    font-size: 12px;
-    font-family: 'OpenSans-Regular';
-}
-.menu_tabs{
+.etabs {
+
     border-bottom: 2px solid #1abc9c;
     margin-bottom: 30px;
     color: #fff;
-    padding-bottom: 11px;
+    padding-bottom: 8px;
     padding-left: 5px;
     margin-top: 40px;
 }
-.menu_tabs li{list-style: none; display: inline-block;}
-.menu_tabs li a{
+.tab {
+    list-style: none;
+    display: inline-block;
+}
+.tab a {
     background: #dbdbdb;
     border-radius: 3px 3px 0px 0px;
     box-shadow: inset 0px 2px 0px #ababab;
@@ -26,40 +26,82 @@
     font-size: 12px;
     font-family: 'OpenSans-Bold';
     color: #272727;
+    font-weight: bold;
 }
-.menu_tabs li a:hover , .menu_tabs li a.active{
+.tab a:hover { 
+    background: #1abc9c;
+    box-shadow: inset 0px 2px 0px #16a085;
+    color: #ffffff; 
+}
+.tab .active { 
     background: #1abc9c;
     box-shadow: inset 0px 2px 0px #16a085;
     color: #ffffff;
 }
-.cus_form label{
-    display: block;
-    margin-bottom: 20px;
-    font-size: 12px;
+
+.tab-container .panel-container {
+
+}
+.detail_item {
+    width: 46%;
+    padding: 0 2%;
+    float: left;
+    line-height: 20px;
+    padding-bottom: 10px;
+}
+.title_detail_item {
+    text-transform: uppercase;
+    font-size: 14px;
+    font-family: 'OpenSans-Bold';
+    padding-left: 6px;
+    position: relative;
+    margin-bottom: 10px;
     color: #272727;
 }
-label span ,.color_red{
-    color: #e6456d;
+.title_detail_item:before {
+    width: 3px;
+    height: 12px;
+    position: absolute;
+    content: "";
+    top: 4px;
+    left: 0px;
+    background: #1abc9c;
 }
-.width_200{
-    width: 200px;
+.detail_item li {
+    list-style: none;
+    position: relative;
+    padding: 0px 0px 0px 10px;
+    margin-bottom: 10px;
 }
-#tabs-1 .select{
-    margin-right: 8px;
-    margin-bottom: 20px;
+.detail_item li:before {
+    position: absolute;
+    content: "";
+    top: 8px;
+    left: 0px;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: #e32958;
 }
-.width_200 select{
-    min-width: 220px;
+.line_full {
+border: none;
+border-bottom: 1px solid #d9dada;
+left: 0px;
+width: 100%;
+bottom: 0px;
 }
-.marginRight_50{
-    margin-right: 50px;
+.detail_item_post {
+margin-top: 20px;
+font-size: 12px;
 }
-#tabs-1 input[type=text],#tabs-1 input[type=email],#tabs-1  textarea{
-    width: 98%;
-    padding: 10px 8px;
-    font-family: 'OpenSans-Regular';
-    font-size: 12px;
+.title_post_detail {
+text-align: center;
+text-transform: uppercase;
+color: #1abc9c;
+font-family: 'OpenSans-Bold';
+margin-bottom: 10px;
 }
+
 .cus_form textarea{
     border:0px none;
     background: #e5e6e6;

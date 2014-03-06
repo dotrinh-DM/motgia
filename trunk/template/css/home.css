@@ -401,6 +401,9 @@ line-height: 21px;
 .form{
     font-size: 12px;
 }
+.form div{
+     position: relative;
+}
 .form label{
     display: block;
     width: 150px;
@@ -413,6 +416,7 @@ line-height: 21px;
 }
 input[type=text] , input[type=password] , 
 input[type=email]{
+   
     background: #e5e6e6;
     box-shadow: inset 2px 2px 1px #d9dada;
     width: 290px;

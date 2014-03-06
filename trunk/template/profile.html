@@ -8,7 +8,8 @@
         <script type="text/javascript" src="js/modernizr.custom.28468.js"></script><!-- Slideshow -->
         <script type="text/javascript" src="js/validateh5.js"></script>
         <script type="text/javascript" src="js/jquery.cslider.js"></script><!-- Slideshow -->
-
+         <script src="js/jquery.hashchange.min.js" type="text/javascript"></script>
+        <script src="js/jquery.easytabs.min.js" type="text/javascript"></script>
         <script type="text/javascript">
 
             jQuery(document).ready(function() {
@@ -29,6 +30,7 @@
                         evt.preventDefault();
                     }
                 });
+                $('#tab-container').easytabs();
             });
         </script>	
         <script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
@@ -578,8 +580,8 @@
         <section class="bg_shadow">
             <div class="wrap clearfix">
                 <div class="title floatLeft">
-                    <h6>My ACC</h6>
-                    <span>Create an account</span>
+                    <h6>Trang cá nhân</h6>
+                    <span>Thông tin cá nhân</span>
                 </div>
                 <div class="clearfix breadcrumbs floatRight">
                     <div class="fl" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
@@ -597,399 +599,399 @@
         </section>
         <section id="content" class="wrap">
             <div id="primary">
-                <div id="tabs" class="tabs marginBottom_15">
-                    <div class="position">
-                        <ul class="menu_tabs">
-                            <li><a href="#tabs-1" class="active">Profile</a></li>
-                            <li><a href="#tabs-2">Order</a></li>
-                            <li><a href="#tabs-3">Newsletters</a></li>
-                        </ul>
-                    </div>
-                    <div id="tabs-1" class="ui-tabs" style="display: none;">
-                        <div class="change">
-                            <h6 class="title_detail_item">profile <span class="onclick">[ Change ]</span> </h6>
-                            <table class="detail_profile"> 
-                                <tr>
-                                    <td>Name</td>
-                                    <td>Nguyen Van Thang</td>
-                                </tr>
-                                <tr>
-                                    <td>Date of birth</td>
-                                    <td>12.06.1990</td>
-                                </tr>
-                                <tr>
-                                    <td>Address</td>
-                                    <td>Hai Phong ,  Viet Nam</td>
-                                </tr>
-                                <tr>
-                                    <td>TelePhone</td>
-                                    <td>0906.264.555</td>
-                                </tr>
-                            </table><!--End detail_profile -->
-                            <form class="form change_open">
-                                <div>
-                                    <label>First name <span>*</span></label>
-                                    <input type="text" required=""/>
-                                </div>
-                                <div>
-                                    <label>Last name<span>*</span></label>
-                                    <input type="text" required=""/>
-                                </div>
-                                <div class="marginBottom_10">
-                                    <label>Date of birth<span>*</span></label>
-                                    <div class="select">
-                                        <select>
-                                            <option>Oct</option>
-                                            <option>Jun</option>
-                                        </select>
+                <div id="tab-container" class='tab-container marginBottom_15'>
+                    <ul class='etabs'>
+                        <li class='tab active' ><a href="#tabs1-html">Thông tin sản phẩm</a></li>
+                        <li class='tab'><a href="#tabs1-js">Bình luận</a></li>
+                        <li class='tab'><a href="#tabs1-css">Nhà cung cấp</a></li>
+                    </ul>
+                    <div class='panel-container'>
+                        <div id="tabs1-html">
+                            <div class="change">
+                                <h6 class="title_detail_item">profile <span class="onclick">[ Change ]</span> </h6>
+                                <table class="detail_profile"> 
+                                    <tr>
+                                        <td>Name</td>
+                                        <td><p>Nguyen Van Thang </p><input type="text"/></td> 
+                                    </tr>
+                                    <tr>
+                                        <td>Date of birth</td>
+                                        <td>12.06.1990</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Address</td>
+                                        <td>Hai Phong ,  Viet Nam</td>
+                                    </tr>
+                                    <tr>
+                                        <td>TelePhone</td>
+                                        <td>0906.264.555</td>
+                                    </tr>
+                                </table><!--End detail_profile -->
+                                <form class="form change_open">
+                                    <div>
+                                        <label>First name <span>*</span></label>
+                                        <input type="text" required=""/>
                                     </div>
-                                    <div class="select">
-                                        <select>
-                                            <option>12</option>
-                                            <option>13</option>
-                                        </select>
+                                    <div>
+                                        <label>Last name<span>*</span></label>
+                                        <input type="text" required=""/>
                                     </div>
-                                    <div class="select">
-                                        <select>
-                                            <option>1990</option>
-                                            <option>1991</option>
-                                        </select>
+                                    <div class="marginBottom_10">
+                                        <label>Date of birth<span>*</span></label>
+                                        <div class="select">
+                                            <select>
+                                                <option>Oct</option>
+                                                <option>Jun</option>
+                                            </select>
+                                        </div>
+                                        <div class="select">
+                                            <select>
+                                                <option>12</option>
+                                                <option>13</option>
+                                            </select>
+                                        </div>
+                                        <div class="select">
+                                            <select>
+                                                <option>1990</option>
+                                                <option>1991</option>
+                                            </select>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="marginBottom_10">
-                                    <label>Sex<span>*</span></label>
-                                    <div class="select">
-                                        <select>
-                                            <option>Male</option>
-                                            <option>Female</option>
-                                        </select>
+                                    <div class="marginBottom_10">
+                                        <label>Sex<span>*</span></label>
+                                        <div class="select">
+                                            <select>
+                                                <option>Male</option>
+                                                <option>Female</option>
+                                            </select>
+                                        </div>
                                     </div>
-                                </div>
-                                <div>
-                                    <label>Phone<span>*</span></label>
-                                    <input type="text" required=""/>
-                                </div>
-                                <div>
-                                    <label>Address<span>*</span></label>
-                                    <input type="text" required=""/>
-                                </div>
-                                <div>
-                                    <label>Country<span>*</span></label>
-                                    <div class="select">
-                                        <select>
-                                            <option>Vietnam</option>
-                                            <option>Thailan</option>
-                                            <option>Singapore</option>
-                                        </select>
+                                    <div>
+                                        <label>Phone<span>*</span></label>
+                                        <input type="text" required=""/>
                                     </div>
-                                </div>
-                                <div>
-                                    <button class="btn">Save</button>
-                                </div>
-                            </form>
-                        </div>
-                        <div class="change">
-                            <h6 class="title_detail_item">Delivery Address <span class="onclick">[ Change ]</span> </h6>
-                            <table class="detail_profile"> 
-                                <tr>
-                                    <td>Name</td>
-                                    <td>Nguyen Van Thang</td>
-                                </tr>
-                                <tr>
-                                    <td>Date of birth</td>
-                                    <td>12.06.1990</td>
-                                </tr>
-                                <tr>
-                                    <td>Address</td>
-                                    <td>Hai Phong ,  Viet Nam</td>
-                                </tr>
-                                <tr>
-                                    <td>TelePhone</td>
-                                    <td>0906.264.555</td>
-                                </tr>
-                            </table><!--End detail_profile -->
-                        </div>
-                        <div class="change">
-                            <h6 class="title_detail_item">Account<span class="onclick">[ Change ]</span> </h6>
-                            <table class="detail_profile"> 
-                                <tr>
-                                    <td>Email</td>
-                                    <td>leenguyenhp090@gmail.com</td>
-                                </tr>
-                                <tr>
-                                    <td>password</td>
-                                    <td>......</td>
-                                </tr>
-                            </table><!--End detail_profile -->
-                        </div>
-
-                    </div> <!--End #tabs 1-->
-
-                    <div id="tabs-2" style="display: none;">
-                        <h6 class="title_detail_item">order</h6>
-                        <table class="oder_table">
-                            <tr>
-                                <th>#</th>
-                                <th>Data</th>
-                                <th>Order #</th>
-                                <th>Status</th>
-                                <th>Products</th>
-                                <th>Total</th>
-                            </tr>
-                            <tr>
-                                <td>1</td>
-                                <td>12/12/2013</td>
-                                <td>1123</td>
-                                <td><span class="bg_blue">Sold</span></td>
-                                <td>It is a long established fact </td>
-                                <td>$20 </td>
-
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>12/12/2013</td>
-                                <td>1123</td>
-                                <td><span class="bg_blue">Sold</span></td>
-                                <td>It is a long established fact </td>
-                                <td>$20 </td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td>12/12/2013</td>
-                                <td>1123</td>
-                                <td><span class="bg_yellow">Pending</span></td>
-                                <td>It is a long established fact </td>
-                                <td>$20 </td>
-
-                            </tr>
-                            <tr>
-                                <td>4</td>
-                                <td>12/12/2013</td>
-                                <td>1123</td>
-                                <td><span class="bg_blue">Sold</span></td>
-                                <td>It is a long established fact </td>
-                                <td>$20 </td>
-                            </tr>
-                        </table>
-                        <section class="pagination">
-                            <div class="paginationControl clearfix">
-                                <a href="#"></a>
-                                <span class="active">1</span>
-                                <a href="#">2</a>
-                                <a href="#">3</a>
-                                <a href="#"></a>
-                            </div>
-                        </section><!-- #End pagination-->
-                    </div><!--End #tabs-2-->
-                    <div id="tabs-3">
-                        <h6 class="title_detail_item">Newsletters</h6>
-                        <div class="content_3 clearfix">
-                            <div class="col_2 detail_content_3">
-                                <form id="formSearch_mss" class="clearfix">
-                                    <input type="text" class="txt-search" placeholder="search">
-                                    <input type="button" class="btnsearch" >
+                                    <div>
+                                        <label>Address<span>*</span></label>
+                                        <input type="text" required=""/>
+                                    </div>
+                                    <div>
+                                        <label>Country<span>*</span></label>
+                                        <div class="select">
+                                            <select>
+                                                <option>Vietnam</option>
+                                                <option>Thailan</option>
+                                                <option>Singapore</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <button class="btn">Save</button>
+                                    </div>
                                 </form>
-                                <ul class="scroll border_left">
-                                    <li class="active">
-                                        <div class="listitem clearfix">
-                                            <span class="del_2">xóa</span>
-                                            <figure class="img_post">
-                                                <img src="uploads/1076505_100003738868761_2002716988_q.jpg" alt="img-hot"/>
-                                            </figure>
-                                            <div class="listitem_ct">
-                                                <span class="name_user">Vu Tuan</span>
-                                                <span class="title_post">Produc:Lorem ipsum dolor sit amet</span>
-                                            </div>
-                                            <time>12/12/2013</time>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="listitem clearfix">
-                                            <span class="del_2">xóa</span>
-                                            <figure class="img_post">
-                                                <img src="uploads/1076505_100003738868761_2002716988_q.jpg" alt="img-hot"/>
-                                            </figure>
-                                            <div class="listitem_ct">
-                                                <span class="name_user">Vu Tuan</span>
-                                                <span class="title_post">Produc:Lorem ipsum dolor sit amet</span>
-                                            </div>
-                                            <time>12/12/2013</time>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="listitem clearfix">
-                                            <figure class="img_post">
-                                                <img src="uploads/1076505_100003738868761_2002716988_q.jpg" alt="img-hot"/>
-                                            </figure>
-                                            <div class="listitem_ct">
-                                                <span class="name_user">Vu Tuan</span>
-                                                <span class="title_post">Produc:Lorem ipsum dolor sit amet</span>
-                                            </div>
-                                            <time>12/12/2013</time>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="listitem clearfix">
-                                            <figure class="img_post">
-                                                <img src="uploads/1076505_100003738868761_2002716988_q.jpg" alt="img-hot"/>
-                                            </figure>
-                                            <div class="listitem_ct">
-                                                <span class="name_user">Vu Tuan</span>
-                                                <span class="title_post">Produc:Lorem ipsum dolor sit amet</span>
-                                            </div>
-                                            <time>12/12/2013</time>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="listitem clearfix">
-                                            <figure class="img_post">
-                                                <img src="uploads/1076505_100003738868761_2002716988_q.jpg" alt="img-hot"/>
-                                            </figure>
-                                            <div class="listitem_ct">
-                                                <span class="name_user">Vu Tuan</span>
-                                                <span class="title_post">Produc:Lorem ipsum dolor sit amet</span>
-                                            </div>
-                                            <time>12/12/2013</time>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="listitem clearfix">
-                                            <figure class="img_post">
-                                                <img src="uploads/1076505_100003738868761_2002716988_q.jpg" alt="img-hot"/>
-                                            </figure>
-                                            <div class="listitem_ct">
-                                                <span class="name_user">Vu Tuan</span>
-                                                <span class="title_post">Produc:Lorem ipsum dolor sit amet</span>
-                                            </div>
-                                            <time>12/12/2013</time>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="listitem clearfix">
-                                            <figure class="img_post">
-                                                <img src="uploads/1076505_100003738868761_2002716988_q.jpg" alt="img-hot"/>
-                                            </figure>
-                                            <div class="listitem_ct">
-                                                <span class="name_user">Vu Tuan</span>
-                                                <span class="title_post">Produc:Lorem ipsum dolor sit amet</span>
-                                            </div>
-                                            <time>12/12/2013</time>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="listitem clearfix">
-                                            <figure class="img_post">
-                                                <img src="uploads/1076505_100003738868761_2002716988_q.jpg" alt="img-hot"/>
-                                            </figure>
-                                            <div class="listitem_ct">
-                                                <span class="name_user">Vu Tuan</span>
-                                                <span class="title_post">Produc:Lorem ipsum dolor sit amet</span>
-                                            </div>
-                                            <time>12/12/2013</time>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="listitem clearfix">
-                                            <figure class="img_post">
-                                                <img src="uploads/1076505_100003738868761_2002716988_q.jpg" alt="img-hot"/>
-                                            </figure>
-                                            <div class="listitem_ct">
-                                                <span class="name_user">Vu Tuan</span>
-                                                <span class="title_post">Produc:Lorem ipsum dolor sit amet</span>
-                                            </div>
-                                            <time>12/12/2013</time>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="listitem clearfix">
-                                            <figure class="img_post">
-                                                <img src="uploads/1076505_100003738868761_2002716988_q.jpg" alt="img-hot"/>
-                                            </figure>
-                                            <div class="listitem_ct">
-                                                <span class="name_user">Vu Tuan</span>
-                                                <span class="title_post">Produc:Lorem ipsum dolor sit amet</span>
-                                            </div>
-                                            <time>12/12/2013</time>
-                                        </div>
-                                    </li>
-                                </ul>
                             </div>
-                            <div class="col_2 detail_content_3">
-                                <ul class="scroll scroll_2">
-                                    <li>
-                                        <div class="listitem clearfix">
-                                            <span class="del_3">xóa</span>
-                                            <a href="#" class="name_user">Vu Tuan</a>
-                                            <p>
-                                                Produc:Lorem ipsum dolor sit amet , Produc:Lorem ipsum dolor sit amet , Produc:Lorem ipsum dolor sit amet ,
-                                                Produc:Lorem ipsum dolor sit amet
-                                            </p>
-                                            <time>12/12/2013</time>
+                            <div class="change">
+                                <h6 class="title_detail_item">Delivery Address <span class="onclick">[ Change ]</span> </h6>
+                                <table class="detail_profile"> 
+                                    <tr>
+                                        <td>Name</td>
+                                        <td>Nguyen Van Thang</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Date of birth</td>
+                                        <td>12.06.1990</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Address</td>
+                                        <td>Hai Phong ,  Viet Nam</td>
+                                    </tr>
+                                    <tr>
+                                        <td>TelePhone</td>
+                                        <td>0906.264.555</td>
+                                    </tr>
+                                </table><!--End detail_profile -->
+                            </div>
+                            <div class="change">
+                                <h6 class="title_detail_item">Account<span class="onclick">[ Change ]</span> </h6>
+                                <table class="detail_profile"> 
+                                    <tr>
+                                        <td>Email</td>
+                                        <td>leenguyenhp090@gmail.com</td>
+                                    </tr>
+                                    <tr>
+                                        <td>password</td>
+                                        <td>......</td>
+                                    </tr>
+                                </table><!--End detail_profile -->
+                            </div>
+
+
+                        </div> <!--End #tabs 1-->
+
+                        <div id="tabs1-js">
+                            <h6 class="title_detail_item">order</h6>
+                            <table class="oder_table">
+                                <tr>
+                                    <th>#</th>
+                                    <th>Data</th>
+                                    <th>Order #</th>
+                                    <th>Status</th>
+                                    <th>Products</th>
+                                    <th>Total</th>
+                                </tr>
+                                <tr>
+                                    <td>1</td>
+                                    <td>12/12/2013</td>
+                                    <td>1123</td>
+                                    <td><span class="bg_blue">Sold</span></td>
+                                    <td>It is a long established fact </td>
+                                    <td>$20 </td>
+
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>12/12/2013</td>
+                                    <td>1123</td>
+                                    <td><span class="bg_blue">Sold</span></td>
+                                    <td>It is a long established fact </td>
+                                    <td>$20 </td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td>12/12/2013</td>
+                                    <td>1123</td>
+                                    <td><span class="bg_yellow">Pending</span></td>
+                                    <td>It is a long established fact </td>
+                                    <td>$20 </td>
+
+                                </tr>
+                                <tr>
+                                    <td>4</td>
+                                    <td>12/12/2013</td>
+                                    <td>1123</td>
+                                    <td><span class="bg_blue">Sold</span></td>
+                                    <td>It is a long established fact </td>
+                                    <td>$20 </td>
+                                </tr>
+                            </table>
+                            <section class="pagination">
+                                <div class="paginationControl clearfix">
+                                    <a href="#"></a>
+                                    <span class="active">1</span>
+                                    <a href="#">2</a>
+                                    <a href="#">3</a>
+                                    <a href="#"></a>
+                                </div>
+                            </section><!-- #End pagination-->
+                        </div><!--End #tabs-2-->
+                        <div id="tabs1-css">
+                            <h6 class="title_detail_item">Newsletters</h6>
+                            <div class="content_3 clearfix">
+                                <div class="col_2 detail_content_3">
+                                    <form id="formSearch_mss" class="clearfix">
+                                        <input type="text" class="txt-search" placeholder="search">
+                                        <input type="button" class="btnsearch" >
+                                    </form>
+                                    <ul class="scroll border_left">
+                                        <li class="active">
+                                            <div class="listitem clearfix">
+                                                <span class="del_2">xóa</span>
+                                                <figure class="img_post">
+                                                    <img src="uploads/1076505_100003738868761_2002716988_q.jpg" alt="img-hot"/>
+                                                </figure>
+                                                <div class="listitem_ct">
+                                                    <span class="name_user">Vu Tuan</span>
+                                                    <span class="title_post">Produc:Lorem ipsum dolor sit amet</span>
+                                                </div>
+                                                <time>12/12/2013</time>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="listitem clearfix">
+                                                <span class="del_2">xóa</span>
+                                                <figure class="img_post">
+                                                    <img src="uploads/1076505_100003738868761_2002716988_q.jpg" alt="img-hot"/>
+                                                </figure>
+                                                <div class="listitem_ct">
+                                                    <span class="name_user">Vu Tuan</span>
+                                                    <span class="title_post">Produc:Lorem ipsum dolor sit amet</span>
+                                                </div>
+                                                <time>12/12/2013</time>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="listitem clearfix">
+                                                <figure class="img_post">
+                                                    <img src="uploads/1076505_100003738868761_2002716988_q.jpg" alt="img-hot"/>
+                                                </figure>
+                                                <div class="listitem_ct">
+                                                    <span class="name_user">Vu Tuan</span>
+                                                    <span class="title_post">Produc:Lorem ipsum dolor sit amet</span>
+                                                </div>
+                                                <time>12/12/2013</time>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="listitem clearfix">
+                                                <figure class="img_post">
+                                                    <img src="uploads/1076505_100003738868761_2002716988_q.jpg" alt="img-hot"/>
+                                                </figure>
+                                                <div class="listitem_ct">
+                                                    <span class="name_user">Vu Tuan</span>
+                                                    <span class="title_post">Produc:Lorem ipsum dolor sit amet</span>
+                                                </div>
+                                                <time>12/12/2013</time>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="listitem clearfix">
+                                                <figure class="img_post">
+                                                    <img src="uploads/1076505_100003738868761_2002716988_q.jpg" alt="img-hot"/>
+                                                </figure>
+                                                <div class="listitem_ct">
+                                                    <span class="name_user">Vu Tuan</span>
+                                                    <span class="title_post">Produc:Lorem ipsum dolor sit amet</span>
+                                                </div>
+                                                <time>12/12/2013</time>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="listitem clearfix">
+                                                <figure class="img_post">
+                                                    <img src="uploads/1076505_100003738868761_2002716988_q.jpg" alt="img-hot"/>
+                                                </figure>
+                                                <div class="listitem_ct">
+                                                    <span class="name_user">Vu Tuan</span>
+                                                    <span class="title_post">Produc:Lorem ipsum dolor sit amet</span>
+                                                </div>
+                                                <time>12/12/2013</time>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="listitem clearfix">
+                                                <figure class="img_post">
+                                                    <img src="uploads/1076505_100003738868761_2002716988_q.jpg" alt="img-hot"/>
+                                                </figure>
+                                                <div class="listitem_ct">
+                                                    <span class="name_user">Vu Tuan</span>
+                                                    <span class="title_post">Produc:Lorem ipsum dolor sit amet</span>
+                                                </div>
+                                                <time>12/12/2013</time>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="listitem clearfix">
+                                                <figure class="img_post">
+                                                    <img src="uploads/1076505_100003738868761_2002716988_q.jpg" alt="img-hot"/>
+                                                </figure>
+                                                <div class="listitem_ct">
+                                                    <span class="name_user">Vu Tuan</span>
+                                                    <span class="title_post">Produc:Lorem ipsum dolor sit amet</span>
+                                                </div>
+                                                <time>12/12/2013</time>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="listitem clearfix">
+                                                <figure class="img_post">
+                                                    <img src="uploads/1076505_100003738868761_2002716988_q.jpg" alt="img-hot"/>
+                                                </figure>
+                                                <div class="listitem_ct">
+                                                    <span class="name_user">Vu Tuan</span>
+                                                    <span class="title_post">Produc:Lorem ipsum dolor sit amet</span>
+                                                </div>
+                                                <time>12/12/2013</time>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="listitem clearfix">
+                                                <figure class="img_post">
+                                                    <img src="uploads/1076505_100003738868761_2002716988_q.jpg" alt="img-hot"/>
+                                                </figure>
+                                                <div class="listitem_ct">
+                                                    <span class="name_user">Vu Tuan</span>
+                                                    <span class="title_post">Produc:Lorem ipsum dolor sit amet</span>
+                                                </div>
+                                                <time>12/12/2013</time>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="col_2 detail_content_3">
+                                    <ul class="scroll scroll_2">
+                                        <li>
+                                            <div class="listitem clearfix">
+                                                <span class="del_3">xóa</span>
+                                                <a href="#" class="name_user">Vu Tuan</a>
+                                                <p>
+                                                    Produc:Lorem ipsum dolor sit amet , Produc:Lorem ipsum dolor sit amet , Produc:Lorem ipsum dolor sit amet ,
+                                                    Produc:Lorem ipsum dolor sit amet
+                                                </p>
+                                                <time>12/12/2013</time>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="listitem clearfix">
+                                                <a href="#" class="name_user">Vu Tuan</a>
+                                                <p>
+                                                    Produc:Lorem ipsum dolor sit amet , Produc:Lorem ipsum dolor sit amet , Produc:Lorem ipsum dolor sit amet ,
+                                                    Produc:Lorem ipsum dolor sit amet
+                                                </p>
+                                                <time>12/12/2013</time>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="listitem clearfix">
+                                                <a href="#" class="name_user">Vu Tuan</a>
+                                                <p>
+                                                    Produc:Lorem ipsum dolor sit amet , Produc:Lorem ipsum dolor sit amet , Produc:Lorem ipsum dolor sit amet ,
+                                                    Produc:Lorem ipsum dolor sit amet
+                                                </p>
+                                                <time>12/12/2013</time>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="listitem clearfix">
+                                                <a href="#" class="name_user">Vu Tuan</a>
+                                                <p>
+                                                    Produc:Lorem ipsum dolor sit amet , Produc:Lorem ipsum dolor sit amet , Produc:Lorem ipsum dolor sit amet ,
+                                                    Produc:Lorem ipsum dolor sit amet
+                                                </p>
+                                                <time>12/12/2013</time>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="listitem clearfix">
+                                                <a href="#" class="name_user">Vu Tuan</a>
+                                                <p>
+                                                    Produc:Lorem ipsum dolor sit amet , Produc:Lorem ipsum dolor sit amet , Produc:Lorem ipsum dolor sit amet ,
+                                                    Produc:Lorem ipsum dolor sit amet
+                                                </p>
+                                                <time>12/12/2013</time>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="listitem clearfix">
+                                                <a href="#" class="name_user">Vu Tuan</a>
+                                                <p>
+                                                    Produc:Lorem ipsum dolor sit amet , Produc:Lorem ipsum dolor sit amet , Produc:Lorem ipsum dolor sit amet ,
+                                                    Produc:Lorem ipsum dolor sit amet
+                                                </p>
+                                                <time>12/12/2013</time>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                    <div class="post_content">
+                                        <div>
+                                            <textarea></textarea>       
                                         </div>
-                                    </li>
-                                    <li>
-                                        <div class="listitem clearfix">
-                                            <a href="#" class="name_user">Vu Tuan</a>
-                                            <p>
-                                                Produc:Lorem ipsum dolor sit amet , Produc:Lorem ipsum dolor sit amet , Produc:Lorem ipsum dolor sit amet ,
-                                                Produc:Lorem ipsum dolor sit amet
-                                            </p>
-                                            <time>12/12/2013</time>
+                                        <div>
+                                            <button class="btn">Send</button>
                                         </div>
-                                    </li>
-                                    <li>
-                                        <div class="listitem clearfix">
-                                            <a href="#" class="name_user">Vu Tuan</a>
-                                            <p>
-                                                Produc:Lorem ipsum dolor sit amet , Produc:Lorem ipsum dolor sit amet , Produc:Lorem ipsum dolor sit amet ,
-                                                Produc:Lorem ipsum dolor sit amet
-                                            </p>
-                                            <time>12/12/2013</time>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="listitem clearfix">
-                                            <a href="#" class="name_user">Vu Tuan</a>
-                                            <p>
-                                                Produc:Lorem ipsum dolor sit amet , Produc:Lorem ipsum dolor sit amet , Produc:Lorem ipsum dolor sit amet ,
-                                                Produc:Lorem ipsum dolor sit amet
-                                            </p>
-                                            <time>12/12/2013</time>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="listitem clearfix">
-                                            <a href="#" class="name_user">Vu Tuan</a>
-                                            <p>
-                                                Produc:Lorem ipsum dolor sit amet , Produc:Lorem ipsum dolor sit amet , Produc:Lorem ipsum dolor sit amet ,
-                                                Produc:Lorem ipsum dolor sit amet
-                                            </p>
-                                            <time>12/12/2013</time>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="listitem clearfix">
-                                            <a href="#" class="name_user">Vu Tuan</a>
-                                            <p>
-                                                Produc:Lorem ipsum dolor sit amet , Produc:Lorem ipsum dolor sit amet , Produc:Lorem ipsum dolor sit amet ,
-                                                Produc:Lorem ipsum dolor sit amet
-                                            </p>
-                                            <time>12/12/2013</time>
-                                        </div>
-                                    </li>
-                                </ul>
-                                <div class="post_content">
-                                    <div>
-                                        <textarea></textarea>       
-                                    </div>
-                                    <div>
-                                        <button class="btn">Send</button>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </div><!--End #tabs-3-->
-
+                        </div><!--End #tabs-3-->
+                    </div>
                 </div> <!--End #tabs-->
             </div><!-- End Primary -->
             <aside id="sidebar">
