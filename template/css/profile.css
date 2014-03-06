@@ -5,9 +5,7 @@
     Description:
         Purpose of the stylesheet follows.
 */
-span.onclick:active input{
- display: block;
-}
+
 .detail_profile tr td input[type=text], input[type=password], input[type=email]{
  
  display:none;
