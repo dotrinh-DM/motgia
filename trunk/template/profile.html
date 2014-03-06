@@ -10,6 +10,7 @@
         <script type="text/javascript" src="js/jquery.cslider.js"></script><!-- Slideshow -->
          <script src="js/jquery.hashchange.min.js" type="text/javascript"></script>
         <script src="js/jquery.easytabs.min.js" type="text/javascript"></script>
+        <script src="js/change.js" type="text/javascript"></script>
         <script type="text/javascript">
 
             jQuery(document).ready(function() {
@@ -601,43 +602,49 @@
             <div id="primary">
                 <div id="tab-container" class='tab-container marginBottom_15'>
                     <ul class='etabs'>
-                        <li class='tab active' ><a href="#tabs1-html">Thông tin sản phẩm</a></li>
-                        <li class='tab'><a href="#tabs1-js">Bình luận</a></li>
-                        <li class='tab'><a href="#tabs1-css">Nhà cung cấp</a></li>
+                        <li class='tab active' ><a href="#tabs1-html">Thông tin người dùng</a></li>
+                        <li class='tab'><a href="#tabs1-js">Quản lý sản phẩm</a></li>
+                        <li class='tab'><a href="#tabs1-css">Thư</a></li>
+                        <li class='tab'><a href="#tabs1-monney">Nạp tiền</a></li>
                     </ul>
                     <div class='panel-container'>
                         <div id="tabs1-html">
                             <div class="change">
-                                <h6 class="title_detail_item">profile <span class="onclick">[ Change ]</span> </h6>
+                                <h6 class="title_detail_item">profile <span class="onclick">[ Sửa ]</span> </h6>
                                 <table class="detail_profile"> 
                                     <tr>
-                                        <td>Name</td>
-                                        <td><p>Nguyen Van Thang </p><input type="text"/></td> 
+                                        <td>Tên</td>
+                                        <td>Nguyen Van Thang</td> 
                                     </tr>
                                     <tr>
-                                        <td>Date of birth</td>
+                                        <td>Ngày sinh</td>
                                         <td>12.06.1990</td>
                                     </tr>
                                     <tr>
-                                        <td>Address</td>
+                                        <td>Địa chỉ</td>
                                         <td>Hai Phong ,  Viet Nam</td>
                                     </tr>
                                     <tr>
                                         <td>TelePhone</td>
                                         <td>0906.264.555</td>
                                     </tr>
+                                    <tr>
+                                        <td>Địa chỉ</td>
+                                        <td>Hà Nội</td>
+                                    </tr>
+                                   
                                 </table><!--End detail_profile -->
                                 <form class="form change_open">
                                     <div>
-                                        <label>First name <span>*</span></label>
+                                        <label>Họ <span>*</span></label>
                                         <input type="text" required=""/>
                                     </div>
                                     <div>
-                                        <label>Last name<span>*</span></label>
+                                        <label>Tên<span>*</span></label>
                                         <input type="text" required=""/>
                                     </div>
                                     <div class="marginBottom_10">
-                                        <label>Date of birth<span>*</span></label>
+                                        <label>Ngày sinh<span>*</span></label>
                                         <div class="select">
                                             <select>
                                                 <option>Oct</option>
@@ -658,24 +665,24 @@
                                         </div>
                                     </div>
                                     <div class="marginBottom_10">
-                                        <label>Sex<span>*</span></label>
+                                        <label>Giới tính<span>*</span></label>
                                         <div class="select">
                                             <select>
-                                                <option>Male</option>
-                                                <option>Female</option>
+                                                <option>Nam</option>
+                                                <option>Nữ</option>
                                             </select>
                                         </div>
                                     </div>
                                     <div>
-                                        <label>Phone<span>*</span></label>
+                                        <label>Điện thoại<span>*</span></label>
                                         <input type="text" required=""/>
                                     </div>
                                     <div>
-                                        <label>Address<span>*</span></label>
+                                        <label>Địa chỉ<span>*</span></label>
                                         <input type="text" required=""/>
                                     </div>
                                     <div>
-                                        <label>Country<span>*</span></label>
+                                        <label>Tỉnh<span>*</span></label>
                                         <div class="select">
                                             <select>
                                                 <option>Vietnam</option>
@@ -689,29 +696,9 @@
                                     </div>
                                 </form>
                             </div>
+                           
                             <div class="change">
-                                <h6 class="title_detail_item">Delivery Address <span class="onclick">[ Change ]</span> </h6>
-                                <table class="detail_profile"> 
-                                    <tr>
-                                        <td>Name</td>
-                                        <td>Nguyen Van Thang</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Date of birth</td>
-                                        <td>12.06.1990</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Address</td>
-                                        <td>Hai Phong ,  Viet Nam</td>
-                                    </tr>
-                                    <tr>
-                                        <td>TelePhone</td>
-                                        <td>0906.264.555</td>
-                                    </tr>
-                                </table><!--End detail_profile -->
-                            </div>
-                            <div class="change">
-                                <h6 class="title_detail_item">Account<span class="onclick">[ Change ]</span> </h6>
+                                <h6 class="title_detail_item">Account<span class="onclick">[ Sửa ]</span> </h6>
                                 <table class="detail_profile"> 
                                     <tr>
                                         <td>Email</td>
@@ -722,6 +709,20 @@
                                         <td>......</td>
                                     </tr>
                                 </table><!--End detail_profile -->
+                                 <form class="form change_open">
+                                     <div>
+                                        <label>Mật khẩu mới<span>*</span></label>
+                                        <input type="text" required=""/>
+                                    </div>
+                                    <div>
+                                        <label>Nhập lại mật khẩu mới<span>*</span></label>
+                                        <input type="text" required=""/>
+                                    </div>
+                                   
+                                    <div>
+                                        <button class="btn">Save</button>
+                                    </div>
+                                </form>
                             </div>
 
 
@@ -991,6 +992,11 @@
                                 </div>
                             </div>
                         </div><!--End #tabs-3-->
+                        <div id="tabs1-monney">
+                            <p>
+                                sdfsdf nạp tiền
+                            </p>
+                        </div>
                     </div>
                 </div> <!--End #tabs-->
             </div><!-- End Primary -->
