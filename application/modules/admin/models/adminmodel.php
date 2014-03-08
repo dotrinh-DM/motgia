@@ -29,7 +29,7 @@ public function getAll($table)
                 );
                 $this->session->set_userdata('admin',$newdata1);
                 echo 'đăng nhập thành công'; 
-                redirect('admin/cuser');
+                redirect('admin/adminhome');
             }
             else                 
                 echo 'đăng nhập thất bại';
