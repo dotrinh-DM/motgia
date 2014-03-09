@@ -5,30 +5,16 @@
         <title><?php echo $title; ?></title>
         <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>/template/css/style.css" />
         <script type="text/javascript" src="<?php echo base_url(); ?>/template/js/jquery-1.8.2.min.js"></script>
-        <script type="text/javascript" src="<?php echo base_url(); ?>/template/js/jquery.validate.js"></script>
-        <script type="text/javascript" src="<?php echo base_url(); ?>/template/js/validateh5.js"></script><!-- Slideshow -->
+        <script type="text/javascript" src="<?php echo base_url(); ?>/template/js/validateh5.js"></script>
         <script type="text/javascript" src="<?php echo base_url(); ?>/template/js/jquery.jcarousel.js"></script>
         <script type="text/javascript" src="<?php echo base_url(); ?>/template/js/jquery.leanModal.min.js"></script>
         <script type="text/javascript" src="<?php echo base_url(); ?>/template/js/gallery.js"></script>
         <script type="text/javascript">
             jQuery(document).ready(function() {
-                $(".form").h5Validate({
-                    errorClass: "validationError",
-                    validClass: "validationValid"
+                jQuery('#da-slider').cslider({
+                    autoplay: true,
+                    bgincrement: 450
                 });
-                $(".form").submit(function(evt) {
-                    var x = document.forms["Form"]["passw"].value;
-                    var y = document.forms["Form"]["re-pass"].value;
-                    if ($(".form").h5Validate("allValid") === false) {
-                        evt.preventDefault();
-                    }
-                    if (x !== y) {
-                        evt.preventDefault();
-                        document.getElementById("lbpass").focus();
-                        $(".form").innerHTML('<span>Vui lòng nhập lại mật khẩu</span>');
-                    }
-                });
-
                 $(".formlogin").h5Validate({
                     errorClass: "validationError",
                     validClass: "validationValid"
@@ -38,6 +24,7 @@
                         evt.preventDefault();
                     }
                 });
+                $('#tab-container').easytabs();
             });
         </script>	
         <script type="text/javascript" src="<?php echo base_url() ?>tinymce/tiny_mce.js"></script>
@@ -57,9 +44,14 @@
                 theme_advanced_resizing: true
             });
         </script>
-        <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.8/jquery.validate.min.js"></script>
-        <script type="text/javascript" src="<?php echo base_url() ?>public/homejs/jquery.validate.js"></script>
-        <script type="text/javascript" src="<?php echo base_url() ?>public/homejs/validate_up.js"></script>
+<!--        <script type="text/javascript" src="<?php echo base_url() ?>public/homejs/validate_up.js"></script>
+        <script src="<?php echo base_url(); ?>template/js/jquery.mCustomScrollbar.concat.min.js" type="text/javascript"></script>
+        <script src="<?php echo base_url(); ?>template/js/scroll-jquery.js" type="text/javascript"></script>
+        <script type="text/javascript" src="<?php echo base_url(); ?>template/js/modernizr.custom.28468.js"></script> Slideshow 
+        <script type="text/javascript" src="<?php echo base_url(); ?>template/js/jquery.cslider.js"></script> Slideshow 
+        <script src="<?php echo base_url(); ?>template/js/jquery.hashchange.min.js" type="text/javascript"></script>
+        <script src="<?php echo base_url(); ?>template/js/jquery.easytabs.min.js" type="text/javascript"></script>
+        <script src="<?php echo base_url(); ?>template/js/change.js" type="text/javascript"></script>-->
     </head>
     <body>	
         <?php $this->load->view('layout/header'); ?>

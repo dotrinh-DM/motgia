@@ -169,3 +169,23 @@
         </form>
     </section><!--End #primary-->
 <?php $this->load->view('layout/sidebar'); ?>
+        <script type="text/javascript">
+            jQuery(document).ready(function() {
+                $(".form").h5Validate({
+                    errorClass: "validationError",
+                    validClass: "validationValid"
+                });
+                $(".form").submit(function(evt) {
+                    var x = document.forms["Form"]["passw"].value;
+                    var y = document.forms["Form"]["re-pass"].value;
+                    if ($(".form").h5Validate("allValid") === false) {
+                        evt.preventDefault();
+                    }
+                    if (x !== y) {
+                        evt.preventDefault();
+                        document.getElementById("lbpass").focus();
+                        $(".form").innerHTML('<span>Vui lòng nhập lại mật khẩu</span>');
+                    }
+                });
+            });
+        </script>
