@@ -11,17 +11,19 @@ class Cproducts extends CI_Controller {
         $this->load->helper('html');
         $this->load->library('session');
         $this->load->helper('url');
-
         $this->load->model('Mproducts');
+        $this->load->model('Mlog');
     }
 
     public function index() {
+        $temp['info']=  $this->Mlog->log();
         $temp['title'] = 'Trang chủ';
         $temp['template'] = 'home';
         $this->load->view('layout/layout', $temp);
     }
 
     public function upProducts() {
+        $temp['info']=  $this->Mlog->log();
         $temp['title'] = 'Đăng sản phẩm';
         $temp['cate'] = $this->Mproducts->getAllCategories();
         $temp['template'] = 'vproducts/upproducts';
@@ -78,6 +80,7 @@ class Cproducts extends CI_Controller {
     }
 
     public function editProducts($id) {
+        $temp['info']=  $this->Mproducts->log();
         $data['cate'] = $this->Mproducts->getAllCategories();
         $data['edit'] = $this->Mproducts->editProducts($id);
         $data['title'] = 'Sửa sản phẩm';
