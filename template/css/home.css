@@ -440,7 +440,7 @@ input[type=email]{
     background: #f6eab6;
     color: #91683c;
     top: -49px;
-    right: -111px;
+    right: 90px;
     padding: 10px 15px;
     z-index: 999; /* hints stay above all other elements */
     position: absolute; /* allows proper formatting if hint is two lines */
