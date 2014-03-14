@@ -22,8 +22,8 @@ class Mlog extends CI_Model {
     }
 
     public function login() {
-        $email = $this->input->post('email');
-        $pass = $this->input->post('pass');
+        $email = $this->input->post('inputemail');
+        $pass = $this->input->post('inputpass');
 
         if ($this->checklogin($email, $pass) == TRUE) {
             $fullname = $this->getName($email);

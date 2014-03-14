@@ -1,85 +1,45 @@
-<script>
-$(function(){
-//Năm tự động điền vào select
-    var seYear = $('#year');
-    var date = new Date();
-    var cur = date.getFullYear();
 
-    seYear.append('<option value="">-- Năm --</option>');
-    for (i = cur; i >= 1900; i--) {
-        seYear.append('<option value="'+i+'">'+i+'</option>');
-    };
-    
-    //Tháng tự động điền vào select
-    var seMonth = $('#month');
-    var date = new Date();
-    
-    var month=new Array();
-        month[1] = "Tháng 1";
-        month[2] = "Tháng 2";
-        month[3] = "Tháng 3";
-        month[4] = "Tháng 4";
-        month[5] = "Tháng 5";
-        month[6] = "Tháng 6";
-        month[7] = "Tháng 7";
-        month[8] = "Tháng 8";
-        month[9] = "Tháng 9";
-        month[10] = "Tháng 10";
-        month[11] = "Tháng 11";
-        month[12] = "Tháng 12";
-
-    seMonth.append('<option value="">-- Tháng --</option>');
-    for (i = 12; i > 0; i--) {
-        seMonth.append('<option value="'+i+'">'+month[i]+'</option>');
-    };
-    
-    //Ngày tự động điền vào select
-    function dayList(month,year) {
-        var day = new Date(year, month, 0);
-        return day.getDate();
-    }    
-    
-    $('#year, #month').change(function(){
-        //Đoạn code lấy id không viết bằng jQuery để phù hợp với đoạn code bên dưới
-        var y = document.getElementById('year');
-        var m = document.getElementById('month');
-        var d = document.getElementById('day');
-        
-        var year = y.options[y.selectedIndex].value;
-        var month = m.options[m.selectedIndex].value;
-        var day = d.options[d.selectedIndex].value;
-        if (day == ' ') {
-            var days = (year == ' ' || month == ' ')? 31 : dayList(month,year);
-            d.options.length = 0;
-            d.options[d.options.length] = new Option('-- Ngày --',' ');
-            for (var i = 1; i <= days; i++)
-            d.options[d.options.length] = new Option(i,i);
-        }
-    });
-});
-</script>
 <!---hàm validate--->
 <script type="text/javascript">
     jQuery(document).ready(function() {
-        $(".form_info").h5Validate({
+        $(".form").h5Validate({
             errorClass: "validationError",
             validClass: "validationValid"
         });
-        $(".form_info").submit(function(evt) {
-//            var x = document.forms["Form"]["passw"].value;
-//            var y = document.forms["Form"]["re-pass"].value;
+        $(".form").submit(function(evt) {
             if ($(".form_info").h5Validate("allValid") === false) {
                 evt.preventDefault();
             }
-//            if (x !== y) {
-//                evt.preventDefault();
-//                document.getElementById("lbpass").focus();
-//                $(".form").innerHTML('<span>Vui lòng nhập lại mật khẩu</span>');
-//            }
+            if ($(".form_pass").h5Validate("allValid") === false) {
+                evt.preventDefault();
+            }
+            var x = document.forms["Form"]["passw"].value;
+            var y = document.forms["Form"]["re-pass"].value;
+            if ($(".form").h5Validate("allValid") === false) {
+                evt.preventDefault();
+            }
+            if (x !== y) {
+                evt.preventDefault();
+                document.getElementById("passw").focus();
+                alert('nhap lai mat khau!');
+            }
         });
     });
 </script>
-
+<script type="text/javascript">
+    $(function() {
+        $('#datePicker').datepick({
+            defaultDate: '26/08/1992',
+            yearRange: '1940:2014',
+            maxDate: '2014',
+            showTrigger: '<button type="button" class="trigger">' + '<img src="<?php echo base_url(); ?>template/images/calendar-green.gif" alt="Popup"></button>',
+            renderer: $.extend({}, $.datepick.defaultRenderer,
+                    {picker: $.datepick.defaultRenderer.picker.
+                                replace(/\{link:clear\}/, '{button:clear}').
+                                replace(/\{link:close\}/, '{button:close}')}),
+        });
+    });
+</script>
 
 <section id="content" class="wrap">
     <div id="primary">
@@ -97,7 +57,7 @@ $(function(){
                         <table class="detail_profile"> 
                             <tr>
                                 <td>Họ và tên</td>
-                                <td><?php echo $profile['firstname'].' '.$profile['lastname']; ?></td> 
+                                <td><?php echo $profile['firstname'] . ' ' . $profile['lastname']; ?></td> 
                             </tr>
                             <tr>
                                 <td>Ngày sinh</td>
@@ -129,26 +89,16 @@ $(function(){
                                 <input type="text" required="" name="last_name" value="<?php echo $profile['lastname']; ?>"/>
                                 <span class="tooltip">Không được để trống</span>
                             </div>
-                            <div class="marginBottom_10">
+                            <div>
                                 <label>Ngày sinh<span>*</span></label>
-                                <div class="select">
-                                    <select name="year" id="year" size="1" required=""></select>
-                                </div>
-                                <div class="select">
-                                    <select name="month" id="month" size="1" required=""></select>
-                                </div>
-                                <div class="select">
-                                    <select name="day" id="day" size="1" required=""> 
-                                        <option value=" " selected="selected">-- Ngày --</option> 
-                                    </select>
-                                </div>
+                                <p><input type="text" id="datePicker"/></p>
                             </div>
                             <div class="marginBottom_10">
                                 <label>Giới tính<span>*</span></label>
                                 <div class="select">
-                                    <select name="gender">
-                                        <option <?php if ($profile['gender']==0) echo 'selected="selected"'; ?> value="0">Nam</option>
-                                        <option <?php if ($profile['gender']!=0) echo 'selected="selected"'; ?> value="1">Nữ</option>
+                                    <select name="gender" required="">
+                                        <option <?php if ($profile['gender'] == 0) echo 'selected="selected"'; ?> value="0">Nam</option>
+                                        <option <?php if ($profile['gender'] != 0) echo 'selected="selected"'; ?> value="1">Nữ</option>
                                     </select>
                                 </div>
                             </div>
@@ -172,7 +122,7 @@ $(function(){
                                     </select>
                                 </div>
                             </div>
-                            <input type="submit" class="btns" name="save_info" value="SAVE"/>
+                            <input type="submit" id="save_info" name="save_info" value="SAVE"/>
                         </form>
                     </div>
 
@@ -188,21 +138,29 @@ $(function(){
                                 <td>......</td>
                             </tr>
                         </table><!--End detail_profile -->
-                        <form class="form change_open">
+
+                        <form class="form change_open" action="" method="post" name="form_pass" id="form_pass">
+                            <div>
+                                <label>Mật khẩu cũ<span>*</span></label>
+                                <input type="password" required="" name="old_pass" id="old_pass"/>
+                                <span class="tooltip">không được để trống</span>
+                            </div>
                             <div>
                                 <label>Mật khẩu mới<span>*</span></label>
-                                <input type="text" required=""/>
+                                <input type="password" required="" name="new_pass"/>
+                                <span class="tooltip">không được để trống</span>
                             </div>
                             <div>
                                 <label>Nhập lại mật khẩu mới<span>*</span></label>
-                                <input type="text" required=""/>
+                                <input type="password" required="" name="re_new_pass"/>
+                                <span class="tooltip">không được để trống</span>
                             </div>
 
                             <div>
-                                <button class="btn">Save</button>
+                                <input type="submit" id="save_pass" name="save_pass" value="SAVE"/>
                             </div>
                         </form>
-                    </div>
+                    </div><!--end change-->
 
 
                 </div> <!--End #tabs 1-->

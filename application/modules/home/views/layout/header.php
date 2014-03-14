@@ -21,7 +21,7 @@
                             <ul>
                                 <li><h6 class="welcome">Xin chào '.$info['fullname'].' !</h6></li>
                                 <li><a href="#">Đăng tin</a></li>
-                                <li><a href="">Profile</a></li>
+                                <li><a href="'.base_url().'index.php/home/cusers/profile">Trang cá nhân</a></li>
                                 <li><a href="'.base_url().'index.php/home/chome/logout">Đăng xuất</a></li>
                             </ul>
                         </div>
@@ -33,7 +33,7 @@
                         <li><a href="#">Đăng tin</a></li>
                         <li><a href="#">Đăng nhập</a>';
                         $this->load->view('vusers/login');
-                    echo '
+                            echo '
                         </li>
                         ';}
                     } ?>
