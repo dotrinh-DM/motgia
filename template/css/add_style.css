@@ -136,8 +136,11 @@
 .marginBottom_10{
     margin-bottom: 10px;
 }
-.change_open input{
-    width: 290px !important;
+.change_open input[type=text], input[type=password]{
+    width: 290px;
+}
+.change_open input[type=submit]{
+    width: 100px;
 }
 .change_open .select{
     margin-right: 0px !important;
