@@ -514,13 +514,9 @@ input[type=submit] , input[type=button]{
 }
 select{
     background: transparent;
-    min-width: 120px;
-    padding: 5px;
     border: 0;
     border-radius: 0;
     font-size: 12px;
-    padding: 9px 2px;
-    -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
 }
