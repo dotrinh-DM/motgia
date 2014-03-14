@@ -15,31 +15,19 @@ class Musers extends CI_Model {
     }
 
     public function getProfile($userid) {
-        $this->db->select('firstname,lastname,gender,province,phone,address,password');
-        $this->db->select("DATE_FORMAT(birthofday, 'Ngày%d Tháng%m Năm%Y') AS birthday", FALSE);
-        $this->db->select("DATE_FORMAT(birthofday, '%e') AS day", FALSE);
-        $this->db->select("DATE_FORMAT(birthofday, '%m') AS month", FALSE);
-        $this->db->select("DATE_FORMAT(birthofday, '%Y') AS year", FALSE);
+        $this->db->select('firstname,lastname,gender,birthofday,province,phone,address,password');
+//        $this->db->select("DATE_FORMAT(birthofday, 'Ngày%d Tháng%m Năm%Y') AS birthday", FALSE);
+//        $this->db->select("DATE_FORMAT(birthofday, '%e') AS day", FALSE);
+//        $this->db->select("DATE_FORMAT(birthofday, '%m') AS month", FALSE);
+//        $this->db->select("DATE_FORMAT(birthofday, '%Y') AS year", FALSE);
         $this->db->from('user');
         $this->db->where('id', $userid);
         $query = $this->db->get();
         return $query->row_array();
     }
 
-    public function insertUser() {
+    public function insertUser($l_name=0,$f_name=0,$month=0,$birthday=0,$gender=0,$phone=0,$province=0,$email=0,$pass=0,$adr=0) {
         if ($this->input->post('Add')) {
-            $l_name = $this->input->post('l_name');
-            $f_name = $this->input->post('f_name');
-            $month = $this->input->post('month');
-            $day = $this->input->post('day');
-            $year = $this->input->post('year');
-            $birthday = $year . '/' . $month . '/' . $day;
-            $gender = $this->input->post('gender');
-            $phone = $this->input->post('phone');
-            $province = $this->input->post('province');
-            $email = $this->input->post('email');
-            $pass = $this->input->post('pass');
-            $adr = $this->input->post('adr');
             $expiredate = gmdate("Y-m-d H:i:s", time() + 3600 * (+7 + date("I")));
             $data2 = array(
                 'firstname' => $f_name,

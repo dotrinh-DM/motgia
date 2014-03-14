@@ -4,10 +4,6 @@
         <meta charset="UTF-8">
         <title><?php echo $title; ?></title>
         <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>template/css/style.css" />
-        <style type="text/css">@import "<?php echo base_url(); ?>template/css/datepick.css";</style>
-        <script type="text/javascript" src="<?php echo base_url(); ?>template/js/jquery.datepick.js"></script>
-
-        
         <script type="text/javascript" src="<?php echo base_url(); ?>template/js/jquery-1.8.2.min.js"></script>
         <script type="text/javascript" src="<?php echo base_url(); ?>template/js/validateh5.js"></script>
         <script type="text/javascript" src="<?php echo base_url(); ?>template/js/jquery.jcarousel.js"></script>

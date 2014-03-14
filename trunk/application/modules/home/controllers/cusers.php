@@ -33,12 +33,24 @@ class cusers extends CI_Controller {
         $this->load->helper(array('captcha'));
         $this->load->model('captcha_model');
         $cap = $this->captcha_model->createCaptcha();
+
+        $l_name = $this->input->post('l_name');
+        $f_name = $this->input->post('f_name');
+        $month = $this->input->post('month');
+        $birthday = $this->input->post('birthday');
+        $gender = $this->input->post('gender');
+        $phone = $this->input->post('phone');
+        $province = $this->input->post('province');
+        $email = $this->input->post('email');
+        $pass = $this->input->post('pass');
+        $adr = $this->input->post('adr');
+        
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $sz_Word = $this->input->post('captcha');
             $b_Check = $this->captcha_model->b_fCheck($sz_Word);
             $cbx = $this->input->post('check');
             if ($b_Check && $cbx == 'ok') {
-                $this->Musers->insertUser();
+                $this->Musers->insertUser($l_name,$f_name,$month,$birthday,$gender,$phone,$province,$email,$pass,$adr);
                 $temp['success'] = 'Bạn đã đăng ký thành công';
             } if ($cbx != 'ok') {
                 $temp['error1'] = 'Bạn không đồng ý với các điều khoản quy định của chúng tôi!';
@@ -66,7 +78,7 @@ class cusers extends CI_Controller {
             $month = $this->input->post('month');
             $day = $this->input->post('day');
             $year = $this->input->post('year');
-            $birthday = $year . '/' . $month . '/' . $day;
+            $birthday = $this->input->post('birthday');
             $gender = $this->input->post('gender');
             $phone = $this->input->post('phone');
             $province = $this->input->post('province');

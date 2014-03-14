@@ -1,31 +1,11 @@
 
 <!---hàm validate--->
-<script type="text/javascript">
-    jQuery(document).ready(function() {
-        $(".form").h5Validate({
-            errorClass: "validationError",
-            validClass: "validationValid"
-        });
-        $(".form").submit(function(evt) {
-            if ($(".form_info").h5Validate("allValid") === false) {
-                evt.preventDefault();
-            }
-            if ($(".form_pass").h5Validate("allValid") === false) {
-                evt.preventDefault();
-            }
-            var x = document.forms["Form"]["passw"].value;
-            var y = document.forms["Form"]["re-pass"].value;
-            if ($(".form").h5Validate("allValid") === false) {
-                evt.preventDefault();
-            }
-            if (x !== y) {
-                evt.preventDefault();
-                document.getElementById("passw").focus();
-                alert('nhap lai mat khau!');
-            }
-        });
-    });
-</script>
+<style type="text/css">@import "<?php echo base_url(); ?>template/css/datepick.css";</style>
+<script type="text/javascript" src="<?php echo base_url(); ?>template/js/jquery.datepick.js"></script>
+<script type="text/javascript" src="<?php echo base_url(); ?>template/js/jquery.jcarousel.js"></script>
+<script src="<?php echo base_url(); ?>template/js/jquery.cslider.js" type="text/javascript"></script>
+<script src="<?php echo base_url(); ?>template/js/jquery.easytabs.min.js" type="text/javascript"></script>
+
 <script type="text/javascript">
     $(function() {
         $('#datePicker').datepick({
@@ -38,6 +18,7 @@
                                 replace(/\{link:clear\}/, '{button:clear}').
                                 replace(/\{link:close\}/, '{button:close}')}),
         });
+
     });
 </script>
 
@@ -61,19 +42,19 @@
                             </tr>
                             <tr>
                                 <td>Ngày sinh</td>
-                                <td><?php echo $profile['birthday']; ?></td>
+                                <td><?php echo $profile['birthofday']; ?></td>
                             </tr>
                             <tr>
                                 <td>Địa chỉ</td>
-                                <td><?php echo $profile['province']; ?>,  Viet Nam</td>
+                                <td><?php echo $profile['address']; ?></td>
                             </tr>
                             <tr>
                                 <td>TelePhone</td>
                                 <td><?php echo $profile['phone']; ?></td>
                             </tr>
                             <tr>
-                                <td>Địa chỉ</td>
-                                <td>Hà Nội</td>
+                                <td>Tỉnh/Thành phố</td>
+                                <td><?php echo $profile['province']; ?>,  Viet Nam</td>
                             </tr>
 
                         </table><!--End detail_profile -->
@@ -91,7 +72,8 @@
                             </div>
                             <div>
                                 <label>Ngày sinh<span>*</span></label>
-                                <p><input type="text" id="datePicker"/></p>
+                                <p><input type="text" id="datePicker" required=""  name="birthday" value="<?php echo $profile['birthofday']; ?>"/></p>
+                                <span class="tooltip">Không được để trống</span>
                             </div>
                             <div class="marginBottom_10">
                                 <label>Giới tính<span>*</span></label>
@@ -113,12 +95,36 @@
                                 <span class="tooltip">Không được để trống</span>
                             </div>
                             <div>
-                                <label>Tỉnh<span>*</span></label>
+                                <label>Tỉnh/Thành phố<span>*</span></label>
                                 <div class="select">
-                                    <select required="" name="province">
-                                        <option value="Thái Bình">Thái Bình</option>
-                                        <option value="Quảng Ninh">Quảng Ninh</option>
-                                        <option value="Hà Nội">Hà Nội</option>
+                                    <select required="" name="province" >
+                                        <option value="">--Chọn--</option>
+                                        <?php
+                                        $arr = array(
+                                            0 => 'Hà Nội',1 => 'TP HCM',2 => 'Cần Thơ',3 => 'Đà Nẵng',4 => 'Hải Phòng',
+                                            5 => 'An Giang',6 => 'Bà Rịa - Vũng Tàu',7 => 'Bắc Giang',8 => 'Bắc Kạn',
+                                            9 => 'Bạc Liêu',10 => 'Bắc Ninh',11 => 'Bến Tre',12 => 'Bình Định',
+                                            13 => 'Bình Dương',14 => 'Bình Phước',15 => 'Bình Thuận',16 => 'Cà Mau',
+                                            17 => 'Cao Bằng',18 => 'Đắk Lắk',19 => 'Đắk Nông',20 => 'Điện Biên',
+                                            21 => 'Đồng Nai',22 => 'Đồng Tháp',23 => 'Gia Lai',24 => 'Hà Giang',
+                                            25 => 'Hà Nam',26 => 'Hà Tĩnh',27 => 'Hải Dương',28 => 'Hậu Giang',
+                                            29 => 'Hòa Bình',30 => 'Hưng Yên',31 => 'Khánh Hòa',32 => 'Kiên Giang',
+                                            33 => 'Kon Tum',34 => 'Lai Châu',35 => 'Lâm Đồng',36 => 'Lạng Sơn',
+                                            37 => 'Lào Cai',38 => 'Long An',39 => 'Nam Định',40 => 'Nghệ An',
+                                            41 => 'Ninh Bình',42 => 'Ninh Thuận',43 => 'Phú Thọ',44 => 'Quảng Bình',
+                                            45 => 'Quảng Nam',46 => 'Quảng Ngãi',47 => 'Quảng Ninh',48 => 'Quảng Trị',
+                                            49 => 'Sóc Trăng',50 => 'Sơn La',51 => 'Tây Ninh',52 => 'Thái Bình',
+                                            53 => 'Thái Nguyên',54 => 'Thanh Hóa',55 => 'Thừa Thiên Huế',56 => 'Tiền Giang',
+                                            57 => 'Trà Vinh',58 => 'Tuyên Quang',59 => 'Vĩnh Long',60 => 'Vĩnh Phúc',
+                                            61 => 'Yên Bái',62 => 'Phú Yên'
+                                        );
+                                        for ($i = 0; $i < 62; $i++) {
+                                            if ($arr[$i] == $profile['province'])
+                                                echo '<option value="' . $arr[$i] . '" selected="selected">' . $arr[$i] . '</option>';
+                                            else
+                                                echo '<option value="' . $arr[$i] . '">' . $arr[$i] . '</option>';
+                                        }
+                                        ?>
                                     </select>
                                 </div>
                             </div>
@@ -438,3 +444,27 @@
         </div> <!--End #tabs-->
     </div><!-- End Primary -->
     <?php $this->load->view('layout/sidebar'); ?>
+
+    <script type="text/javascript">
+        jQuery(document).ready(function() {
+            $(".form").h5Validate({
+                errorClass: "validationError",
+                validClass: "validationValid"
+            });
+            $(".form").submit(function(evt) {
+                if ($(".form_info").h5Validate("allValid") === false) {
+                    evt.preventDefault();
+                }
+                if ($(".form_pass").h5Validate("allValid") === false) {
+                    evt.preventDefault();
+                }
+                var x = document.forms["form_pass"]["new_pass"].value;
+                var y = document.forms["form_pass"]["re_new_pass"].value;
+                if (x !== y) {
+                    evt.preventDefault();
+                    document.getElementById("re_new_pass").focus();
+                    alert('nhap lai mat khau!');
+                }
+            });
+        });
+    </script>
