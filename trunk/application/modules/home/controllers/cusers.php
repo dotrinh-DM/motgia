@@ -13,6 +13,7 @@ class cusers extends CI_Controller {
         $this->load->helper('url');
         $this->load->model('Musers');
         $this->load->model('Mlog');
+        $this->load->database();
     }
 
     public function index() {
@@ -20,6 +21,12 @@ class cusers extends CI_Controller {
         $temp['title'] = 'Trang chủ';
         $temp['template'] = 'home';
         $this->load->view('layout/layout', $temp);
+    }
+
+    public function vd() {
+        $this->load->view('vd');
+//        $temp['template'] = 'vd';
+//        $this->load->view('layout/layout', $temp);
     }
 
     public function signup() {
@@ -50,10 +57,10 @@ class cusers extends CI_Controller {
         if ($this->session->userdata('user') == '') {
             redirect('home/chome');
         } //neu chua dang nhap thi quay lai trang chu
-        
+
         $temp['info'] = $this->Mlog->log(); //hien thi nut dang nhap hoac ten nguoi dung tren header
         if ($this->input->post('save_info')) {
-            $userid=$temp['info']['userID'];
+            $userid = $temp['info']['userID'];
             $lastname = $this->input->post('last_name');
             $firstname = $this->input->post('first_name');
             $month = $this->input->post('month');
@@ -64,9 +71,8 @@ class cusers extends CI_Controller {
             $phone = $this->input->post('phone');
             $province = $this->input->post('province');
             $addr = $this->input->post('address');
-            $this->Musers->updateProfile($userid, $firstname, $lastname, $birthday, $gender, $phone, $addr, $province);
+            $this->Musers->updateProfile($userid, $firstname, $lastname, $birthday, $gender, $phone, $addr, $province, $temp['info']['email']);
         }
-
         $temp['profile'] = $this->Musers->getProfile($temp['info']['userID']);
         $temp['title'] = 'Thông tin cá nhân';
         $temp['template'] = 'vusers/profile';

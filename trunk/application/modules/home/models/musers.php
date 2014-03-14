@@ -15,7 +15,7 @@ class Musers extends CI_Model {
     }
 
     public function getProfile($userid) {
-        $this->db->select('firstname,lastname,gender,province,phone,address');
+        $this->db->select('firstname,lastname,gender,province,phone,address,password');
         $this->db->select("DATE_FORMAT(birthofday, 'Ngày%d Tháng%m Năm%Y') AS birthday", FALSE);
         $this->db->select("DATE_FORMAT(birthofday, '%e') AS day", FALSE);
         $this->db->select("DATE_FORMAT(birthofday, '%m') AS month", FALSE);
@@ -60,7 +60,7 @@ class Musers extends CI_Model {
         }
     }
 
-    public function updateProfile($userid=0,$firstname=0,$lastname=0,$birthday=0,$gender=0,$phone=0,$addr=0,$province=0) {
+    public function updateProfile($userid=0,$firstname=0,$lastname=0,$birthday=0,$gender=0,$phone=0,$addr=0,$province=0,$email=0) {
         $data = array(
             'firstname' => $firstname,
             'lastname' => $lastname,
@@ -70,8 +70,18 @@ class Musers extends CI_Model {
             'phone' => $phone,
             'address' => $addr,
         );
+        $newdata = array(
+                'userID' => $userid,
+                'fullname' => $firstname.' '.$lastname,
+                'email' => $email,
+                'logged_in' => TRUE
+            );
         $this->db->where("id", "$userid");
         $this->db->update('user', $data);
+        $this->session->unset_userdata('user');
+        $this->session->set_userdata('user', $newdata);
+        redirect($this->uri->uri_string());
+//        $this->session->set_userdata('user', $newdata);
     }
 
 }

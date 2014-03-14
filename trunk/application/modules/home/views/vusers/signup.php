@@ -184,7 +184,7 @@
                     if (x !== y) {
                         evt.preventDefault();
                         document.getElementById("lbpass").focus();
-                        $(".form").innerHTML('<span>Vui lòng nhập lại mật khẩu</span>');
+                        alert('nhap lai mat khau!');
                     }
                 });
             });
