@@ -504,7 +504,7 @@ input[type=submit] , input[type=button]{
     margin-bottom: 15px;
 }
 .select{
-    width: 100px;
+    width: 120px;
     height: 36px;
     overflow: hidden;
     background: #e5e6e6 url(../images/select.png) right no-repeat;
