@@ -132,9 +132,7 @@ margin-bottom: 10px;
 .detail_photo_uploads li img{
     max-width: 100%;
 }
-input[type=radio] {
-    visibility: hidden;
-}
+
 .select_radio{
     margin-top: 20px;
 }
@@ -146,7 +144,6 @@ input[type=radio] {
     margin-bottom: 10px;
 }
 .radio:before {
-    content: "";
     position: absolute;
     width: 8px;
     height: 8px;
