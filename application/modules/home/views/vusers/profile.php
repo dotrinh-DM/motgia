@@ -128,7 +128,11 @@
                                     </select>
                                 </div>
                             </div>
-                            <input type="submit" id="save_info" name="save_info" value="SAVE"/>
+                            <div>
+                                <label></label>
+                                <input type="submit" id="save_info" name="save_info" value="SAVE"/>
+                                <button class="btn" style="margin-left: 20px;">CANCEL</button>
+                            </div>
                         </form>
                     </div>
 
@@ -163,7 +167,9 @@
                             </div>
 
                             <div>
+                                <label></label>
                                 <input type="submit" id="save_pass" name="save_pass" value="SAVE"/>
+                                <button class="btn" style="margin-left: 20px;">CANCEL</button>
                             </div>
                         </form>
                     </div><!--end change-->
