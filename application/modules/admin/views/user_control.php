@@ -25,14 +25,14 @@
             <span class="center"><input type="checkbox" /></span>
         </td>
         <td><?php echo $value['id'] ?></td>
-        <td><?php echo $value['fullname'] ?></td>
+        <td><?php echo $value['firstname'].' '.$value['lastname'] ?></td>
         <td><?php echo $value['email'] ?></td>
         <td><?php echo $value['province'] ?></td>
         <td><?php echo $value['birthofday'] ?></td>
         <td><?php echo $value['address'] ?></td>
         <td><?php echo $value['levelID'] ?></td>
         <td><?php echo $value['phone'] ?></td>
-        <td><?php echo $value['status'] ?></td>
+        <td><?php  if($value['status']==0)  echo 'pending'; elseif($value['status']==1) echo 'active'; else echo 'banned'; ?></td>
         <td><?php echo $value['password'] ?></td>
         </tr>
     <?php

@@ -5,6 +5,7 @@ class Adminmodel extends CI_Model
     {
         parent::__construct();
         $this->load->database();
+        $this->load->library('encrypt');
     }
     
 public function getAll($table)
@@ -18,7 +19,8 @@ public function getAll($table)
     public function login(){
         
             $email=  $this->input->post('username');
-            $pass=  $this->input->post('password');
+            $psw=  $this->input->post('password');
+            $pass = $this->encrypt->decode($psw);
             
             if ($this->checklogin($email, $pass)==TRUE) {
                 $fullname = $this->getName($email);
@@ -35,10 +37,7 @@ public function getAll($table)
                 echo 'đăng nhập thất bại';
     }
     
-    public function logout(){
-        $this->session->unset_userdata('admin');
-        redirect('admin/adminhome/login');
-    }       
+      
 
         public function checklogin($email=0,$password=0){
         $check1=$this->db->select('email','password')->FROM('user')->WHERE(array ('email'=>$email,'password'=>$password,'levelID'=>'3'))->get()->row_array(); 
@@ -48,8 +47,8 @@ public function getAll($table)
             return $check1=FALSE;    
     }
     public function getName($email=0){
-        $querry['fullname1'] = $this->db->select('fullname')->WHERE('email',$email)->get('user')->row_array();
-        return $querry['fullname1']['fullname'];
+        $querry['fullname'] = $this->db->select('firstname,lastname')->WHERE('email',$email)->get('user')->row_array();
+        return $querry['fullname']['firstname'].' '.$querry['fullname']['lastname'];
     }
 }
 ?>

@@ -71,7 +71,17 @@ class Musers extends CI_Model {
         redirect($this->uri->uri_string());
 //        $this->session->set_userdata('user', $newdata);
     }
-
+    //Kiem tra e-mail da ton tai hay chua?
+    public function checkMail($email=0){
+        $query= $this->db->select('email')->FROM('user')->WHERE('email',$email)->get()->row_array();
+        if(isset($query) && count($query)){
+            return FALSE;
+        }
+        else{
+            return TRUE;
+        }
+    }
+      
 }
 
 ?>

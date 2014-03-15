@@ -22,5 +22,9 @@ class Adminhome extends CI_Controller {
         $temp['data'] = $this->Adminmodel->getAll('user');
         $this->load->view('layout_admin/layout',$temp);
     }
+     public function logout(){
+        $this->session->unset_userdata('admin');
+        redirect('admin/adminhome/login');
+    }    
 }
 ?>

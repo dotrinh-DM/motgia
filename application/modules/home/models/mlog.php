@@ -5,6 +5,7 @@ class Mlog extends CI_Model {
     public function __construct() {
         parent::__construct();
         $this->load->database();
+        $this->load->library('encrypt');
     }
 
     public function log() {
@@ -23,8 +24,8 @@ class Mlog extends CI_Model {
 
     public function login() {
         $email = $this->input->post('inputemail');
-        $pass = $this->input->post('inputpass');
-
+        $psw = $this->input->post('inputpass');
+        $pass = $this->encrypt->decode($psw);
         if ($this->checklogin($email, $pass) == TRUE) {
             $fullname = $this->getName($email);
             $userid=  $this->getID($email);

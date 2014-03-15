@@ -41,6 +41,10 @@
                                 <td><?php echo $profile['firstname'] . ' ' . $profile['lastname']; ?></td> 
                             </tr>
                             <tr>
+                                <td>Giới tính</td>
+                                <td><?php echo ($profile['gender']==0)?'Nam':'Nữ'; ?></td> 
+                            </tr>
+                            <tr>
                                 <td>Ngày sinh</td>
                                 <td><?php echo $profile['birthofday']; ?></td>
                             </tr>
@@ -72,17 +76,13 @@
                             </div>
                             <div>
                                 <label>Ngày sinh<span>*</span></label>
-                                <p><input type="text" id="datePicker" required=""  name="birthday" value="<?php echo $profile['birthofday']; ?>"/></p>
-                                <span class="tooltip">Không được để trống</span>
+                                <p><input type="text" id="datePicker" required="" class="h5-day_vn"  name="birthday" value="<?php echo $profile['birthofday']; ?>" placeholder="dd/mm/yyyy" title="dd/mm/yyyy"></p>
+                                <span class="tooltip">Định dạng: ngày/tháng/năm</span>
                             </div>
-                            <div class="marginBottom_10">
+                            <div class="radio">
                                 <label>Giới tính<span>*</span></label>
-                                <div class="select">
-                                    <select name="gender" required="">
-                                        <option <?php if ($profile['gender'] == 0) echo 'selected="selected"'; ?> value="0">Nam</option>
-                                        <option <?php if ($profile['gender'] != 0) echo 'selected="selected"'; ?> value="1">Nữ</option>
-                                    </select>
-                                </div>
+                                <input type="radio" name="gender" id="1" <?php if($profile['gender']==0) echo 'checked'; ?> value="0"/><span>Nam</span>
+                                <input type="radio" name="gender" id="2" <?php if($profile['gender']==1) echo 'checked'; ?> value="1"/><span> Nữ</span>
                             </div>
                             <div>
                                 <label>Điện thoại<span>*</span></label>
@@ -96,27 +96,27 @@
                             </div>
                             <div>
                                 <label>Tỉnh/Thành phố<span>*</span></label>
-                                <div class="select">
+                                <div class="select width70">
                                     <select required="" name="province" >
                                         <option value="">--Chọn--</option>
                                         <?php
                                         $arr = array(
-                                            0 => 'Hà Nội',1 => 'TP HCM',2 => 'Cần Thơ',3 => 'Đà Nẵng',4 => 'Hải Phòng',
-                                            5 => 'An Giang',6 => 'Bà Rịa - Vũng Tàu',7 => 'Bắc Giang',8 => 'Bắc Kạn',
-                                            9 => 'Bạc Liêu',10 => 'Bắc Ninh',11 => 'Bến Tre',12 => 'Bình Định',
-                                            13 => 'Bình Dương',14 => 'Bình Phước',15 => 'Bình Thuận',16 => 'Cà Mau',
-                                            17 => 'Cao Bằng',18 => 'Đắk Lắk',19 => 'Đắk Nông',20 => 'Điện Biên',
-                                            21 => 'Đồng Nai',22 => 'Đồng Tháp',23 => 'Gia Lai',24 => 'Hà Giang',
-                                            25 => 'Hà Nam',26 => 'Hà Tĩnh',27 => 'Hải Dương',28 => 'Hậu Giang',
-                                            29 => 'Hòa Bình',30 => 'Hưng Yên',31 => 'Khánh Hòa',32 => 'Kiên Giang',
-                                            33 => 'Kon Tum',34 => 'Lai Châu',35 => 'Lâm Đồng',36 => 'Lạng Sơn',
-                                            37 => 'Lào Cai',38 => 'Long An',39 => 'Nam Định',40 => 'Nghệ An',
-                                            41 => 'Ninh Bình',42 => 'Ninh Thuận',43 => 'Phú Thọ',44 => 'Quảng Bình',
-                                            45 => 'Quảng Nam',46 => 'Quảng Ngãi',47 => 'Quảng Ninh',48 => 'Quảng Trị',
-                                            49 => 'Sóc Trăng',50 => 'Sơn La',51 => 'Tây Ninh',52 => 'Thái Bình',
-                                            53 => 'Thái Nguyên',54 => 'Thanh Hóa',55 => 'Thừa Thiên Huế',56 => 'Tiền Giang',
-                                            57 => 'Trà Vinh',58 => 'Tuyên Quang',59 => 'Vĩnh Long',60 => 'Vĩnh Phúc',
-                                            61 => 'Yên Bái',62 => 'Phú Yên'
+                                            0 => 'Hà Nội', 1 => 'TP HCM', 2 => 'Cần Thơ', 3 => 'Đà Nẵng', 4 => 'Hải Phòng',
+                                            5 => 'An Giang', 6 => 'Bà Rịa - Vũng Tàu', 7 => 'Bắc Giang', 8 => 'Bắc Kạn',
+                                            9 => 'Bạc Liêu', 10 => 'Bắc Ninh', 11 => 'Bến Tre', 12 => 'Bình Định',
+                                            13 => 'Bình Dương', 14 => 'Bình Phước', 15 => 'Bình Thuận', 16 => 'Cà Mau',
+                                            17 => 'Cao Bằng', 18 => 'Đắk Lắk', 19 => 'Đắk Nông', 20 => 'Điện Biên',
+                                            21 => 'Đồng Nai', 22 => 'Đồng Tháp', 23 => 'Gia Lai', 24 => 'Hà Giang',
+                                            25 => 'Hà Nam', 26 => 'Hà Tĩnh', 27 => 'Hải Dương', 28 => 'Hậu Giang',
+                                            29 => 'Hòa Bình', 30 => 'Hưng Yên', 31 => 'Khánh Hòa', 32 => 'Kiên Giang',
+                                            33 => 'Kon Tum', 34 => 'Lai Châu', 35 => 'Lâm Đồng', 36 => 'Lạng Sơn',
+                                            37 => 'Lào Cai', 38 => 'Long An', 39 => 'Nam Định', 40 => 'Nghệ An',
+                                            41 => 'Ninh Bình', 42 => 'Ninh Thuận', 43 => 'Phú Thọ', 44 => 'Quảng Bình',
+                                            45 => 'Quảng Nam', 46 => 'Quảng Ngãi', 47 => 'Quảng Ninh', 48 => 'Quảng Trị',
+                                            49 => 'Sóc Trăng', 50 => 'Sơn La', 51 => 'Tây Ninh', 52 => 'Thái Bình',
+                                            53 => 'Thái Nguyên', 54 => 'Thanh Hóa', 55 => 'Thừa Thiên Huế', 56 => 'Tiền Giang',
+                                            57 => 'Trà Vinh', 58 => 'Tuyên Quang', 59 => 'Vĩnh Long', 60 => 'Vĩnh Phúc',
+                                            61 => 'Yên Bái', 62 => 'Phú Yên'
                                         );
                                         for ($i = 0; $i < 62; $i++) {
                                             if ($arr[$i] == $profile['province'])
@@ -453,6 +453,9 @@
 
     <script type="text/javascript">
         jQuery(document).ready(function() {
+            $.h5Validate.addPatterns({
+                day_vn: /(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\d\d/
+            });
             $(".form").h5Validate({
                 errorClass: "validationError",
                 validClass: "validationValid"
