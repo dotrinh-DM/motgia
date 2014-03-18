@@ -1,21 +1,11 @@
 <div id="bg-slideshow">
     <div class="swiper-container">
         <div class="swiper-wrapper">
-            <div class="swiper-slide" style="background-image:url(<?php echo base_url(); ?>template/uploads/product_4.png)">
-                <a href="#" target="_blank"></a>
-            </div>
-            <div class="swiper-slide" style="background-image:url(<?php echo base_url(); ?>template/uploads/product_2.png)">
-                <a href="#" target="_blank"></a>
-            </div>
-            <div class="swiper-slide" style="background-image:url(<?php echo base_url(); ?>template/uploads/product_1.png)">
-                <a href="#" target="_blank"></a>
-            </div>
-            <div class="swiper-slide" style="background-image:url(<?php echo base_url(); ?>template/uploads/product_3.png)">
-                <a href="#" target="_blank"></a>
-            </div>
-            <div class="swiper-slide" style="background-image:url(<?php echo base_url(); ?>template/uploads/product_4.png)">
-                <a href="#" target="_blank"></a>
-            </div>
+            <?php foreach ($data_slide as $slide) { $images = json_decode($slide->images); ?>
+            <div class="swiper-slide" style="background-image:url(<?php echo base_url().$images[0]; ?>)">
+                <a href="#" target="_blank"></a><!--
+            --></div>
+            <?php }?>
         </div>
     </div>
 </div>   
@@ -32,103 +22,23 @@
         <a href="#">sale (10) </a>
     </header><!--End .Nav_content-->
     <div id="content_index">
-        <section class="module">
-            <div class="module_item clearfix">
-                <a href="#" class="img_module">
-                    <img src="<?php echo base_url(); ?>template/uploads/product_3.png" alt="000"/>
-                </a>
-                <div class="reduced">
-                    <header class="title_item"><a href="#">Sample Fashion ProductA Configurable product offers</a></header>
-                    <p> which are selected from drop-down lists...</p>
-                </div><!--End .reduced-->
-                <a href="#" class="btn_readmore">Chi tiết</a>
-                <span class="price">200K</span>
-            </div><!--End .module_item-->
-        </section><!--End .module-->
-
-        <section class="module">
-            <div class="module_item clearfix">
-                <a href="#" class="img_module">
-                    <img src="<?php echo base_url(); ?>template/uploads/product_3.png" alt="000"/>
-                </a>
-                <div class="reduced">
-                    <header class="title_item"><a href="#">Sample Fashion ProductA Configurable product offers</a></header>
-                    <p> which are selected from drop-down lists...</p>
-                </div><!--End .reduced-->
-                <a href="#" class="btn_readmore">Chi tiết</a>
-                <span class="price">200K</span>
-            </div><!--End .module_item-->
-        </section><!--End .module-->
-
-        <section class="module">
-            <div class="module_item clearfix">
-                <a href="#" class="img_module">
-                    <img src="<?php echo base_url(); ?>template/uploads/product_3.png" alt="000"/>
-                </a>
-                <div class="reduced">
-                    <header class="title_item"><a href="#">Sample Fashion ProductA Configurable product offers</a></header>
-                    <p> which are selected from drop-down lists...</p>
-                </div><!--End .reduced-->
-                <a href="#" class="btn_readmore">Chi tiết</a>
-                <span class="price">200K</span>
-            </div><!--End .module_item-->
-        </section><!--End .module-->
-
-        <section class="module">
-            <div class="module_item clearfix">
-                <a href="#" class="img_module">
-                    <img src="<?php echo base_url(); ?>template/uploads/product_3.png" alt="000"/>
-                </a>
-                <div class="reduced">
-                    <header class="title_item"><a href="#">Sample Fashion ProductA Configurable product offers</a></header>
-                    <p> which are selected from drop-down lists...</p>
-                </div><!--End .reduced-->
-                <a href="#" class="btn_readmore">Chi tiết</a>
-                <span class="price">200K</span>
-            </div><!--End .module_item-->
-        </section><!--End .module-->
-
-        <section class="module">
-            <div class="module_item clearfix">
-                <a href="#" class="img_module">
-                    <img src="<?php echo base_url(); ?>template/uploads/product_3.png" alt="000"/>
-                </a>
-                <div class="reduced">
-                    <header class="title_item"><a href="#">Sample Fashion ProductA Configurable product offers</a></header>
-                    <p> which are selected from drop-down lists...</p>
-                </div><!--End .reduced-->
-                <a href="#" class="btn_readmore">Chi tiết</a>
-                <span class="price">200K</span>
-            </div><!--End .module_item-->
-        </section><!--End .module-->
-
-        <section class="module">
-            <div class="module_item clearfix">
-                <a href="#" class="img_module">
-                    <img src="<?php echo base_url(); ?>template/uploads/product_3.png" alt="000"/>
-                </a>
-                <div class="reduced">
-                    <header class="title_item"><a href="#">Sample Fashion ProductA Configurable product offers</a></header>
-                    <p> which are selected from drop-down lists...</p>
-                </div><!--End .reduced-->
-                <a href="#" class="btn_readmore">Chi tiết</a>
-                <span class="price">200K</span>
-            </div><!--End .module_item-->
-        </section><!--End .module-->
-
-        <section class="module">
-            <div class="module_item clearfix">
-                <a href="#" class="img_module">
-                    <img src="<?php echo base_url(); ?>template/uploads/product_3.png" alt="000"/>
-                </a>
-                <div class="reduced">
-                    <header class="title_item"><a href="#">Sample Fashion ProductA Configurable product offers</a></header>
-                    <p> which are selected from drop-down lists...</p>
-                </div><!--End .reduced-->
-                <a href="#" class="btn_readmore">Chi tiết</a>
-                <span class="price">200K</span>
-            </div><!--End .module_item-->
-        </section><!--End .module-->
+        
+           <?php foreach ($data_home as $value) { $img = json_decode($value->images); ?>
+            
+            <section class="module">
+                <div class="module_item clearfix">
+                    <a href="#" class="img_module">
+                        <img src="<?php echo base_url().$img[0]; ?>" alt="<?php echo $value->name ?>"/>
+                    </a>
+                    <div class="reduced">
+                        <header class="title_item"><a href="#"><?php echo $value->name ?></a></header>
+                        <p><?php echo $value->intro?></p>
+                    </div><!--End .reduced-->
+                    <a href="#" class="btn_readmore">Chi tiết</a>
+                    <span class="price"><?php echo $value->price ?>K</span>
+                </div><!--End .module_item-->
+            </section><!--End .module-->
+        <?php } ?>
         <div class="clear"></div>
     </div>
     <div class="clear"></div>

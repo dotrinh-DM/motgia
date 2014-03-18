@@ -18,10 +18,16 @@ class Cproducts extends CI_Controller {
     public function index() {
         $temp['info']=  $this->Mlog->log();
         $temp['title'] = 'Trang chủ';
+        $temp['data_home'] = $this->Mproducts->getAllProducts();
+        $temp['data_slide'] = $this->Mproducts->getDataSlide();
         $temp['template'] = 'vproducts/home';
         $this->load->view('layout/layout', $temp);
     }
-
+    public function showDetailProducts() {
+//        $temp['title'] = 'Chi tiết sản phẩm';
+//        $temp['cate'] = $this->Mproducts->getAllCategories();
+        $this->load->view('vproducts/product_detail');
+    }
     public function upProducts() {
         $temp['info']=  $this->Mlog->log();
         $temp['title'] = 'Đăng sản phẩm';
@@ -80,7 +86,7 @@ class Cproducts extends CI_Controller {
     }
 
     public function editProducts($id) {
-        $temp['info']=  $this->Mproducts->log();
+//        $temp['info']=  $this->Mproducts->log();
         $data['cate'] = $this->Mproducts->getAllCategories();
         $data['edit'] = $this->Mproducts->editProducts($id);
         $data['title'] = 'Sửa sản phẩm';
@@ -147,34 +153,6 @@ class Cproducts extends CI_Controller {
         $data['data'] = $this->Mproducts->getProductByID($id);
         $this->load->view('vproducts/tam', $data);
     }
-
-//    public function gogo() {
-//        $this->load->library("upload");
-//        $config['upload_path'] = "./public/product_images/";
-//        $config['allowed_types'] = 'gif|jpg|png';
-//        $config['max_size'] = '100';
-//        $config['max_width']  = '1024';
-//        $config['max_height']  = '768';
-//        $data = array();
-//        $this->upload->initialize($config);
-//       if($this->upload->do_upload('img'))
-//       {
-//           echo 'ok';
-//       }else{
-//                      echo 'ko';}
-//        $data['mang'] = $this->upload->data();
-//              var_dump($data);
-//            foreach($_FILES as $field => $file)
-//            {
-//                for($i=0;$i<2;$i++){
-//                    $this->upload->initialize($config);
-//                    var_dump();
-//                    $this->upload->do_upload($field."[$i]");
-//                    $data['mang'] = $this->upload->data();
-//                }                
-//            }
-//        $this->load->view('vproducts/tam');
-//    }
     public function exx1() {
 //        $data['table']= $this->Mproducts->getAllProducts();
 //        $data['title'] = 'vo van';
