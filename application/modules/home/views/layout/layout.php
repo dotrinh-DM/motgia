@@ -51,6 +51,42 @@
         <script src="<?php echo base_url(); ?>template/js/jquery.cslider.js" type="text/javascript"></script>
         <script src="<?php echo base_url(); ?>template/js/jquery.hashchange.min.js" type="text/javascript"></script>
         <script src="<?php echo base_url(); ?>template/js/change.js" type="text/javascript"></script>
+        <script type="text/javascript">
+
+            jQuery(document).ready(function() {
+                //
+                jQuery('#da-slider').cslider({
+                    autoplay: true,
+                    bgincrement: 450
+                });
+                //
+                $(".form").h5Validate({
+                    errorClass: "validationError",
+                    validClass: "validationValid"
+                });
+
+                // Prevent form submission when errors
+                $(".form").submit(function(evt) {
+                    if ($(".form").h5Validate("allValid") === false) {
+                        evt.preventDefault();
+                    }
+                });
+                jQuery('#carousel').elastislide({
+                    autoplay:true
+                });
+
+                jQuery('.jqzoom').jqzoom({
+                    zoomType: 'standard',
+                    lens: true,
+                    preloadImages: false,
+                    alwaysOn: false
+                   
+                });
+
+                $('#tab-container').easytabs();
+
+            });
+        </script>
     </head>
     <body>	
         <?php $this->load->view('layout/header'); ?>
