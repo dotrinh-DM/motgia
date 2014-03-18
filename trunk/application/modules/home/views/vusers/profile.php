@@ -2,7 +2,6 @@
 <!---hàm validate--->
 <style type="text/css">@import "<?php echo base_url(); ?>template/css/datepick.css";</style>
 <script type="text/javascript" src="<?php echo base_url(); ?>template/js/jquery.datepick.js"></script>
-<script type="text/javascript" src="<?php echo base_url(); ?>template/js/jquery.jcarousel.js"></script>
 <script src="<?php echo base_url(); ?>template/js/jquery.easytabs.min.js" type="text/javascript"></script>
 
 <script type="text/javascript">

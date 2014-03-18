@@ -1,5 +1,4 @@
 <script src="<?php echo base_url(); ?>template/js/jquery.easytabs.min.js" type="text/javascript"></script>
-<script type="text/javascript" src="<?php echo base_url(); ?>template/js/jquery.jcarousel.js"></script>
 <section class="bg_shadow">
     <div class="wrap clearfix">
         <div class="title floatLeft">
