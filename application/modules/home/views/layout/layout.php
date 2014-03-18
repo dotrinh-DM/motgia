@@ -6,6 +6,7 @@
         <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>template/css/style.css" />
         <script type="text/javascript" src="<?php echo base_url(); ?>template/js/jquery-1.8.2.min.js"></script>
         <script type="text/javascript" src="<?php echo base_url(); ?>template/js/validateh5.js"></script>
+        <script type="text/javascript" src="<?php echo base_url(); ?>template/js/jquery.jcarousel.js"></script>
         <script type="text/javascript" src="<?php echo base_url(); ?>template/js/jquery.leanModal.min.js"></script>
         <script type="text/javascript" src="<?php echo base_url(); ?>template/js/gallery.js"></script>
         <script type="text/javascript">
