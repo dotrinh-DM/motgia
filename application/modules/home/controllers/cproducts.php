@@ -18,7 +18,7 @@ class Cproducts extends CI_Controller {
     public function index() {
         $temp['info']=  $this->Mlog->log();
         $temp['title'] = 'Trang chủ';
-        $temp['template'] = 'home';
+        $temp['template'] = 'vproducts/home';
         $this->load->view('layout/layout', $temp);
     }
 

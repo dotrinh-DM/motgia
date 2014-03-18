@@ -73,21 +73,21 @@
                         <li>
                             <label>Ảnh 1</label>
                             <div class="bg-file">
-                                <input type="file" name="img[]"/>
+                                <input type="file" name="img1"/>
                             </div>
                             <img src="<?php echo base_url().$images[0] ;?>" alt="<?php echo $value->name ?>" />
                         </li>
                         <li>
                             <label>Ảnh 2</label>
                             <div class="bg-file">
-                                <input type="file" name="img[]"/>
+                                <input type="file" name="img2"/>
                             </div>
                             <img src="<?php echo base_url().$images[1] ;?>" alt="<?php echo $value->name ?>" />
                         </li>
                         <li>
                             <label>Ảnh 3</label>
                             <div class="bg-file">
-                                <input type="file" name="img[]"/>
+                                <input type="file" name="img3"/>
                             </div>
                             <img src="<?php echo base_url().$images[2] ;?>" alt="<?php echo $value->name ?>" />
                         </li>
