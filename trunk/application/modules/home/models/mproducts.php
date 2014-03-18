@@ -14,7 +14,7 @@ class Mproducts extends CI_Model {
     }
 
     public function getAllProducts() {
-        $this->db->select("id,name,price,images,intro");
+        $this->db->select("id,name,price,images,LEFT(intro,70) AS intro2 ",FALSE);
         $query = $this->db->get("products");
         return $query->result();
     }

@@ -32,7 +32,7 @@
                     </a>
                     <div class="reduced">
                         <header class="title_item"><a href="#"><?php echo $value->name ?></a></header>
-                        <p><?php echo $value->intro?></p>
+                        <p><?php echo substr($value->intro2,0,strrpos($value->intro2, ' ')); ?></p>
                     </div><!--End .reduced-->
                     <a href="#" class="btn_readmore">Chi tiết</a>
                     <span class="price"><?php echo $value->price ?>K</span>

@@ -212,5 +212,5 @@
             </div>
 
         </section><!-- .End product_detail -->
-
+<?php $this->load-view('layout/sidebar');?>
     </section><!--End #primary-->
