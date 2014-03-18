@@ -20,13 +20,14 @@ class Cproducts extends CI_Controller {
         $temp['title'] = 'Trang chủ';
         $temp['data_home'] = $this->Mproducts->getAllProducts();
         $temp['data_slide'] = $this->Mproducts->getDataSlide();
-        $temp['template'] = 'vproducts/home';
+        $temp['template'] = 'home';
         $this->load->view('layout/layout', $temp);
     }
     public function showDetailProducts() {
-//        $temp['title'] = 'Chi tiết sản phẩm';
+        $temp['title'] = 'Chi tiết sản phẩm';
+        $temp['template']='vproducts/product_detail';
 //        $temp['cate'] = $this->Mproducts->getAllCategories();
-        $this->load->view('vproducts/product_detail');
+        $this->load->view('layout/layout',$temp);
     }
     public function upProducts() {
         $temp['info']=  $this->Mlog->log();

@@ -3,7 +3,6 @@
 <style type="text/css">@import "<?php echo base_url(); ?>template/css/datepick.css";</style>
 <script type="text/javascript" src="<?php echo base_url(); ?>template/js/jquery.datepick.js"></script>
 <script type="text/javascript" src="<?php echo base_url(); ?>template/js/jquery.jcarousel.js"></script>
-<script src="<?php echo base_url(); ?>template/js/jquery.cslider.js" type="text/javascript"></script>
 <script src="<?php echo base_url(); ?>template/js/jquery.easytabs.min.js" type="text/javascript"></script>
 
 <script type="text/javascript">
@@ -22,6 +21,32 @@
     });
 </script>
 
+    <script type="text/javascript">
+        jQuery(document).ready(function() {
+            $.h5Validate.addPatterns({
+                day_vn: /(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\d\d/
+            });
+            $(".form").h5Validate({
+                errorClass: "validationError",
+                validClass: "validationValid"
+            });
+            $(".form").submit(function(evt) {
+                if ($(".form_info").h5Validate("allValid") === false) {
+                    evt.preventDefault();
+                }
+                if ($(".form_pass").h5Validate("allValid") === false) {
+                    evt.preventDefault();
+                }
+                var x = document.forms["form_pass"]["new_pass"].value;
+                var y = document.forms["form_pass"]["re_new_pass"].value;
+                if (x !== y) {
+                    evt.preventDefault();
+                    document.getElementById("re_new_pass").focus();
+                    alert('nhap lai mat khau!');
+                }
+            });
+        });
+    </script>
 <section id="content" class="wrap">
     <div id="primary">
         <div id="tab-container" class='tab-container marginBottom_15'>
@@ -450,30 +475,3 @@
         </div> <!--End #tabs-->
     </div><!-- End Primary -->
     <?php $this->load->view('layout/sidebar'); ?>
-
-    <script type="text/javascript">
-        jQuery(document).ready(function() {
-            $.h5Validate.addPatterns({
-                day_vn: /(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\d\d/
-            });
-            $(".form").h5Validate({
-                errorClass: "validationError",
-                validClass: "validationValid"
-            });
-            $(".form").submit(function(evt) {
-                if ($(".form_info").h5Validate("allValid") === false) {
-                    evt.preventDefault();
-                }
-                if ($(".form_pass").h5Validate("allValid") === false) {
-                    evt.preventDefault();
-                }
-                var x = document.forms["form_pass"]["new_pass"].value;
-                var y = document.forms["form_pass"]["re_new_pass"].value;
-                if (x !== y) {
-                    evt.preventDefault();
-                    document.getElementById("re_new_pass").focus();
-                    alert('nhap lai mat khau!');
-                }
-            });
-        });
-    </script>
