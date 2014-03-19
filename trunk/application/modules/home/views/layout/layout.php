@@ -47,6 +47,14 @@
                     }
                 });
                 $('#tab-container').easytabs();
+                jQuery('#carousel').elastislide();
+
+        jQuery('.jqzoom').jqzoom({
+            zoomType: 'standard',
+            lens: true,
+            preloadImages: false,
+            alwaysOn: false
+        });
             });
         </script>	
         <script type="text/javascript" src="<?php echo base_url() ?>tinymce/tiny_mce.js"></script>

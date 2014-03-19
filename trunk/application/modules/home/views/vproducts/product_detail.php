@@ -1,38 +1,7 @@
 <script src="<?php echo base_url(); ?>template/js/jquery.easytabs.min.js" type="text/javascript"></script>
 <script type="text/javascript" src="<?php echo base_url(); ?>public/homejs/jquery.jqzoom-core.js"></script>
-<script type="text/javascript" src="<?php echo base_url(); ?>public/homejs/jquery.cslider.js"></script>
 <script type="text/javascript" src="<?php echo base_url(); ?>public/homejs/modernizr.custom.17475.js"></script>
 <script type="text/javascript" src="<?php echo base_url(); ?>public/homejs/jquery.elastislide.js"></script>
-<script type="text/javascript">
-
-    jQuery(document).ready(function() {
-        //
-        jQuery('#da-slider').cslider({
-            autoplay: true,
-            bgincrement: 450
-        });
-        //
-        $(".form").h5Validate({
-            errorClass: "validationError",
-            validClass: "validationValid"
-        });
-
-        // Prevent form submission when errors
-        $(".form").submit(function(evt) {
-            if ($(".form").h5Validate("allValid") === false) {
-                evt.preventDefault();
-            }
-        });
-        jQuery('#carousel').elastislide();
-
-        jQuery('.jqzoom').jqzoom({
-            zoomType: 'standard',
-            lens: true,
-            preloadImages: false,
-            alwaysOn: false
-        });
-    });
-</script>
 <?php foreach ($data_detail as $value)
      ?>
     <section class="bg_shadow">
@@ -212,19 +181,3 @@
 
     </section><!--End #primary-->
 <?php $this->load->view('layout/sidebar'); ?>
-    <script src="<?php echo base_url(); ?>public/homejs/idangerous.swiper-2.0.min.js"></script>
-    <script src="<?php echo base_url(); ?>public/homejs/idangerous.swiper.3dflow-2.0.js"></script>
-    <script>
-        var mySwiper = new Swiper('.swiper-container', {
-            slidesPerView: 3,
-            loop: true,
-            //Enable 3D Flow
-            tdFlow: {
-                rotate: 30,
-                stretch: 10,
-                depth: 150,
-                modifier: 1,
-                shadows: true
-            }
-        })
-    </script>
