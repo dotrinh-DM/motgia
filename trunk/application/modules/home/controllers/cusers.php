@@ -120,7 +120,10 @@ class cusers extends CI_Controller {
         );
         $this->db->where('email',$email);
         $this->db->update('user', $data);
-        
+        $temp['record']=  $this->db->affected_rows();
+        $temp['template']
+        if($record>0)
+            $this->load->view('layout/layout',$temp);
     }
 
 //    public function vd() {

@@ -9,6 +9,28 @@
         <script type="text/javascript" src="<?php echo base_url(); ?>template/js/jquery.jcarousel.js"></script>
         <script type="text/javascript" src="<?php echo base_url(); ?>template/js/jquery.leanModal.min.js"></script>
         <script type="text/javascript" src="<?php echo base_url(); ?>template/js/gallery.js"></script>
+
+        <script src="<?php echo base_url(); ?>template/js/change.js" type="text/javascript"></script>
+        <script src="<?php echo base_url(); ?>template/js/idangerous.swiper-2.0.min.js"></script>
+        <script src="<?php echo base_url(); ?>template/js/idangerous.swiper.3dflow-2.0.js"></script>
+         <script src="<?php echo base_url(); ?>template/js/modernizr.custom.28468.js" type="text/javascript"></script>
+        <script src="<?php echo base_url(); ?>template/js/jquery.cslider.js" type="text/javascript"></script>
+        <script src="<?php echo base_url(); ?>template/js/jquery.hashchange.min.js" type="text/javascript"></script>
+        <script>
+            var mySwiper = new Swiper('.swiper-container', {
+                slidesPerView: 3,
+                loop: true,
+                //Enable 3D Flow
+                tdFlow: {
+                    rotate: 30,
+                    stretch: 10,
+                    depth: 150,
+                    modifier: 1,
+                    shadows: true
+                }
+            })
+        </script>
+        
         <script type="text/javascript">
             jQuery(document).ready(function() {
                 jQuery('#da-slider').cslider({
@@ -27,7 +49,7 @@
                 $('#tab-container').easytabs();
             });
         </script>	
-        <script type="text/javascript" src="<?php echo base_url() ?>tinymce/tiny_mce.js"></script>
+<!--        <script type="text/javascript" src="<?php echo base_url() ?>tinymce/tiny_mce.js"></script>
         <script type="text/javascript">
             tinyMCE.init({
                 // General options 
@@ -43,14 +65,10 @@
                 theme_advanced_statusbar_location: "bottom",
                 theme_advanced_resizing: true
             });
-        </script>
-        <script src="<?php echo base_url(); ?>public/homejs/validate_up.js" type="text/javascript" ></script>
+        </script>-->
         <script src="<?php echo base_url(); ?>template/js/jquery.mCustomScrollbar.concat.min.js" type="text/javascript"></script>
         <script src="<?php echo base_url(); ?>template/js/scroll-jquery.js" type="text/javascript"></script>
-        <script src="<?php echo base_url(); ?>template/js/modernizr.custom.28468.js" type="text/javascript"></script>
-        <script src="<?php echo base_url(); ?>template/js/jquery.cslider.js" type="text/javascript"></script>
-        <script src="<?php echo base_url(); ?>template/js/jquery.hashchange.min.js" type="text/javascript"></script>
-        <script src="<?php echo base_url(); ?>template/js/change.js" type="text/javascript"></script>
+       
         <script type="text/javascript">
 
             jQuery(document).ready(function() {

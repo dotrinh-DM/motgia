@@ -1,4 +1,5 @@
 <script src="<?php echo base_url(); ?>template/js/jquery.easytabs.min.js" type="text/javascript"></script>
+
 <section class="bg_shadow">
     <div class="wrap clearfix">
         <div class="title floatLeft">

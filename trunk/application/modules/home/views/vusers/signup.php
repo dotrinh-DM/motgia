@@ -1,5 +1,6 @@
 <style type="text/css">@import "<?php echo base_url(); ?>template/css/datepick.css";</style>
 <script type="text/javascript" src="<?php echo base_url(); ?>template/js/jquery.datepick.js"></script>
+<script src="<?php echo base_url(); ?>template/js/jquery.easytabs.min.js" type="text/javascript"></script>
 <section class="bg_shadow">
     <div class="wrap clearfix">
         <div class="title floatLeft">
@@ -68,10 +69,12 @@
                 <input type="text" required="" name="f_name"/>
                 <span class="tooltip">Không được để trống</span>
             </div>
-            <div class="position">
+            <div class="position marginBottom_15">
                 <label>Ngày sinh<span>*</span></label>
-                <input type="text" id="datePicker" required="" class="h5-day_vn"  name="birthday" placeholder="dd/mm/yyyy" title="dd/mm/yyyy"></p>
+                <!--<input type="text" id="datePicker" required="" class="h5-day_vn"  name="birthday" placeholder="dd/mm/yyyy" title="dd/mm/yyyy"></p>-->
+                <input type="date" height="100px" required="" class="h5-day_vn"  name="birthday" placeholder="dd/mm/yyyy" title="dd/mm/yyyy"></p>
                 <span class="tooltip">Định dạng: ngày/tháng/năm</span>
+                <div class="clearfix"></div>
             </div>
             <div class="marginBottom_15">
                 <label>Giới tính<span>*</span></label>
