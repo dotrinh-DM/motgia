@@ -34,7 +34,7 @@
                         <header class="title_item"><a href="#"><?php echo $value->name ?></a></header>
                         <p><?php echo substr($value->intro2,0,strrpos($value->intro2, ' ')); ?>...</p>
                     </div><!--End .reduced-->
-                    <a href="<?php echo site_url("home/showDetailProducts/$value->id/$value->categoriesID"); ?>" class="btn_readmore">Chi tiết</a>
+                    <a href="<?php echo site_url("home/cproducts/showDetailProducts/$value->id/$value->categoriesID"); ?>" class="btn_readmore">Chi tiết</a>
                     <span class="price"><?php echo $value->price ?>K</span>
                 </div><!--End .module_item-->
             </section><!--End .module-->
