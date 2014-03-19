@@ -1,4 +1,5 @@
 <script src="<?php echo base_url(); ?>template/js/jquery.easytabs.min.js" type="text/javascript"></script>
+<?php foreach ($data_detail as $value)?>
 <section class="bg_shadow">
     <div class="wrap clearfix">
         <div class="title floatLeft">
@@ -39,20 +40,17 @@
             </div>
 
             <section id="product_content">
-                <h1>distracted by the readable content of a page when</h1>
+                <h1><?php echo $value->name ?></h1>
                 <header class="longer_products">
                     <h6 class="icon_longer_products">Còn hàng</h6>
-                    <h6 class="">Mã sản phẩm : 9999</h6>
                 </header>
                 <div class="subdetail">
-                    Nunc facilisis sagittis ullamcorper. Proin lectus ipsum, gravida et mattis
-                    vulputate, tristique ut lectus. Sed et lorem nunc. Vestibulum ante ipsum
-                    primis in faucibus orci luctus et ultrices posuere cubilia Curae; Aenean
+                    <?php echo $value->intro ?>
                 </div>
 
                 <div class="price_3">
                     Giá:
-                    <span class="new_price"> $20</span>
+                    <span class="new_price"> <?php echo $value->price ?></span>
                 </div>
 
                 <div id="addCart">
@@ -81,47 +79,19 @@
                     <div class="position">
                         <div id="tabs1-html">
                             <div class="detail_item">
-                                <h6 class="title_detail_item">Highlights</h6>
+                                <h6 class="title_detail_item">Đặc điểm nổi bật</h6>
                                 <ul>
                                     <li>
-
-                                        Wide range of snacks, sides, mains and desserts
-                                        Indulge in the signature Rotisserie Chicken served 
-
-                                    </li>
-                                    <li>
-
-                                        Wide range of snacks, sides, mains and desserts
-                                        Indulge in the signature Rotisserie Chicken served 
-
-                                    </li>
-                                    <li>
-
-                                        Wide range of snacks, sides, mains and desserts
-                                        Indulge in the signature Rotisserie Chicken served 
-
+                                        <?php echo $value->hightlight ?> 
                                     </li>
                                 </ul>
                             </div>
                             <div class="detail_item">
-                                <h6 class="title_detail_item">Highlights</h6>
+                                <h6 class="title_detail_item">Điều kiện sử dụng</h6>
                                 <ul>
                                     <li>
 
-                                        Wide range of snacks, sides, mains and desserts
-                                        Indulge in the signature Rotisserie Chicken served 
-
-                                    </li>
-                                    <li>
-
-                                        Wide range of snacks, sides, mains and desserts
-                                        Indulge in the signature Rotisserie Chicken served 
-
-                                    </li>
-                                    <li>
-
-                                        Wide range of snacks, sides, mains and desserts
-                                        Indulge in the signature Rotisserie Chicken served 
+                                       <?php echo $value->condition ?>
 
                                     </li>
                                 </ul>
@@ -130,23 +100,8 @@
                             <div class="detail_item_post">
                                 <header class="title_post_detail">Detail information</header>
                                 <p>
-                                    Sating famished diners late into the wee hours of weekends,
-                                    Charly T's keep insomniacs and overworked office staff well-fed 
-                                    with hassle-free and flavour-rich international fare. 
-                                    Take a break from the fastlane with the Mom's Chicken Soup ($8), 
-                                    and move on to their famous Rotisserie Chicken (from $14.50 for a 
-                                    Quarter Chicken with 2 Sauces and 2 Additions). 
+                                    <?php echo $value->productinfo ?>
                                 </p>
-                                <figure class="img_center"><img src="<?php echo base_url(); ?>template/uploads/product_1.png"/></figure>
-                                <p>
-                                    Sating famished diners late into the wee hours of weekends,
-                                    Charly T's keep insomniacs and overworked office staff well-fed 
-                                    with hassle-free and flavour-rich international fare. 
-                                    Take a break from the fastlane with the Mom's Chicken Soup ($8), 
-                                    and move on to their famous Rotisserie Chicken (from $14.50 for a 
-                                    Quarter Chicken with 2 Sauces and 2 Additions). 
-                                </p>
-                                <figure class="img_center"><img src="<?php echo base_url(); ?>template/uploads/product_4.png"/></figure>
                             </div>
 
 
