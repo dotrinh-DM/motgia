@@ -27,7 +27,7 @@ class Cproducts extends CI_Controller {
         $temp['title'] = 'Chi tiết sản phẩm';
         $temp['template']='vproducts/product_detail';
         $temp['data_detail'] = $this->Mproducts->getProductById($id);
-        $temp['same_product'] = $this->Mproducts->getProductByCate($cate);
+        $temp['same_product'] = $this->Mproducts->getProductByCate($id,$cate);
         $this->load->view('layout/layout',$temp);
     }
     public function upProducts() {
