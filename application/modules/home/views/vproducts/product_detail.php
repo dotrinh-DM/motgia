@@ -2,7 +2,7 @@
 <script type="text/javascript" src="<?php echo base_url(); ?>public/homejs/jquery.jqzoom-core.js"></script>
 <script type="text/javascript" src="<?php echo base_url(); ?>public/homejs/modernizr.custom.17475.js"></script>
 <script type="text/javascript" src="<?php echo base_url(); ?>public/homejs/jquery.elastislide.js"></script>
-<?php foreach ($data_detail as $value)
+<?php foreach ($data_detail as $value) $images1 = json_decode($value->images);
      ?>
     <section class="bg_shadow">
         <div class="wrap clearfix">
@@ -29,23 +29,24 @@
         <section id="primary">
             <section class="product_detail">
                 <div id="product_view">
-                    <a href="<?php echo base_url(); ?>template/uploads/29672_250008_64788.jpg" class="jqzoom" rel='gal1'  title="triumph">
-                    <img class="view" src="<?php echo base_url(); ?>template/uploads/29672_250008_64788.jpg" alt=""  title="triumph"/>
+                    <?php foreach ($images1 as $value22) ?>
+                    <a href="<?php echo base_url().$images1[0]; ?>" class="jqzoom" rel='gal1'  title="triumph">
+                    <img class="view" src="<?php echo base_url().$images1[0]; ?>" alt=""  title="triumph"/>
                 </a>
                 <div class="clear"></div>
                 <div id="sliderthumb">
                     <ul  id="carousel" class="elastislide-list">
                         <li>
-                            <a  href='javascript:void(0);' rel="{gallery: 'gal1', smallimage: './uploads/30087_255978_64112.jpg',largeimage: './uploads/30087_255978_64112.jpg'}">
-                                <img src="uploads/30087_255978_64112.jpg"/></a>
+                            <a  href='javascript:void(0);' rel="{gallery: 'gal1', smallimage: '<?php echo base_url().$images1[0]; ?>',largeimage: '<?php echo base_url().$images1[0]; ?>'}">
+                                <img src="<?php echo base_url().$images1[0]; ?>"/></a>
                         </li>
                         <li>
-                            <a  href='javascript:void(0);' rel="{gallery: 'gal1', smallimage: './uploads/29717_250549_64037.jpg',largeimage: './uploads/29717_250549_64037.jpg'}">
-                                <img src='uploads/29717_250549_64037.jpg'></a>
+                            <a  href='javascript:void(0);' rel="{gallery: 'gal1', smallimage: '<?php echo base_url().$images1[1]; ?>',largeimage: '<?php echo base_url().$images1[1]; ?>'}">
+                                <img src='<?php echo base_url().$images1[1]; ?>'></a>
                         </li>
                         <li>
-                            <a href='javascript:void(0);' rel="{gallery: 'gal1', smallimage: './uploads/29717_250549_64038.jpg',largeimage: './uploads/29717_250549_64039.jpg'}">
-                                <img src='uploads/29717_250549_64038.jpg'></a>
+                            <a href='javascript:void(0);' rel="{gallery: 'gal1', smallimage: '<?php echo base_url().$images1[2]; ?>',largeimage: '<?php echo base_url().$images1[2]; ?>'}">
+                                <img src='<?php echo base_url().$images1[2]; ?>'></a>
                         </li>
                     </ul>
                 </div>
