@@ -49,7 +49,7 @@
                 $('#tab-container').easytabs();
             });
         </script>	
-<!--        <script type="text/javascript" src="<?php echo base_url() ?>tinymce/tiny_mce.js"></script>
+        <script type="text/javascript" src="<?php echo base_url() ?>tinymce/tiny_mce.js"></script>
         <script type="text/javascript">
             tinyMCE.init({
                 // General options 
@@ -65,7 +65,7 @@
                 theme_advanced_statusbar_location: "bottom",
                 theme_advanced_resizing: true
             });
-        </script>-->
+        </script>
         <script src="<?php echo base_url(); ?>template/js/jquery.mCustomScrollbar.concat.min.js" type="text/javascript"></script>
         <script src="<?php echo base_url(); ?>template/js/scroll-jquery.js" type="text/javascript"></script>
        
