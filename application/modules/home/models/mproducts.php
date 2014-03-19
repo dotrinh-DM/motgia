@@ -74,9 +74,10 @@ class Mproducts extends CI_Model {
         $query = $this->db->get('products');
         return $query->result();
     }
-     public function getProductByCate($cate) {
-        $this->db->select("id,name,price,images,intro,hightlight,condition,productinfo,categoriesID");
+     public function getProductByCate($id,$cate) {
+        $this->db->select("id,name,price,images,categoriesID");
         $this->db->where("categoriesID", "$cate");
+        $this->db->where("id != $id");
         $query = $this->db->get('products');
         return $query->result();
     }
