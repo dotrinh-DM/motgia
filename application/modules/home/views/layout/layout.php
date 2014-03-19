@@ -52,6 +52,8 @@
         jQuery('.jqzoom').jqzoom({
             zoomType: 'standard',
             lens: true,
+            zoomWidth: 250,  
+            zoomHeight:200,  
             preloadImages: false,
             alwaysOn: false
         });

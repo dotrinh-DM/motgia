@@ -2,51 +2,55 @@
 <script type="text/javascript" src="<?php echo base_url(); ?>public/homejs/jquery.jqzoom-core.js"></script>
 <script type="text/javascript" src="<?php echo base_url(); ?>public/homejs/modernizr.custom.17475.js"></script>
 <script type="text/javascript" src="<?php echo base_url(); ?>public/homejs/jquery.elastislide.js"></script>
-<?php foreach ($data_detail as $value) $images1 = json_decode($value->images);
-     ?>
-    <section class="bg_shadow">
-        <div class="wrap clearfix">
-            <div class="title floatLeft">
-                <h6>Chi tiết sản phẩm</h6>
-                <span>Thông tin chi tiết sản phẩm và nhà cung cấp</span>
+<?php
+foreach ($data_detail as $value)
+    $images1 = json_decode($value->images);
+?>
+<section class="bg_shadow">
+    <div class="wrap clearfix">
+        <div class="title floatLeft">
+            <h6>Chi tiết sản phẩm</h6>
+            <span>Thông tin chi tiết sản phẩm và nhà cung cấp</span>
+        </div>
+        <div class="clearfix breadcrumbs floatRight">
+            <div class="fl" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                <a title="Trang nhất" href="/" itemprop="url">
+                    <span itemprop="title">Home</span>
+                </a> /
             </div>
-            <div class="clearfix breadcrumbs floatRight">
-                <div class="fl" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
-                    <a title="Trang nhất" href="/" itemprop="url">
-                        <span itemprop="title">Home</span>
-                    </a> /
-                </div>
-                <div itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb" class="fl">
-                    <a class="highlight" href="/" title="Kiến thức SEO" itemprop="url">
-                        <span itemprop="title">Product</span>
-                    </a>
-                </div>
+            <div itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb" class="fl">
+                <a class="highlight" href="/" title="Kiến thức SEO" itemprop="url">
+                    <span itemprop="title">Product</span>
+                </a>
             </div>
         </div>
-    </section>
-    <section id="content" class="wrap">
+    </div>
+</section>
+<section id="content" class="wrap">
 
-        <section id="primary">
-            <section class="product_detail">
-                <div id="product_view">
-                    <?php foreach ($images1 as $value22) ?>
-                    <a href="<?php echo base_url().$images1[0]; ?>" class="jqzoom" rel='gal1'  title="triumph">
-                    <img class="view" src="<?php echo base_url().$images1[0]; ?>" alt=""  title="triumph"/>
+    <section id="primary">
+        <section class="product_detail">
+            <div id="product_view">
+                <?php foreach ($images1 as $value22)
+                    
+                    ?>
+                <a href="<?php echo base_url() . $images1[0]; ?>" class="jqzoom" rel='gal1'  title="triumph">
+                    <img class="view" src="<?php echo base_url() . $images1[0]; ?>" alt=""  title="triumph"/>
                 </a>
                 <div class="clear"></div>
                 <div id="sliderthumb">
                     <ul  id="carousel" class="elastislide-list">
                         <li>
-                            <a  href='javascript:void(0);' rel="{gallery: 'gal1', smallimage: '<?php echo base_url().$images1[0]; ?>',largeimage: '<?php echo base_url().$images1[0]; ?>'}">
-                                <img src="<?php echo base_url().$images1[0]; ?>"/></a>
+                            <a  href='javascript:void(0);' rel="{gallery: 'gal1', smallimage: '<?php echo base_url() . $images1[0]; ?>',largeimage: '<?php echo base_url() . $images1[0]; ?>'}">
+                                <img src="<?php echo base_url() . $images1[0]; ?>"/></a>
                         </li>
                         <li>
-                            <a  href='javascript:void(0);' rel="{gallery: 'gal1', smallimage: '<?php echo base_url().$images1[1]; ?>',largeimage: '<?php echo base_url().$images1[1]; ?>'}">
-                                <img src='<?php echo base_url().$images1[1]; ?>'></a>
+                            <a  href='javascript:void(0);' rel="{gallery: 'gal1', smallimage: '<?php echo base_url() . $images1[1]; ?>',largeimage: '<?php echo base_url() . $images1[1]; ?>'}">
+                                <img src='<?php echo base_url() . $images1[1]; ?>'></a>
                         </li>
                         <li>
-                            <a href='javascript:void(0);' rel="{gallery: 'gal1', smallimage: '<?php echo base_url().$images1[2]; ?>',largeimage: '<?php echo base_url().$images1[2]; ?>'}">
-                                <img src='<?php echo base_url().$images1[2]; ?>'></a>
+                            <a href='javascript:void(0);' rel="{gallery: 'gal1', smallimage: '<?php echo base_url() . $images1[2]; ?>',largeimage: '<?php echo base_url() . $images1[2]; ?>'}">
+                                <img src='<?php echo base_url() . $images1[2]; ?>'></a>
                         </li>
                     </ul>
                 </div>
@@ -57,7 +61,7 @@
                     <h6 class="icon_longer_products">Còn hàng</h6>
                 </header>
                 <div class="subdetail">
-<?php echo $value->intro ?>
+                    <?php echo $value->intro ?>
                 </div>
 
                 <div class="price_3">
@@ -94,7 +98,7 @@
                                 <h6 class="title_detail_item">Đặc điểm nổi bật</h6>
                                 <ul>
                                     <li>
-<?php echo $value->hightlight ?> 
+                                        <?php echo $value->hightlight ?> 
                                     </li>
                                 </ul>
                             </div>
@@ -103,7 +107,7 @@
                                 <ul>
                                     <li>
 
-<?php echo $value->condition ?>
+                                        <?php echo $value->condition ?>
 
                                     </li>
                                 </ul>
@@ -112,7 +116,7 @@
                             <div class="detail_item_post">
                                 <header class="title_post_detail">Detail information</header>
                                 <p>
-<?php echo $value->productinfo ?>
+                                    <?php echo $value->productinfo ?>
                                 </p>
                             </div>
 
@@ -120,7 +124,17 @@
                         </div>
                     </div>
                     <div id="tabs1-js">
-                        <div class="fb-comments" data-href="http://example.com/comments" data-width="673px" data-numposts="5" data-colorscheme="light"></div>
+                        <div id="fb-root"></div>
+                        <script>(function(d, s, id) {
+                                var js, fjs = d.getElementsByTagName(s)[0];
+                                if (d.getElementById(id))
+                                    return;
+                                js = d.createElement(s);
+                                js.id = id;
+                                js.src = "//connect.facebook.net/vi_VN/all.js#xfbml=1";
+                                fjs.parentNode.insertBefore(js, fjs);
+                            }(document, 'script', 'facebook-jssdk'));</script>
+                        <div class="fb-comments" data-href="http://localhost:7070/motgia" data-width="600" data-numposts="10" data-colorscheme="light"></div>
 
                     </div>
                     <div id="tabs1-css">
@@ -135,7 +149,7 @@
                         <div class="detail_item">
                             <h6 class="title_detail_item">Bản đồ</h6>
                             <div class="address_maps">
-                                <img src="<?php echo base_url(); ?>template/uploads/maps.png" alt=""/>
+                                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3725.1942626576465!2d105.83886089999999!3d20.98484864999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x982365cd4337fdc8!2zVmnhu4duIMSQ4bqhaSBI4buNYyBN4bufIEjDoCBO4buZaSAtIEtob2EgQ8O0bmcgTmdo4buHIFRow7RuZyBUaW4!5e0!3m2!1svi!2s!4v1395263657004" width="275" height="300" frameborder="0" style="border:0"></iframe>
                             </div>
                         </div><!--End .detail_item -->
                         <div class="clear"></div>
@@ -181,4 +195,4 @@
         </section><!-- .End product_detail -->
 
     </section><!--End #primary-->
-<?php $this->load->view('layout/sidebar'); ?>
+    <?php $this->load->view('layout/sidebar'); ?>
