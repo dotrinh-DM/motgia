@@ -9,13 +9,15 @@ class cusers extends CI_Controller {
         parent::__construct();
         $this->load->helper(array('form', 'html', 'url'));
         $this->load->library(array('session', 'encrypt', 'email', 'my_email'));
-        $this->load->model(array('Musers', 'Mlog'));
+        $this->load->model(array('Musers', 'Mlog', 'Mproducts'));
         $this->load->database();
     }
 
     public function index() {
         $temp['info'] = $this->Mlog->log();
         $temp['title'] = 'Trang chủ';
+        $temp['data_home'] = $this->Mproducts->getAllProducts();
+        $temp['data_slide'] = $this->Mproducts->getDataSlide();
         $temp['template'] = 'home';
         $this->load->view('layout/layout', $temp);
     }
@@ -35,8 +37,8 @@ class cusers extends CI_Controller {
         $psw = $this->input->post('pass');
         $pass = $this->encrypt->encode($psw);
         $adr = $this->input->post('adr');
-        $name=$f_name.' '.$l_name;
-        
+        $name = $f_name . ' ' . $l_name;
+
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $sz_Word = $this->input->post('captcha');
             $b_Check = $this->captcha_model->b_fCheck($sz_Word);
@@ -44,9 +46,9 @@ class cusers extends CI_Controller {
             $ckmail = $this->Musers->checkMail($email);
             if ($ckmail && $b_Check && $cbx == 'ok') {
                 $this->Musers->insertUser($l_name, $f_name, $month, $birthday, $gender, $phone, $province, $email, $pass, $adr);
-                $userid=  mysql_insert_id();
-                $this->sendMail($email,$psw,$name);
-                $temp['success'] ='
+                $userid = mysql_insert_id();
+                $this->sendMail($email, $psw, $name);
+                $temp['success'] = '
                     </br><span style="margin-left:88px">Bạn đã đăng ký thành công!</span>
                     </br><span style="margin-left:88px">Vui lòng kiểm tra e-mail để kích hoạt tài khoản và sử dụng dịch vụ</span>
                     </br><span style="margin-left:88px">You has been register completed ! </span>
@@ -93,16 +95,15 @@ class cusers extends CI_Controller {
         $this->load->view('layout/layout', $temp);
     }
 
-    public function sendMail($email,$psw,$name) {
-        $key=  $this->encrypt->encode($email);
-        $link_active = base_url()."index.php/home/cusers/active/?key=".$key;
-        $message  = "Xin chào ".$name.".</br>
+    public function sendMail($email, $psw, $name) {
+        $key = $this->encrypt->encode($email);
+        $link_active = base_url() . "index.php/home/cusers/active/?key=" . urlencode($key);
+        $message = "Xin chào " . $name . ".</br>
             Bạn đã đăng ký tài khoản thành công</br>
             Vui lòng click vào link bên dưới để kích hoạt tài khoản và sử dụng dịch vụ! <br/>
             You has been register completed ! <br/>
             Please check your email address to active your account and use system !</br>
-            Link : <a href=".$link_active.">".$link_active."</a><br/>
-            password : ".$psw;
+            Link : <a href=" . $link_active . ">" . $link_active . "</a><br/> password :" . $psw;
         $mail = array(
             "to_receiver" => $email,
             "message" => $message,
@@ -113,29 +114,42 @@ class cusers extends CI_Controller {
         $this->my_email->sendmail();
     }
 
-     public function active() {
-        $email=  $this->encrypt->decode($_GET['key']);
-        $data= array(
-            'status'=>1
-        );
-        $this->db->where('email',$email);
-        $this->db->update('user', $data);
-        
+    public function active() {
+        if (isset($_GET['key'])) {
+            $email = $this->encrypt->decode($_GET['key']);
+            if ($this->checkEmail(urldecode($email)) === TRUE) {
+                $data = array(
+                    'status' => 1);
+                $this->db->where("email", "$email");
+                $this->db->update('user', $data);
+                $ck = $this->db->affected_rows();
+                $temp['template'] = 'vusers/notice';
+                if ($ck > 0) {
+                    $temp['content'] = '<h1>Tài khoản của bạn đã được đăng ký và kích hoạt thành công với email: ' . $email . '</h1>
+                <p>Xin chân thành cảm ơn</p>
+                <a href="' . base_url() . 'index.php/home/chome">Quay về trang chủ</a>';
+                    $this->load->view('layout/layout', $temp);
+                } else {
+                    $temp['content'] = '<h1>Tài khoản này đã được kích hoạt với email: ' . $email . '</h1>
+                <a href="' . base_url() . 'index.php/home/chome">Quay về trang chủ</a>';
+                    $this->load->view('layout/layout', $temp);
+                }
+            } else {
+                $temp['content'] = '<h1>Quá trình kích hoạt thất bại</h1>
+                <p>Vui lòng kiểm tra email hoặc đăng nhập để gửi lại key kích hoạt</p>
+                <a href="' . base_url() . 'index.php/home/chome">Quay về trang chủ</a>';
+                $temp['template'] = 'vusers/notice';
+                $this->load->view('layout/layout', $temp);
+            }
+        }
+    }
+    
+    public function checkEmail($email) {
+        $query = $this->db->select('email')->from('user')->where('email', $email)->get()->row_array();
+        if ($query && count($query))
+            return TRUE;
+        else
+            return FALSE;
     }
 
-//    public function vd() {
-//        $this->load->view('vdmail');
-//        if ($this->input->post('send')) {
-//            $message = "thu phat xem sao";
-//
-//            $mail = array(
-//                "to_receiver" => 'ductan_nguyen92@yahoo.com',
-//                "message" => $message,
-//            );
-//
-//            $this->load->library('my_email');
-//            $this->my_email->config($mail);
-//            $this->my_email->sendmail();
-//        }
-//    }
 }
