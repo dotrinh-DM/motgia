@@ -20,32 +20,32 @@
     });
 </script>
 
-    <script type="text/javascript">
-        jQuery(document).ready(function() {
-            $.h5Validate.addPatterns({
-                day_vn: /(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\d\d/
-            });
-            $(".form").h5Validate({
-                errorClass: "validationError",
-                validClass: "validationValid"
-            });
-            $(".form").submit(function(evt) {
-                if ($(".form_info").h5Validate("allValid") === false) {
-                    evt.preventDefault();
-                }
-                if ($(".form_pass").h5Validate("allValid") === false) {
-                    evt.preventDefault();
-                }
-                var x = document.forms["form_pass"]["new_pass"].value;
-                var y = document.forms["form_pass"]["re_new_pass"].value;
-                if (x !== y) {
-                    evt.preventDefault();
-                    document.getElementById("re_new_pass").focus();
-                    alert('nhap lai mat khau!');
-                }
-            });
+<script type="text/javascript">
+    jQuery(document).ready(function() {
+        $.h5Validate.addPatterns({
+            day_vn: /(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\d\d/
         });
-    </script>
+        $(".form").h5Validate({
+            errorClass: "validationError",
+            validClass: "validationValid"
+        });
+        $(".form").submit(function(evt) {
+            if ($(".form_info").h5Validate("allValid") === false) {
+                evt.preventDefault();
+            }
+            if ($(".form_pass").h5Validate("allValid") === false) {
+                evt.preventDefault();
+            }
+            var x = document.forms["form_pass"]["new_pass"].value;
+            var y = document.forms["form_pass"]["re_new_pass"].value;
+            if (x !== y) {
+                evt.preventDefault();
+                document.getElementById("re_new_pass").focus();
+                alert('nhap lai mat khau!');
+            }
+        });
+    });
+</script>
 <section id="content" class="wrap">
     <div id="primary">
         <div id="tab-container" class='tab-container marginBottom_15'>
@@ -66,7 +66,7 @@
                             </tr>
                             <tr>
                                 <td>Giới tính</td>
-                                <td><?php echo ($profile['gender']==0)?'Nam':'Nữ'; ?></td> 
+                                <td><?php echo ($profile['gender'] == 0) ? 'Nam' : 'Nữ'; ?></td> 
                             </tr>
                             <tr>
                                 <td>Ngày sinh</td>
@@ -105,8 +105,8 @@
                             </div>
                             <div class="radio">
                                 <label>Giới tính<span>*</span></label>
-                                <input type="radio" name="gender" id="1" <?php if($profile['gender']==0) echo 'checked'; ?> value="0"/><span>Nam</span>
-                                <input type="radio" name="gender" id="2" <?php if($profile['gender']==1) echo 'checked'; ?> value="1"/><span> Nữ</span>
+                                <input type="radio" name="gender" id="1" <?php if ($profile['gender'] == 0) echo 'checked'; ?> value="0"/><span>Nam</span>
+                                <input type="radio" name="gender" id="2" <?php if ($profile['gender'] == 1) echo 'checked'; ?> value="1"/><span> Nữ</span>
                             </div>
                             <div>
                                 <label>Điện thoại<span>*</span></label>
