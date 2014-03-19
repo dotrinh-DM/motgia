@@ -19,7 +19,7 @@ class Mproducts extends CI_Model {
         return $query->result();
     }
     public function getDataSlide() {
-        $this->db->select("id,images");
+        $this->db->select("id,images,categoriesID");
         $this->db->order_by("soldnumber", "desc");
         $this->db->limit(5);
         $query = $this->db->get("products");
