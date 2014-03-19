@@ -1,32 +1,14 @@
 <aside id="sidebar">
-    <div class="box_item">
-        <a href="#" class="img_box">
-            <img src="<?php echo base_url(); ?>/template/uploads/product_1.png" alt="000"/>
-        </a>
-        <h6><a href="#">It is a long established fact that a reader </a></h6>
-        <span class="price">$20</span>
-    </div>
-    <div class="box_item">
-        <a href="#" class="img_box">
-            <img src="<?php echo base_url(); ?>/template/uploads/product_2.png" alt="000"/>
-        </a>
-        <h6><a href="#">It is a long established fact that a reader </a></h6>
-        <span class="price">$20</span>
-    </div>
+    <?php foreach ($same_product as $giongnhau) { $imggiongnhau = json_decode($giongnhau->images); ?>
 
-    <div class="box_item">
-        <a href="#" class="img_box">
-            <img src="<?php echo base_url(); ?>/template/uploads/product_3.png" alt="000"/>
-        </a>
-        <h6><a href="#">It is a long established fact that a reader </a></h6>
-        <span class="price">$20</span>
-    </div>
 
-    <div class="box_item">
-        <a href="#" class="img_box">
-            <img src="<?php echo base_url(); ?>/template/uploads/product_4.png" alt="000"/>
-        </a>
-        <h6><a href="#">It is a long established fact that a reader </a></h6>
-        <span class="price">$20</span>
-    </div>
+        <div class="box_item">
+            <a href="<?php echo site_url("home/cproducts/showDetailProducts/$giongnhau->id/$giongnhau->categoriesID"); ?>" class="img_box">
+                <img src="<?php echo base_url().$imggiongnhau[0]; ?>" alt="000"/>
+            </a>
+            <h6><a href="<?php echo site_url("home/cproducts/showDetailProducts/$giongnhau->id/$giongnhau->categoriesID"); ?>"><?php echo $giongnhau->name ?></a></h6>
+            <span class="price"><?php echo $giongnhau->price; ?></span>
+        </div>
+
+    <?php } ?>
 </aside><!--End #sidebar-->
