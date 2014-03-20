@@ -14,20 +14,57 @@
    
    
 }
-#tabs1-js .oder_table tr td a{
+ .oder_table tr td a{
     color:#1abc9c;
 }
-#tabs1-js .oder_table tr td a:hover{
+.oder_table tr td a:hover{
     color:#16a085;
 }
-#tabs1-js .oder_table tr td a img{
+.oder_table tr td a img{
     width: 50px;
     height:50px;
 }
-#tabs1-js .oder_table tr td  ul{
+ .oder_table tr td  ul{
     list-style: none;
 }
-#tabs1-js .oder_table tr td  ul li{
+ .oder_table tr td  ul li{
     display: inline;
     padding-left: 5px;
+}
+.bg_green {
+background: #0BD318;
+padding: 4px 8px;
+border-radius: 2px;
+color: #fff;
+}
+.bg_gray {
+background: #8E8E93;
+padding: 4px 8px;
+border-radius: 2px;
+color: #fff;
+}
+.bg_red {
+background: #FF3A2D;
+padding: 4px 8px;
+border-radius: 2px;
+color: #fff;
+}
+.etabs .tab{
+    position: relative;
+}
+.etabs .tab span{
+    background: #e32958;
+position: absolute;
+top: -20px;
+right: -10px;
+display: block;
+width: 22px;
+height: 22px;
+font-size: 10px;
+color: #fff;
+font-weight: 700;
+border-radius: 50%;
+text-align: center;
+line-height: 21px;
+z-index: 10000;
 }
