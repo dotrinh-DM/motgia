@@ -23,32 +23,45 @@ class Cproducts extends CI_Controller {
         $temp['template'] = 'home';
         $this->load->view('layout/layout', $temp);
     }
-
+//     public function count1($id) {
+//         if($temp = $this->Mproducts->show_more($id)){
+//             echo 'asdasd';
+//         }else{
+//             echo 'ko';
+//         }
+//    }
     public function show_more() {
         if (isset($_POST['idl'])) {
             $id = $_POST['idl'];
-            $temp = $this->Mproducts->show_more($id);
-            foreach ($temp as $value) {
-                $img = json_decode($value->images);
-                echo "<section class='module' >";
-                echo "<div class='module_item clearfix' >";
-                echo "<a href='" . site_url("home/cproducts/showDetailProducts/$value->id/$value->categoriesID") . "' class='img_module'>";
-                echo "<img src='" . base_url() . $img[0] . "' alt='" . $value->name . "/>";
-                echo "</a>";
-                echo "<div class='reduced'>";
-                echo "<header class='title_item'>";
-                echo "<a href='" . site_url("home/cproducts/showDetailProducts/$value->id/$value->categoriesID") . "' >" . $value->name . "</a>";
-                echo "</header>";
-                echo "<p>" . substr($value->intro2, 0, strrpos($value->intro2, ' ')) . "...</p>";
-                echo "</div>"; //reduce
-                echo "<a href='" . site_url("home/cproducts/showDetailProducts/$value->id/$value->categoriesID") . "' class='btn_readmore'>Chi tiết</a>";
-                echo "<span class='price'>" . $value->price . "K</span>";
+
+            if ($temp = $this->Mproducts->show_more($id)) {
+
+                foreach ($temp as $value) {
+                    $img = json_decode($value->images);
+                    echo "<section class='module' >";
+                    echo "<div class='module_item clearfix' >";
+                    echo "<a href='" . site_url("home/cproducts/showDetailProducts/$value->id/$value->categoriesID") . "' class='img_module'>";
+                    echo "<img src='" . base_url() . $img[0] . "' alt='" . $value->name . "/>";
+                    echo "</a>";
+                    echo "<div class='reduced'>";
+                    echo "<header class='title_item'>";
+                    echo "<a href='" . site_url("home/cproducts/showDetailProducts/$value->id/$value->categoriesID") . "' >" . $value->name . "</a>";
+                    echo "</header>";
+                    echo "<p>" . substr($value->intro2, 0, strrpos($value->intro2, ' ')) . "...</p>";
+                    echo "</div>"; //reduce
+                    echo "<a href='" . site_url("home/cproducts/showDetailProducts/$value->id/$value->categoriesID") . "' class='btn_readmore'>Chi tiết</a>";
+                    echo "<span class='price'>" . $value->price . "K</span>";
+                    echo "</div>";
+                    echo "</section>";
+                }
+                echo "<div class='clear'></div><div class='text_center' id='more" . $value->id . "' >";
+                echo "<button class='btn_showmore' id='" . $value->id . "'>Xem thêm</button>";
                 echo "</div>";
-                echo "</section>";
+            }else{
+                echo "<div class='clear'></div><div class='text_center'>";
+                echo "<button class='btn_showmore' id=''>Hết Sản phẩm</button>";
+                echo "</div>";
             }
-            echo "<div class='text_center' id='more" . $value->id . "' >";
-            echo "<button class='btn_showmore' id='" . $value->id . "'>Xem thêm</button>";
-            echo "</div>";
         } else {
             echo 'ko co j';
         }
