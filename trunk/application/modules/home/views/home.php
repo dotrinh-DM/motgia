@@ -9,8 +9,37 @@
         </div>
     </div>
 </div>   
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.0/jquery.min.js"></script>
+            <script type="text/javascript">
+                $(function() {
+                    //More Button
+                    $('.btn_showmore').live("click", function()
+                    {
+                        var ID = $(this).attr("id");
+                        if (ID)
+                        {
+//                            $("#more" + ID).html('<img src="moreajax.gif" />');
+                            $.ajax({
+                                type: "POST",
+                                url: "<?php echo site_url('home/cproducts/show_more'); ?>",
+                                data: "idl=" + ID,
+                                cache: false,
+                                success: function(html) {
+                                    $("#content_index").append(html);
+                                    $("#more" + ID).remove();
+                                }
+                            });
+                        }
+                        else
+                        {
+                            $(".text_center").html('The End');
 
+                        }
+                        return false;
+                    });
+                });
 
+            </script>
 <section id="content" class="wrap_2">
     <header class="Nav_content">
         <a href="#">All (200)</a>
@@ -22,9 +51,7 @@
         <a href="#">sale (10) </a>
     </header><!--End .Nav_content-->
     <div id="content_index">
-        
            <?php foreach ($data_home as $value) { $img = json_decode($value->images); ?>
-            
             <section class="module">
                 <div class="module_item clearfix">
                     <a href="<?php echo site_url("home/cproducts/showDetailProducts/$value->id/$value->categoriesID"); ?>" class="img_module">
@@ -38,12 +65,10 @@
                     <span class="price"><?php echo $value->price ?>K</span>
                 </div><!--End .module_item-->
             </section><!--End .module-->
-        <?php } ?>
-        <div class="clear"></div>
+        <?php } ?> 
     </div>
-    <div class="clear"></div>
-    <div class="text_center">
-        <button class="btn_showmore">Xem thêm</button>
+    <div class="text_center" id="more<?php echo $value->id ?>" >
+        <button class="btn_showmore" id="<?php echo $value->id ?>">Xem thêm</button>
     </div>
 
     <script src="<?php echo base_url(); ?>public/homejs/idangerous.swiper-2.0.min.js"></script>
