@@ -15,6 +15,16 @@ class Mproducts extends CI_Model {
 
     public function getAllProducts() {
         $this->db->select("id,name,price,images,LEFT(intro,70) AS intro2,categoriesID ",FALSE);
+        $this->db->order_by('id','DESC');
+        $this->db->limit(2);
+        $query = $this->db->get("products");
+        return $query->result();
+    }
+    public function show_more($id) {
+        $this->db->select("id,name,price,images,LEFT(intro,70) AS intro2,categoriesID ",FALSE);
+        $this->db->where("id < $id");
+        $this->db->order_by('id','DESC');
+        $this->db->limit(2);
         $query = $this->db->get("products");
         return $query->result();
     }
@@ -25,7 +35,13 @@ class Mproducts extends CI_Model {
         $query = $this->db->get("products");
         return $query->result();
     }
-
+    public function getRandomProduct() {
+        $this->db->select("id,name,price,images,categoriesID");
+        $this->db->order_by("id", "desc");
+        $this->db->limit(4);
+        $query = $this->db->get("products");
+        return $query->result();
+    }
     public function insertProducts($danhmuc, $soluong, $tensanpham, $motangan, $dacdiemnb, $dieukiensd, $chitietsp, $images) {
         $create_date = strtotime('now');
         $data = array(

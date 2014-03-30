@@ -1,3 +1,20 @@
+<script type="text/javascript" src="<?php echo base_url() ?>tinymce/tiny_mce.js"></script>
+<script type="text/javascript">
+    tinyMCE.init({
+        // General options 
+        mode: "textareas", //textareas, exact 
+        theme: "advanced",
+        plugins: "pagebreak,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,inlinepopups,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template,wordcount,advlist,autosave,imagemanager",
+        // Theme options 
+        theme_advanced_buttons1: "bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,fontselect,fontsizeselect",
+        theme_advanced_buttons2: "bullist,numlist,|,outdent,indent,blockquote,|link,unlink,code,|,insertdate,inserttime,preview,|,forecolor,backcolor",
+        theme_advanced_buttons3: "|,sub,sup,|,charmap,emotions,iespell",
+        theme_advanced_toolbar_location: "top",
+        theme_advanced_toolbar_align: "left",
+        theme_advanced_statusbar_location: "bottom",
+        theme_advanced_resizing: true
+    });
+</script>
 <section class="bg_shadow">
     <div class="wrap clearfix">
         <div class="title floatLeft">
@@ -121,6 +138,18 @@
         </div>
         <?php echo form_close();?><!--End #add_product-->
     </section><!--End #primary-->
-    <?php $this->load->view('layout/sidebar'); ?>
+    <aside id="sidebar">
+            <?php foreach ($sidebar_product as $row) {
+                $imggiongnhau = json_decode($row->images); ?>
+                        <div class="box_item">
+                            <a href="<?php echo site_url("home/cproducts/showDetailProducts/$row->id/$row->categoriesID"); ?>" class="img_box">
+                                <img src="<?php echo base_url() . $imggiongnhau[0]; ?>" alt="000"/>
+                            </a>
+                            <h6><a href="<?php echo site_url("home/cproducts/showDetailProducts/$row->id/$row->categoriesID"); ?>"><?php echo $row->name ?></a></h6>
+                            <span class="price"><?php echo $row->price; ?></span>
+                        </div>
+
+            <?php } ?>
+    </aside><!--End #sidebar--> 
     <div class="clear"></div>
 </section><!--End #content-->

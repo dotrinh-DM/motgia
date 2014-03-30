@@ -64,24 +64,30 @@
 
                 <div class="floatLeft">
                     <label>Số lượng<span>*</span></label>
-                    <input type="text" name="soluong" value="<?php if (isset($_POST['soluong'])) {
-                                echo $_POST['soluong'];
-                            } ?>"/>
+                    <input type="text" name="soluong" value="<?php
+                    if (isset($_POST['soluong'])) {
+                        echo $_POST['soluong'];
+                    }
+                    ?>"/>
                 </div>
                 <div class="clear"></div>
 
                 <div>
                     <label>Tên sản phẩm<span>*</span></label>
-                    <input type="text" name="tensanpham" value="<?php if (isset($_POST['tensanpham'])) {
-                                echo $_POST['tensanpham'];
-                            } ?>"/>
+                    <input type="text" name="tensanpham" value="<?php
+                    if (isset($_POST['tensanpham'])) {
+                        echo $_POST['tensanpham'];
+                    }
+                    ?>"/>
                 </div>
-<?php echo '<b>' . form_error('tensanpham') . '</b>'; ?>
+                        <?php echo '<b>' . form_error('tensanpham') . '</b>'; ?>
                 <div>
                     <label>Mô tả ngắn<span>*</span></label>
-                    <textarea name="motangan"><?php if (isset($_POST['motangan'])) {
-    echo $_POST['motangan'];
-} ?></textarea>
+                    <textarea name="motangan"><?php
+                        if (isset($_POST['motangan'])) {
+                            echo $_POST['motangan'];
+                        }
+                        ?></textarea>
                 </div>
 <?php echo '<b>' . form_error('motangan') . '</b>'; ?>
                 <div class="photo_uploads">
@@ -109,9 +115,11 @@
                             <div id="noti-img3"></div>
                         </li>
                     </ul>
-<?php if (isset($thongbao)) {
+<?php
+if (isset($thongbao)) {
     echo '<b>' . $thongbao . '</b>';
-} ?>
+}
+?>
                 </div>
 
 
@@ -122,22 +130,28 @@
             <div id="tabs-2">
                 <div>
                     <label>Đặc điểm nổi bật<span>*</span></label>
-                    <textarea class="content_add" name="dacdiemnb" ><?php if (isset($_POST['dacdiemnb'])) {
-    echo $_POST['dacdiemnb'];
-} ?></textarea>
-<?php echo form_error('dacdiemnb'); ?>
+                    <textarea class="content_add" name="dacdiemnb" ><?php
+                        if (isset($_POST['dacdiemnb'])) {
+                            echo $_POST['dacdiemnb'];
+                        }
+                        ?></textarea>
+                        <?php echo form_error('dacdiemnb'); ?>
                 </div>
                 <div>
                     <label>Điều kiện sử dụng <span>*</span></label>
-                    <textarea class="content_add" name="dieukiensd" ><?php if (isset($_POST['dieukiensd'])) {
-    echo $_POST['dieukiensd'];
-} ?></textarea>
+                    <textarea class="content_add" name="dieukiensd" ><?php
+                        if (isset($_POST['dieukiensd'])) {
+                            echo $_POST['dieukiensd'];
+                        }
+                        ?></textarea>
                 </div>
                 <div>
                     <label>Chi tiết sản phẩm <span>*</span></label>
-                    <textarea class="content_add" name="chitietsp" ><?php if (isset($_POST['chitietsp'])) {
-    echo $_POST['chitietsp'];
-} ?></textarea>
+                    <textarea class="content_add" name="chitietsp" ><?php
+                        if (isset($_POST['chitietsp'])) {
+                            echo $_POST['chitietsp'];
+                        }
+                        ?></textarea>
                 </div>
 
             </div><!--End #tabs-2-->
@@ -146,8 +160,21 @@
         <div>
             <input type="submit" name="btnok" value="Đăng tin"/>
         </div>
-<?php echo form_close(); ?><!--End #add_product-->
+        <?php echo form_close(); ?><!--End #add_product-->
     </section><!--End #primary-->
-<?php $this->load->view('layout/sidebar'); ?>
+
+    <aside id="sidebar">
+            <?php foreach ($sidebar_product as $row) {
+                $imggiongnhau = json_decode($row->images); ?>
+                        <div class="box_item">
+                            <a href="<?php echo site_url("home/cproducts/showDetailProducts/$row->id/$row->categoriesID"); ?>" class="img_box">
+                                <img src="<?php echo base_url() . $imggiongnhau[0]; ?>" alt="000"/>
+                            </a>
+                            <h6><a href="<?php echo site_url("home/cproducts/showDetailProducts/$row->id/$row->categoriesID"); ?>"><?php echo $row->name ?></a></h6>
+                            <span class="price"><?php echo $row->price; ?></span>
+                        </div>
+
+            <?php } ?>
+    </aside><!--End #sidebar--> 
     <div class="clear"></div>
 </section><!--End #content-->

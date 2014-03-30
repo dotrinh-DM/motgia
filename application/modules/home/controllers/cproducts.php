@@ -16,24 +16,57 @@ class Cproducts extends CI_Controller {
     }
 
     public function index() {
-        $temp['info']=  $this->Mlog->log();
+        $temp['info'] = $this->Mlog->log();
         $temp['title'] = 'Trang chủ';
         $temp['data_home'] = $this->Mproducts->getAllProducts();
         $temp['data_slide'] = $this->Mproducts->getDataSlide();
         $temp['template'] = 'home';
         $this->load->view('layout/layout', $temp);
     }
-    public function showDetailProducts($id,$cate) {
-        $temp['title'] = 'Chi tiết sản phẩm';
-        $temp['template']='vproducts/product_detail';
-        $temp['data_detail'] = $this->Mproducts->getProductById($id);
-        $temp['same_product'] = $this->Mproducts->getProductByCate($id,$cate);
-        $this->load->view('layout/layout',$temp);
+
+    public function show_more() {
+        if (isset($_POST['idl'])) {
+            $id = $_POST['idl'];
+            $temp = $this->Mproducts->show_more($id);
+            foreach ($temp as $value) {
+                $img = json_decode($value->images);
+                echo "<section class='module' >";
+                echo "<div class='module_item clearfix' >";
+                echo "<a href='" . site_url("home/cproducts/showDetailProducts/$value->id/$value->categoriesID") . "' class='img_module'>";
+                echo "<img src='" . base_url() . $img[0] . "' alt='" . $value->name . "/>";
+                echo "</a>";
+                echo "<div class='reduced'>";
+                echo "<header class='title_item'>";
+                echo "<a href='" . site_url("home/cproducts/showDetailProducts/$value->id/$value->categoriesID") . "' >" . $value->name . "</a>";
+                echo "</header>";
+                echo "<p>" . substr($value->intro2, 0, strrpos($value->intro2, ' ')) . "...</p>";
+                echo "</div>"; //reduce
+                echo "<a href='" . site_url("home/cproducts/showDetailProducts/$value->id/$value->categoriesID") . "' class='btn_readmore'>Chi tiết</a>";
+                echo "<span class='price'>" . $value->price . "K</span>";
+                echo "</div>";
+                echo "</section>";
+            }
+            echo "<div class='text_center' id='more" . $value->id . "' >";
+            echo "<button class='btn_showmore' id='" . $value->id . "'>Xem thêm</button>";
+            echo "</div>";
+        } else {
+            echo 'ko co j';
+        }
     }
+
+    public function showDetailProducts($id, $cate) {
+        $temp['title'] = 'Chi tiết sản phẩm';
+        $temp['template'] = 'vproducts/product_detail';
+        $temp['data_detail'] = $this->Mproducts->getProductById($id);
+        $temp['same_product'] = $this->Mproducts->getProductByCate($id, $cate);
+        $this->load->view('layout/layout', $temp);
+    }
+
     public function upProducts() {
-        $temp['info']=  $this->Mlog->log();
+        $temp['info'] = $this->Mlog->log();
         $temp['title'] = 'Đăng sản phẩm';
         $temp['cate'] = $this->Mproducts->getAllCategories();
+        $temp['sidebar_product'] = $this->Mproducts->getRandomProduct();
         $temp['template'] = 'vproducts/upproducts';
         $this->load->view('layout/layout', $temp);
     }
@@ -91,6 +124,7 @@ class Cproducts extends CI_Controller {
 //        $temp['info']=  $this->Mproducts->log();
         $data['cate'] = $this->Mproducts->getAllCategories();
         $data['edit'] = $this->Mproducts->editProducts($id);
+        $data['sidebar_product'] = $this->Mproducts->getRandomProduct();
         $data['title'] = 'Sửa sản phẩm';
         $data['template'] = 'vproducts/editproducts';
         $this->load->view('layout/layout', $data);
@@ -100,7 +134,7 @@ class Cproducts extends CI_Controller {
         $id = $this->input->post('idhidden');
         $a = $this->Mproducts->editProducts($id);
         foreach ($a as $value)
-        $raw = json_decode($value->images);
+            $raw = json_decode($value->images);
         $img1 = $_FILES['img1']['error'];
         $img2 = $_FILES['img2']['error'];
         $img3 = $_FILES['img3']['error'];
@@ -113,20 +147,20 @@ class Cproducts extends CI_Controller {
                 $full_name = $_FILES['img' . $i]['name']; //luu ten that cua file vi du: hoaqua.jpg
                 $type = $_FILES['img' . $i]['type']; //luu loai cua anh
                 if ($full_name != '') {
-                    unlink($raw[$i-1]);
+                    unlink($raw[$i - 1]);
                     $ext = end(explode('.', $full_name)); //lay ten mo rong
                     $newname = uniqid('motgia') . '.' . $ext; //doi ten
                     move_uploaded_file($tmp, $link_tai_anh_goc . $newname); //bat dau di chuyen
                     $url[] = 'public/product_images/' . $newname;
                 } else {
-                    $url[] = $raw[$i-1];
+                    $url[] = $raw[$i - 1];
                 }
             }
             $link_img = json_encode($url);
         } else { //Muon sua ca 3 anh
             $url = array();
             for ($i = 1; $i < 4; $i++) {
-                unlink($raw[$i-1]);
+                unlink($raw[$i - 1]);
                 $link_tai_anh_goc = "./public/product_images/";
                 $tmp = $_FILES['img' . $i]['tmp_name']; //luu ten cua file vao bien tmp
                 $full_name = $_FILES['img' . $i]['name']; //luu ten that cua file vi du: hoaqua.jpg
@@ -155,6 +189,7 @@ class Cproducts extends CI_Controller {
         $data['data'] = $this->Mproducts->getProductByID($id);
         $this->load->view('vproducts/tam', $data);
     }
+
     public function exx1() {
 //        $data['table']= $this->Mproducts->getAllProducts();
 //        $data['title'] = 'vo van';
