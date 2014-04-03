@@ -205,7 +205,7 @@
             </div>
         </form>
     </section><!--End #primary-->
-    <?php $this->load->view('layout/sidebar'); ?>
+    <?php // $this->load->view('layout/sidebar'); ?>
     <script type="text/javascript">
         jQuery(document).ready(function() {
             $.h5Validate.addPatterns({

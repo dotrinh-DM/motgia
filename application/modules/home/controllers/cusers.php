@@ -75,8 +75,9 @@ class cusers extends CI_Controller {
         } //neu chua dang nhap thi quay lai trang chu
 
         $temp['info'] = $this->Mlog->log(); //hien thi nut dang nhap hoac ten nguoi dung tren header
+        $userid = $temp['info']['userID'];
+        //sua thong tin ca nhan
         if ($this->input->post('save_info')) {
-            $userid = $temp['info']['userID'];
             $lastname = $this->input->post('last_name');
             $firstname = $this->input->post('first_name');
             $month = $this->input->post('month');
@@ -89,6 +90,26 @@ class cusers extends CI_Controller {
             $addr = $this->input->post('address');
             $this->Musers->updateProfile($userid, $firstname, $lastname, $birthday, $gender, $phone, $addr, $province, $temp['info']['email']);
         }
+        //thay doi mat khau
+        
+        
+        //lay thong tin san pham va phan trang
+        $display = 2; //so ban ghi moi trang
+        $start = 0; //vi tri mac dinh khi load trang
+        $page = 1; //trang mac dinh khi load
+
+        if (isset($_GET['page']) && (int) $_GET['page'] > 0)
+            $page = $_GET['page'];
+        $record = count($this->Musers->getProductByUID($userid)); //tong so ban ghi
+        if ($record > $display)//neu ban ghi nho hon quy dinh thi khong can phan trang
+            $num_page = ceil($record / $display); //tong so trang
+        else
+            $num_page = 1;
+        $start = (isset($_GET['page']) && (int) $_GET['page'] > 0) ? ($_GET['page'] - 1) * $display : 0; //nhan bien truyen vao tu url
+        $temp['product'] = $this->Musers->getProductByUID($userid, $display, $start);
+        $temp['paging'] = array('num_page' => $num_page, 'page' => $page, 'start' => $start, 'display' => $display);
+        ////////////////////
+
         $temp['profile'] = $this->Musers->getProfile($temp['info']['userID']);
         $temp['title'] = 'Thông tin cá nhân';
         $temp['template'] = 'vusers/profile';
@@ -116,13 +137,13 @@ class cusers extends CI_Controller {
 
     public function active() {
         if (isset($_GET['key'])) {
-            $email = $this->encrypt->decode($_GET['key']);
-            if ($this->checkEmail(urldecode($email)) === TRUE) {
+            $email = $this->encrypt->decode($_GET['key']); //gia ma key nhan tu url
+            if ($this->checkEmail(urldecode($email)) === TRUE) {//neu ma trung voi email thi tien hanh
                 $data = array(
                     'status' => 1);
                 $this->db->where("email", "$email");
                 $this->db->update('user', $data);
-                $ck = $this->db->affected_rows();
+                $ck = $this->db->affected_rows(); //kiem tra co bao nhieu ban ghi nao duoc chinh sua
                 $temp['template'] = 'vusers/notice';
                 if ($ck > 0) {
                     $temp['content'] = '<h1>Tài khoản của bạn đã được đăng ký và kích hoạt thành công với email: ' . $email . '</h1>
@@ -143,13 +164,20 @@ class cusers extends CI_Controller {
             }
         }
     }
-    
+
     public function checkEmail($email) {
         $query = $this->db->select('email')->from('user')->where('email', $email)->get()->row_array();
         if ($query && count($query))
             return TRUE;
         else
             return FALSE;
+    }
+
+    public function vd($UID) {
+        $temp['title'] = 'Chi tiết sản phẩm';
+        $temp['template'] = 'vd';
+        $temp['data_detail'] = $this->Musers->getProductByUID($UID);
+        $this->load->view('layout/layout', $temp);
     }
 
 }

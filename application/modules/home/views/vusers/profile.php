@@ -50,13 +50,13 @@
     <div id="primary">
         <div id="tab-container" class='tab-container marginBottom_15'>
             <ul class='etabs'>
-                <li class='tab active' ><a href="#tabs1-html">Thông tin người dùng</a></li>
-                <li class='tab'><a href="#tabs1-js">Quản lý sản phẩm</a></li>
-                <li class='tab'><a href="#tabs1-css">Thư</a></li>
-                <li class='tab'><a href="#tabs1-monney">Nạp tiền</a></li>
+                <li class='tab active' ><a href="#profile">Thông tin người dùng</a></li>
+                <li class='tab'><a href="#products">Quản lý sản phẩm</a></li>
+                <li class='tab'><a href="#mail">Thư</a></li>
+                <li class='tab'><a href="#monney">Nạp tiền</a></li>
             </ul>
             <div class='panel-container'>
-                <div id="tabs1-html">
+                <div id="profile">
                     <div class="change">
                         <h6 class="title_detail_item">profile <span class="onclick">[ Sửa ]</span> </h6>
                         <table class="detail_profile"> 
@@ -199,65 +199,128 @@
                     </div><!--end change-->
 
 
-                </div> <!--End #tabs 1-->
+                </div> <!--End #profile-->
 
-                <div id="tabs1-js">
+                <div id="products">
                     <h6 class="title_detail_item">order</h6>
+
                     <table class="oder_table">
+
+                        <?php
+                        if (isset($product) && count($product)) {
+                            echo '
                         <tr>
                             <th>#</th>
-                            <th>Data</th>
-                            <th>Order #</th>
-                            <th>Status</th>
-                            <th>Products</th>
-                            <th>Total</th>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>12/12/2013</td>
-                            <td>1123</td>
-                            <td><span class="bg_blue">Sold</span></td>
-                            <td>It is a long established fact </td>
-                            <td>$20 </td>
+                            <th>Hình</th>
+                            <th>Ngày đăng</th>
+                            <th>Tên sản phẩm</th>
+                            <th>Ngày hết hạn</th>
+                        </tr>';
+                            foreach ($product as $value => $pro) {
+                                $img = json_decode($pro->images);
+                                ?>
+                                <tr>
+                                    <td><?php
+                                        for ($i = $paging['start']; $i < $paging['start'] + $paging['display']; $i++)
+                                            echo $i;
+                                        ?></td>
+                                    <td><a href="#"><img src="<?php echo base_url() . $img[0]; ?>" alt="<?php echo $pro->name; ?>" height="50" width="50"/></a></td>
+                                    <td>12/12/2014</td>
+                                    <td><a href="#"><?php echo $pro->name; ?></a></td>
+                                    <td><?php echo $pro->date_expiration; ?></td>
+                                    <td class="update">
+                                        <ul>
+                                            <li><a href="#">Gia hạn</a></li>
+                                            <li><a href="#">Sửa</a></li>
+                                            <li><a href="#">Xóa</a></li>
+                                        </ul>
 
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>12/12/2013</td>
-                            <td>1123</td>
-                            <td><span class="bg_blue">Sold</span></td>
-                            <td>It is a long established fact </td>
-                            <td>$20 </td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>12/12/2013</td>
-                            <td>1123</td>
-                            <td><span class="bg_yellow">Pending</span></td>
-                            <td>It is a long established fact </td>
-                            <td>$20 </td>
+                                    </td>
 
-                        </tr>
-                        <tr>
-                            <td>4</td>
-                            <td>12/12/2013</td>
-                            <td>1123</td>
-                            <td><span class="bg_blue">Sold</span></td>
-                            <td>It is a long established fact </td>
-                            <td>$20 </td>
-                        </tr>
+                                </tr>
+                                <?php
+                            }
+                        }
+                        else
+                            echo 'Không có nội dung hiển thị';
+                        ?>
+
                     </table>
                     <section class="pagination">
-                        <div class="paginationControl clearfix">
-                            <a href="#"></a>
-                            <span class="active">1</span>
-                            <a href="#">2</a>
-                            <a href="#">3</a>
-                            <a href="#"></a>
+                        <div>
+                            <?php
+                            if ($paging['num_page'] > 1 && isset($product) && count($product)) {//neu can hien thi so trang
+                                $first = 1;
+                                $last = $paging['num_page'];
+                                $prev = $paging['page'] - 1;
+                                $next = $paging['page'] + 1;
+                                $curent = ($paging['start'] / $paging['display']) + 1;
+                                if ($curent != 1) {// neu la trang dau tien thi khong co nut prev
+                                    echo '<a href="' . base_url() . 'index.php/home/cusers/profile?page=' . $first . '#products">first</a>';
+                                    echo '<a href="' . base_url() . 'index.php/home/cusers/profile?page=' . $prev . '#products">prev</a>';
+                                    if($curent>=6){
+                                    echo '<span style="background=white; ">.....</span>';
+                                    }
+                                }
+                                //hien thi so trang
+                                for ($i = 1; $i <= $paging['num_page']; $i++) {
+
+                                    if ($last > 9) {//neu tong so trang lon hon 9
+                                        $total = $last;
+                                        if ($curent <= 5) {
+                                            if ($curent != $i)
+                                                echo'<a href="' . base_url() . 'index.php/home/cusers/profile?page=' . $i . '#products">' . $i . '</a>';
+                                            else
+                                                echo'<span class="active">' . $i . '</span>';
+                                            if ($i == 9)
+                                                break;
+                                        }
+                                        elseif ($curent >= 6 && $curent <= ($total - 5)) {
+                                            if ($i >= ($curent - 4) && $i <= $curent + 4) {
+                                                if ($curent != $i)
+                                                    echo'<a href="' . base_url() . 'index.php/home/cusers/profile?page=' . $i . '#products">' . $i . '</a>';
+                                                else
+                                                    echo'<span class="active">' . $i . '</span>';
+                                                if ($i == $curent + 4)
+                                                    break;
+                                            }
+                                        }
+                                        elseif ($curent >= ($total - 4)) {
+                                            if ($i >= ($total - 8)) {
+                                                if ($curent != $i)
+                                                    echo'<a href="' . base_url() . 'index.php/home/cusers/profile?page=' . $i . '#products">' . $i . '</a>';
+                                                else
+                                                    echo'<span class="active">' . $i . '</span>';
+                                            }
+                                        }
+                                    }
+                                    else {
+                                        ////////
+                                        if ($curent != $i)
+                                            echo'<a href="' . base_url() . 'index.php/home/cusers/profile?page=' . $i . '#products">' . $i . '</a>';
+                                        else
+                                            echo'<span class="active">' . $i . '</span>';
+                                    }
+                                }
+                                if ($curent != $paging['num_page']) {// neu la trang cuoi cung thi khong co nut next
+                                    if($curent<=($total-5))
+                                    echo '<span style="background=white; ">.....</span>';
+                                    echo '<a href="' . base_url() . 'index.php/home/cusers/profile?page=' . $next . '#products">next</a>';
+                                    echo '<a href="' . base_url() . 'index.php/home/cusers/profile?page=' . $last . '#products">last</a>';
+                                }
+                            }
+                            ?>
+
+
+<!--                            <span class="active">1</span>-->
+                            <!--<a href="#">3</a>-->
+
                         </div>
-                    </section><!-- #End pagination-->
-                </div><!--End #tabs-2-->
-                <div id="tabs1-css">
+                    </section><!-- #End pagination-->    
+
+
+                </div><!--End #products-->
+                <div id="mail">
                     <h6 class="title_detail_item">Newsletters</h6>
                     <div class="content_3 clearfix">
                         <div class="col_2 detail_content_3">
@@ -464,8 +527,8 @@
                             </div>
                         </div>
                     </div>
-                </div><!--End #tabs-3-->
-                <div id="tabs1-monney">
+                </div><!--End #mail-->
+                <div id="monney">
                     <p>
                         sdfsdf nạp tiền
                     </p>
@@ -473,4 +536,3 @@
             </div>
         </div> <!--End #tabs-->
     </div><!-- End Primary -->
-    <?php $this->load->view('layout/sidebar'); ?>
