@@ -81,7 +81,30 @@ class Musers extends CI_Model {
             return TRUE;
         }
     }
-      
+        public function checkpass($pass=0){
+        $query= $this->db->select('pass')->FROM('user')->WHERE('pass',$pass)->get()->row_array();
+        if(isset($query) && count($query)){
+            return TRUE;
+        }
+        else{
+            return FALSE;
+        }
+    }
+          //lay san pham tu userID
+    public function getProductByUID($Uid,$sum=10000,$start=0) {
+        $this->db->select("id,name,images");
+        $this->db->select("DATE_FORMAT(date_up, '%d/%m/%Y') AS date_up", FALSE);
+        $this->db->select("DATE_FORMAT(date_up, '%e') AS day_up", FALSE);
+        $this->db->select("DATE_FORMAT(date_up, '%m') AS month_up", FALSE);
+        $this->db->select("DATE_FORMAT(date_up, '%Y') AS year_up", FALSE);
+        $this->db->select("DATE_FORMAT(date_expiration, '%d/%m/%Y') AS date_expiration", FALSE);
+        $this->db->select("DATE_FORMAT(date_expiration, '%e') AS day_ex", FALSE);
+        $this->db->select("DATE_FORMAT(date_expiration, '%m') AS month_ex", FALSE);
+        $this->db->select("DATE_FORMAT(date_expiration, '%Y') AS year_ex", FALSE);
+        $this->db->where("userID", "$Uid");
+        $query = $this->db->get('products',$sum,$start);
+        return $query->result();
+    }
 }
 
 ?>
