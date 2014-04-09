@@ -61,8 +61,8 @@ class Mlog extends CI_Model {
         return $querry['fullname']['firstname'].' '.$querry['fullname']['lastname'];
     }
     public function getID($email = 0) {
-        $querry['ID'] = $this->db->select('id')->WHERE('email', $email)->get('user')->row_array();
-        return $querry['ID']['id'];
+        $querry['userID'] = $this->db->select('userID')->WHERE('email', $email)->get('user')->row_array();
+        return $querry['userID']['userID'];
     }
 
 }
