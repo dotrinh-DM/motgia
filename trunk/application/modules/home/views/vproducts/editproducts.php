@@ -59,13 +59,13 @@
                         <select name="danhmuc">
                             <?php
                             foreach ($cate as $value) { ?>
-                            <option value="<?php echo $value->id ?>"><?php echo $value->name ?></option>
+                            <option value="<?php echo $value->productsID ?>"><?php echo $value->name ?></option>
                             <?php } ?>
                         </select>
                     </div>
                 </div>
 <?php foreach ($edit as $value) $images = json_decode($value->images) ?>
-                <input type="hidden" name="idhidden" value="<?php echo $value->id ?>" />
+                <input type="hidden" name="idhidden" value="<?php echo $value->productsID ?>" />
                 <div class="floatLeft">
                     <label>Số lượng<span>*</span></label>
                     <div class="select width_40">
