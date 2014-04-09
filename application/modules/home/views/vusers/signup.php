@@ -72,8 +72,17 @@
             <div class="position marginBottom_15">
                 <label>Ngày sinh<span>*</span></label>
                 <!--<input type="text" id="datePicker" required="" class="h5-day_vn"  name="birthday" placeholder="dd/mm/yyyy" title="dd/mm/yyyy"></p>-->
-                <input type="date" height="100px" required="" class="h5-day_vn"  name="birthday" placeholder="dd/mm/yyyy" title="dd/mm/yyyy"></p>
-                <span class="tooltip">Định dạng: ngày/tháng/năm</span>
+                <input type="date" id="datePicker" required="" class="h5-day_vn"  name="birthday" placeholder="dd/mm/yyyy" title="dd/mm/yyyy"
+                                       style="
+                                       height: 15px;
+                                       font: -webkit-small-control;
+                                       background: #e5e6e6;
+                                       width: 290px;
+                                       padding: 10px 8px;
+                                       color: #272727;
+                                       border: 0 none;
+                                       border-radius: 3px;
+                                       "/></p><span class="tooltip">Định dạng: ngày/tháng/năm</span>
                 <div class="clearfix"></div>
             </div>
             <div class="marginBottom_15">

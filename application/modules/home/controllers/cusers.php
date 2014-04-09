@@ -73,10 +73,11 @@ class cusers extends CI_Controller {
         if ($this->session->userdata('user') == '') {
             redirect('home/chome');
         } //neu chua dang nhap thi quay lai trang chu
-
-        $temp['info'] = $this->Mlog->log(); //hien thi nut dang nhap hoac ten nguoi dung tren header
+        $temp['info'] = $this->Mlog->log(); //hien thi ten nguoi dung tren header
         $userid = $temp['info']['userID'];
+        $temp['level'] = $this->Musers->getLevel($userid); //kiểm tra cấp độ người dùng để hiển thị nội dung tương ứng
         //sua thong tin ca nhan
+        $temp['profile'] = $this->Musers->getProfile($userid); //lấy thông tin cá nhân
         if ($this->input->post('save_info')) {
             $lastname = $this->input->post('last_name');
             $firstname = $this->input->post('first_name');
@@ -92,25 +93,36 @@ class cusers extends CI_Controller {
         }
         //thay doi mat khau
         
-        
-        //lay thong tin san pham va phan trang
+        //phan trang
         $display = 2; //so ban ghi moi trang
         $start = 0; //vi tri mac dinh khi load trang
         $page = 1; //trang mac dinh khi load
-
-        if (isset($_GET['page']) && (int) $_GET['page'] > 0)
+        if (isset($_GET['page']) && (int) $_GET['page'] > 0) {
             $page = $_GET['page'];
-        $record = count($this->Musers->getProductByUID($userid)); //tong so ban ghi
-        if ($record > $display)//neu ban ghi nho hon quy dinh thi khong can phan trang
-            $num_page = ceil($record / $display); //tong so trang
-        else
-            $num_page = 1;
-        $start = (isset($_GET['page']) && (int) $_GET['page'] > 0) ? ($_GET['page'] - 1) * $display : 0; //nhan bien truyen vao tu url
-        $temp['product'] = $this->Musers->getProductByUID($userid, $display, $start);
-        $temp['paging'] = array('num_page' => $num_page, 'page' => $page, 'start' => $start, 'display' => $display);
-        ////////////////////
+            $start = (isset($_GET['page']) && (int) $_GET['page'] > 0) ? ($_GET['page'] - 1) * $display : 0; //nhan bien truyen vao tu url
+        }
+        //lay thong tin san pham va phan trang
+        if ($temp['level']['levelID'] == 2) {
+            $record1 = count($this->Musers->getProductByUID($userid)); //tong so ban ghi
+            if ($record1 > $display)//neu ban ghi nho hon quy dinh thi khong can phan trang
+                $num_page1 = ceil($record1 / $display); //tong so trang
+            else
+                $num_page1 = 1;
 
-        $temp['profile'] = $this->Musers->getProfile($temp['info']['userID']);
+            $temp['product'] = $this->Musers->getProductByUID($userid, $display, $start);
+            $temp['paging_product'] = array('num_page' => $num_page1, 'page' => $page, 'start' => $start, 'display' => $display);
+            //ket thuc quan ly san pham
+            
+            //Quản lý đơn hàng
+            $record2 = count($this->Musers->getOrderByUID($userid)); //tong so ban ghi
+            if ($record2 > $display)//neu ban ghi nho hon quy dinh thi khong can phan trang
+                $num_page2 = ceil($record2 / $display); //tong so trang
+            else
+                $num_page2 = 1;
+            $temp['order'] = $this->Musers->getOrderByUID($userid, $display, $start);
+            $temp['paging_order'] = array('num_page' => $num_page2, 'page' => $page, 'start' => $start, 'display' => $display);
+        }
+
         $temp['title'] = 'Thông tin cá nhân';
         $temp['template'] = 'vusers/profile';
         $this->load->view('layout/layout', $temp);
