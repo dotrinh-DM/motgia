@@ -68,6 +68,7 @@ class Cproducts extends CI_Controller {
     }
 
     public function showDetailProducts($id, $cate) {
+        $temp['info']=  $this->Mlog->log();
         $temp['title'] = 'Chi tiết sản phẩm';
         $temp['template'] = 'vproducts/product_detail';
         $temp['data_detail'] = $this->Mproducts->getProductById($id);
@@ -193,6 +194,7 @@ class Cproducts extends CI_Controller {
         $dieukiensd = $this->input->post('dieukiensd');
         $chitietsp = $this->input->post('chitietsp');
         $this->Mproducts->updateProducts($id, $danhmuc, $soluong, $tensanpham, $motangan, $dacdiemnb, $dieukiensd, $chitietsp, $link_img);
+        $temp['info']=  $this->Mlog->log();
         $data['title'] = 'Sửa sản phẩm | Một giá';
         $data['template'] = 'vproducts/upproducts';
         $this->load->view('layout/layout', $data);
