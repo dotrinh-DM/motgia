@@ -216,13 +216,17 @@
                             <th>Tên sản phẩm</th>
                             <th>Ngày hết hạn</th>
                         </tr>';
+                            $i = $paging['start'];
                             foreach ($product as $value => $pro) {
                                 $img = json_decode($pro->images);
                                 ?>
                                 <tr>
                                     <td><?php
-                                        for ($i = $paging['start']; $i < $paging['start'] + $paging['display']; $i++)
+                                        for ($i; $i < $paging['start'] + $paging['display']; $i++) {
                                             echo $i;
+                                            $i = $i + 1;
+                                            break;
+                                        }
                                         ?></td>
                                     <td><a href="#"><img src="<?php echo base_url() . $img[0]; ?>" alt="<?php echo $pro->name; ?>" height="50" width="50"/></a></td>
                                     <td>12/12/2014</td>
@@ -249,64 +253,57 @@
                     <section class="pagination">
                         <div>
                             <?php
+
+                            function showpaging($curent1, $i1) {
+                                if ($curent1 != $i1)
+                                    echo'<a href="' . base_url() . 'index.php/home/cusers/profile?page=' . $i1 . '#products">' . $i1 . '</a>';
+                                else
+                                    echo'<span class="active">' . $i1 . '</span>';
+                            }
+
                             if ($paging['num_page'] > 1 && isset($product) && count($product)) {//neu can hien thi so trang
                                 $first = 1;
-                                $last = $paging['num_page'];
+                                $total = $paging['num_page'];
                                 $prev = $paging['page'] - 1;
                                 $next = $paging['page'] + 1;
                                 $curent = ($paging['start'] / $paging['display']) + 1;
                                 if ($curent != 1) {// neu la trang dau tien thi khong co nut prev
                                     echo '<a href="' . base_url() . 'index.php/home/cusers/profile?page=' . $first . '#products">first</a>';
                                     echo '<a href="' . base_url() . 'index.php/home/cusers/profile?page=' . $prev . '#products">prev</a>';
-                                    if($curent>=6){
-                                    echo '<span style="background=white; ">.....</span>';
+                                    if ($curent >= 6 && $total > 9) {
+                                        echo '<span style="background=white; ">.....</span>';
                                     }
                                 }
                                 //hien thi so trang
                                 for ($i = 1; $i <= $paging['num_page']; $i++) {
 
-                                    if ($last > 9) {//neu tong so trang lon hon 9
-                                        $total = $last;
+                                    if ($total > 9) {//neu tong so trang lon hon 9
                                         if ($curent <= 5) {
-                                            if ($curent != $i)
-                                                echo'<a href="' . base_url() . 'index.php/home/cusers/profile?page=' . $i . '#products">' . $i . '</a>';
-                                            else
-                                                echo'<span class="active">' . $i . '</span>';
+                                            showpaging($curent,$i);
                                             if ($i == 9)
                                                 break;
                                         }
                                         elseif ($curent >= 6 && $curent <= ($total - 5)) {
                                             if ($i >= ($curent - 4) && $i <= $curent + 4) {
-                                                if ($curent != $i)
-                                                    echo'<a href="' . base_url() . 'index.php/home/cusers/profile?page=' . $i . '#products">' . $i . '</a>';
-                                                else
-                                                    echo'<span class="active">' . $i . '</span>';
+                                                showpaging($curent,$i);
                                                 if ($i == $curent + 4)
                                                     break;
                                             }
                                         }
                                         elseif ($curent >= ($total - 4)) {
-                                            if ($i >= ($total - 8)) {
-                                                if ($curent != $i)
-                                                    echo'<a href="' . base_url() . 'index.php/home/cusers/profile?page=' . $i . '#products">' . $i . '</a>';
-                                                else
-                                                    echo'<span class="active">' . $i . '</span>';
-                                            }
+                                            if ($i >= ($total - 8)) 
+                                                showpaging($curent,$i);
                                         }
                                     }
                                     else {
-                                        ////////
-                                        if ($curent != $i)
-                                            echo'<a href="' . base_url() . 'index.php/home/cusers/profile?page=' . $i . '#products">' . $i . '</a>';
-                                        else
-                                            echo'<span class="active">' . $i . '</span>';
+                                        showpaging($curent,$i);
                                     }
                                 }
-                                if ($curent != $paging['num_page']) {// neu la trang cuoi cung thi khong co nut next
-                                    if($curent<=($total-5))
-                                    echo '<span style="background=white; ">.....</span>';
+                                if ($curent != $total) {// neu la trang cuoi cung thi khong co nut next
+                                    if ($curent <= ($total - 5) && $total > 9)
+                                        echo '<span style="background=white; ">.....</span>';
                                     echo '<a href="' . base_url() . 'index.php/home/cusers/profile?page=' . $next . '#products">next</a>';
-                                    echo '<a href="' . base_url() . 'index.php/home/cusers/profile?page=' . $last . '#products">last</a>';
+                                    echo '<a href="' . base_url() . 'index.php/home/cusers/profile?page=' . $total . '#products">last</a>';
                                 }
                             }
                             ?>
