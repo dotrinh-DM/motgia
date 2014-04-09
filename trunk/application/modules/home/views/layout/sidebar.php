@@ -3,10 +3,10 @@
 
 
         <div class="box_item">
-            <a href="<?php echo site_url("home/cproducts/showDetailProducts/$giongnhau->id/$giongnhau->categoriesID"); ?>" class="img_box">
+            <a href="<?php echo site_url("home/cproducts/showDetailProducts/$giongnhau->productsID/$giongnhau->categoriesID"); ?>" class="img_box">
                 <img src="<?php echo base_url().$imggiongnhau[0]; ?>" alt="000"/>
             </a>
-            <h6><a href="<?php echo site_url("home/cproducts/showDetailProducts/$giongnhau->id/$giongnhau->categoriesID"); ?>"><?php echo $giongnhau->name ?></a></h6>
+            <h6><a href="<?php echo site_url("home/cproducts/showDetailProducts/$giongnhau->productsID/$giongnhau->categoriesID"); ?>"><?php echo $giongnhau->name ?></a></h6>
             <span class="price"><?php echo $giongnhau->price; ?></span>
         </div>
 
