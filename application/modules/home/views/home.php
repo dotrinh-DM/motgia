@@ -3,7 +3,7 @@
         <div class="swiper-wrapper">
             <?php foreach ($data_slide as $slide) { $images = json_decode($slide->images); ?>
             <div class="swiper-slide" style="background-image:url(<?php echo base_url().$images[0]; ?>)">
-                <a href="<?php echo site_url("home/cproducts/showDetailProducts/$slide->id/$slide->categoriesID"); ?>"></a><!--
+                <a href="<?php echo site_url("home/cproducts/showDetailProducts/$slide->productsID/$slide->categoriesID"); ?>"></a><!--
             --></div>
             <?php }?>
         </div>
@@ -54,14 +54,14 @@
            <?php foreach ($data_home as $value) { $img = json_decode($value->images); ?>
             <section class="module">
                 <div class="module_item clearfix">
-                    <a href="<?php echo site_url("home/cproducts/showDetailProducts/$value->id/$value->categoriesID"); ?>" class="img_module">
+                    <a href="<?php echo site_url("home/cproducts/showDetailProducts/$value->productsID/$value->categoriesID"); ?>" class="img_module">
                         <img src="<?php echo base_url().$img[0]; ?>" alt="<?php echo $value->name ?>"/>
                     </a>
                     <div class="reduced">
-                        <header class="title_item"><a href="<?php echo site_url("home/cproducts/showDetailProducts/$value->id/$value->categoriesID"); ?>"><?php echo $value->name ?></a></header>
+                        <header class="title_item"><a href="<?php echo site_url("home/cproducts/showDetailProducts/$value->productsID/$value->categoriesID"); ?>"><?php echo $value->name ?></a></header>
                         <p><?php echo substr($value->intro2,0,strrpos($value->intro2, ' ')); ?>...</p>
                     </div><!--End .reduced-->
-                    <a href="<?php echo site_url("home/cproducts/showDetailProducts/$value->id/$value->categoriesID"); ?>" class="btn_readmore">Chi tiết</a>
+                    <a href="<?php echo site_url("home/cproducts/showDetailProducts/$value->productsID/$value->categoriesID"); ?>" class="btn_readmore">Chi tiết</a>
                     <span class="price"><?php echo $value->price ?>K</span>
                 </div><!--End .module_item-->
             </section><!--End .module-->
