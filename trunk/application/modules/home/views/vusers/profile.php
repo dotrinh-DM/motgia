@@ -51,11 +51,21 @@
         <div id="tab-container" class='tab-container marginBottom_15'>
             <ul class='etabs'>
                 <li class='tab active' ><a href="#profile">Thông tin người dùng</a></li>
-                <li class='tab'><a href="#products">Quản lý sản phẩm</a></li>
-                <li class='tab'><a href="#mail">Thư</a></li>
+                <li class='tab'><a href="#messages"><span>0</span>Tin nhắn</a></li>
+                <?php
+                if ($level['levelID'] == 2) {
+                    echo '<li class="tab"><a href="#products">Quản lý sản phẩm</a></li>
+                        <li class="tab"><a href="#bill"><span>' . $level["levelID"] . '</span>Quản lý đơn hàng</a></li>';
+                }
+                else
+                    echo '<li class="tab"><a href="#upgrade">Nâng cấp lên gian hàng</a></li>';
+                ?>
+                <li class='tab'><a href="#history">Lịch sử</a></li>
                 <li class='tab'><a href="#monney">Nạp tiền</a></li>
             </ul>
             <div class='panel-container'>
+
+                <!--start profile-->
                 <div id="profile">
                     <div class="change">
                         <h6 class="title_detail_item">profile <span class="onclick">[ Sửa ]</span> </h6>
@@ -86,8 +96,8 @@
                             </tr>
 
                         </table><!--End detail_profile -->
-
                         <form class="form change_open" id="form_info" method="post" name="form_info" action="">
+                            <!--<input type="number" name="quantity" min="1" max="5">-->
                             <div class="position">
                                 <label>Họ<span>*</span></label>
                                 <input type="text" required="" name="first_name" value="<?php echo $profile['firstname']; ?>"/>
@@ -98,19 +108,33 @@
                                 <input type="text" required="" name="last_name" value="<?php echo $profile['lastname']; ?>"/>
                                 <span class="tooltip">Không được để trống</span>
                             </div>
-                            <div>
+                            <div class="clearfix">
                                 <label>Ngày sinh<span>*</span></label>
-                                <p><input type="text" id="datePicker" required="" class="h5-day_vn"  name="birthday" value="<?php echo $profile['birthofday']; ?>" placeholder="dd/mm/yyyy" title="dd/mm/yyyy"></p>
+                                <input type="date" id="datePicker" required="" class="h5-day_vn"  name="birthday" value="<?php echo $profile['birthday']; ?>" placeholder="dd/mm/yyyy" title="dd/mm/yyyy"
+                                       style="
+                                       height: 15px;
+                                       font: -webkit-small-control;
+                                       background: #e5e6e6;
+                                       width: 290px;
+                                       padding: 10px 8px;
+                                       color: #272727;
+                                       border: 0 none;
+                                       border-radius: 3px;
+                                       "/></p>
                                 <span class="tooltip">Định dạng: ngày/tháng/năm</span>
                             </div>
-                            <div class="radio">
+                            <div class="clearfix"></div>
+                            <div class=" clearfix" style="
+                                 margin: 20px 0px 20px 0px;">
                                 <label>Giới tính<span>*</span></label>
-                                <input type="radio" name="gender" id="1" <?php if ($profile['gender'] == 0) echo 'checked'; ?> value="0"/><span>Nam</span>
-                                <input type="radio" name="gender" id="2" <?php if ($profile['gender'] == 1) echo 'checked'; ?> value="1"/><span> Nữ</span>
+                                <input type="radio" name="gender" id="1" <?php if ($profile['gender'] == 0) echo 'checked'; ?> value="0"/>Nam
+                                <input type="radio" name="gender" id="2" <?php if ($profile['gender'] == 1) echo 'checked'; ?> value="1"
+                                       style="margin: 10px 0px 0px 10px;"/>Nữ
                             </div>
                             <div>
                                 <label>Điện thoại<span>*</span></label>
                                 <input type="text" class="h5-phone" name="phone" required="" value="<?php echo $profile['phone']; ?>"/>
+
                                 <span class="tooltip">Phải điền số</span>
                             </div>
                             <div>
@@ -201,14 +225,80 @@
 
                 </div> <!--End #profile-->
 
+            <!--start Messages-->
+            <div id="messages">
+                <h6 class="title_detail_item">Newsletters</h6>
+                <div class="content_3 clearfix">
+                    <div class="col_2 detail_content_3">
+                        <form id="formSearch_mss" class="clearfix">
+                            <input type="text" class="txt-search" placeholder="search">
+                            <input type="button" class="btnsearch" >
+                        </form>
+                        <ul class="scroll border_left">
+                            <li class="active">
+                                <div class="listitem clearfix">
+                                    <span class="del_2">xóa</span>
+                                    <figure class="img_post">
+                                        <img src="uploads/1076505_100003738868761_2002716988_q.jpg" alt="img-hot"/>
+                                    </figure>
+                                    <div class="listitem_ct">
+                                        <span class="name_user">Vu Tuan</span>
+                                        <span class="title_post">Produc:Lorem ipsum dolor sit amet</span>
+                                    </div>
+                                    <time>12/12/2013</time>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="listitem clearfix">
+                                    <figure class="img_post">
+                                        <img src="uploads/1076505_100003738868761_2002716988_q.jpg" alt="img-hot"/>
+                                    </figure>
+                                    <div class="listitem_ct">
+                                        <span class="name_user">Vu Tuan</span>
+                                        <span class="title_post">Produc:Lorem ipsum dolor sit amet</span>
+                                    </div>
+                                    <time>12/12/2013</time>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col_2 detail_content_3">
+                        <ul class="scroll scroll_2">
+                            <li>
+                                <div class="listitem clearfix">
+                                    <a href="#" class="name_user">Vu Tuan</a>
+                                    <p>
+                                        Produc:Lorem ipsum dolor sit amet , Produc:Lorem ipsum dolor sit amet , Produc:Lorem ipsum dolor sit amet ,
+                                        Produc:Lorem ipsum dolor sit amet
+                                    </p>
+                                    <time>12/12/2013</time>
+                                </div>
+                            </li>
+                        </ul>
+                        <div class="post_content">
+                            <div>
+                                <textarea></textarea>       
+                            </div>
+                            <div>
+                                <button class="btn">Send</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div><!--End #messages-->
+
+            
+                <!--start products-->
+                <?php
+                if ($level['levelID'] == 2) {//nếu không phải nhà cung cấp thì không hiển thị nội dung quản lý sản phẩm
+                                             //và nội dung quản lý đơn hàng   
+                    echo '                   
                 <div id="products">
                     <h6 class="title_detail_item">order</h6>
 
-                    <table class="oder_table">
-
-                        <?php
-                        if (isset($product) && count($product)) {
-                            echo '
+                    <table class="oder_table">';
+                    if (isset($product) && count($product)) {
+                        echo '
                         <tr>
                             <th>#</th>
                             <th>Hình</th>
@@ -216,320 +306,245 @@
                             <th>Tên sản phẩm</th>
                             <th>Ngày hết hạn</th>
                         </tr>';
-                            $i = $paging['start'];
-                            foreach ($product as $value => $pro) {
-                                $img = json_decode($pro->images);
-                                ?>
-                                <tr>
-                                    <td><?php
-                                        for ($i; $i < $paging['start'] + $paging['display']; $i++) {
-                                            echo $i;
-                                            $i = $i + 1;
-                                            break;
-                                        }
-                                        ?></td>
-                                    <td><a href="#"><img src="<?php echo base_url() . $img[0]; ?>" alt="<?php echo $pro->name; ?>" height="50" width="50"/></a></td>
-                                    <td>12/12/2014</td>
-                                    <td><a href="#"><?php echo $pro->name; ?></a></td>
-                                    <td><?php echo $pro->date_expiration; ?></td>
-                                    <td class="update">
-                                        <ul>
-                                            <li><a href="#">Gia hạn</a></li>
-                                            <li><a href="#">Sửa</a></li>
-                                            <li><a href="#">Xóa</a></li>
-                                        </ul>
+                        $i = $paging_product['start'];
+                        foreach ($product as $value => $pro) {
+                            $img = json_decode($pro->images);
+                            ?>
+                            <tr>
+                                <td><?php
+                                    for ($i; $i < $paging_product['start'] + $paging_product['display']; $i++) {
+                                        echo $i+1;
+                                        $i = $i + 1;
+                                        break;
+                                    }
+                                    ?></td>
+                                <td><a href="#"><img src="<?php echo base_url() . $img[0]; ?>" alt="<?php echo $pro->name; ?>" height="50" width="50"/></a></td>
+                                <td>12/12/2014</td>
+                                <td><a href="#"><?php echo $pro->name; ?></a></td>
+                                <td><?php echo $pro->date_expiration; ?></td>
+                                <td class="update">
+                                    <ul>
+                                        <li><a href="#">Gia hạn</a></li>
+                                        <li><a href="#">Sửa</a></li>
+                                        <li><a href="#">Xóa</a></li>
+                                    </ul>
 
-                                    </td>
+                                </td>
 
-                                </tr>
-                                <?php
+                            </tr>
+                            <?php
+                        }
+                    }
+                    else
+                        echo 'Không có nội dung hiển thị';
+
+                    echo '</table>
+                    <section class="pagination">
+                        <div>';
+
+                    function showpaging($curent1, $i1) {
+                        if ($curent1 != $i1)
+                            echo'<a href="' . base_url() . 'index.php/home/cusers/profile?page=' . $i1 . '#products">' . $i1 . '</a>';
+                        else
+                            echo'<span class="active">' . $i1 . '</span>';
+                    }
+
+                    if ($paging_product['num_page'] > 1 && isset($product) && count($product)) {//neu can hien thi so trang
+                        $first = 1;
+                        $total = $paging_product['num_page'];
+                        $prev = $paging_product['page'] - 1;
+                        $next = $paging_product['page'] + 1;
+                        $curent = ($paging_product['start'] / $paging_product['display']) + 1;
+                        if ($curent != 1) {// neu la trang dau tien thi khong co nut prev
+                            echo '<a href="' . base_url() . 'index.php/home/cusers/profile?page=' . $first . '#products">first</a>';
+                            echo '<a href="' . base_url() . 'index.php/home/cusers/profile?page=' . $prev . '#products">prev</a>';
+                            if ($curent >= 6 && $total > 9) {
+                                echo '<span style="background=white; ">.....</span>';
                             }
                         }
-                        else
-                            echo 'Không có nội dung hiển thị';
-                        ?>
+                        //hien thi so trang
+                        for ($i = 1; $i <= $paging_product['num_page']; $i++) {
 
-                    </table>
-                    <section class="pagination">
-                        <div>
-                            <?php
-
-                            function showpaging($curent1, $i1) {
-                                if ($curent1 != $i1)
-                                    echo'<a href="' . base_url() . 'index.php/home/cusers/profile?page=' . $i1 . '#products">' . $i1 . '</a>';
-                                else
-                                    echo'<span class="active">' . $i1 . '</span>';
-                            }
-
-                            if ($paging['num_page'] > 1 && isset($product) && count($product)) {//neu can hien thi so trang
-                                $first = 1;
-                                $total = $paging['num_page'];
-                                $prev = $paging['page'] - 1;
-                                $next = $paging['page'] + 1;
-                                $curent = ($paging['start'] / $paging['display']) + 1;
-                                if ($curent != 1) {// neu la trang dau tien thi khong co nut prev
-                                    echo '<a href="' . base_url() . 'index.php/home/cusers/profile?page=' . $first . '#products">first</a>';
-                                    echo '<a href="' . base_url() . 'index.php/home/cusers/profile?page=' . $prev . '#products">prev</a>';
-                                    if ($curent >= 6 && $total > 9) {
-                                        echo '<span style="background=white; ">.....</span>';
+                            if ($total > 9) {//neu tong so trang lon hon 9
+                                if ($curent <= 5) {
+                                    showpaging($curent, $i);
+                                    if ($i == 9)
+                                        break;
+                                }
+                                elseif ($curent >= 6 && $curent <= ($total - 5)) {
+                                    if ($i >= ($curent - 4) && $i <= $curent + 4) {
+                                        showpaging($curent, $i);
+                                        if ($i == $curent + 4)
+                                            break;
                                     }
                                 }
-                                //hien thi so trang
-                                for ($i = 1; $i <= $paging['num_page']; $i++) {
-
-                                    if ($total > 9) {//neu tong so trang lon hon 9
-                                        if ($curent <= 5) {
-                                            showpaging($curent,$i);
-                                            if ($i == 9)
-                                                break;
-                                        }
-                                        elseif ($curent >= 6 && $curent <= ($total - 5)) {
-                                            if ($i >= ($curent - 4) && $i <= $curent + 4) {
-                                                showpaging($curent,$i);
-                                                if ($i == $curent + 4)
-                                                    break;
-                                            }
-                                        }
-                                        elseif ($curent >= ($total - 4)) {
-                                            if ($i >= ($total - 8)) 
-                                                showpaging($curent,$i);
-                                        }
-                                    }
-                                    else {
-                                        showpaging($curent,$i);
-                                    }
-                                }
-                                if ($curent != $total) {// neu la trang cuoi cung thi khong co nut next
-                                    if ($curent <= ($total - 5) && $total > 9)
-                                        echo '<span style="background=white; ">.....</span>';
-                                    echo '<a href="' . base_url() . 'index.php/home/cusers/profile?page=' . $next . '#products">next</a>';
-                                    echo '<a href="' . base_url() . 'index.php/home/cusers/profile?page=' . $total . '#products">last</a>';
+                                elseif ($curent >= ($total - 4)) {
+                                    if ($i >= ($total - 8))
+                                        showpaging($curent, $i);
                                 }
                             }
+                            else {
+                                showpaging($curent, $i);
+                            }
+                        }
+                        if ($curent != $total) {// neu la trang cuoi cung thi khong co nut next
+                            if ($curent <= ($total - 5) && $total > 9)
+                                echo '<span style="background=white; ">.....</span>';
+                            echo '<a href="' . base_url() . 'index.php/home/cusers/profile?page=' . $next . '#products">next</a>';
+                            echo '<a href="' . base_url() . 'index.php/home/cusers/profile?page=' . $total . '#products">last</a>';
+                        }
+                    }
+                    echo '
+                        </div>
+                    </section><!-- #End pagination-->
+                    </div><!--End #products-->';
+
+            
+            echo '
+            <!--start Bill-->
+            <div id="bill">
+                <h6 class="title_detail_item">order</h6>
+                <table class="oder_table">
+                    ';
+                    
+            if (isset($order) && count($order)) {
+                        echo '
+                        <tr>
+                        <th>#</th>
+                        <th>Ngày đặt</th>
+                        <th>Tên sản phẩm</th>
+                        <th>Người mua</th>
+                        <th>Tổng tiền</th>
+                        <th>Trạng thái</th>
+                    </tr>';
+                        $i = $paging_order['start'];
+                        foreach ($order as $value => $ord) {
                             ?>
+                            <tr>
+                                <td><?php
+                                    for ($i; $i < $paging_order['start'] + $paging_order['display']; $i++) {
+                                        echo $i+1;
+                                        $i = $i + 1;
+                                        break;
+                                    }
+                                    ?>
+                                </td>
+                                <td><?php echo $ord->date_cr; ?>/td>
+                                <td><a href="#"><?php // echo $pro->name; ?></a></td>
+                                <td><?php echo $ord->buyerID; ?></td>
+                                <td class="update">10000vnd</td>
+                                <td>
+                                    <span class="bg_gray">Đã bán</span>
+                                </td>
+                            </tr>
+                            <?php
+                        }
+                    }
+                    else
+                        echo 'Không có nội dung hiển thị';
 
+                    echo '</table>
+                    <section class="pagination">
+                        <div>';
 
-<!--                            <span class="active">1</span>-->
-                            <!--<a href="#">3</a>-->
+                    function showpaging2($curent2, $i2) {
+                        if ($curent2 != $i2)
+                            echo'<a href="' . base_url() . 'index.php/home/cusers/profile?page=' . $i2 . '#bill">' . $i2 . '</a>';
+                        else
+                            echo'<span class="active">' . $i2 . '</span>';
+                    }
 
-                        </div>
-                    </section><!-- #End pagination-->    
+                    if ($paging_order['num_page'] > 1 && isset($ord) && count($ord)) {//neu can hien thi so trang
+                        $first = 1;
+                        $total = $paging_order['num_page'];
+                        $prev = $paging_order['page'] - 1;
+                        $next = $paging_order['page'] + 1;
+                        $curent = ($paging_order['start'] / $paging_order['display']) + 1;
+                        if ($curent != 1) {// neu la trang dau tien thi khong co nut prev
+                            echo '<a href="' . base_url() . 'index.php/home/cusers/profile?page=' . $first . '#bill">first</a>';
+                            echo '<a href="' . base_url() . 'index.php/home/cusers/profile?page=' . $prev . '#bill">prev</a>';
+                            if ($curent >= 6 && $total > 9) {
+                                echo '<span style="background=white; ">.....</span>';
+                            }
+                        }
+                        //hien thi so trang
+                        for ($i = 1; $i <= $paging_order['num_page']; $i++) {
 
+                            if ($total > 9) {//neu tong so trang lon hon 9
+                                if ($curent <= 5) {
+                                    showpaging2($curent, $i);
+                                    if ($i == 9)
+                                        break;
+                                }
+                                elseif ($curent >= 6 && $curent <= ($total - 5)) {
+                                    if ($i >= ($curent - 4) && $i <= $curent + 4) {
+                                        showpaging2($curent, $i);
+                                        if ($i == $curent + 4)
+                                            break;
+                                    }
+                                }
+                                elseif ($curent >= ($total - 4)) {
+                                    if ($i >= ($total - 8))
+                                        showpaging2($curent, $i);
+                                }
+                            }
+                            else {
+                                showpaging2($curent, $i);
+                            }
+                        }
+                        if ($curent != $total) {// neu la trang cuoi cung thi khong co nut next
+                            if ($curent <= ($total - 5) && $total > 9)
+                                echo '<span style="background=white; ">.....</span>';
+                            echo '<a href="' . base_url() . 'index.php/home/cusers/profile?page=' . $next . '#bill">next</a>';
+                            echo '<a href="' . base_url() . 'index.php/home/cusers/profile?page=' . $total . '#bill">last</a>';
+                        }
+                    }
 
-                </div><!--End #products-->
-                <div id="mail">
-                    <h6 class="title_detail_item">Newsletters</h6>
-                    <div class="content_3 clearfix">
-                        <div class="col_2 detail_content_3">
-                            <form id="formSearch_mss" class="clearfix">
-                                <input type="text" class="txt-search" placeholder="search">
-                                <input type="button" class="btnsearch" >
-                            </form>
-                            <ul class="scroll border_left">
-                                <li class="active">
-                                    <div class="listitem clearfix">
-                                        <span class="del_2">xóa</span>
-                                        <figure class="img_post">
-                                            <img src="uploads/1076505_100003738868761_2002716988_q.jpg" alt="img-hot"/>
-                                        </figure>
-                                        <div class="listitem_ct">
-                                            <span class="name_user">Vu Tuan</span>
-                                            <span class="title_post">Produc:Lorem ipsum dolor sit amet</span>
-                                        </div>
-                                        <time>12/12/2013</time>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="listitem clearfix">
-                                        <span class="del_2">xóa</span>
-                                        <figure class="img_post">
-                                            <img src="uploads/1076505_100003738868761_2002716988_q.jpg" alt="img-hot"/>
-                                        </figure>
-                                        <div class="listitem_ct">
-                                            <span class="name_user">Vu Tuan</span>
-                                            <span class="title_post">Produc:Lorem ipsum dolor sit amet</span>
-                                        </div>
-                                        <time>12/12/2013</time>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="listitem clearfix">
-                                        <figure class="img_post">
-                                            <img src="uploads/1076505_100003738868761_2002716988_q.jpg" alt="img-hot"/>
-                                        </figure>
-                                        <div class="listitem_ct">
-                                            <span class="name_user">Vu Tuan</span>
-                                            <span class="title_post">Produc:Lorem ipsum dolor sit amet</span>
-                                        </div>
-                                        <time>12/12/2013</time>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="listitem clearfix">
-                                        <figure class="img_post">
-                                            <img src="uploads/1076505_100003738868761_2002716988_q.jpg" alt="img-hot"/>
-                                        </figure>
-                                        <div class="listitem_ct">
-                                            <span class="name_user">Vu Tuan</span>
-                                            <span class="title_post">Produc:Lorem ipsum dolor sit amet</span>
-                                        </div>
-                                        <time>12/12/2013</time>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="listitem clearfix">
-                                        <figure class="img_post">
-                                            <img src="uploads/1076505_100003738868761_2002716988_q.jpg" alt="img-hot"/>
-                                        </figure>
-                                        <div class="listitem_ct">
-                                            <span class="name_user">Vu Tuan</span>
-                                            <span class="title_post">Produc:Lorem ipsum dolor sit amet</span>
-                                        </div>
-                                        <time>12/12/2013</time>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="listitem clearfix">
-                                        <figure class="img_post">
-                                            <img src="uploads/1076505_100003738868761_2002716988_q.jpg" alt="img-hot"/>
-                                        </figure>
-                                        <div class="listitem_ct">
-                                            <span class="name_user">Vu Tuan</span>
-                                            <span class="title_post">Produc:Lorem ipsum dolor sit amet</span>
-                                        </div>
-                                        <time>12/12/2013</time>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="listitem clearfix">
-                                        <figure class="img_post">
-                                            <img src="uploads/1076505_100003738868761_2002716988_q.jpg" alt="img-hot"/>
-                                        </figure>
-                                        <div class="listitem_ct">
-                                            <span class="name_user">Vu Tuan</span>
-                                            <span class="title_post">Produc:Lorem ipsum dolor sit amet</span>
-                                        </div>
-                                        <time>12/12/2013</time>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="listitem clearfix">
-                                        <figure class="img_post">
-                                            <img src="uploads/1076505_100003738868761_2002716988_q.jpg" alt="img-hot"/>
-                                        </figure>
-                                        <div class="listitem_ct">
-                                            <span class="name_user">Vu Tuan</span>
-                                            <span class="title_post">Produc:Lorem ipsum dolor sit amet</span>
-                                        </div>
-                                        <time>12/12/2013</time>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="listitem clearfix">
-                                        <figure class="img_post">
-                                            <img src="uploads/1076505_100003738868761_2002716988_q.jpg" alt="img-hot"/>
-                                        </figure>
-                                        <div class="listitem_ct">
-                                            <span class="name_user">Vu Tuan</span>
-                                            <span class="title_post">Produc:Lorem ipsum dolor sit amet</span>
-                                        </div>
-                                        <time>12/12/2013</time>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="listitem clearfix">
-                                        <figure class="img_post">
-                                            <img src="uploads/1076505_100003738868761_2002716988_q.jpg" alt="img-hot"/>
-                                        </figure>
-                                        <div class="listitem_ct">
-                                            <span class="name_user">Vu Tuan</span>
-                                            <span class="title_post">Produc:Lorem ipsum dolor sit amet</span>
-                                        </div>
-                                        <time>12/12/2013</time>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="col_2 detail_content_3">
-                            <ul class="scroll scroll_2">
-                                <li>
-                                    <div class="listitem clearfix">
-                                        <span class="del_3">xóa</span>
-                                        <a href="#" class="name_user">Vu Tuan</a>
-                                        <p>
-                                            Produc:Lorem ipsum dolor sit amet , Produc:Lorem ipsum dolor sit amet , Produc:Lorem ipsum dolor sit amet ,
-                                            Produc:Lorem ipsum dolor sit amet
-                                        </p>
-                                        <time>12/12/2013</time>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="listitem clearfix">
-                                        <a href="#" class="name_user">Vu Tuan</a>
-                                        <p>
-                                            Produc:Lorem ipsum dolor sit amet , Produc:Lorem ipsum dolor sit amet , Produc:Lorem ipsum dolor sit amet ,
-                                            Produc:Lorem ipsum dolor sit amet
-                                        </p>
-                                        <time>12/12/2013</time>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="listitem clearfix">
-                                        <a href="#" class="name_user">Vu Tuan</a>
-                                        <p>
-                                            Produc:Lorem ipsum dolor sit amet , Produc:Lorem ipsum dolor sit amet , Produc:Lorem ipsum dolor sit amet ,
-                                            Produc:Lorem ipsum dolor sit amet
-                                        </p>
-                                        <time>12/12/2013</time>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="listitem clearfix">
-                                        <a href="#" class="name_user">Vu Tuan</a>
-                                        <p>
-                                            Produc:Lorem ipsum dolor sit amet , Produc:Lorem ipsum dolor sit amet , Produc:Lorem ipsum dolor sit amet ,
-                                            Produc:Lorem ipsum dolor sit amet
-                                        </p>
-                                        <time>12/12/2013</time>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="listitem clearfix">
-                                        <a href="#" class="name_user">Vu Tuan</a>
-                                        <p>
-                                            Produc:Lorem ipsum dolor sit amet , Produc:Lorem ipsum dolor sit amet , Produc:Lorem ipsum dolor sit amet ,
-                                            Produc:Lorem ipsum dolor sit amet
-                                        </p>
-                                        <time>12/12/2013</time>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="listitem clearfix">
-                                        <a href="#" class="name_user">Vu Tuan</a>
-                                        <p>
-                                            Produc:Lorem ipsum dolor sit amet , Produc:Lorem ipsum dolor sit amet , Produc:Lorem ipsum dolor sit amet ,
-                                            Produc:Lorem ipsum dolor sit amet
-                                        </p>
-                                        <time>12/12/2013</time>
-                                    </div>
-                                </li>
-                            </ul>
-                            <div class="post_content">
-                                <div>
-                                    <textarea></textarea>       
-                                </div>
-                                <div>
-                                    <button class="btn">Send</button>
-                                </div>
-                            </div>
-                        </div>
+                    echo '</div>
+                    </section><!-- #End pagination-->
+                    </div><!----End #bill-->
+                ';
+                    }?>
+            <div id="history">
+                <h6 class="title_detail_item">order</h6>
+                <table class="oder_table">
+                    <tr>
+                        <th>#</th>
+                        <th>Hình</th>
+                        <th>Ngày đặt</th>
+                        <th>Tên sản phẩm</th>
+                        <th>Tổng tiền</th>
+                        <th>Trạng thái</th>
+
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td><a href="#"><img src="uploads/product_1.png"/></a></td>
+                        <td>12/12/2014</td>
+                        <td><a href="#">Sản phẩm 1</a></td>
+                        <td>100.000VND</td>
+                        <td>
+                            <span class="bg_gray">Đã bán</span>
+                        </td>
+                    </tr>
+                </table>
+                <section class="pagination">
+                    <div class="paginationControl clearfix">
+                        <a href="#"></a>
+                        <span class="active">1</span>
+                        <a href="#">2</a>
+                        <a href="#">3</a>
+                        <a href="#"></a>
                     </div>
-                </div><!--End #mail-->
-                <div id="monney">
-                    <p>
-                        sdfsdf nạp tiền
-                    </p>
-                </div>
+                </section><!-- #End pagination-->
+            </div><!--End #history-->
+
+
+            <div id="monney">
+                <p>
+                    form nạp tiền
+                </p>
             </div>
-        </div> <!--End #tabs-->
-    </div><!-- End Primary -->
+        </div>
+    </div> <!--End #tabs-->
+</div><!-- End Primary -->
