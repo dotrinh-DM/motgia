@@ -14,30 +14,30 @@ class Mproducts extends CI_Model {
     }
 
     public function getAllProducts() {
-        $this->db->select("id,name,price,images,LEFT(intro,70) AS intro2,categoriesID ",FALSE);
+        $this->db->select("productsID,name,price,images,LEFT(intro,70) AS intro2,categoriesID ",FALSE);
         $this->db->order_by('id','DESC');
         $this->db->limit(2);
         $query = $this->db->get("products");
         return $query->result();
     }
     public function show_more($id) {
-        $this->db->select("id,name,price,images,LEFT(intro,70) AS intro2,categoriesID ",FALSE);
-        $this->db->where("id < $id");
-        $this->db->order_by('id','DESC');
+        $this->db->select("productsID,name,price,images,LEFT(intro,70) AS intro2,categoriesID ",FALSE);
+        $this->db->where("productsID < $id");
+        $this->db->order_by('productsID','DESC');
         $this->db->limit(2);
         $query = $this->db->get("products");
         return $query->result();
     }
     public function getDataSlide() {
-        $this->db->select("id,images,categoriesID");
+        $this->db->select("productsID,images,categoriesID");
         $this->db->order_by("soldnumber", "desc");
         $this->db->limit(5);
         $query = $this->db->get("products");
         return $query->result();
     }
     public function getRandomProduct() {
-        $this->db->select("id,name,price,images,categoriesID");
-        $this->db->order_by("id", "desc");
+        $this->db->select("productsID,name,price,images,categoriesID");
+        $this->db->order_by("productsID", "desc");
         $this->db->limit(4);
         $query = $this->db->get("products");
         return $query->result();
@@ -62,9 +62,9 @@ class Mproducts extends CI_Model {
     }
 
     public function editProducts($id) {
-        $this->db->select("id,name,quantity,images,intro,hightlight,condition,productinfo,categoriesID");
+        $this->db->select("productsID,name,quantity,images,intro,hightlight,condition,productinfo,categoriesID");
         $this->db->from("products");
-        $this->db->where("id", $id);
+        $this->db->where("productsID", $id);
         $query = $this->db->get();
         return $query->result();
     }
@@ -80,20 +80,20 @@ class Mproducts extends CI_Model {
             'productinfo' => $chitietsp,
             'categoriesID' => $danhmuc,
         );
-        $this->db->where("id", "$id");
+        $this->db->where("productsID", "$id");
         $this->db->update('products', $data);
     }
 
     public function getProductByID($id) {
-        $this->db->select("id,name,price,images,intro,hightlight,condition,productinfo,categoriesID");
-        $this->db->where("id", "$id");
+        $this->db->select("productsID,name,price,images,intro,hightlight,condition,productinfo,categoriesID");
+        $this->db->where("productsID", "$id");
         $query = $this->db->get('products');
         return $query->result();
     }
      public function getProductByCate($id,$cate) {
-        $this->db->select("id,name,price,images,categoriesID");
+        $this->db->select("productsID,name,price,images,categoriesID");
         $this->db->where("categoriesID", "$cate");
-        $this->db->where("id != $id");
+        $this->db->where("productsID != $id");
         $query = $this->db->get('products');
         return $query->result();
     }
