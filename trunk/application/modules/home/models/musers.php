@@ -21,7 +21,7 @@ class Musers extends CI_Model {
 //        $this->db->select("DATE_FORMAT(birthofday, '%m') AS month", FALSE);
 //        $this->db->select("DATE_FORMAT(birthofday, '%Y') AS year", FALSE);
         $this->db->from('user');
-        $this->db->where('id', $userid);
+        $this->db->where('userID', $userid);
         $query = $this->db->get();
         return $query->row_array();
     }
@@ -64,7 +64,7 @@ class Musers extends CI_Model {
                 'email' => $email,
                 'logged_in' => TRUE
             );
-        $this->db->where("id", "$userid");
+        $this->db->where("userID", "$userid");
         $this->db->update('user', $data);
         $this->session->unset_userdata('user');
         $this->session->set_userdata('user', $newdata);
@@ -92,7 +92,7 @@ class Musers extends CI_Model {
     }
           //lay san pham tu userID
     public function getProductByUID($Uid,$sum=10000,$start=0) {
-        $this->db->select("id,name,images");
+        $this->db->select("productsID,name,images");
         $this->db->select("DATE_FORMAT(date_up, '%d/%m/%Y') AS date_up", FALSE);
         $this->db->select("DATE_FORMAT(date_up, '%e') AS day_up", FALSE);
         $this->db->select("DATE_FORMAT(date_up, '%m') AS month_up", FALSE);
