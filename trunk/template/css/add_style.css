@@ -1,0 +1,415 @@
+/* 
+    Document   : add_style
+    Created on : Nov 5, 2013, 7:14:11 PM
+    Author     : LEENGUYEN
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+/******** tabs detail_products ***/
+
+.detail_item{
+    width: 46%;
+    padding:0 2%;
+    float: left;
+    line-height: 20px;
+    padding-bottom: 10px;
+}
+.line_full{
+    border:none;
+    border-bottom: 1px solid #d9dada;
+    left: 0px;
+    width: 100%;
+    bottom: 0px;
+}
+.detail_item li{
+    list-style: none;
+    position: relative;
+    padding: 0px 0px 0px 10px;
+    margin-bottom: 10px;
+}
+.detail_item li:before{
+    position: absolute;
+    content: "";
+    top: 8px; left: 0px;
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    background: #e32958;
+}
+.title_detail_item{
+    text-transform: uppercase;
+    font-size: 14px;
+    font-family: 'OpenSans-Bold';
+    padding-left: 6px;
+    position: relative;
+    margin-bottom: 10px;
+}
+.title_detail_item:before{
+    width: 3px;
+    height: 12px;
+    position: absolute;
+    content: "";
+    top: 4px;
+    left: 0px;
+    background: #1abc9c;
+}
+.detail_item li:hover a{
+    color: #e32958;
+}
+.detail_item_post{
+    margin-top: 20px;
+    font-size: 12px;
+}
+.title_post_detail{
+    text-align: center;
+    text-transform: uppercase;
+    color: #1abc9c;
+    font-family: 'OpenSans-Bold';
+    margin-bottom: 10px;
+}
+.img_center{
+    text-align: center;
+    margin-top: 20px;
+}
+.img_center img{
+    max-width: 80%;
+}
+.fb_comment img{
+    max-width: 100%;
+}
+.address_maps{
+    background: #fff;
+    padding: 4px;
+    box-shadow: 0px 0px 5px #ccc;
+    height: 147px;
+    overflow: hidden;
+}
+.address_maps img{
+    width: 100%;
+}
+.detail_item_post label{
+    width: 100px;
+}
+.detail_item_post textarea{
+    border: 0px none;
+    background: #e5e6e6;
+    box-shadow: inset 2px 2px 1px #d9dada;
+    border-radius: 3px;
+    text-align: left;
+    min-height: 150px;
+    font-family: 'OpenSans-Regular';
+    width: 305px;
+}
+.note{
+    color: #848484;
+    font-size: 12px;
+    width: 30%;
+}
+#tabs-3 form{
+    width: 406px;
+}
+.btn{
+    border-radius: 2px;
+    box-shadow: 0px 3px 0px #16A085;
+    color: #ffffff;
+    padding: 10px 26px;
+    font-size: 12px;
+    text-align: center;
+    background: #1abc9c;
+    position: relative;
+    border: 0 none;
+    cursor: pointer;
+    font-family: 'OpenSans-Bold';
+    margin-top: 20px;
+}
+.btn:hover{
+    box-shadow: 0 2px #16A085;
+    top: 1px;
+}
+.btn:active{
+    box-shadow: 0 0px #2980b9;
+    top: 3px;
+}
+.change{
+    margin-bottom: 20px;
+}
+.marginBottom_10{
+    margin-bottom: 10px;
+}
+.change_open input[type=text], input[type=password]{
+    width: 290px;
+}
+.change_open input[type=submit]{
+    width: 100px;
+}
+.change_open .select{
+    margin-right: 0px !important;
+    margin-bottom: 0px !important;
+}
+.change_open .btn{
+    margin-left: 150px;
+}
+.onclick{
+    color: #1abc9c;
+    text-transform: uppercase;
+    font-size: 12px;
+    cursor: pointer;
+}
+.detail_profile{
+    width: 50%;
+    margin-left: 60px;
+}
+.detail_profile tr td{
+    padding: 5px 0px;
+}
+.detail_profile tr td:first-child{
+    font-family: 'OpenSans-Bold';
+}
+.change_open{
+    display: none;
+}
+.oder_table{
+    width: 100%;
+}
+.oder_table tr:nth-child(even){
+    background: #ffffff;
+}
+.oder_table tr{
+    border-top: 1px solid #dddddd;
+}
+.oder_table tr:first-child{
+    border-top: 0px;
+}
+.oder_table th{
+    padding: 8px 3px;
+    text-align: left;
+}
+.oder_table tr td{
+    padding: 8px 3px;
+}
+.bg_blue{
+    background: #60b760;
+    padding: 4px 8px;
+    border-radius: 2px;
+    color: #fff;
+}
+.bg_yellow{
+    background: #e8c505;
+    padding: 4px 8px;
+    border-radius: 2px;
+    color: #fff;
+}
+/*****tabs 3 ****/
+.content_3{
+    box-shadow: 0px 0px 2px #ccc;
+    padding: 10px 0px;
+    font-size: 10px;
+    color: #272727;
+    background: #fff;
+    border-radius: 3px;
+}
+.content_3 a{
+    color: #272727;
+}
+.col_2{
+    float: left;
+}
+.detail_content_3{
+    border-left: 1px solid #ececec;
+    font-size: 12px;
+    width: 59.8%;
+}
+.detail_content_3:first-child{
+    border-left: 0px;
+    width: 40%;
+}
+
+.detail_content_3 li{
+    list-style: none;
+    padding: 7px 10px;
+    cursor: pointer;
+     border-top: 1px solid #e8e8e8;
+}
+.detail_content_3 li .listitem{
+    position: relative;
+}
+.del_2{
+    position: absolute;
+    bottom: 0px; right: 0px; 
+    text-indent: -99999px;
+    cursor: pointer;
+}
+.del_3{
+    position: absolute;
+    top: 0px; right: 0px; 
+    text-indent: -99999px;
+    cursor: pointer;
+}
+.del_2:before ,.del_3:before{
+    position: absolute;
+    content: "x";
+    top: 3px;
+    right: 4px;
+    text-indent: 0px;
+    font-size: 12px;
+    color: #adbdd7;
+    background: 
+}
+.detail_content_3 .active , .detail_content_3 li:hover{
+    background:#1abc9c;
+    color: #fff;
+}
+.detail_content_3 .active .del_2:before , .detail_content_3 li:hover .del_2:before{
+    color: #fff;
+}
+.detail_content_3 li .listitem_ct{
+    width: 129px;
+    display: inline-block;
+    color: gray;
+}
+.img_post{
+    width: 50px; height: 50px;
+    border-radius: 3px;
+    float: left;
+    margin-right: 10px;
+}
+.img_post img{
+    max-width: 100%;
+}
+.detail_content_3 li div span{
+    display: block;
+}
+.name_user{
+    color: #373737;
+    font-family: 'OpenSans-Bold';
+    margin-bottom: 2px;
+}
+.name_user2{
+    color: #7E7272;
+    font-family: 'OpenSans-Bold';
+    margin-bottom: 2px;
+}
+.italic , .detail_content_3 time{
+    font-style: normal;
+    color: #999a9a;
+}
+.detail_content_3 time{
+   float: right;
+   font-size: 10px;
+   font-style: italic;
+}
+.title_post{
+    color: gray;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+.scroll {
+    margin-top: 10px;
+    height: 500px;
+    overflow: auto;
+}
+.delete_2{
+    background: #d9dada;
+    width: 17px ; height: 17px;
+    display: block;
+    border-radius: 50%;
+    position: absolute;
+    top: 13px; right: 10px;
+    cursor: pointer;
+}
+.delete_2:hover{
+    background: #f94c6d;
+}
+.delete_2:before{
+    content: "x";
+    color: #fff;
+    font-size: 12px;
+    position: absolute;
+    top: -4px; left: 5px;
+    font-family: 'OpenSans-Bold';
+}
+.scroll_2{
+    font-size: 12px;
+    height: 300px;
+}
+.post_content{
+    padding: 10px;
+    margin-top: 30px;
+}
+.post_content .btn{
+    margin-top: 0px;
+}
+.post_content textarea , #tabs-1 textarea{
+    background: #e5e6e6;
+    box-shadow: inset 2px 2px 1px #d9dada;
+    width: 365px;
+    padding: 10px 8px;
+    margin-bottom: 15px;
+    color: #272727;
+    border: 0 none;
+    border-radius: 3px;
+    height: 139px;
+    font-family: 'OpenSans-Regular';
+}
+.ui-tabs label{
+    display: block;
+}
+.content_add {
+    font-family: 'OpenSans-Regular';
+}
+#tabs-1 textarea {
+    width: 98%;
+}
+
+#formSearch_mss{
+    width: 246px !important;
+    margin: auto !important;
+}
+#formSearch_mss .txt-search {
+    width: 179px;
+    padding: 4px 10px;
+    margin-bottom: 0px;
+    background: transparent;
+    border: 1px solid #8b8b8b;
+    color: #8b8b8b;
+    font-family: 'OpenSans-Italic';
+    float: left;
+    margin-right: 5px;
+    border-radius: 0;
+    box-shadow: none;
+}
+#formSearch_mss .btnsearch {
+    height: 28px;
+    padding: 4px 20px !important;
+    background: #1abc9c url(../images/icon-search.png)scroll center no-repeat;
+    width: 36px;
+    border: 0 none;
+    cursor: pointer;
+    float: left;
+    position: relative;
+    box-shadow: 0px 0px 0px #2980b9 !important;
+    margin-top: 0px !important;
+    border-radius: 0px;
+}
+.detail_content_3 .active .name_user , .detail_content_3 .active time, .detail_content_3 .active .title_post,
+.detail_content_3 li:hover .name_user , .detail_content_3 li:hover time, .detail_content_3 li:hover .title_post
+{
+    color: #fff;
+}
+.scroll_2 a:hover{
+    text-decoration: underline;
+}
+.scroll_2 li:hover{
+    cursor: auto;
+}
+.border_left li:hover{
+    border-top: 1px solid #2980b9;
+}
+.border_left{
+    box-shadow: inset 2px 0px 0px #ababab;
+
+}
+.border_left li:hover{
+    box-shadow: inset 2px 0px 0px #2980b9;
+}
