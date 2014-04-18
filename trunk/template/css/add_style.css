@@ -284,6 +284,11 @@
     font-family: 'OpenSans-Bold';
     margin-bottom: 2px;
 }
+.name_user2{
+    color: #7E7272;
+    font-family: 'OpenSans-Bold';
+    margin-bottom: 2px;
+}
 .italic , .detail_content_3 time{
     font-style: normal;
     color: #999a9a;
