@@ -304,6 +304,12 @@
     white-space: nowrap;
     overflow: hidden;
 }
+.title_post2{
+    color: #7641D5;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
 .scroll {
     margin-top: 10px;
     height: 500px;
