@@ -7,7 +7,7 @@
 */
 @import url('reset.css');
 @import url('home.css');
-@import url('antimetion.css');
+@import url('home.css');@import url('boostrap.css');@import url('boostrap.min.css');@import url('boostrap-theme.css');@import url('boostrap-theme.min.css');@import url('antimetion.css');
 @import url('tango/skin.css');
 @import url('slideshow.css');
 @import url('idangerous.swiper.css');
