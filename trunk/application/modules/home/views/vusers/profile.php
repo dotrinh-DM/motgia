@@ -235,19 +235,6 @@
                                 <input type="button" class="btnsearch" >
                             </form>
                             <ul class="scroll border_left">
-                                <!--                                <li class="active">
-                                                                    <div class="listitem clearfix">
-                                                                        <span class="del_2">xóa</span>
-                                                                        <figure class="img_post">
-                                                                            <img src="uploads/1076505_100003738868761_2002716988_q.jpg" alt="img-hot"/>
-                                                                        </figure>
-                                                                        <div class="listitem_ct">
-                                                                            <span class="name_user">Vu Tuan</span>
-                                                                            <span class="title_post">Produc:Lorem ipsum dolor sit amet</span>
-                                                                        </div>
-                                                                        <time>12/12/2013</time>
-                                                                    </div>
-                                                                </li>-->
                                 <?php
                                 if (count($message_info))
                                     foreach ($message_info as $key => $value) {
@@ -259,7 +246,7 @@
                                         <div class="listitem_ct">';
 
                                         echo ($value->status == 0) ? '<b><span class="name_user">' . $value->ho_nguoi_gui . $value->ten_nguoi_gui . '</span>
-                                            <span class="title_post">' . $value->title . '</span></b>' :
+                                            <span class="title_post2" style=" color: rgb(105, 71, 194);">' . $value->title . '</span></b>' :
                                            '<span class="name_user2">' . $value->ho_nguoi_gui . $value->ten_nguoi_gui . '</span>
                                             <span class="title_post">' . $value->title . '</span>';
                                         echo '
