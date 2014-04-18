@@ -51,11 +51,11 @@
         <div id="tab-container" class='tab-container marginBottom_15'>
             <ul class='etabs'>
                 <li class='tab active' ><a href="#profile">Thông tin người dùng</a></li>
-                <li class='tab'><a href="#messages"><span>0</span>Tin nhắn</a></li>
+                <li class='tab'><a href="#messages"><?php echo (isset($num_message)&& $num_message>0)? '<span>'.$num_message.'</span>' : '';?>Tin nhắn</a></li>
                 <?php
                 if ($level['levelID'] == 2) {
                     echo '<li class="tab"><a href="#products">Quản lý sản phẩm</a></li>
-                        <li class="tab"><a href="#bill"><span>' . $level["levelID"] . '</span>Quản lý đơn hàng</a></li>';
+                        <li class="tab"><a href="#bill"><span>' . $num_order . '</span>Quản lý đơn hàng</a></li>';
                 }
                 else
                     echo '<li class="tab"><a href="#upgrade">Nâng cấp lên gian hàng</a></li>';
@@ -110,7 +110,7 @@
                             </div>
                             <div class="clearfix">
                                 <label>Ngày sinh<span>*</span></label>
-                                <input type="date" id="datePicker" required="" class="h5-day_vn"  name="birthday" value="<?php echo $profile['birthday']; ?>" placeholder="dd/mm/yyyy" title="dd/mm/yyyy"
+                                <input type="date" id="datePicker" required="" class="h5-day_vn"  name="birthday" value="<?php echo $profile['birthofday']; ?>" placeholder="dd/mm/yyyy" title="dd/mm/yyyy"
                                        style="
                                        height: 15px;
                                        font: -webkit-small-control;
@@ -225,73 +225,114 @@
 
                 </div> <!--End #profile-->
 
-            <!--start Messages-->
-            <div id="messages">
-                <h6 class="title_detail_item">Newsletters</h6>
-                <div class="content_3 clearfix">
-                    <div class="col_2 detail_content_3">
-                        <form id="formSearch_mss" class="clearfix">
-                            <input type="text" class="txt-search" placeholder="search">
-                            <input type="button" class="btnsearch" >
-                        </form>
-                        <ul class="scroll border_left">
-                            <li class="active">
-                                <div class="listitem clearfix">
-                                    <span class="del_2">xóa</span>
-                                    <figure class="img_post">
-                                        <img src="uploads/1076505_100003738868761_2002716988_q.jpg" alt="img-hot"/>
-                                    </figure>
-                                    <div class="listitem_ct">
-                                        <span class="name_user">Vu Tuan</span>
-                                        <span class="title_post">Produc:Lorem ipsum dolor sit amet</span>
+                <!--start Messages-->
+                <div id="messages">
+                    <h6 class="title_detail_item">Newsletters</h6>
+                    <div class="content_3 clearfix">
+                        <div class="col_2 detail_content_3">
+                            <form id="formSearch_mss" class="clearfix">
+                                <input type="text" class="txt-search" placeholder="search">
+                                <input type="button" class="btnsearch" >
+                            </form>
+                            <ul class="scroll border_left">
+                                <!--                                <li class="active">
+                                                                    <div class="listitem clearfix">
+                                                                        <span class="del_2">xóa</span>
+                                                                        <figure class="img_post">
+                                                                            <img src="uploads/1076505_100003738868761_2002716988_q.jpg" alt="img-hot"/>
+                                                                        </figure>
+                                                                        <div class="listitem_ct">
+                                                                            <span class="name_user">Vu Tuan</span>
+                                                                            <span class="title_post">Produc:Lorem ipsum dolor sit amet</span>
+                                                                        </div>
+                                                                        <time>12/12/2013</time>
+                                                                    </div>
+                                                                </li>-->
+                                <?php
+                                if (count($message_info))
+                                    foreach ($message_info as $key => $value) {
+                                        echo '<a href="' . base_url() . 'index.php/home/cusers/profile?messageid=' . $value->messageID . '#messages"><li>
+                                    <div class="listitem clearfix">
+                                        <figure class="img_post">
+                                            <img src="uploads/1076505_100003738868761_2002716988_q.jpg" alt="img-hot"/>
+                                        </figure>
+                                        <div class="listitem_ct">';
+
+                                        echo ($value->status == 0) ? '<b><span class="name_user">' . $value->ho_nguoi_gui . $value->ten_nguoi_gui . '</span>
+                                            <span class="title_post">' . $value->title . '</span></b>' :
+                                           '<span class="name_user2">' . $value->ho_nguoi_gui . $value->ten_nguoi_gui . '</span>
+                                            <span class="title_post">' . $value->title . '</span>';
+                                        echo '
+                                        </div>
+                                        <time>' . $value->date . '</time>
                                     </div>
-                                    <time>12/12/2013</time>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="listitem clearfix">
-                                    <figure class="img_post">
-                                        <img src="uploads/1076505_100003738868761_2002716988_q.jpg" alt="img-hot"/>
-                                    </figure>
-                                    <div class="listitem_ct">
-                                        <span class="name_user">Vu Tuan</span>
-                                        <span class="title_post">Produc:Lorem ipsum dolor sit amet</span>
+                                </li></a>';
+                                    }
+                                else
+                                    echo 'khong co tin nhan hien thi';
+                                ?>
+                            </ul>
+                        </div>
+                        <div class="col_2 detail_content_3">
+                            <script type="text/javascript" src="<?php echo base_url() ?>tinymce/tiny_mce.js"></script>
+                            <script type="text/javascript">
+                                tinyMCE.init({
+                                    // General options 
+                                    mode: "textareas", //textareas, exact 
+                                    theme: "advanced",
+                                    plugins: "pagebreak,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,inlinepopups,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template,wordcount,advlist,autosave,imagemanager",
+                                    // Theme options 
+                                    theme_advanced_buttons1: "bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,fontselect,fontsizeselect",
+                                    theme_advanced_buttons2: "bullist,numlist,|,outdent,indent,blockquote,|link,unlink,code,|,insertdate,inserttime,preview,|,forecolor,backcolor",
+                                    theme_advanced_buttons3: "|,sub,sup,|,charmap,emotions,iespell",
+                                    theme_advanced_toolbar_location: "top",
+                                    theme_advanced_toolbar_align: "left",
+                                    theme_advanced_statusbar_location: "bottom",
+                                    theme_advanced_resizing: true
+                                });
+                            </script>
+
+                            <?php
+                            if (isset($message_detail) && count($message_detail))
+                                echo ' 
+                                        <ul class="scroll scroll_2">
+                                            <li>
+                                    <div class="listitem clearfix">
+                                        <a href="#" class="name_user">' . $message_detail['ho_nguoi_gui'] . $message_detail['ten_nguoi_gui'] . '</a>
+                                        <p>' . $message_detail['content'] . '</p>
+                                        <time>' . $message_detail['datetime'] . '</time>
                                     </div>
-                                    <time>12/12/2013</time>
+                                </li>
+                                        
+                            </ul>
+
+                            <form method="post" name="message" action="">
+                                <div class="post_content">
+                                    <div>
+                                        <span>Tiêu đề:</span></br>
+                                        <input type="text" name="title_message" value="Reply: ' . $message_detail['title'] . '"/>
+                                    </div>
+                                    <div>
+                                        <span>Nội dung:</span>
+                                        <textarea class="content_add" name="content_message"></textarea>       
+                                    </div>
+                                    <div>
+                                        <input type="submit" class="btn" name="send_message" value="Send"/>
+                                    </div>
                                 </div>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="col_2 detail_content_3">
-                        <ul class="scroll scroll_2">
-                            <li>
-                                <div class="listitem clearfix">
-                                    <a href="#" class="name_user">Vu Tuan</a>
-                                    <p>
-                                        Produc:Lorem ipsum dolor sit amet , Produc:Lorem ipsum dolor sit amet , Produc:Lorem ipsum dolor sit amet ,
-                                        Produc:Lorem ipsum dolor sit amet
-                                    </p>
-                                    <time>12/12/2013</time>
-                                </div>
-                            </li>
-                        </ul>
-                        <div class="post_content">
-                            <div>
-                                <textarea></textarea>       
-                            </div>
-                            <div>
-                                <button class="btn">Send</button>
-                            </div>
+                            </form>
+                        
+                        ';
+                            ?>
                         </div>
                     </div>
-                </div>
-            </div><!--End #messages-->
+                </div><!--End #messages-->
 
-            
+
                 <!--start products-->
                 <?php
                 if ($level['levelID'] == 2) {//nếu không phải nhà cung cấp thì không hiển thị nội dung quản lý sản phẩm
-                                             //và nội dung quản lý đơn hàng   
+                    //và nội dung quản lý đơn hàng   
                     echo '                   
                 <div id="products">
                     <h6 class="title_detail_item">order</h6>
@@ -313,7 +354,7 @@
                             <tr>
                                 <td><?php
                                     for ($i; $i < $paging_product['start'] + $paging_product['display']; $i++) {
-                                        echo $i+1;
+                                        echo $i + 1;
                                         $i = $i + 1;
                                         break;
                                     }
@@ -399,15 +440,15 @@
                     </section><!-- #End pagination-->
                     </div><!--End #products-->';
 
-            
-            echo '
+
+                    echo '
             <!--start Bill-->
             <div id="bill">
                 <h6 class="title_detail_item">order</h6>
                 <table class="oder_table">
                     ';
-                    
-            if (isset($order) && count($order)) {
+
+                    if (isset($order) && count($order)) {
                         echo '
                         <tr>
                         <th>#</th>
@@ -423,14 +464,14 @@
                             <tr>
                                 <td><?php
                                     for ($i; $i < $paging_order['start'] + $paging_order['display']; $i++) {
-                                        echo $i+1;
+                                        echo $i + 1;
                                         $i = $i + 1;
                                         break;
                                     }
                                     ?>
                                 </td>
-                                <td><?php echo $ord->date_cr; ?>/td>
-                                <td><a href="#"><?php // echo $pro->name; ?></a></td>
+                                <td><?php echo $ord->date_cr; ?></td>
+                                <td><a href="#"><?php // echo $pro->name;           ?></a></td>
                                 <td><?php echo $ord->buyerID; ?></td>
                                 <td class="update">10000vnd</td>
                                 <td>
@@ -504,47 +545,48 @@
                     </section><!-- #End pagination-->
                     </div><!----End #bill-->
                 ';
-                    }?>
-            <div id="history">
-                <h6 class="title_detail_item">order</h6>
-                <table class="oder_table">
-                    <tr>
-                        <th>#</th>
-                        <th>Hình</th>
-                        <th>Ngày đặt</th>
-                        <th>Tên sản phẩm</th>
-                        <th>Tổng tiền</th>
-                        <th>Trạng thái</th>
+                }
+                ?>
+                <div id="history">
+                    <h6 class="title_detail_item">order</h6>
+                    <table class="oder_table">
+                        <tr>
+                            <th>#</th>
+                            <th>Hình</th>
+                            <th>Ngày đặt</th>
+                            <th>Tên sản phẩm</th>
+                            <th>Tổng tiền</th>
+                            <th>Trạng thái</th>
 
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td><a href="#"><img src="uploads/product_1.png"/></a></td>
-                        <td>12/12/2014</td>
-                        <td><a href="#">Sản phẩm 1</a></td>
-                        <td>100.000VND</td>
-                        <td>
-                            <span class="bg_gray">Đã bán</span>
-                        </td>
-                    </tr>
-                </table>
-                <section class="pagination">
-                    <div class="paginationControl clearfix">
-                        <a href="#"></a>
-                        <span class="active">1</span>
-                        <a href="#">2</a>
-                        <a href="#">3</a>
-                        <a href="#"></a>
-                    </div>
-                </section><!-- #End pagination-->
-            </div><!--End #history-->
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td><a href="#"><img src="uploads/product_1.png"/></a></td>
+                            <td>12/12/2014</td>
+                            <td><a href="#">Sản phẩm 1</a></td>
+                            <td>100.000VND</td>
+                            <td>
+                                <span class="bg_gray">Đã bán</span>
+                            </td>
+                        </tr>
+                    </table>
+                    <section class="pagination">
+                        <div class="paginationControl clearfix">
+                            <a href="#"></a>
+                            <span class="active">1</span>
+                            <a href="#">2</a>
+                            <a href="#">3</a>
+                            <a href="#"></a>
+                        </div>
+                    </section><!-- #End pagination-->
+                </div><!--End #history-->
 
 
-            <div id="monney">
-                <p>
-                    form nạp tiền
-                </p>
+                <div id="monney">
+                    <p>
+                        form nạp tiền
+                    </p>
+                </div>
             </div>
-        </div>
-    </div> <!--End #tabs-->
-</div><!-- End Primary -->
+        </div> <!--End #tabs-->
+    </div><!-- End Primary -->

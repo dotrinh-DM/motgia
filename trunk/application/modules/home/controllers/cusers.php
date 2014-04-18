@@ -14,7 +14,13 @@ class cusers extends CI_Controller {
     }
 
     public function index() {
+
         $temp['info'] = $this->Mlog->log();
+        if (count($temp['info'])) {
+            $userid = $temp['info']['userID'];
+            $temp['num_order'] = $this->Musers->getNumOrderStatus($userid);
+            $temp['num_message'] = $this->Musers->getNumMessageUnread($userid);
+        }
         $temp['title'] = 'Trang chủ';
         $temp['data_home'] = $this->Mproducts->getAllProducts();
         $temp['data_slide'] = $this->Mproducts->getDataSlide();
@@ -22,7 +28,29 @@ class cusers extends CI_Controller {
         $this->load->view('layout/layout', $temp);
     }
 
+    public function message() {
+        if ($this->session->userdata('user') == '') {
+            redirect('home/chome');
+        }
+        $temp['info'] = $this->Mlog->log();
+        $sender = $temp['info']['userID'];
+        $temp['num_order'] = $this->Musers->getNumOrderStatus($sender);
+        $temp['title'] = 'Trang chủ';
+        $temp['template'] = 'vusers/message';
+        $this->load->view('layout/layout', $temp);
+
+        $receiver = $this->input->post('receiver_message');
+        $title = $this->input->post('title_message');
+        $content = $this->input->post('content_message');
+        if ($this->input->post('send_message')) {
+            echo 'sdfsdf';
+            $ck = $this->Musers->sendMessage($receiver, $sender, $title, $content);
+            echo ($ck = TRUE) ? 'thanh cong' : 'that bai!';
+        }
+    }
+
     public function signup() {
+
         $this->load->helper(array('captcha'));
         $this->load->model('captcha_model');
         $cap = $this->captcha_model->createCaptcha();
@@ -46,7 +74,7 @@ class cusers extends CI_Controller {
             $ckmail = $this->Musers->checkMail($email);
             if ($ckmail && $b_Check && $cbx == 'ok') {
                 $this->Musers->insertUser($l_name, $f_name, $month, $birthday, $gender, $phone, $province, $email, $pass, $adr);
-                $userid = mysql_insert_id();
+
                 $this->sendMail($email, $psw, $name);
                 $temp['success'] = '
                     </br><span style="margin-left:88px">Bạn đã đăng ký thành công!</span>
@@ -92,7 +120,6 @@ class cusers extends CI_Controller {
             $this->Musers->updateProfile($userid, $firstname, $lastname, $birthday, $gender, $phone, $addr, $province, $temp['info']['email']);
         }
         //thay doi mat khau
-        
         //phan trang
         $display = 2; //so ban ghi moi trang
         $start = 0; //vi tri mac dinh khi load trang
@@ -112,17 +139,34 @@ class cusers extends CI_Controller {
             $temp['product'] = $this->Musers->getProductByUID($userid, $display, $start);
             $temp['paging_product'] = array('num_page' => $num_page1, 'page' => $page, 'start' => $start, 'display' => $display);
             //ket thuc quan ly san pham
-            
             //Quản lý đơn hàng
             $record2 = count($this->Musers->getOrderByUID($userid)); //tong so ban ghi
             if ($record2 > $display)//neu ban ghi nho hon quy dinh thi khong can phan trang
                 $num_page2 = ceil($record2 / $display); //tong so trang
             else
                 $num_page2 = 1;
+            $temp['num_order'] = $this->Musers->getNumOrderStatus($userid, 1000, 0);//Lấy số hóa đơn chưa xử lý
             $temp['order'] = $this->Musers->getOrderByUID($userid, $display, $start);
             $temp['paging_order'] = array('num_page' => $num_page2, 'page' => $page, 'start' => $start, 'display' => $display);
         }
 
+        //quan ly tin nhan
+        $temp['num_message'] = $this->Musers->getNumMessageUnread($userid);//Lấy số tin nhắn mới nhận chưa đọc
+        $temp['message_info'] = $this->Musers->getMessageByUID($userid);
+        if (isset($_GET['messageid'])) {
+            $msID = $_GET['messageid'];
+            $temp['message_detail'] = $this->Musers->getMessageByID($msID);
+            $title = $this->input->post('title_message');
+            $content = $this->input->post('content_message');
+            if ($this->input->post('send_message')) {
+                echo 'sdfsdf';
+                $ck = $this->Musers->sendMessage($temp['message_detail']['senderID'], $userid, $title, $content);
+//            echo ($ck= TRUE)? 'thanh cong': 'that bai!';
+                redirect('home/cusers/profile#messages');
+            }
+            $this->Musers->changeMessageStatus($msID);//Chuyển trạng thái tin nhắn từ chưa đọc sang đã đọc
+        }
+        
         $temp['title'] = 'Thông tin cá nhân';
         $temp['template'] = 'vusers/profile';
         $this->load->view('layout/layout', $temp);
@@ -150,7 +194,7 @@ class cusers extends CI_Controller {
     public function active() {
         if (isset($_GET['key'])) {
             $email = $this->encrypt->decode($_GET['key']); //gia ma key nhan tu url
-            if ($this->checkEmail(urldecode($email)) === TRUE) {//neu ma trung voi email thi tien hanh
+            if ($this->Musers->checkMail($email) === FALSE) {//neu ma trung voi email thi tien hanh
                 $data = array(
                     'status' => 1);
                 $this->db->where("email", "$email");
@@ -177,19 +221,11 @@ class cusers extends CI_Controller {
         }
     }
 
-    public function checkEmail($email) {
-        $query = $this->db->select('email')->from('user')->where('email', $email)->get()->row_array();
-        if ($query && count($query))
-            return TRUE;
-        else
-            return FALSE;
-    }
-
-    public function vd($UID) {
+    public function vd() {
         $temp['title'] = 'Chi tiết sản phẩm';
-        $temp['template'] = 'vd';
-        $temp['data_detail'] = $this->Musers->getProductByUID($UID);
-        $this->load->view('layout/layout', $temp);
+        $show = $this->Musers->getNumOrderStatus();
+        echo $show;
+        $this->load->view('vd');
     }
 
 }

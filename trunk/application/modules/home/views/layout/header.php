@@ -20,8 +20,54 @@
                         <div class="detail_user">
                             <ul>
                                 <li><h6 class="welcome">Xin chào '.$info['fullname'].' !</h6></li>
-                                <li><a href="#">Đăng tin</a></li>
+                                <li><a href="'.base_url().'index.php/home/cproducts/upproducts">Đăng tin</a></li>
                                 <li><a href="'.base_url().'index.php/home/cusers/profile">Trang cá nhân</a></li>
+                                <li><a href="'.base_url().'index.php/home/cusers/profile#bill">Đơn đặt hàng
+                                ';
+                                //hien thi so hoa don chua xu ly
+                                echo (isset($num_order) && $num_order>0)
+                                ? '<span
+                                style="
+                                background: #E32958;
+                                position: absolute;
+                                top: 10px;
+                                right: 5px;
+                                display: block;
+                                width: 20px;
+                                height: 18px;
+                                font-size: 10px;
+                                color: white;
+                                font-weight: 700;
+                                border-radius: 50%;
+                                text-align: center;
+                                line-height: 16px;
+                                z-index: 10000;
+                                "    
+                                >' .$num_order .'</span>'
+                                :'';
+                                echo '
+                                </a></li>    
+                                <li><a href="'.base_url().'index.php/home/cusers/profile#messages">Tin nhắn';
+                                //hien thi so tin nhan moi nhan chua doc
+                                echo (isset($num_message) && $num_message>0)? '<span
+                                style="
+                                background: #E32958;
+                                position: absolute;
+                                top: 10px;
+                                right: 5px;
+                                display: block;
+                                width: 20px;
+                                height: 18px;
+                                font-size: 10px;
+                                color: white;
+                                font-weight: 700;
+                                border-radius: 50%;
+                                text-align: center;
+                                line-height: 16px;
+                                z-index: 10000;
+                                "    
+                                >'.$num_message.'</span>' :'';
+                                echo '</a></li>
                                 <li><a href="'.base_url().'index.php/home/chome/logout">Đăng xuất</a></li>
                             </ul>
                         </div>
@@ -30,7 +76,7 @@
                         else {
                             echo '
 
-                        <li><a href="#">Đăng tin</a></li>
+                        <li><a href="'.base_url().'index.php/home/cproducts/upproducts">Đăng tin</a></li>
                         <li><a href="#">Đăng nhập</a>';
                         $this->load->view('vusers/login');
                             echo '
