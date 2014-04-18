@@ -72,7 +72,7 @@
             <div class="position marginBottom_15">
                 <label>Ngày sinh<span>*</span></label>
                 <!--<input type="text" id="datePicker" required="" class="h5-day_vn"  name="birthday" placeholder="dd/mm/yyyy" title="dd/mm/yyyy"></p>-->
-                <input type="date" id="datePicker" required="" class="h5-day_vn"  name="birthday" placeholder="dd/mm/yyyy" title="dd/mm/yyyy"
+                <input type="date" required="" class="h5-day_vn"  name="birthday" placeholder="dd/mm/yyyy" title="dd/mm/yyyy"
                                        style="
                                        height: 15px;
                                        font: -webkit-small-control;

@@ -1,74 +1,73 @@
 <div id="bg-slideshow">
     <div class="swiper-container">
         <div class="swiper-wrapper">
-            <?php foreach ($data_slide as $slide) { $images = json_decode($slide->images); ?>
-            <div class="swiper-slide" style="background-image:url(<?php echo base_url().$images[0]; ?>)">
-                <a href="<?php echo site_url("home/cproducts/showDetailProducts/$slide->productsID/$slide->categoriesID"); ?>"></a><!--
-            --></div>
-            <?php }?>
+            <?php foreach ($data_slide as $slide) {
+                $images = json_decode($slide->images); ?>
+                <div class="swiper-slide" style="background-image:url(<?php echo base_url() . $images[0]; ?>)">
+                    <a href="<?php echo site_url("home/cproducts/showDetailProducts/$slide->productsID/$slide->categoriesID"); ?>"></a><!--
+                    --></div>
+<?php } ?>
         </div>
     </div>
 </div>   
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.0/jquery.min.js"></script>
-            <script type="text/javascript">
-                $(function() {
-                    //More Button
-                    $('.btn_showmore').live("click", function()
-                    {
-                        var ID = $(this).attr("id");
-                        if (ID)
-                        {
+
+<script type="text/javascript">
+    $(function() {
+        //More Button
+        $('.btn_showmore').live("click", function()
+        {
+            var ID = $(this).attr("id");
+            if (ID)
+            {
 //                            $("#more" + ID).html('<img src="moreajax.gif" />');
-                            $.ajax({
-                                type: "POST",
-                                url: "<?php echo site_url('home/cproducts/show_more'); ?>",
-                                data: "idl=" + ID,
-                                cache: false,
-                                success: function(html) {
-                                    $("#content_index").append(html);
-                                    $("#more" + ID).remove();
-                                }
-                            });
-                        }
-                        else
-                        {
-                            $(".text_center").html('The End');
-
-                        }
-                        return false;
-                    });
+                $.ajax({
+                    type: "POST",
+                    url: "<?php echo site_url('home/cproducts/show_more'); ?>",
+                    data: "idl=" + ID,
+                    cache: false,
+                    success: function(html) {
+                        $("#content_index").append(html);
+                        $("#more" + ID).remove();
+                    }
                 });
+            }
+            else
+            {
+                $(".text_center").html('The End');
 
-            </script>
+            }
+            return false;
+        });
+    });
+
+</script>
 <section id="content" class="wrap_2">
     <header class="Nav_content">
-        <a href="#">All (200)</a>
-        <a href="#">man (20)</a>
-        <a href="#">woman (21)  </a>
-        <a href="#">kids (11) </a>
-        <a href="#">fashion (12) </a>
-        <a href="#">new (10) </a>
-        <a href="#">sale (10) </a>
+        <a href="#">Sản phẩm nổi bật</a>
+        <a href="#">Sản phẩm mới</a>
+        <a href="#">Sản phẩm bán chạy</a>
     </header><!--End .Nav_content-->
     <div id="content_index">
-           <?php foreach ($data_home as $value) { $img = json_decode($value->images); ?>
+<?php foreach ($data_home as $value) {
+    $img = json_decode($value->images); ?>
             <section class="module">
                 <div class="module_item clearfix">
                     <a href="<?php echo site_url("home/cproducts/showDetailProducts/$value->productsID/$value->categoriesID"); ?>" class="img_module">
-                        <img src="<?php echo base_url().$img[0]; ?>" alt="<?php echo $value->name ?>"/>
+                        <img src="<?php echo base_url() . $img[0]; ?>" alt="<?php echo $value->name ?>"/>
                     </a>
                     <div class="reduced">
                         <header class="title_item"><a href="<?php echo site_url("home/cproducts/showDetailProducts/$value->productsID/$value->categoriesID"); ?>"><?php echo $value->name ?></a></header>
-                        <p><?php echo substr($value->intro2,0,strrpos($value->intro2, ' ')); ?>...</p>
+                        <p><?php echo substr($value->intro2, 0, strrpos($value->intro2, ' ')); ?>...</p>
                     </div><!--End .reduced-->
                     <a href="<?php echo site_url("home/cproducts/showDetailProducts/$value->productsID/$value->categoriesID"); ?>" class="btn_readmore">Chi tiết</a>
                     <span class="price"><?php echo $value->price ?>K</span>
                 </div><!--End .module_item-->
             </section><!--End .module-->
-        <?php } ?> 
+<?php } ?> 
     </div>
-    <div class="text_center" id="more<?php echo $value->id ?>" >
-        <button class="btn_showmore" id="<?php echo $value->id ?>">Xem thêm</button>
+    <div class="text_center" id="more<?php echo $value->productsID ?>" >
+        <button class="btn_showmore" id="<?php echo $value->productsID ?>">Xem thêm</button>
     </div>
 
     <script src="<?php echo base_url(); ?>public/homejs/idangerous.swiper-2.0.min.js"></script>

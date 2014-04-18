@@ -11,12 +11,16 @@ class Chome extends CI_Controller {
         $this->load->helper('html');
         $this->load->library('session');
         $this->load->helper('url');
-         $this->load->model('Mproducts');
-        $this->load->model('Mlog');
+         $this->load->model(array('Mproducts','Musers','Mlog'));
     }
 
     public function index() {
         $temp['info']=  $this->Mlog->log();
+        if( count($temp['info'])){
+        $userid = $temp['info']['userID'];
+        $temp['num_order']= $this->Musers->getNumOrderStatus($userid);
+        $temp['num_message'] = $this->Musers->getNumMessageUnread($userid);
+        }
         $temp['title'] = 'Trang chủ';
         $temp['data_home'] = $this->Mproducts->getAllProducts();
         $temp['data_slide'] = $this->Mproducts->getDataSlide();
