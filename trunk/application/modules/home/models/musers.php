@@ -143,7 +143,7 @@ class Musers extends CI_Model {
 
     public function getNumMessageUnread($UID) {
         $this->db->select("status");
-        $this->db->where(array('status' => 0, 'userID' => $UID));
+        $this->db->where(array('status' => 0, 'receiverID' => $UID));
         $qr = $this->db->get('message')->result();
         return $num = count($qr);
     }
@@ -152,7 +152,7 @@ class Musers extends CI_Model {
         $this->db->select('messageID,senderID,user.firstname AS ho_nguoi_gui,user.lastname AS ten_nguoi_gui,title,content,message.status AS status');
         $this->db->select("DATE_FORMAT(date, '%d-%m-%Y %H:%i:%s') AS datetime", FALSE);
         $this->db->select("DATE_FORMAT(date, '%d-%m-%Y') AS date", FALSE);
-        $this->db->where('message.userID', $Uid);
+        $this->db->where('message.receiverID', $Uid);
         $this->db->JOIN('user', 'user.userID = message.senderID');
         $this->db->order_by('date','desc');
         $query = $this->db->get('message', $sum, $start);
