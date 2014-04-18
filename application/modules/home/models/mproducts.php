@@ -15,8 +15,8 @@ class Mproducts extends CI_Model {
 
     public function getAllProducts() {
         $this->db->select("productsID,name,price,images,LEFT(intro,70) AS intro2,categoriesID ",FALSE);
-        $this->db->order_by('id','DESC');
-        $this->db->limit(2);
+        $this->db->order_by('productsID','DESC');
+        $this->db->limit(10);
         $query = $this->db->get("products");
         return $query->result();
     }
@@ -24,7 +24,7 @@ class Mproducts extends CI_Model {
         $this->db->select("productsID,name,price,images,LEFT(intro,70) AS intro2,categoriesID ",FALSE);
         $this->db->where("productsID < $id");
         $this->db->order_by('productsID','DESC');
-        $this->db->limit(2);
+        $this->db->limit(10);
         $query = $this->db->get("products");
         return $query->result();
     }
@@ -94,10 +94,10 @@ class Mproducts extends CI_Model {
         $this->db->select("productsID,name,price,images,categoriesID");
         $this->db->where("categoriesID", "$cate");
         $this->db->where("productsID != $id");
+        $this->db->limit(5);
         $query = $this->db->get('products');
         return $query->result();
     }
-
 }
 
 ?>
