@@ -23,6 +23,7 @@ class Cproducts extends CI_Controller {
         $temp['template'] = 'home';
         $this->load->view('layout/layout', $temp);
     }
+
 //     public function count1($id) {
 //         if($temp = $this->Mproducts->show_more($id)){
 //             echo 'asdasd';
@@ -38,26 +39,24 @@ class Cproducts extends CI_Controller {
 
                 foreach ($temp as $value) {
                     $img = json_decode($value->images);
-                    echo "<section class='module' >";
-                    echo "<div class='module_item clearfix' >";
-                    echo "<a href='" . site_url("home/cproducts/showDetailProducts/$value->id/$value->categoriesID") . "' class='img_module'>";
-                    echo "<img src='" . base_url() . $img[0] . "' alt='" . $value->name . "/>";
-                    echo "</a>";
-                    echo "<div class='reduced'>";
-                    echo "<header class='title_item'>";
-                    echo "<a href='" . site_url("home/cproducts/showDetailProducts/$value->id/$value->categoriesID") . "' >" . $value->name . "</a>";
-                    echo "</header>";
-                    echo "<p>" . substr($value->intro2, 0, strrpos($value->intro2, ' ')) . "...</p>";
-                    echo "</div>"; //reduce
-                    echo "<a href='" . site_url("home/cproducts/showDetailProducts/$value->id/$value->categoriesID") . "' class='btn_readmore'>Chi tiết</a>";
-                    echo "<span class='price'>" . $value->price . "K</span>";
-                    echo "</div>";
-                    echo "</section>";
+                    echo '<section class="module">
+                <div class="module_item clearfix">
+                    <a href="' . site_url("home/cproducts/showDetailProducts/$value->productsID/$value->categoriesID") . '" class="img_module">
+                        <img src="' . base_url() . $img[0] . '" alt="' . $value->name . '"/>
+                    </a>
+                    <div class="reduced">
+                        <header class="title_item"><a href="' . site_url("home/cproducts/showDetailProducts/$value->productsID/$value->categoriesID") . '">' . $value->name . '</a></header>
+                        <p>' . substr($value->intro2, 0, strrpos($value->intro2, ' ')) . '...</p>
+                    </div><!--End .reduced-->
+                    <a href="' . site_url("home/cproducts/showDetailProducts/$value->productsID/$value->categoriesID") . '" class="btn_readmore">Chi tiết</a>
+                    <span class="price">' . $value->price . '</span>
+                </div><!--End .module_item-->
+            </section><!--End .module-->';
                 }
-                echo "<div class='clear'></div><div class='text_center' id='more" . $value->id . "' >";
-                echo "<button class='btn_showmore' id='" . $value->id . "'>Xem thêm</button>";
+                echo "<div class='clear'></div><div class='text_center' id='more" . $value->productsID . "' >";
+                echo "<button class='btn_showmore' id='" . $value->productsID . "'>Xem thêm</button>";
                 echo "</div>";
-            }else{
+            } else {
                 echo "<div class='clear'></div><div class='text_center'>";
                 echo "<button class='btn_showmore' id=''>Hết Sản phẩm</button>";
                 echo "</div>";
@@ -68,7 +67,7 @@ class Cproducts extends CI_Controller {
     }
 
     public function showDetailProducts($id, $cate) {
-        $temp['info']=  $this->Mlog->log();
+        $temp['info'] = $this->Mlog->log();
         $temp['title'] = 'Chi tiết sản phẩm';
         $temp['template'] = 'vproducts/product_detail';
         $temp['data_detail'] = $this->Mproducts->getProductById($id);
@@ -194,7 +193,7 @@ class Cproducts extends CI_Controller {
         $dieukiensd = $this->input->post('dieukiensd');
         $chitietsp = $this->input->post('chitietsp');
         $this->Mproducts->updateProducts($id, $danhmuc, $soluong, $tensanpham, $motangan, $dacdiemnb, $dieukiensd, $chitietsp, $link_img);
-        $temp['info']=  $this->Mlog->log();
+        $temp['info'] = $this->Mlog->log();
         $data['title'] = 'Sửa sản phẩm | Một giá';
         $data['template'] = 'vproducts/upproducts';
         $this->load->view('layout/layout', $data);
