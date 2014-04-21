@@ -112,7 +112,7 @@ class Musers extends CI_Model {
 
     //lay san pham tu userID
     public function getProductByUID($Uid, $sum = 10000, $start = 0) {
-        $this->db->select("productsID,name,images");
+        $this->db->select("*");
         $this->db->select("DATE_FORMAT(date_up, '%d/%m/%Y') AS date_up", FALSE);
         $this->db->select("DATE_FORMAT(date_expiration, '%d/%m/%Y') AS date_expiration", FALSE);
         $this->db->From('products');
@@ -122,7 +122,11 @@ class Musers extends CI_Model {
         return $query->result();
     }
 
-    //lay tat ca hoa don da ban cua thanh vien
+    public function changeStatusPro($proid,$uid,$status){
+            $this->db->where(array('productsID'=> $proid, 'userID'=>$uid));
+            $this->db->update('products',array('status' => $status));
+    }
+        //lay tat ca hoa don da ban cua thanh vien
     public function getOrderByUID($Uid, $sum = 10000, $start = 0) {
         $this->db->select("orderID,createdate,shipdate,buyerID,note,status");
         $this->db->select("DATE_FORMAT(createdate, '%d-%m-%Y') AS date_cr", FALSE);

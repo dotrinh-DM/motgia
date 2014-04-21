@@ -51,7 +51,7 @@
         <div id="tab-container" class='tab-container marginBottom_15'>
             <ul class='etabs'>
                 <li class='tab active' ><a href="#profile">Thông tin người dùng</a></li>
-                <li class='tab'><a href="#messages"><?php echo (isset($num_message)&& $num_message>0)? '<span>'.$num_message.'</span>' : '';?>Tin nhắn</a></li>
+                <li class='tab'><a href="#messages"><?php echo (isset($num_message) && $num_message > 0) ? '<span>' . $num_message . '</span>' : ''; ?>Tin nhắn</a></li>
                 <?php
                 if ($level['levelID'] == 2) {
                     echo '<li class="tab"><a href="#products">Quản lý sản phẩm</a></li>
@@ -247,7 +247,7 @@
 
                                         echo ($value->status == 0) ? '<b><span class="name_user">' . $value->ho_nguoi_gui . $value->ten_nguoi_gui . '</span>
                                             <span class="title_post2" style=" color: rgb(105, 71, 194);">' . $value->title . '</span></b>' :
-                                           '<span class="name_user2">' . $value->ho_nguoi_gui . $value->ten_nguoi_gui . '</span>
+                                                '<span class="name_user2">' . $value->ho_nguoi_gui . $value->ten_nguoi_gui . '</span>
                                             <span class="title_post">' . $value->title . '</span>';
                                         echo '
                                         </div>
@@ -315,15 +315,19 @@
                     </div>
                 </div><!--End #messages-->
 
-
                 <!--start products-->
                 <?php
                 if ($level['levelID'] == 2) {//nếu không phải nhà cung cấp thì không hiển thị nội dung quản lý sản phẩm
                     //và nội dung quản lý đơn hàng   
                     echo '                   
                 <div id="products">
-                    <h6 class="title_detail_item">order</h6>
-
+                    <div style="
+                    border-bottom: 1px solid #DDD;
+                    height: 40px;
+                    margin-top: 0px;">
+                        <h6 class="title_detail_item" style="float:left">order</h6>
+                        <a href="' . base_url() . 'index.php/home/cproducts/upproducts" class="btn btn-warning" style="float:right; margin-top:-15px; background:#35C72F" >Thêm sản phẩm mới</a>
+                    </div>
                     <table class="oder_table">';
                     if (isset($product) && count($product)) {
                         echo '
@@ -333,6 +337,8 @@
                             <th>Ngày đăng</th>
                             <th>Tên sản phẩm</th>
                             <th>Ngày hết hạn</th>
+                            <th>Đã bán</th>
+                            <th>Trạng thái</th>
                         </tr>';
                         $i = $paging_product['start'];
                         foreach ($product as $value => $pro) {
@@ -347,9 +353,35 @@
                                     }
                                     ?></td>
                                 <td><a href="#"><img src="<?php echo base_url() . $img[0]; ?>" alt="<?php echo $pro->name; ?>" height="50" width="50"/></a></td>
-                                <td>12/12/2014</td>
+                                <td><?php echo date('d/m/Y', $pro->create_date); ?></td>
                                 <td><a href="#"><?php echo $pro->name; ?></a></td>
                                 <td><?php echo $pro->date_expiration; ?></td>
+                                <td><?php echo $pro->soldnumber; ?></td>
+                                <td style="width:100px">
+                                    <form method="get" action="">
+                                        <input type="submit" name="change_status" value="edit" style="width: 30px;height: 20px;padding: 0px;"/>
+                                        <input type="hidden" value="<?php echo $pro->productsID?>" name="proID"/>
+                                        <select class="form-control floatLeft" name="status_pro">
+                                            
+                                            <?php
+                                            // echo '<option value="'.$pro->status.'"></option>';
+                                            if ($pro->status == 1)
+                                                echo'
+                                            <option value="1">Đang bán</option>
+                                            <option value="2">Hết hàng</option>
+                                            <option value="0">Ngừng bán</option>';
+                                            elseif ($pro->status == 0)
+                                                echo'
+                                            <option value="0">Ngừng bán</option>
+                                            <option value="1">Tiếp tục bán</option>';
+                                            elseif ($pro->status == 2)
+                                                echo'
+                                            <option value="2">Hết hàng</option>
+                                            <option value="1">Tiếp tục bán</option>';
+                                            ?>
+                                        </select>
+                                    </form>
+                                </td>
                                 <td class="update">
                                     <ul>
                                         <li><a href="#">Gia hạn</a></li>
@@ -458,7 +490,7 @@
                                     ?>
                                 </td>
                                 <td><?php echo $ord->date_cr; ?></td>
-                                <td><a href="#"><?php // echo $pro->name;           ?></a></td>
+                                <td><a href="#"><?php // echo $pro->name;                ?></a></td>
                                 <td><?php echo $ord->buyerID; ?></td>
                                 <td class="update">10000vnd</td>
                                 <td>
