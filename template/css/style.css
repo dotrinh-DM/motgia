@@ -6,12 +6,18 @@
         Purpose of the stylesheet follows.
 */
 @import url('reset.css');
+@import url('bootstrap-theme.css');
+@import url('bootstrap-theme.min.css');
+@import url('bootstrap.min.css');
+
+
 @import url('home.css');
 @import url('home.css');@import url('boostrap.css');@import url('boostrap.min.css');@import url('boostrap-theme.css');@import url('boostrap-theme.min.css');@import url('antimetion.css');
 @import url('tango/skin.css');
 @import url('slideshow.css');
 @import url('idangerous.swiper.css');
 @import url('idangerous.swiper.3dflow.css');
+@import url('cart.css');
 @import url('tabs.css');
 @import url('contact.css');
 @import url('product.css');
