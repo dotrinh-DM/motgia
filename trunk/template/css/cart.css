@@ -1,0 +1,337 @@
+
+.seller{
+    margin-top:30px;
+    margin-bottom: 10px;
+    width: 100%;
+    background:#dddddd;
+    padding: 10px 0px;
+}
+.seller h3{
+    margin-left: 10px;
+    color:#272727;
+    font-weight: bold;
+}
+.seller h3 a{
+    color:#16A085;
+}
+.seller h3 a:hover{
+    color:#27ae60;
+    text-decoration: underline;
+}
+.product-total{
+    margin: 10px 0px;
+}
+.product-total span{
+    color:#e74c3c;
+    font-weight: bold;
+}
+.pay{
+    margin-top: 20px;
+}
+.box-drop{
+    margin-top: 30px;
+    width:940px;
+}
+.box-drop table{
+    width:100%;
+}
+.box-drop table,.box-drop table th, .box-drop table td{
+    border:1px solid #ddd;
+
+}
+.box-drop table img{
+    width: 60px;
+}
+.box-drop table td{
+    padding: 3px 3px 1px 3px
+}
+.box-drop table td a{
+    color: #58B1FC;
+}
+.box-drop table td a:hover{
+    color: #0377D6;
+}
+.box-drop table tr:nth-child(even){
+    background: #f5f5f5!important;
+}
+.amountdue{
+    float: right;
+    margin: 13px -3px 13px 0px;
+}
+.amountdue h3{
+    text-align: center;
+    line-height: normal;
+    border: 1px solid #ddd;
+    background: #fcfcfc;
+    display: inline-block;
+    padding: 10px 30px;
+    width: 200px;
+    font-size: 25px;
+    color: #444;
+}
+.amountdue h3 span{
+    display: block;
+    font-size: 12px;
+    text-transform: uppercase;
+    color: #666;
+}
+.message h3{
+    font-size: 12px;
+    text-transform: uppercase;
+    color: #666;
+    margin-top: 10px;
+}
+.message{
+    float: left;
+    color: #666;
+    font-size: 11px;
+    width: 55%;
+}
+
+.box-success{
+    background: #f1f1f1;
+    padding: 20px;
+    box-sizing: border-box;
+    font-size: 12px;
+    text-align: center;
+    line-height: 18px;
+    border-radius: 5px;
+    width: 90%;
+    margin: auto;
+    margin-top: 60px;
+    margin-bottom: 60px;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+.box-success h2{
+    display: inline-block;
+    font-size: 40px;
+    text-transform: uppercase;
+    font-weight: bold;
+    line-height: 60px;
+    margin-bottom: 23px;
+    border-bottom: 2px dashed #FF6F6F;
+    text-shadow: 0px 1px 0px #fff;
+    color: #FF6F6F
+}
+.process-order {
+}
+.process-order h2{
+    font-size: 20px;
+    line-height: 25px;
+}
+
+.process-order li{
+    list-style: none;
+    float: left;
+    width: 25%;
+    box-sizing: border-box;
+    padding-right: 10px;
+    text-align: justify;
+    border-left: 2px solid #555;
+    padding-left: 10px;
+    height: 201px;
+}
+.process-order li:first-child{
+    border-left: none;
+    padding-left: 0;
+}
+.process-order a{
+    color: #58B1FC;
+}
+.process-order li img{
+    width: 60px;
+    margin-left: -10px;
+}
+.process-order span{
+    display: block;
+    height: 60px;
+}
+
+.process-order li h6{
+    font-size: 13px;
+    margin-bottom: 5px;
+    color: #9898FF;
+}
+.input-number{
+    margin: 0px!important;
+    padding: 0;
+    width: auto;
+    display: inline-block;
+}
+.input-number input{
+    width: 40px;
+    text-align: center;
+}
+.input-number button{
+    width: 19px;
+    height: 19px;
+    border: none;
+    text-indent: -9999px;
+    cursor: pointer;
+    border-radius: 50%;
+    display: inline-block;
+    background: transparent url('../images/up_down.png') no-repeat;
+}
+.input-number .up{
+    background-position: center right;
+    opacity: .7;
+}
+.input-number .down{
+    background-position: center left;
+    opacity: .8;
+}
+.boxcart img{
+    width: 60px;
+}
+.btnRemove{
+    background: url('../images/icon-close.png') no-repeat center center;
+    display: inline-block;
+    width: 28px;
+    height: 28px;
+    border:none;
+    text-indent: -99999px;
+    cursor: pointer;
+    opacity: .7;
+    background-size: 70%;
+
+}
+.btnRemove:hover,
+.input-number .down:hover,
+.input-number .up:hover{
+    opacity: 1;
+}
+
+.boxcart-info{
+    margin: 20px 0px 0px 0px;
+    line-height: 18px;
+    border: 1px dashed #999;
+    box-sizing: border-box;
+    padding: 10px;
+    margin-bottom: 0px;
+}
+.boxcart-info div{
+    margin-bottom: 0px;
+}
+.boxcart-info .col{
+    float: right;
+    box-sizing: border-box;
+    border-left: 1px dashed #999;
+    padding-left: 12px;
+    height: 120px;
+}
+.boxcart-info .col:nth-child(1){
+  
+    border-left: none;
+    padding-left: 0px;
+
+}
+.boxcart-info .col:nth-child(2){
+    width: 25%;
+}
+.boxcart-info .col:nth-child(2) button{
+    width: 95%;
+}
+.boxcart-info .col:nth-child(3){
+    width:45%;
+}
+.boxcart-info h6{
+    margin-bottom: 7px;
+    text-transform: uppercase;
+}
+.payment{
+    text-align: right;
+}
+.payment p{
+    width: auto;
+    font-size: 14px;
+    margin-bottom: 8px;
+}
+.payment h5{
+    font-size: 17px;
+    color: #E32958;
+    text-transform: uppercase;
+    line-height: 20px;
+    margin-bottom: 20px;
+}
+.boxcart-info .btn, .col-inside .btn{
+    font-size: 13px;
+    margin-top: 20px;
+    padding: 6px 5px;
+    width: auto;
+}
+.boxconfirm .col{
+    float: left;
+    width: 33.3%;
+    box-sizing: border-box;
+    padding-left: 10px;
+}
+.boxconfirm .col:first-child{
+    padding-left: 0px;
+}
+
+.userinfo{
+    background: #eee;
+    padding: 5px;
+    margin-bottom: 10px;
+}
+.userinfo #avatar{
+
+}
+#avatar img{
+    width: 50px;
+    height: 50px;
+    display: block;
+    float: left;
+    margin-right: 5px;
+    padding: 1px;
+    border:1px solid #eee;
+}
+.userinfo p{
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+.userinfo p:last-child{
+    font-size: 12px;
+    line-height: 15px;
+    margin-bottom:0;
+}
+.userinfo a{
+    display: block;
+    color: #58B1FC;
+}
+.user2 a{
+    color: #58B1FC;
+}
+.boxconfirm{
+    font-size: 12px;
+    line-height: 18px;
+}
+.row2 p{
+    margin-bottom: 5px;
+}
+.boxconfirm .form label{
+    display: block;
+}
+
+.box-drop table.checkout-cart tr:nth-child(even){
+    background: #fff!important;
+}
+
+.box-drop table.checkout-cart td{
+    vertical-align: top;
+}
+.col-inside{
+    border: 1px solid #ddd;
+    box-sizing: border-box;
+    padding: 10px;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+.col-inside table td img{
+    width: 80px;
+}
+.col-inside input[type=text], .col-inside select{
+    width: 100%;
+}
+.col-inside .form div{
+    margin: 0;
+}

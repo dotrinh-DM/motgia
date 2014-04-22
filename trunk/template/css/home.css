@@ -415,7 +415,7 @@ input[type=button] , input[type=submit], .sub_menu_2 , :before , a , img{
     color: #e41346;
 }
 input[type=text] , input[type=password] , 
-input[type=email]{
+input[type=email],textarea{
 
     background: #e5e6e6;
     box-shadow: inset 2px 2px 1px #d9dada;
@@ -440,7 +440,7 @@ input[type=email]{
     background: #f6eab6;
     color: #91683c;
     top: -49px;
-    right: 90px;
+    right: -111px;
     padding: 10px 15px;
     z-index: 999; /* hints stay above all other elements */
     position: absolute; /* allows proper formatting if hint is two lines */
@@ -504,7 +504,7 @@ input[type=submit] , input[type=button]{
     margin-bottom: 15px;
 }
 .select{
-    width: 120px;
+    width: 100px;
     height: 36px;
     overflow: hidden;
     background: #e5e6e6 url(../images/select.png) right no-repeat;

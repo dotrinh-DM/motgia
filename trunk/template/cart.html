@@ -1,0 +1,885 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Giỏ hàng</title>
+        <link rel="stylesheet" type="text/css" href="css/style.css" />
+        <script type="text/javascript" src="js/jquery-1.8.2.min.js"></script>
+        <script type="text/javascript" src="js/validateh5.js"></script><!-- Slideshow -->
+
+        <script type="text/javascript">
+
+            jQuery(document).ready(function() {
+                //
+
+                $(".form").h5Validate({
+                    errorClass: "validationError",
+                    validClass: "validationValid"
+                });
+
+                // Prevent form submission when errors
+                $(".form").submit(function(evt) {
+                    if ($(".form").h5Validate("allValid") === false) {
+                        evt.preventDefault();
+                    }
+                });
+            });
+        </script>			
+    </head>
+    <body>	
+        <section class="bg_back">
+            <header class="top_Nav wrap clearfix">
+                <ul class="Top_menu floatLeft">
+                    <li><a href="#">Giới thiệu</a></li>
+                    <li><a href="#">Liên hệ</a></li>
+                </ul><!--End .Top_menu-->
+                <ul class="user clearfix floatRight">
+                    <li><a href="#">Đăng tin</a></li>
+                    <li><a href="#">Đăng nhập</a>
+                        <div class="detail-login">
+                            <form class="form clearfix">
+                                <div class="gmail">
+                                    <input type="email" placeholder="Abc@gmail.com" required/>
+                                </div>
+                                <div class="password">
+                                    <input type="password" placeholder="Mật Khẩu" required/>
+                                </div>
+                                <div class="send">
+                                    <input type="submit" value="Đăng Nhập"/>
+                                </div>
+                            </form>
+                        </div>
+                    </li>
+                    <li class="price_user">
+                        <span>100000 VND</span>
+                    </li>
+                    <li>
+                        <a href="#" class="headerTinymanPhoto">
+                            <img src="uploads/1076505_100003738868761_2002716988_q.jpg" alt="user"/>
+                            <span class="headerTinymanName">Hai Le</span>
+                        </a>
+                        <div class="detail_user">
+                            <ul>
+                                <li><h6 class="welcome"> Hai Le</h6></li>
+                                <li><a href="">Profile</a></li>
+                                <li><button id="logout">Đăng xuất</button></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </header><!--End .top_Nav-->
+        </section><!--End .bg_back-->
+
+        <section class="logo_formSearch">
+            <div class="wrap clearfix">
+                <a href="#" id="logo" class="floatLeft"><img src="uploads/logo.png" alt=""/></a>
+                <form id="search" >
+                    <input type="text" placeholder="search" class="txt-search"/>
+                    <input type="button" id="btnSearch" class="btnsearch"/>
+                </form>
+                <section class="cart">
+                    <a class="icon_cart"></a>
+                    <span>0</span>
+
+                </section>
+            </div>
+        </section><!--End .logo_formSearch-->
+
+        <nav id="navigation">
+            <ul class="wrap clearfix lever1">
+                <li><a href="#">Home</a></li>
+                <li><a href="#">man  </a>
+                    <div class="sub_menu">
+                        <ul>
+                            <li><a href="#">Dresses</a></li>
+                            <li><a href="#">Shirts</a></li>
+                            <li><a href="#">Shoes</a></li>
+                            <li><a href="#">Bags & Purses</a></li>
+                            <li> <a href="#">Hoodies & Sweatshirts</a></li>
+                            <li> <a href="#">Jackets & Coats</a></li>
+                            <li> <a href="#">Beauty</a></li>
+
+                        </ul>
+                    </div>
+                </li>
+                <li><a href="#">woman </a>
+                    <div class="sub_menu">
+                        <ul>
+                            <li><a href="#">Dresses</a></li>
+                            <li><a href="#">Shirts</a>
+                                <div class="sub_menu_2">
+                                    <ul>
+                                        <li><a href="#">Dresses</a></li>
+                                        <li><a href="#">Shirts</a></li>
+                                        <li><a href="#">Shoes</a></li>
+                                        <li><a href="#">Bags & Purses</a></li>
+                                        <li> <a href="#">Hoodies & Sweatshirts Hoodies & Sweatshirts</a></li>
+                                        <li> <a href="#">Jackets & Coats</a></li>
+                                        <li> <a href="#">Beauty</a></li>
+
+                                    </ul>
+                                </div>
+                            </li>
+                            <li><a href="#">Shoes</a>
+                                <div class="sub_menu_2">
+                                    <ul>
+                                        <li><a href="#">Dresses</a></li>
+                                        <li><a href="#">Shirts</a></li>
+                                        <li><a href="#">Shoes</a></li>
+                                        <li><a href="#">Bags & Purses</a></li>
+                                        <li> <a href="#">Hoodies & Sweatshirts Hoodies & Sweatshirts</a></li>
+                                        <li> <a href="#">Jackets & Coats</a></li>
+                                        <li> <a href="#">Beauty</a></li>
+
+                                    </ul>
+                                </div>
+                            </li>
+                            <li><a href="#">Bags & Purses</a>
+                                <div class="sub_menu_2">
+                                    <ul>
+                                        <li><a href="#">Dresses 2</a></li>
+                                        <li><a href="#">Shirts 3</a></li>
+                                        <li><a href="#">Shoes 4</a></li>
+                                        <li><a href="#">Bags & Purses 5</a></li>
+                                        <li> <a href="#">Hoodies & Sweatshirts Hoodies & Sweatshirts</a></li>
+                                        <li> <a href="#">Jackets & Coats 6</a></li>
+                                        <li> <a href="#">Beauty 7</a></li>
+                                        <li><a href="#">Dresses 2</a></li>
+                                        <li><a href="#">Shirts 3</a></li>
+                                        <li><a href="#">Shoes 4</a></li>
+                                        <li><a href="#">Bags & Purses 5</a></li>
+                                        <li> <a href="#">Hoodies & Sweatshirts Hoodies & Sweatshirts</a></li>
+                                        <li> <a href="#">Jackets & Coats 6</a></li>
+                                        <li> <a href="#">Beauty 7</a></li>
+
+                                    </ul>
+                                </div>
+                            </li>
+                            <li> <a href="#">Hoodies & Sweatshirts Hoodies & Sweatshirts</a></li>
+                            <li> <a href="#">Jackets & Coats</a></li>
+                            <li> <a href="#">Beauty</a></li>
+
+                        </ul>
+                    </div>
+                </li>
+                <li><a href="#">kids </a>
+                    <div class="sub_menu">
+                        <ul>
+                            <li><a href="#">Dresses</a></li>
+                            <li><a href="#">Shirts</a>
+                                <div class="sub_menu_2">
+                                    <ul>
+                                        <li><a href="#">Dresses</a></li>
+                                        <li><a href="#">Shirts</a></li>
+                                        <li><a href="#">Shoes</a></li>
+                                        <li><a href="#">Bags & Purses</a></li>
+                                        <li> <a href="#">Hoodies & Sweatshirts Hoodies & Sweatshirts</a></li>
+                                        <li> <a href="#">Jackets & Coats</a></li>
+                                        <li> <a href="#">Beauty</a></li>
+
+                                    </ul>
+                                </div>
+                            </li>
+                            <li><a href="#">Shoes</a>
+                                <div class="sub_menu_2">
+                                    <ul>
+                                        <li><a href="#">Dresses</a></li>
+                                        <li><a href="#">Shirts</a></li>
+                                        <li><a href="#">Shoes</a></li>
+                                        <li><a href="#">Bags & Purses</a></li>
+                                        <li> <a href="#">Hoodies & Sweatshirts Hoodies & Sweatshirts</a></li>
+                                        <li> <a href="#">Jackets & Coats</a></li>
+                                        <li> <a href="#">Beauty</a></li>
+
+                                    </ul>
+                                </div>
+                            </li>
+                            <li><a href="#">Bags & Purses</a>
+                                <div class="sub_menu_2">
+                                    <ul>
+                                        <li><a href="#">Dresses 2</a></li>
+                                        <li><a href="#">Shirts 3</a></li>
+                                        <li><a href="#">Shoes 4</a></li>
+                                        <li><a href="#">Bags & Purses 5</a></li>
+                                        <li> <a href="#">Hoodies & Sweatshirts Hoodies & Sweatshirts</a></li>
+                                        <li> <a href="#">Jackets & Coats 6</a></li>
+                                        <li> <a href="#">Beauty 7</a></li>
+                                        <li><a href="#">Dresses 2</a></li>
+                                        <li><a href="#">Shirts 3</a></li>
+                                        <li><a href="#">Shoes 4</a></li>
+                                        <li><a href="#">Bags & Purses 5</a></li>
+                                        <li> <a href="#">Hoodies & Sweatshirts Hoodies & Sweatshirts</a></li>
+                                        <li> <a href="#">Jackets & Coats 6</a></li>
+                                        <li> <a href="#">Beauty 7</a></li>
+
+                                    </ul>
+                                </div>
+                            </li>
+                            <li> <a href="#">Hoodies & Sweatshirts Hoodies & Sweatshirts</a></li>
+                            <li> <a href="#">Jackets & Coats</a></li>
+                            <li> <a href="#">Beauty</a></li>
+
+                        </ul>
+                    </div>
+                </li>
+                <li><a href="#">fashion </a>
+                    <div class="sub_menu">
+                        <ul>
+                            <li><a href="#">Dresses</a></li>
+                            <li><a href="#">Shirts</a>
+                                <div class="sub_menu_2">
+                                    <ul>
+                                        <li><a href="#">Dresses</a></li>
+                                        <li><a href="#">Shirts</a></li>
+                                        <li><a href="#">Shoes</a></li>
+                                        <li><a href="#">Bags & Purses</a></li>
+                                        <li> <a href="#">Hoodies & Sweatshirts Hoodies & Sweatshirts</a></li>
+                                        <li> <a href="#">Jackets & Coats</a></li>
+                                        <li> <a href="#">Beauty</a></li>
+
+                                    </ul>
+                                </div>
+                            </li>
+                            <li><a href="#">Shoes</a>
+                                <div class="sub_menu_2">
+                                    <ul>
+                                        <li><a href="#">Dresses</a></li>
+                                        <li><a href="#">Shirts</a></li>
+                                        <li><a href="#">Shoes</a></li>
+                                        <li><a href="#">Bags & Purses</a></li>
+                                        <li> <a href="#">Hoodies & Sweatshirts Hoodies & Sweatshirts Hoodies & Sweatshirts Hoodies & Sweatshirts</a></li>
+                                        <li> <a href="#">Jackets & Coats</a></li>
+                                        <li> <a href="#">Beauty</a></li>
+
+                                    </ul>
+                                </div>
+                            </li>
+                            <li><a href="#">Bags & Purses</a>
+                                <div class="sub_menu_2">
+                                    <ul>
+                                        <li><a href="#">Dresses 2</a></li>
+                                        <li><a href="#">Shirts 3</a></li>
+                                        <li><a href="#">Shoes 4</a></li>
+                                        <li><a href="#">Bags & Purses 5</a></li>
+                                        <li> <a href="#">Hoodies & Sweatshirts Hoodies & Sweatshirts</a></li>
+                                        <li> <a href="#">Jackets & Coats 6</a></li>
+                                        <li> <a href="#">Beauty 7</a></li>
+                                        <li><a href="#">Dresses 2</a></li>
+                                        <li><a href="#">Shirts 3</a></li>
+                                        <li><a href="#">Shoes 4</a></li>
+                                        <li><a href="#">Bags & Purses 5</a></li>
+                                        <li> <a href="#">Hoodies & Sweatshirts Hoodies & Sweatshirts</a></li>
+                                        <li> <a href="#">Jackets & Coats 6</a></li>
+                                        <li> <a href="#">Beauty 7</a></li>
+
+                                    </ul>
+                                </div>
+                            </li>
+                            <li> <a href="#">Hoodies & Sweatshirts Hoodies & Sweatshirts</a></li>
+                            <li> <a href="#">Jackets & Coats</a></li>
+                            <li> <a href="#">Beauty</a></li>
+
+                        </ul>
+                    </div>
+                </li>
+                <li><a href="#">new </a></li>
+                <li><a href="#">sale </a>
+                    <div class="sub_menu">
+                        <ul>
+                            <li><a href="#">Dresses</a></li>
+                            <li><a href="#">Shirts</a>
+                                <div class="sub_menu_2">
+                                    <ul>
+                                        <li><a href="#">Dresses</a></li>
+                                        <li><a href="#">Shirts</a></li>
+                                        <li><a href="#">Shoes</a></li>
+                                        <li><a href="#">Bags & Purses</a></li>
+                                        <li> <a href="#">Hoodies & Sweatshirts Hoodies & Sweatshirts</a></li>
+                                        <li> <a href="#">Jackets & Coats</a></li>
+                                        <li> <a href="#">Beauty</a></li>
+
+                                    </ul>
+                                </div>
+                            </li>
+                            <li><a href="#">Shoes</a>
+                                <div class="sub_menu_2">
+                                    <ul>
+                                        <li><a href="#">Dresses</a></li>
+                                        <li><a href="#">Shirts</a></li>
+                                        <li><a href="#">Shoes</a></li>
+                                        <li><a href="#">Bags & Purses</a></li>
+                                        <li> <a href="#">Hoodies & Sweatshirts Hoodies & Sweatshirts</a></li>
+                                        <li> <a href="#">Jackets & Coats</a></li>
+                                        <li> <a href="#">Beauty</a></li>
+
+                                    </ul>
+                                </div>
+                            </li>
+                            <li><a href="#">Bags & Purses</a>
+                                <div class="sub_menu_2">
+                                    <ul>
+                                        <li><a href="#">Dresses 2</a></li>
+                                        <li><a href="#">Shirts 3</a></li>
+                                        <li><a href="#">Shoes 4</a></li>
+                                        <li><a href="#">Bags & Purses 5</a></li>
+                                        <li> <a href="#">Hoodies & Sweatshirts Hoodies & Sweatshirts</a></li>
+                                        <li> <a href="#">Jackets & Coats 6</a></li>
+                                        <li> <a href="#">Beauty 7</a></li>
+                                        <li><a href="#">Dresses 2</a></li>
+                                        <li><a href="#">Shirts 3</a></li>
+                                        <li><a href="#">Shoes 4</a></li>
+                                        <li><a href="#">Bags & Purses 5</a></li>
+                                        <li> <a href="#">Hoodies & Sweatshirts Hoodies & Sweatshirts</a></li>
+                                        <li> <a href="#">Jackets & Coats 6</a></li>
+                                        <li> <a href="#">Beauty 7</a></li>
+
+                                    </ul>
+                                </div>
+                            </li>
+                            <li> <a href="#">Hoodies & Sweatshirts Hoodies & Sweatshirts</a></li>
+                            <li> <a href="#">Jackets & Coats</a></li>
+                            <li> <a href="#">Beauty</a></li>
+
+                        </ul>
+                    </div>
+                </li>
+                <li><a href="#">new</a>
+                    <div class="sub_menu">
+                        <ul>
+                            <li><a href="#">Dresses</a></li>
+                            <li><a href="#">Shirts</a>
+                                <div class="sub_menu_2">
+                                    <ul>
+                                        <li><a href="#">Dresses</a></li>
+                                        <li><a href="#">Shirts</a></li>
+                                        <li><a href="#">Shoes</a></li>
+                                        <li><a href="#">Bags & Purses</a></li>
+                                        <li> <a href="#">Hoodies & Sweatshirts Hoodies & Sweatshirts</a></li>
+                                        <li> <a href="#">Jackets & Coats</a></li>
+                                        <li> <a href="#">Beauty</a></li>
+
+                                    </ul>
+                                </div>
+                            </li>
+                            <li><a href="#">Shoes</a>
+                                <div class="sub_menu_2">
+                                    <ul>
+                                        <li><a href="#">Dresses</a></li>
+                                        <li><a href="#">Shirts</a></li>
+                                        <li><a href="#">Shoes</a></li>
+                                        <li><a href="#">Bags & Purses</a></li>
+                                        <li> <a href="#">Hoodies & Sweatshirts Hoodies & Sweatshirts</a></li>
+                                        <li> <a href="#">Jackets & Coats</a></li>
+                                        <li> <a href="#">Beauty</a></li>
+
+                                    </ul>
+                                </div>
+                            </li>
+                            <li><a href="#">Bags & Purses</a>
+                                <div class="sub_menu_2">
+                                    <ul>
+                                        <li><a href="#">Dresses 2</a></li>
+                                        <li><a href="#">Shirts 3</a></li>
+                                        <li><a href="#">Shoes 4</a></li>
+                                        <li><a href="#">Bags & Purses 5</a></li>
+                                        <li> <a href="#">Hoodies & Sweatshirts Hoodies & Sweatshirts</a></li>
+                                        <li> <a href="#">Jackets & Coats 6</a></li>
+                                        <li> <a href="#">Beauty 7</a></li>
+                                        <li><a href="#">Dresses 2</a></li>
+                                        <li><a href="#">Shirts 3</a></li>
+                                        <li><a href="#">Shoes 4</a></li>
+                                        <li><a href="#">Bags & Purses 5</a></li>
+                                        <li> <a href="#">Hoodies & Sweatshirts Hoodies & Sweatshirts</a></li>
+                                        <li> <a href="#">Jackets & Coats 6</a></li>
+                                        <li> <a href="#">Beauty 7</a></li>
+
+                                    </ul>
+                                </div>
+                            </li>
+                            <li> <a href="#">Hoodies & Sweatshirts Hoodies & Sweatshirts</a></li>
+                            <li> <a href="#">Jackets & Coats</a></li>
+                            <li> <a href="#">Beauty</a></li>
+
+                        </ul>
+                    </div>
+                </li>
+                <li><a href="#">Sweatshirts</a>
+                    <div class="sub_menu">
+                        <ul>
+                            <li><a href="#">Dresses</a></li>
+                            <li><a href="#">Shirts</a>
+                                <div class="sub_menu_2">
+                                    <ul>
+                                        <li><a href="#">Dresses</a></li>
+                                        <li><a href="#">Shirts</a></li>
+                                        <li><a href="#">Shoes</a></li>
+                                        <li><a href="#">Bags & Purses</a></li>
+                                        <li> <a href="#">Hoodies & Sweatshirts Hoodies & Sweatshirts</a></li>
+                                        <li> <a href="#">Jackets & Coats</a></li>
+                                        <li> <a href="#">Beauty</a></li>
+
+                                    </ul>
+                                </div>
+                            </li>
+                            <li><a href="#">Shoes</a>
+                                <div class="sub_menu_2">
+                                    <ul>
+                                        <li><a href="#">Dresses</a></li>
+                                        <li><a href="#">Shirts</a></li>
+                                        <li><a href="#">Shoes</a></li>
+                                        <li><a href="#">Bags & Purses</a></li>
+                                        <li> <a href="#">Hoodies & Sweatshirts Hoodies & Sweatshirts</a></li>
+                                        <li> <a href="#">Jackets & Coats</a></li>
+                                        <li> <a href="#">Beauty</a></li>
+
+                                    </ul>
+                                </div>
+                            </li>
+                            <li><a href="#">Bags & Purses</a>
+                                <div class="sub_menu_2">
+                                    <ul>
+                                        <li><a href="#">Dresses 2</a></li>
+                                        <li><a href="#">Shirts 3</a></li>
+                                        <li><a href="#">Shoes 4</a></li>
+                                        <li><a href="#">Bags & Purses 5</a></li>
+                                        <li> <a href="#">Hoodies & Sweatshirts Hoodies & Sweatshirts</a></li>
+                                        <li> <a href="#">Jackets & Coats 6</a></li>
+                                        <li> <a href="#">Beauty 7</a></li>
+                                        <li><a href="#">Dresses 2</a></li>
+                                        <li><a href="#">Shirts 3</a></li>
+                                        <li><a href="#">Shoes 4</a></li>
+                                        <li><a href="#">Bags & Purses 5</a></li>
+                                        <li> <a href="#">Hoodies & Sweatshirts Hoodies & Sweatshirts</a></li>
+                                        <li> <a href="#">Jackets & Coats 6</a></li>
+                                        <li> <a href="#">Beauty 7</a></li>
+
+                                    </ul>
+                                </div>
+                            </li>
+                            <li> <a href="#">Hoodies & Sweatshirts Hoodies & Sweatshirts</a></li>
+                            <li> <a href="#">Jackets & Coats</a></li>
+                            <li> <a href="#">Beauty</a></li>
+
+                        </ul>
+                    </div>
+                </li>
+
+                <li><a href="#">Bags & Purses</a>
+                    <div class="sub_menu">
+                        <ul>
+                            <li><a href="#">Dresses</a></li>
+                            <li><a href="#">Shirts</a>
+                                <div class="sub_menu_2">
+                                    <ul>
+                                        <li><a href="#">Dresses</a></li>
+                                        <li><a href="#">Shirts</a></li>
+                                        <li><a href="#">Shoes</a></li>
+                                        <li><a href="#">Bags & Purses</a></li>
+                                        <li> <a href="#">Hoodies & Sweatshirts Hoodies & Sweatshirts</a></li>
+                                        <li> <a href="#">Jackets & Coats</a></li>
+                                        <li> <a href="#">Beauty</a></li>
+
+                                    </ul>
+                                </div>
+                            </li>
+                            <li><a href="#">Shoes</a>
+                                <div class="sub_menu_2">
+                                    <ul>
+                                        <li><a href="#">Dresses</a></li>
+                                        <li><a href="#">Shirts</a></li>
+                                        <li><a href="#">Shoes</a></li>
+                                        <li><a href="#">Bags & Purses</a></li>
+                                        <li> <a href="#">Hoodies & Sweatshirts Hoodies & Sweatshirts</a></li>
+                                        <li> <a href="#">Jackets & Coats</a></li>
+                                        <li> <a href="#">Beauty</a></li>
+
+                                    </ul>
+                                </div>
+                            </li>
+                            <li><a href="#">Bags & Purses</a>
+                                <div class="sub_menu_2">
+                                    <ul>
+                                        <li><a href="#">Dresses 2</a></li>
+                                        <li><a href="#">Shirts 3</a></li>
+                                        <li><a href="#">Shoes 4</a></li>
+                                        <li><a href="#">Bags & Purses 5</a></li>
+                                        <li> <a href="#">Hoodies & Sweatshirts Hoodies & Sweatshirts</a></li>
+                                        <li> <a href="#">Jackets & Coats 6</a></li>
+                                        <li> <a href="#">Beauty 7</a></li>
+                                        <li><a href="#">Dresses 2</a></li>
+                                        <li><a href="#">Shirts 3</a></li>
+                                        <li><a href="#">Shoes 4</a></li>
+                                        <li><a href="#">Bags & Purses 5</a></li>
+                                        <li> <a href="#">Hoodies & Sweatshirts Hoodies & Sweatshirts</a></li>
+                                        <li> <a href="#">Jackets & Coats 6</a></li>
+                                        <li> <a href="#">Beauty 7</a></li>
+
+                                    </ul>
+                                </div>
+                            </li>
+                            <li> <a href="#">Hoodies & Sweatshirts Hoodies & Sweatshirts</a></li>
+                            <li> <a href="#">Jackets & Coats</a></li>
+                            <li> <a href="#">Beauty</a></li>
+
+                        </ul>
+                    </div>
+                </li>
+            </ul><!--End #Navigation-->
+        </nav><!--End .navigation-->
+
+        <section class="bg_shadow">
+            <div class="wrap clearfix">
+                <div class="title floatLeft">
+                    <h6>Giỏ hàng </h6>
+                    <span>Giỏ hàng</span>
+                </div>
+                <div class="clearfix breadcrumbs floatRight">
+                    <div class="fl" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                        <a title="Trang nhất" href="/" itemprop="url">
+                            <span itemprop="title">Trang chủ</span>
+                        </a> /
+                    </div>
+                    <div itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb" class="fl">
+                        <a class="highlight" href="/" title="Kiến thức SEO" itemprop="url">
+                            <span itemprop="title">Giỏ hàng</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="content" class="wrap">
+            <div class="form boxcart box-drop">
+                <div class="seller">
+                    <h3>Gian hàng <a href="#">Lê Hải</a></h3>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="width: 65px;">#</th>
+                            <th style="text-align: left;padding-left: 5px">Sản phẩm</th>
+                            <th style="width: 80px">Số lượng</th>
+                            <th>Đơn giá</th>
+                            <th>Tổng tiền</th>
+                            <th style="width: 56px">&nbsp;</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr id="cart_iwz9zi66" rel="">
+                            <td><img src="uploads/29672_250008_64788.jpg" alt=""></td>
+                            <td style="text-align: left;padding-left: 5px">
+                                <a href="#">Túi xách giả da cá sấu</a>
+                                <br>
+                            </td>
+                            <td>
+                                <div>
+                                    <select class="quantity">
+                                        <option selected="" value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option>                                        </select>
+                                </div>
+                            </td>
+                            <td>1.500.000 VNĐ</td>
+                            <td><span class="subprice">1.500.000</span> VNĐ</td>
+                            <td>
+                                <button class="btnRemove">Remove</button>
+                            </td>
+                        </tr>
+                        <tr id="cart_iwz9zi6z" rel="">
+                            <td><img src="uploads/29672_250008_64788.jpg" alt=""></td>
+                            <td style="text-align: left;padding-left: 5px">
+                                <a href="#">Túi xách nữ kiểu dáng Prada</a>
+                                <br>
+                            </td>
+                            <td>
+                                <div>
+                                    <select class="quantity">
+                                        <option selected="" value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option>                                        </select>
+                                </div>
+                            </td>
+                            <td>600.000 VNĐ</td>
+                            <td><span class="subprice">600.000</span> VNĐ</td>
+                            <td>
+                                <button class="btnRemove">Remove</button>
+                            </td>
+                        </tr>
+                        <tr id="emptyCart" style="display: none;">
+                            <td colspan="6">
+                                <br>
+                                Chưa có sản phẩm nào trong giỏ hàng.
+                                <br><br>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="col">
+                    <div class="payment">
+                        <p id="productTotal" class="product-total">Tổng tiền sản phẩm: <span>2.100.000 </span>VNĐ</p>
+                        <div class="pay">
+                            <a href="#" class="btn">Trả tiền khi nhận hàng</a>
+                            <a id="btnGotoCheckout" href="#" class="btn">Trả tiền trực tuyến</a>
+                        </div>
+                    </div>
+
+                </div><!-- End .boxcart-info-->
+            </div>
+            <div class="form boxcart box-drop">
+                <div class="seller">
+                    <h3>Gian hàng <a href="#">Lê Hải</a></h3>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="width: 65px;">#</th>
+                            <th style="text-align: left;padding-left: 5px">Sản phẩm</th>
+                            <th style="width: 80px">Số lượng</th>
+                            <th>Đơn giá</th>
+                            <th>Tổng tiền</th>
+                            <th style="width: 56px">&nbsp;</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr id="cart_iwz9zi66" rel="">
+                            <td><img src="uploads/29672_250008_64788.jpg" alt=""></td>
+                            <td style="text-align: left;padding-left: 5px">
+                                <a href="#">Túi xách giả da cá sấu</a>
+                                <br>
+                            </td>
+                            <td>
+                                <div>
+                                    <select class="quantity">
+                                        <option selected="" value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option>                                        </select>
+                                </div>
+                            </td>
+                            <td>1.500.000 VNĐ</td>
+                            <td><span class="subprice">1.500.000</span> VNĐ</td>
+                            <td>
+                                <button class="btnRemove">Remove</button>
+                            </td>
+                        </tr>
+                        <tr id="cart_iwz9zi6z" rel="">
+                            <td><img src="uploads/29672_250008_64788.jpg" alt=""></td>
+                            <td style="text-align: left;padding-left: 5px">
+                                <a href="#">Túi xách nữ kiểu dáng Prada</a>
+                                <br>
+                            </td>
+                            <td>
+                                <div>
+                                    <select class="quantity">
+                                        <option selected="" value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option>                                        </select>
+                                </div>
+                            </td>
+                            <td>600.000 VNĐ</td>
+                            <td><span class="subprice">600.000</span> VNĐ</td>
+                            <td>
+                                <button class="btnRemove">Remove</button>
+                            </td>
+                        </tr>
+                        <tr id="emptyCart" style="display: none;">
+                            <td colspan="6">
+                                <br>
+                                Chưa có sản phẩm nào trong giỏ hàng.
+                                <br><br>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="col">
+                    <div class="payment">
+                        <p id="productTotal" class="product-total">Tổng tiền sản phẩm: <span>2.100.000 </span>VNĐ</p>
+                        <div class="pay">
+                            <a href="#" class="btn">Trả tiền khi nhận hàng</a>
+                            <a id="btnGotoCheckout" href="#" class="btn">Trả tiền trực tuyến</a>
+                        </div>
+                    </div>
+
+                </div><!-- End .boxcart-info-->
+            </div>
+            <div class="form boxcart box-drop">
+                <div class="seller">
+                    <h3>Gian hàng <a href="#">Lê Hải</a></h3>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="width: 65px;">#</th>
+                            <th style="text-align: left;padding-left: 5px">Sản phẩm</th>
+                            <th style="width: 80px">Số lượng</th>
+                            <th>Đơn giá</th>
+                            <th>Tổng tiền</th>
+                            <th style="width: 56px">&nbsp;</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr id="cart_iwz9zi66" rel="">
+                            <td><img src="uploads/29672_250008_64788.jpg" alt=""></td>
+                            <td style="text-align: left;padding-left: 5px">
+                                <a href="#">Túi xách giả da cá sấu</a>
+                                <br>
+                            </td>
+                            <td>
+                                <div>
+                                    <select class="quantity">
+                                        <option selected="" value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option>                                        </select>
+                                </div>
+                            </td>
+                            <td>1.500.000 VNĐ</td>
+                            <td><span class="subprice">1.500.000</span> VNĐ</td>
+                            <td>
+                                <button class="btnRemove">Remove</button>
+                            </td>
+                        </tr>
+                        <tr id="cart_iwz9zi6z" rel="">
+                            <td><img src="uploads/29672_250008_64788.jpg" alt=""></td>
+                            <td style="text-align: left;padding-left: 5px">
+                                <a href="#">Túi xách nữ kiểu dáng Prada</a>
+                                <br>
+                            </td>
+                            <td>
+                                <div>
+                                    <select class="quantity">
+                                        <option selected="" value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option>                                        </select>
+                                </div>
+                            </td>
+                            <td>600.000 VNĐ</td>
+                            <td><span class="subprice">600.000</span> VNĐ</td>
+                            <td>
+                                <button class="btnRemove">Remove</button>
+                            </td>
+                        </tr>
+                        <tr id="emptyCart" style="display: none;">
+                            <td colspan="6">
+                                <br>
+                                Chưa có sản phẩm nào trong giỏ hàng.
+                                <br><br>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="col">
+                    <div class="payment">
+                        <p id="productTotal" class="product-total">Tổng tiền sản phẩm: <span>2.100.000 </span>VNĐ</p>
+                        <div class="pay">
+                            <a href="#" class="btn">Trả tiền khi nhận hàng</a>
+                            <a id="btnGotoCheckout" href="#" class="btn">Trả tiền trực tuyến</a>
+                        </div>
+                    </div>
+
+                </div><!-- End .boxcart-info-->
+            </div>
+
+
+
+            <div class="clear"></div>
+        </section><!--End #content-->
+
+        <section  class="slide-infomation">
+            <ul id="mycarousel" class="jcarousel-skin-tango">
+                <li>
+                    <a href="#"><img src="uploads/1.png" title="" alt="1" ></a>
+                </li>
+                <li>
+                    <a href="#"><img src="uploads/2.png" title="" alt="2" ></a>
+                </li>
+                <li>
+                    <a href="#"><img src="uploads/3.png" title="" alt="3" ></a>
+                </li>
+                <li>
+                    <a href="#"><img src="uploads/1.png" title="" alt="1" ></a>
+                </li>
+                <li>
+                    <a href="#"><img src="uploads/2.png" title="" alt="2" ></a>
+                </li>
+                <li>
+                    <a href="#"><img src="uploads/3.png" title="" alt="3" ></a>
+                </li>
+                <li>
+                    <a href="#"><img src="uploads/1.png" title="" alt="1" ></a>
+                </li>
+                <li>
+                    <a href="#"><img src="uploads/2.png" title="" alt="2" ></a>
+                </li>
+                <li>
+                    <a href="#"><img src="uploads/3.png" title="" alt="3" ></a>
+                </li>
+            </ul>
+        </section> <!-- end .slide-infomation -->
+        <script type="text/javascript" src="js/jquery.jcarousel.js"></script>
+        <script type="text/javascript" src="js/jquery.leanModal.min.js"></script>
+        <script type="text/javascript" src="js/gallery.js"></script>
+
+        <div id="footer" class="bg_back"> 
+            <footer class="wrap">
+                <div class="col floatLeft">
+                    <div class="footerlink">
+                        <h2>Giới thiệu</h2>
+                        <ul>
+                            <li>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has dummy text ever since the ...</li>
+                        </ul>
+                        <a href="#" class="readmore">Read More</a>
+                    </div><!-- .End footerlink-->
+                </div><!-- .End col-->
+                <div class="col floatLeft">
+                    <div class="footerlink">
+                        <h2>Liên hệ</h2>
+                        <div class="maps_contact">
+                            <ul>
+                                <li>The Company Name</li>
+                                <li><img src="images/icon_maps.png"/>DC 999 E Street, N.W.. Washington, DC</li>
+                                <li><img src="images/mail.png"/>1800-555-3838</li>
+                                <li><img src="images/phone.png"/>info@yourstore.com</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div><!-- .End col-->
+                <div class="col floatLeft">
+                    <div class="footerlink">
+                        <h2>Thông tin</h2>
+                        <div class="maps_contact">
+                            <ul>
+                                <li><a href="#">Customer Support</a></li>
+                                <li><a href="#">Delivery Information</a></li>
+                                <li><a href="#">Terms & Conditions</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div><!-- .End col-->
+                <div class="col floatLeft">
+                    <div class="footerlink">
+                        <h2>Thanh toán</h2>
+                        <figure class="img_paypal">
+                            <img src="uploads/paypal.png" alt="01"/>
+                        </figure>
+                        <p>It is a long established fact that a reader will be .distracted by the readable content of a page when looking at its layout. </p>
+                    </div>
+                </div><!-- .End col-->
+                <div class="clear"></div>
+
+                <div class="copyright_social">
+                    <div class="floatLeft copyright">
+                        <p >© Copyright 2013 1price</p>
+                    </div>
+                    <div class="social floatRight">
+                        <a href="#"><img src="uploads/skype.png" alt=""></a>
+                        <a href="#"><img src="uploads/ff.png" alt=""></a>
+                        <a href="#"><img src="uploads/gg.png" alt=""></a>
+                        <a href="#"><img src="uploads/tw.png" alt=""></a>
+                    </div><!-- .End social-->
+                    <div class="clear"></div>
+                </div>
+            </footer><!-- .End wrap-->
+        </div><!-- #End footer -->
+    </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
