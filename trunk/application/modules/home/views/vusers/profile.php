@@ -238,22 +238,25 @@
                                 <?php
                                 if (count($message_info))
                                     foreach ($message_info as $key => $value) {
-                                        echo '<a href="' . base_url() . 'index.php/home/cusers/profile?messageid=' . $value->messageID . '#messages"><li>
-                                    <div class="listitem clearfix">
-                                        <figure class="img_post">
-                                            <img src="uploads/1076505_100003738868761_2002716988_q.jpg" alt="img-hot"/>
-                                        </figure>
-                                        <div class="listitem_ct">';
+                                        echo '<a href="' . base_url() . 'index.php/home/cusers/profile?messageid=' . $value->messageID . '#messages">
+                                            <li';
+                                        echo (isset($Message_status_link) && $Message_status_link == TRUE && $_GET['messageid'] == $value->messageID)?' class="active"': '';
+                                        echo'>
+                                                <div class="listitem clearfix">
+                                                    <figure class="img_post">
+                                                        <img src="uploads/1076505_100003738868761_2002716988_q.jpg" alt="img-hot"/>
+                                                    </figure>
+                                                <div class="listitem_ct">';
 
                                         echo ($value->status == 0) ? '<b><span class="name_user">' . $value->ho_nguoi_gui . $value->ten_nguoi_gui . '</span>
-                                            <span class="title_post2" style=" color: rgb(105, 71, 194);">' . $value->title . '</span></b>' :
-                                                '<span class="name_user2">' . $value->ho_nguoi_gui . $value->ten_nguoi_gui . '</span>
-                                            <span class="title_post">' . $value->title . '</span>';
+                                                    <span class="title_post2" style=" color: rgb(105, 71, 194);">' . $value->title . '</span></b>' :
+                                                    '<span class="name_user2">' . $value->ho_nguoi_gui . $value->ten_nguoi_gui . '</span>
+                                                    <span class="title_post">' . $value->title . '</span>';
                                         echo '
-                                        </div>
-                                        <time>' . $value->date . '</time>
-                                    </div>
-                                </li></a>';
+                                                </div>
+                                                    <time>' . $value->date . '</time>
+                                                </div>
+                                            </li></a>';
                                     }
                                 else
                                     echo 'khong co tin nhan hien thi';
@@ -404,7 +407,7 @@
 
                     function showpaging($curent1, $i1) {
                         if ($curent1 != $i1)
-                            echo'<a href="' . base_url() . 'index.php/home/cusers/profile?page=' . $i1 . '#products">' . $i1 . '</a>';
+                            echo'<a href="' . base_url() . 'index.php/home/cusers/profile?sppage=' . $i1 . '#products">' . $i1 . '</a>';
                         else
                             echo'<span class="active">' . $i1 . '</span>';
                     }
@@ -509,7 +512,7 @@
 
                     function showpaging2($curent2, $i2) {
                         if ($curent2 != $i2)
-                            echo'<a href="' . base_url() . 'index.php/home/cusers/profile?page=' . $i2 . '#bill">' . $i2 . '</a>';
+                            echo'<a href="' . base_url() . 'index.php/home/cusers/profile?billpage=' . $i2 . '#bill">' . $i2 . '</a>';
                         else
                             echo'<span class="active">' . $i2 . '</span>';
                     }

@@ -122,11 +122,13 @@ class cusers extends CI_Controller {
         //thay doi mat khau
         //phan trang
         $display = 10; //so ban ghi moi trang
-        $start = 0; //vi tri mac dinh khi load trang
-        $page = 1; //trang mac dinh khi load
-        if (isset($_GET['page']) && (int) $_GET['page'] > 0) {
-            $page = $_GET['page'];
-            $start = (isset($_GET['page']) && (int) $_GET['page'] > 0) ? ($_GET['page'] - 1) * $display : 0; //nhan bien truyen vao tu url
+        $spstart = 0; //vi tri mac dinh khi load trang
+        $sppage = 1; //trang mac dinh khi load
+        $billstart = 0;
+        $billpage = 1;
+        if (isset($_GET['sppage']) && (int) $_GET['sppage'] > 0) {
+            $sppage = $_GET['sppage'];
+            $spstart = (isset($_GET['sppage']) && (int) $_GET['sppage'] > 0) ? ($_GET['sppage'] - 1) * $display : 0; //nhan bien truyen vao tu url
         }
         //lay thong tin san pham va phan trang
         if ($temp['level']['levelID'] == 2) {
@@ -136,32 +138,36 @@ class cusers extends CI_Controller {
             else
                 $num_page1 = 1;
 
-            $temp['product'] = $this->Musers->getProductByUID($userid, $display, $start);
-            $temp['paging_product'] = array('num_page' => $num_page1, 'page' => $page, 'start' => $start, 'display' => $display);
+            $temp['product'] = $this->Musers->getProductByUID($userid, $display, $spstart);
+            $temp['paging_product'] = array('num_page' => $num_page1, 'page' => $sppage, 'start' => $spstart, 'display' => $display);
 
             //sua trang thai san pham
             if (isset($_GET['change_status']) && isset($_GET['proID']) && isset($_GET['status_pro'])) {
-                $proid= $_GET['proID'];
-                $statuspro= $_GET['status_pro'];
-                $this->Musers->changeStatusPro($proid,$userid,$statuspro);
-                if(isset($_GET['page']))
-                $url ='home/cusers/profile'.$_GET['page'].'#products';
+                $proid = $_GET['proID'];
+                $statuspro = $_GET['status_pro'];
+                $this->Musers->changeStatusPro($proid, $userid, $statuspro);
+                if (isset($_GET['sppage']))
+                    $url = 'home/cusers/profile' . $_GET['sppage'] . '#products';
                 else
-                $url ='home/cusers/profile#products';    
+                    $url = 'home/cusers/profile#products';
                 redirect($url);
             }
 
 
             //ket thuc quan ly san pham
-//Quản lý đơn hàng
+            //Quản lý đơn hàng
+            if (isset($_GET['billpage']) && (int) $_GET['billpage'] > 0) {
+                $billpage = $_GET['billpage'];
+                $billstart = (isset($_GET['billpage']) && (int) $_GET['billpage'] > 0) ? ($_GET['billpage'] - 1) * $display : 0; //nhan bien truyen vao tu url
+            }
             $record2 = count($this->Musers->getOrderByUID($userid)); //tong so ban ghi
             if ($record2 > $display)//neu ban ghi nho hon quy dinh thi khong can phan trang
                 $num_page2 = ceil($record2 / $display); //tong so trang
             else
                 $num_page2 = 1;
             $temp['num_order'] = $this->Musers->getNumOrderStatus($userid, 1000, 0); //Lấy số hóa đơn chưa xử lý
-            $temp['order'] = $this->Musers->getOrderByUID($userid, $display, $start);
-            $temp['paging_order'] = array('num_page' => $num_page2, 'page' => $page, 'start' => $start, 'display' => $display);
+            $temp['order'] = $this->Musers->getOrderByUID($userid, $display, $billstart);
+            $temp['paging_order'] = array('num_page' => $num_page2, 'page' => $billpage, 'start' => $billstart, 'display' => $display);
         }
 
         //quan ly tin nhan
@@ -178,6 +184,7 @@ class cusers extends CI_Controller {
 //            echo ($ck= TRUE)? 'thanh cong': 'that bai!';
                 redirect('home/cusers/profile#messages');
             }
+            $temp['Message_status_link'] = TRUE;
             $this->Musers->changeMessageStatus($msID); //Chuyển trạng thái tin nhắn từ chưa đọc sang đã đọc
         }
 
