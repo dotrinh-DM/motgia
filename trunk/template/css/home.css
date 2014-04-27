@@ -147,7 +147,7 @@ input[type=button] , input[type=submit], .sub_menu_2 , :before , a , img{
     border:1px solid #dddada;
 }
 #logo{
-
+margin-top: 30px;
     display: block;
     width: 146px;
     height: 46px;
@@ -642,8 +642,8 @@ input[type=checkbox]{
     color: #1abc9c;
 }
 .price{
-    width: 56px;
-    height: 22px;
+    width: 66px;
+    height: 58px;
     display: block;
     background: transparent url(../images/bg_price.png) no-repeat;
     text-align: center;
