@@ -13,7 +13,7 @@ class Cproducts extends CI_Controller
         parent::__construct();
         $this->load->helper('form');
         $this->load->helper('html');
-        $this->load->library('session','cart');
+        $this->load->library('session');
         $this->load->helper('url');
         $this->load->model('Mproducts');
         $this->load->model('Mlog');
@@ -218,7 +218,7 @@ class Cproducts extends CI_Controller
 
     public function addcart()
     {
-        
+        $id = $_POST['idpro'];
         if (isset($_SESSION['cart'][$id])) {
             $ql = $_SESSION['cart'][$id] + 1;
         } else {
@@ -226,19 +226,6 @@ class Cproducts extends CI_Controller
         }
         $_SESSION['cart'][$id] = $ql;
         echo count($_SESSION['cart']);
-        
-//        //cach 2
-//        $sl = 1;
-//        $id = $_POST['idpro'];
-//        $get= $this->Mproducts->getCart($id);
-//        $name= $get->name;
-//        $data = array(
-//            'id' => $id,
-//            'qty' => $sl,
-//            'price' => $sl,
-//            'name' => $name
-//        );
-//            $this->cart->insert($data);
     }
 
     public function view_cart()
@@ -278,6 +265,10 @@ class Cproducts extends CI_Controller
             unset($_SESSION['cart'][$id]);
             redirect('home/cproducts/view_cart');
         }
+    }
+    public function vovan()
+    {
+        echo 'asdasdasdasd';
     }
 
 }

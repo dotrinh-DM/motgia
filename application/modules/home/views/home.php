@@ -40,7 +40,6 @@
             }
             return false;
         });
-
         $(".btn_readmore").live("click", function() {
             var idpro = $(this).attr("id");
             $.ajax({
