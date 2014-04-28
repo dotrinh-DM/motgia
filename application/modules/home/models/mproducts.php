@@ -98,6 +98,13 @@ class Mproducts extends CI_Model {
         $query = $this->db->get('products');
         return $query->result();
     }
+    public function getCart($where)
+    {
+        $this->db->select("*");
+        $this->db->where("productsID", "$where");
+        $query = $this->db->get('products');
+        return $query->result();
+    }
 }
 
 ?>
