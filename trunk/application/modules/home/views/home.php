@@ -2,7 +2,8 @@
     <div class="swiper-container">
         <div class="swiper-wrapper">
             <?php foreach ($data_slide as $slide) {
-                $images = json_decode($slide->images); ?>
+                $images = json_decode($slide->images);
+                ?>
                 <div class="swiper-slide" style="background-image:url(<?php echo base_url() . $images[0]; ?>)">
                     <a href="<?php echo site_url("home/cproducts/showDetailProducts/$slide->productsID/$slide->categoriesID"); ?>"></a><!--
                     --></div>
@@ -39,9 +40,23 @@
             }
             return false;
         });
+
+        $(".btn_readmore").live("click", function() {
+            var idpro = $(this).attr("id");
+            $.ajax({
+                type: "POST",
+                url: "<?php echo site_url('home/cproducts/addcart'); ?>",
+                data: "idpro=" + idpro,
+                success: function(kq) {
+                    alert('Thêm vào giỏ hàng thành công!');
+                    $("#choxemgiohang").html(kq);
+                }
+            });
+        });
     });
 
 </script>
+<div id="cart123"></div>
 <section id="content" class="wrap_2">
     <header class="Nav_content">
         <a href="#">Sản phẩm nổi bật</a>
@@ -49,8 +64,9 @@
         <a href="#">Sản phẩm bán chạy</a>
     </header><!--End .Nav_content-->
     <div id="content_index">
-<?php foreach ($data_home as $value) {
-    $img = json_decode($value->images); ?>
+        <?php foreach ($data_home as $value) {
+            $img = json_decode($value->images);
+            ?>
             <section class="module">
                 <div class="module_item clearfix">
                     <a href="<?php echo site_url("home/cproducts/showDetailProducts/$value->productsID/$value->categoriesID"); ?>" class="img_module">
@@ -60,7 +76,7 @@
                         <header class="title_item"><a href="<?php echo site_url("home/cproducts/showDetailProducts/$value->productsID/$value->categoriesID"); ?>"><?php echo $value->name ?></a></header>
                         <p><?php echo substr($value->intro2, 0, strrpos($value->intro2, ' ')); ?>...</p>
                     </div><!--End .reduced-->
-                    <a href="<?php echo site_url("home/cproducts/showDetailProducts/$value->productsID/$value->categoriesID"); ?>" class="btn_readmore">Chi tiết</a>
+                    <a style="cursor: pointer" id="<?php echo $value->productsID; ?>" class="btn_readmore">Đặt Mua</a>
                     <span class="price"><?php echo $value->price ?>K</span>
                 </div><!--End .module_item-->
             </section><!--End .module-->
@@ -73,16 +89,16 @@
     <script src="<?php echo base_url(); ?>public/homejs/idangerous.swiper-2.0.min.js"></script>
     <script src="<?php echo base_url(); ?>public/homejs/idangerous.swiper.3dflow-2.0.js"></script>
     <script>
-        var mySwiper = new Swiper('.swiper-container', {
-            slidesPerView: 3,
-            loop: true,
-            //Enable 3D Flow
-            tdFlow: {
-                rotate: 30,
-                stretch: 10,
-                depth: 150,
-                modifier: 1,
-                shadows: true
-            }
-        })
+    var mySwiper = new Swiper('.swiper-container', {
+        slidesPerView: 3,
+        loop: true,
+        //Enable 3D Flow
+        tdFlow: {
+            rotate: 30,
+            stretch: 10,
+            depth: 150,
+            modifier: 1,
+            shadows: true
+        }
+    })
     </script>

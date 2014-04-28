@@ -1,21 +1,26 @@
 <?php
 
+session_start();
+
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
-class Cproducts extends CI_Controller {
+class Cproducts extends CI_Controller
+{
 
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->load->helper('form');
         $this->load->helper('html');
-        $this->load->library('session');
+        $this->load->library('session','cart');
         $this->load->helper('url');
         $this->load->model('Mproducts');
         $this->load->model('Mlog');
     }
 
-    public function index() {
+    public function index()
+    {
         $temp['info'] = $this->Mlog->log();
         $temp['title'] = 'Trang chủ';
         $temp['data_home'] = $this->Mproducts->getAllProducts();
@@ -24,14 +29,14 @@ class Cproducts extends CI_Controller {
         $this->load->view('layout/layout', $temp);
     }
 
-//     public function count1($id) {
-//         if($temp = $this->Mproducts->show_more($id)){
-//             echo 'asdasd';
-//         }else{
-//             echo 'ko';
-//         }
-//    }
-    public function show_more() {
+    public function getProductByID($id)
+    {
+        $data['data'] = $this->Mproducts->getProductByID($id);
+        $this->load->view('vproducts/tam', $data);
+    }
+
+    public function show_more()
+    {
         if (isset($_POST['idl'])) {
             $id = $_POST['idl'];
 
@@ -48,7 +53,7 @@ class Cproducts extends CI_Controller {
                         <header class="title_item"><a href="' . site_url("home/cproducts/showDetailProducts/$value->productsID/$value->categoriesID") . '">' . $value->name . '</a></header>
                         <p>' . substr($value->intro2, 0, strrpos($value->intro2, ' ')) . '...</p>
                     </div><!--End .reduced-->
-                    <a href="' . site_url("home/cproducts/showDetailProducts/$value->productsID/$value->categoriesID") . '" class="btn_readmore">Chi tiết</a>
+                    <a style="cursor: pointer" id="' . $value->productsID . '" class="btn_readmore">Đặt Mua</a>
                     <span class="price">' . $value->price . '</span>
                 </div><!--End .module_item-->
             </section><!--End .module-->';
@@ -66,7 +71,8 @@ class Cproducts extends CI_Controller {
         }
     }
 
-    public function showDetailProducts($id, $cate) {
+    public function showDetailProducts($id, $cate)
+    {
         $temp['info'] = $this->Mlog->log();
         $temp['title'] = 'Chi tiết sản phẩm';
         $temp['template'] = 'vproducts/product_detail';
@@ -75,7 +81,8 @@ class Cproducts extends CI_Controller {
         $this->load->view('layout/layout', $temp);
     }
 
-    public function upProducts() {
+    public function upProducts()
+    {
         $temp['info'] = $this->Mlog->log();
         $temp['title'] = 'Đăng sản phẩm';
         $temp['cate'] = $this->Mproducts->getAllCategories();
@@ -84,7 +91,8 @@ class Cproducts extends CI_Controller {
         $this->load->view('layout/layout', $temp);
     }
 
-    public function insertProducts() {
+    public function insertProducts()
+    {
         $this->load->library('form_validation');
         $this->form_validation->set_rules('soluong', 'Số lượng bắt buộc và phải là số', 'required|numeric|integer');
         $this->form_validation->set_rules('tensanpham', 'Tên sản phẩm bắt buộc', 'required');
@@ -96,7 +104,11 @@ class Cproducts extends CI_Controller {
             $this->upProducts();
         } else {
             $url = array();
-            $allowed = array('image/jpg', 'image/x-png', 'image/png', 'image/jpeg');
+            $allowed = array(
+                'image/jpg',
+                'image/x-png',
+                'image/png',
+                'image/jpeg');
             for ($i = 1; $i < 4; $i++) {
                 $link_tai_anh_goc = "./public/product_images/";
                 $tmp = $_FILES['img' . $i]['tmp_name']; //luu ten cua file vao bien tmp
@@ -133,7 +145,8 @@ class Cproducts extends CI_Controller {
         }
     }
 
-    public function editProducts($id) {
+    public function editProducts($id)
+    {
 //        $temp['info']=  $this->Mproducts->log();
         $data['cate'] = $this->Mproducts->getAllCategories();
         $data['edit'] = $this->Mproducts->editProducts($id);
@@ -143,7 +156,8 @@ class Cproducts extends CI_Controller {
         $this->load->view('layout/layout', $data);
     }
 
-    public function updateProducts() {
+    public function updateProducts()
+    {
         $id = $this->input->post('idhidden');
         $a = $this->Mproducts->editProducts($id);
         foreach ($a as $value)
@@ -151,7 +165,10 @@ class Cproducts extends CI_Controller {
         $img1 = $_FILES['img1']['error'];
         $img2 = $_FILES['img2']['error'];
         $img3 = $_FILES['img3']['error'];
-        $arrayimg = array($img1, $img2, $img3);
+        $arrayimg = array(
+            $img1,
+            $img2,
+            $img3);
         if (in_array(4, $arrayimg)) { // sua 1 trong 3 - 2 trong 3
             $url = array();
             for ($i = 1; $i < 4; $i++) {
@@ -199,24 +216,67 @@ class Cproducts extends CI_Controller {
         $this->load->view('layout/layout', $data);
     }
 
-    public function getProductByID($id) {
-        $data['data'] = $this->Mproducts->getProductByID($id);
-        $this->load->view('vproducts/tam', $data);
-    }
-
-    public function exx1() {
-//        $data['table']= $this->Mproducts->getAllProducts();
-//        $data['title'] = 'vo van';
-        $this->load->view('vproducts/tam');
-    }
-
-    public function exx() {
-//        echo base_url();
-//        echo site_url();
-        if (unlink('public/product_images/motgia5312eb4d00a83.jpg')) {
-            echo 'ok';
+    public function addcart()
+    {
+        
+        if (isset($_SESSION['cart'][$id])) {
+            $ql = $_SESSION['cart'][$id] + 1;
         } else {
-            echo 'ko';
+            $ql = 1;
+        }
+        $_SESSION['cart'][$id] = $ql;
+        echo count($_SESSION['cart']);
+        
+//        //cach 2
+//        $sl = 1;
+//        $id = $_POST['idpro'];
+//        $get= $this->Mproducts->getCart($id);
+//        $name= $get->name;
+//        $data = array(
+//            'id' => $id,
+//            'qty' => $sl,
+//            'price' => $sl,
+//            'name' => $name
+//        );
+//            $this->cart->insert($data);
+    }
+
+    public function view_cart()
+    {
+        if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
+            $where = array();
+            foreach ($_SESSION['cart'] as $key => $value) {
+                $where[] = $key;
+            }
+            $where2 = implode(",", $where);
+            $data['title'] = 'Xem giỏ hàng::Siêu thị một giá online';
+            $data['cart'] = $this->Mproducts->getCart($where2);
+            $data['template'] = 'vproducts/view_cart';
+            $this->load->view('layout/layout', $data);
+        }else{
+            $data['title'] = 'Giỏ hàng rỗng :: Siêu thị một giá online';
+            $data['template'] = 'vproducts/view_cart';
+            $this->load->view('layout/layout', $data);
+        }
+    }
+
+    public function updateCart()
+    {
+        $mangSoluong = $this->input->post('soluong');
+        foreach ($mangSoluong as $idsanpham => $soluong) {
+            $_SESSION['cart'][$idsanpham] = $soluong;
+        }
+        redirect('home/cproducts/view_cart');
+    }
+
+    public function delCart($id)
+    {
+        if ($id == 0) {
+            session_destroy();
+            redirect('home/cproducts/view_cart');
+        } else {
+            unset($_SESSION['cart'][$id]);
+            redirect('home/cproducts/view_cart');
         }
     }
 
