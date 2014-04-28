@@ -101,7 +101,7 @@ class Mproducts extends CI_Model {
     public function getCart($where)
     {
         $this->db->select("*");
-        $this->db->where("productsID", "$where");
+        $this->db->where("productsID in ($where)");
         $query = $this->db->get('products');
         return $query->result();
     }

@@ -95,7 +95,7 @@
                     <input type="button" id="btnSearch" class="btnsearch"/>
                 </form>
                 <section class="cart">
-                    <a class="icon_cart" href="<?php echo base_url()."index.php/home/cproducts/view_cart"; ?>"><span id="choxemgiohang"><?php echo (isset($_SESSION['cart']))? count($_SESSION['cart']): '0'; ?></span></a>
+                    <a class="icon_cart" href="<?php echo base_url()."index.php/home/cproducts/view_cart"; ?>"><span id="choxemgiohang"><?php echo count($_SESSION['cart']); ?></span></a>
                 </section>
             </div>
         </section><!--End .logo_formSearch-->
