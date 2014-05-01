@@ -5,11 +5,9 @@ session_start();
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
-class Cproducts extends CI_Controller
-{
+class Cproducts extends CI_Controller {
 
-    public function __construct()
-    {
+    public function __construct() {
         parent::__construct();
         $this->load->helper('form');
         $this->load->helper('html');
@@ -17,10 +15,11 @@ class Cproducts extends CI_Controller
         $this->load->helper('url');
         $this->load->model('Mproducts');
         $this->load->model('Mlog');
-    }
+        $this->load->model('Musers');
+        }
+    
 
-    public function index()
-    {
+    public function index() {
         $temp['info'] = $this->Mlog->log();
         $temp['title'] = 'Trang chủ';
         $temp['data_home'] = $this->Mproducts->getAllProducts();
@@ -29,14 +28,12 @@ class Cproducts extends CI_Controller
         $this->load->view('layout/layout', $temp);
     }
 
-    public function getProductByID($id)
-    {
+    public function getProductByID($id) {
         $data['data'] = $this->Mproducts->getProductByID($id);
         $this->load->view('vproducts/tam', $data);
     }
 
-    public function show_more()
-    {
+    public function show_more() {
         if (isset($_POST['idl'])) {
             $id = $_POST['idl'];
 
@@ -71,8 +68,7 @@ class Cproducts extends CI_Controller
         }
     }
 
-    public function showDetailProducts($id, $cate)
-    {
+    public function showDetailProducts($id, $cate) {
         $temp['info'] = $this->Mlog->log();
         $temp['title'] = 'Chi tiết sản phẩm';
         $temp['template'] = 'vproducts/product_detail';
@@ -81,8 +77,7 @@ class Cproducts extends CI_Controller
         $this->load->view('layout/layout', $temp);
     }
 
-    public function upProducts()
-    {
+    public function upProducts() {
         $temp['info'] = $this->Mlog->log();
         $temp['title'] = 'Đăng sản phẩm';
         $temp['cate'] = $this->Mproducts->getAllCategories();
@@ -91,8 +86,7 @@ class Cproducts extends CI_Controller
         $this->load->view('layout/layout', $temp);
     }
 
-    public function insertProducts()
-    {
+    public function insertProducts() {
         $this->load->library('form_validation');
         $this->form_validation->set_rules('soluong', 'Số lượng bắt buộc và phải là số', 'required|numeric|integer');
         $this->form_validation->set_rules('tensanpham', 'Tên sản phẩm bắt buộc', 'required');
@@ -145,8 +139,7 @@ class Cproducts extends CI_Controller
         }
     }
 
-    public function editProducts($id)
-    {
+    public function editProducts($id) {
 //        $temp['info']=  $this->Mproducts->log();
         $data['cate'] = $this->Mproducts->getAllCategories();
         $data['edit'] = $this->Mproducts->editProducts($id);
@@ -156,8 +149,7 @@ class Cproducts extends CI_Controller
         $this->load->view('layout/layout', $data);
     }
 
-    public function updateProducts()
-    {
+    public function updateProducts() {
         $id = $this->input->post('idhidden');
         $a = $this->Mproducts->editProducts($id);
         foreach ($a as $value)
@@ -216,8 +208,7 @@ class Cproducts extends CI_Controller
         $this->load->view('layout/layout', $data);
     }
 
-    public function addcart()
-    {
+    public function addcart() {
 //        $id = $_POST['idpro'];
 //        $uid = $this->Mproducts->getProductbyID($id)->userID;
 //        if (isset($_SESSION['cart'][$id])) {
@@ -227,59 +218,89 @@ class Cproducts extends CI_Controller
 //        }
 //        $_SESSION['cart'][$id] = $ql;
 //        echo count($_SESSION['cart']);
-        
+
         $id = $_POST['idpro'];
-        $uid = $this->Mproducts->getProductbyID($id);
-        foreach ($uid as $key => $value) {
+        $uid2 = $this->Mproducts->getProductbyID($id);
+        foreach ($uid2 as $key => $value) {
             $uid = $value->userID;
+            $proname = $value->name;
         }
-        if (isset($_SESSION['cart'][$id])) {
-            $ql = $_SESSION['cart'][$id][$uid] + 1;
+        $uname2 = $this->Musers->getProfile($uid);
+        $uname = $uname2['firstname'] . ' ' . $uname2['lastname'];
+
+
+        if (isset($_SESSION['cart'][$uid][$id])) {
+            $ql = $_SESSION['cart'][$uid][$id]['soluong'] + 1;
         } else {
             $ql = 1;
         }
-        $_SESSION['cart'][$id][$uid] = $ql;
-        echo count($_SESSION['cart']);
-        var_dump($_SESSION['cart']);
+
+        $arr = array(
+            "productname" => $proname,
+            "soluong" => $ql
+        );
+        $_SESSION['cart'][$uid][$id] = $arr;
+        $_SESSION['cart'][$uid]["shopname"] = $uname;
     }
 
-    public function view_cart()
-    {
+    public function view_cart() {
+        $data['info'] = $this->Mlog->log();
         if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
             $where = array();
             foreach ($_SESSION['cart'] as $key => $value) {
-                $where[] = $key;
+                foreach ($value as $key2 => $value2) {
+                    $where[] = $key2;
+                }
             }
             $where2 = implode(",", $where);
             $data['title'] = 'Xem giỏ hàng::Siêu thị một giá online';
-            $data['cart'] = $this->Mproducts->getCart($where2);
+//            $data['cart'] = $this->Mproducts->getCart($where2);
             $data['template'] = 'vproducts/view_cart';
             $this->load->view('layout/layout', $data);
-        }else{
+        } else {
             $data['title'] = 'Giỏ hàng rỗng :: Siêu thị một giá online';
             $data['template'] = 'vproducts/view_cart';
             $this->load->view('layout/layout', $data);
         }
     }
 
-    public function updateCart()
-    {
+    public function updateCart() {
         $mangSoluong = $this->input->post('soluong');
-        
-        foreach ($mangSoluong as $idsanpham => $soluong) {
-            $_SESSION['cart'][$idsanpham] = $soluong;
+        foreach ($mangSoluong as $userid => $value) {
+            foreach ($value as $productid => $soluong) {
+                $_SESSION['cart'][$userid][$productid]['soluong'] = $soluong;
+            }
         }
         redirect('home/cproducts/view_cart');
     }
 
-    public function delCart($id)
-    {
-        if ($id == 0) {
+    public function delCart($uid, $proid) {
+        if (count($_SESSION['cart'][$uid]) > 2 && $uid !='' && $proid!='')
+            unset($_SESSION['cart'][$uid][$proid]);//neu so san pham cua gian hang >1 thi xoa tung sp
+        elseif ($proid == '' || count($_SESSION['cart'][$uid]) <= 2)
+            unset($_SESSION['cart'][$uid]);//neu gian hang co 1 sp thi xoa ca gian hang
+        elseif ($uid == '' && $proid == '')
             session_destroy();
-            redirect('home/cproducts/view_cart');
-        } else {
-            unset($_SESSION['cart'][$id]);
-            redirect('home/cproducts/view_cart');
-        }
+
+        redirect('home/cproducts/view_cart');
     }
+
+    public function vd() {
+        $this->load->view('vd');
+    }
+
+    public function vd2() {
+        $uid = 'UID0009';
+        $id = 72;
+        $proname = 'ao ngan';
+        $uname = 'tantan';
+        $arr = array(
+            "productname" => $proname,
+            "soluong" => 1
+        );
+        $_SESSION['cart'][$uid][$id] = $arr;
+        $_SESSION['cart'][$uid]["shopname"] = $uname;
+        $this->load->view('vd');
+    }
+
 }

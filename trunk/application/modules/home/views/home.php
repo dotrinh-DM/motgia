@@ -1,18 +1,5 @@
-<div id="bg-slideshow">
-    <div class="swiper-container">
-        <div class="swiper-wrapper">
-            <?php foreach ($data_slide as $slide) {
-                $images = json_decode($slide->images);
-                ?>
-                <div class="swiper-slide" style="background-image:url(<?php echo base_url() . $images[0]; ?>)">
-                    <a href="<?php echo site_url("home/cproducts/showDetailProducts/$slide->productsID/$slide->categoriesID"); ?>"></a><!--
-                    --></div>
-<?php } ?>
-        </div>
-    </div>
-</div>   
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.0/jquery.min.js"></script>
 
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.0/jquery.min.js"></script>
 <script type="text/javascript">
     $(function() {
         //More Button
@@ -55,7 +42,20 @@
     });
 
 </script>
-<div id="cart123"></div>
+
+<div id="bg-slideshow">
+    <div class="swiper-container">
+        <div class="swiper-wrapper">
+            <?php foreach ($data_slide as $slide) {
+                $images = json_decode($slide->images);
+                ?>
+                <div class="swiper-slide" style="background-image:url(<?php echo base_url() . $images[0]; ?>)">
+                    <a href="<?php echo site_url("home/cproducts/showDetailProducts/$slide->productsID/$slide->categoriesID"); ?>"></a><!--
+                    --></div>
+            <?php } ?>
+        </div>
+    </div>
+</div>   
 <section id="content" class="wrap_2">
     <header class="Nav_content">
         <a href="#">Sản phẩm nổi bật</a>
