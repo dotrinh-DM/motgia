@@ -1,7 +1,5 @@
 
 <!---hàm validate--->
-<style type="text/css">@import "<?php echo base_url(); ?>template/css/datepick.css";</style>
-<script type="text/javascript" src="<?php echo base_url(); ?>template/js/jquery.datepick.js"></script>
 <script src="<?php echo base_url(); ?>template/js/jquery.easytabs.min.js" type="text/javascript"></script>
 
 <script type="text/javascript">
@@ -44,6 +42,7 @@
                 alert('nhap lai mat khau!');
             }
         });
+        $('#tab-container').easytabs();
     });
 </script>
 <section id="content" class="wrap">
@@ -240,7 +239,7 @@
                                     foreach ($message_info as $key => $value) {
                                         echo '<a href="' . base_url() . 'index.php/home/cusers/profile?messageid=' . $value->messageID . '#messages">
                                             <li';
-                                        echo (isset($Message_status_link) && $Message_status_link == TRUE && $_GET['messageid'] == $value->messageID)?' class="active"': '';
+                                        echo (isset($Message_status_link) && $Message_status_link == TRUE && $_GET['messageid'] == $value->messageID) ? ' class="active"' : '';
                                         echo'>
                                                 <div class="listitem clearfix">
                                                     <figure class="img_post">
@@ -250,7 +249,7 @@
 
                                         echo ($value->status == 0) ? '<b><span class="name_user">' . $value->ho_nguoi_gui . $value->ten_nguoi_gui . '</span>
                                                     <span class="title_post2" style=" color: rgb(105, 71, 194);">' . $value->title . '</span></b>' :
-                                                    '<span class="name_user2">' . $value->ho_nguoi_gui . $value->ten_nguoi_gui . '</span>
+                                                '<span class="name_user2">' . $value->ho_nguoi_gui . $value->ten_nguoi_gui . '</span>
                                                     <span class="title_post">' . $value->title . '</span>';
                                         echo '
                                                 </div>
@@ -363,9 +362,9 @@
                                 <td style="width:100px">
                                     <form method="get" action="">
                                         <input type="submit" name="change_status" value="edit" style="width: 30px;height: 20px;padding: 0px;"/>
-                                        <input type="hidden" value="<?php echo $pro->productsID?>" name="proID"/>
+                                        <input type="hidden" value="<?php echo $pro->productsID ?>" name="proID"/>
                                         <select class="form-control floatLeft" name="status_pro">
-                                            
+
                                             <?php
                                             // echo '<option value="'.$pro->status.'"></option>';
                                             if ($pro->status == 1)
@@ -493,7 +492,7 @@
                                     ?>
                                 </td>
                                 <td><?php echo $ord->date_cr; ?></td>
-                                <td><a href="#"><?php // echo $pro->name;                ?></a></td>
+                                <td><a href="#"><?php // echo $pro->name;                 ?></a></td>
                                 <td><?php echo $ord->buyerID; ?></td>
                                 <td class="update">10000vnd</td>
                                 <td>
