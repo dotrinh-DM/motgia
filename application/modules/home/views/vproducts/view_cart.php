@@ -21,78 +21,92 @@
 
 <section id="content" class="wrap">
     <div class="form boxcart box-drop">
-        
-            <?php
-            $tong = 0;
-            if (isset($_SESSION['cart']) && $_SESSION['cart']) {
-                foreach ($_SESSION['cart'] as $userid => $value) {
-                    $tong = 0;
-                    echo '
-                        <form action="'.site_url('home/cproducts/updatecart').'" method="post">
+
+        <?php
+        $tong = 0;
+        if (isset($_SESSION['cart']) && $_SESSION['cart']) {
+
+            foreach ($_SESSION['cart'] as $userid => $value) {
+
+                $tong = 0;
+                echo '
+                        <form action="" method="post">
                           <div class="seller">
                             <h3>Gian hàng <a href="#">' . $value['shopname'] . '</a></h3>
-                            <a href="'.site_url("home/cproducts/delCart/$userid").'" style="float: right;margin-top: -55px;">Xóa</a>
+                            <a title="Xóa sản phẩm của gian hàng" href="' . site_url("home/cproducts/delCart/$userid") . '" style="float: right;margin-top: -55px;" onclick="return confirm(' . "'" . 'Bạn có muốn xóa toàn bộ sản phẩm này từ gian hàng này?' . "'" . ');">Xóa</a>
                           </div>
                           <table>
                             <thead>
                                 <tr style="height: 50px">
-                                    <th style="width: 65px;"></th>
-                                    <th style="text-align: left;padding-left: 5px">Tên Sản phẩm</th>
-                                    <th style="width: 80px">Số lượng</th>
-                                    <th>Đơn giá</th>
-                                    <th>Tổng tiền</th>
+                                    <th style="text-align: center">#</th>
+                                    <th style="width: 65px; padding:10px">Hình</th>
+                                    <th style="text-align: left;padding:10px">Tên Sản phẩm</th>
+                                    <th style="width:80px; text-align: left; padding:10px">Số lượng</th>
+                                    <th style="text-align: right;padding:10px">Đơn giá</th>
+                                    <th style="text-align: right;padding:10px">Tổng tiền</th>
                                     <th style="width: 56px"></th>
                                 </tr>
                             </thead>
                         ';
-                    foreach ($value as $productid => $value2) {
-                        if ($productid != 'shopname') {//key2= productid
-                            echo '
+                $stt = 0;
+//                    foreach ($cart as $value3) {$images1 = json_decode($value3->images);
+                foreach ($value as $productid => $value2) {
+
+                    if ($productid != 'shopname') {//key2= productid
+                        $stt++;
+                        echo '  <input type = "hidden" name = "payinfo[' . $userid . '][' . $productid . ']" value = "' . $_SESSION['cart'][$userid][$productid]['soluong'] . '"/>
                                 <tbody>
                                     <tr id="cart_iwz9zi66" rel="">
-                                        <td><img src="uploads/29672_250008_64788.jpg" alt=""></td>
-                                        <td style="text-align: left;padding-left: 5px">
+                                        <td style="text-align: center">' . $stt . '</td>
+                                        <td><img src="';
+                        $this->load->model('Mproducts');
+                        $image1 = $this->Mproducts->getImage($productid);
+                        $image = json_decode($image1['images']);
+                        echo base_url() . $image[0];
+                        echo '" alt="" height="60" width="60"></td>
+                                        <td style="text-align: left;padding:10px">
                                             <a href="#">' . $value2['productname'] . '</a>
                                             <br>
                                         </td>
                                         <td>
                                             <div>
-                                                <input name="soluong[' . $userid . '][' . $productid . ']" value="' . $_SESSION['cart'][$userid][$productid]['soluong'] . '"/>
+                                                <input type="number" style="height: 30px;width: 60px;margin: 10px;padding: 5px;" name="soluong[' . $userid . '][' . $productid . ']" value="' . $value2['soluong'] . '"/>
                                             </div>
                                         </td>
-                                        <td>100.000</td>
-                                        <td><span class="subprice">' . 100000 * $_SESSION['cart'][$userid][$productid]['soluong'] . '</span> VNĐ</td>
+                                        <td style="text-align: right;padding:10px">' . number_format(100000, 0, ',', '. ') . ' VNĐ</td>
+                                        <td style="text-align: right;padding:10px"><span class="subprice">' . number_format(100000 * $value2['soluong'], 0, ',', '. ') . '</span> VNĐ</td>
                                         <td>
-                                            <a href="' . site_url("home/cproducts/delCart/$userid/$productid") . '">Xóa</a>
+                                            <a title="Xóa khỏi giỏ hàng" href="' . site_url("home/cproducts/delCart/$userid/$productid") . '" onclick="return confirm(' . "'" . 'Bạn có muốn xóa sản phẩm này từ giỏ hàng?' . "'" . ');">Xóa</a>
                                         </td>
                                     </tr>
                                 </tbody>';
-                            $tong += 100000 * $_SESSION['cart'][$userid][$productid]['soluong'];
-                        }
+                        $tong += 100000 * $value2['soluong'];
                     }
-                        echo '
+                }
+                echo '
+                            <tfoot>
+                                <tr><td colspan="7">                                        
+                                    <p id="productTotal" class="product-total"
+                                    style="text-align: right;font-size: 16px;">Tổng tiền sản phẩm: ' . number_format($tong, 3, ' ,', '. ') . '</span> VNĐ</p>
+                                </td></tr>
+                            </tfoot>
                         </table>
                         
                                 <div class="col">
                                     <div class="payment">
-                                        <p id="productTotal" class="product-total">Tổng tiền sản phẩm: '.$tong.'</span> VNĐ</p>
-                                        <input type="submit" name="updatecart" value="Cập nhật giỏ hàng" Style="margin: 0px"/>
-
+                                        <input type="submit" name="updatecart" value="Cập nhật giỏ hàng" Style="margin-top: 10px"/>
                                         <div class="pay">
-                                            <a href="#" class="btn">Trả tiền khi nhận hàng</a>
-                                            <a id="btnGotoCheckout" href="#" class="btn">Trả tiền trực tuyến</a>
+                                            <input type="submit" name="paymenthome" value="Trả tiền khi nhận hàng" />
+                                            <input type="submit" name="paymentonline" value="Trả tiền trực tuyến" />
                                         </div>
                                     </div>
                                 </div><!-- End .boxcart-info--> 
                         </form>
                         ';
-                }
             }
-            else
-                echo 'Không có sản phẩm nào trong giỏ hàng của bạn!';
-            ?>
-
-
-        
+        }
+        else
+            echo 'Không có sản phẩm nào trong giỏ hàng của bạn!';
+        ?>
     </div>
 </section>
