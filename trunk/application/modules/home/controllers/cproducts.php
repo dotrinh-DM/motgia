@@ -16,8 +16,7 @@ class Cproducts extends CI_Controller {
         $this->load->model('Mproducts');
         $this->load->model('Mlog');
         $this->load->model('Musers');
-        }
-    
+    }
 
     public function index() {
         $temp['info'] = $this->Mlog->log();
@@ -244,23 +243,38 @@ class Cproducts extends CI_Controller {
     }
 
     public function view_cart() {
-        $data['info'] = $this->Mlog->log();
+        $data['info'] = $this->Mlog->log(); //lấy thông tin đăng nhập
         if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
-            $where = array();
-            foreach ($_SESSION['cart'] as $key => $value) {
-                foreach ($value as $key2 => $value2) {
-                    $where[] = $key2;
+            $where1 = array();
+            foreach ($_SESSION['cart'] as $userid => $value) {
+                foreach ($value as $proid => $value2) {
+                    if ($proid != 'shopname')
+                        $where1[] = $proid;
                 }
             }
-            $where2 = implode(",", $where);
+            $where = implode(",", $where1); //mảng chứa id của tất cả sản phẩm có trong giỏ hàng
             $data['title'] = 'Xem giỏ hàng::Siêu thị một giá online';
-//            $data['cart'] = $this->Mproducts->getCart($where2);
+            $data['cart'] = $this->Mproducts->getCart($where);
             $data['template'] = 'vproducts/view_cart';
             $this->load->view('layout/layout', $data);
         } else {
             $data['title'] = 'Giỏ hàng rỗng :: Siêu thị một giá online';
             $data['template'] = 'vproducts/view_cart';
             $this->load->view('layout/layout', $data);
+        }
+
+        if ($this->input->post('updatecart'))
+            $this->updateCart();
+        if ($this->input->post('paymenthome')) {
+            $payinfo= $this->input->post('payinfo');
+            if(isset($_SESSION['pay']))
+                unset ($_SESSION['pay']);
+            foreach ($payinfo as $uid => $value) {
+                foreach ($value as $proid => $soluong) {
+                    $_SESSION['pay'][$uid]=$_SESSION['cart'][$uid];
+                }
+            }
+           redirect('home/cproducts/payment');
         }
     }
 
@@ -275,14 +289,24 @@ class Cproducts extends CI_Controller {
     }
 
     public function delCart($uid, $proid) {
-        if (count($_SESSION['cart'][$uid]) > 2 && $uid !='' && $proid!='')
-            unset($_SESSION['cart'][$uid][$proid]);//neu so san pham cua gian hang >1 thi xoa tung sp
+        if (count($_SESSION['cart'][$uid]) > 2 && $uid != '' && $proid != '')
+            unset($_SESSION['cart'][$uid][$proid]); //neu so san pham cua gian hang >1 thi xoa tung sp
         elseif ($proid == '' || count($_SESSION['cart'][$uid]) <= 2)
-            unset($_SESSION['cart'][$uid]);//neu gian hang co 1 sp thi xoa ca gian hang
+            unset($_SESSION['cart'][$uid]); //neu gian hang co 1 sp thi xoa ca gian hang
         elseif ($uid == '' && $proid == '')
             session_destroy();
 
         redirect('home/cproducts/view_cart');
+    }
+
+    public function payment() {
+        $data['info'] = $this->Mlog->log();
+        $userid = $data['info']['userID'];
+        $data['profile'] = $this->Musers->getProfile($userid); //lấy thông tin cá nhân
+        $data['title'] = 'Thanh toán';
+        $data['template'] = 'vproducts/payment';
+        $this->load->view('layout/layout', $data);
+        
     }
 
     public function vd() {

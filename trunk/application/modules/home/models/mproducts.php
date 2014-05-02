@@ -105,6 +105,14 @@ class Mproducts extends CI_Model {
         $query = $this->db->get('products');
         return $query->result();
     }
+    
+    public function getImage($proid){
+        $this->db->select("images");
+        $this->db->where("productsID = $proid");
+        $query = $this->db->get('products');
+        return $query->row_array();
+    }
+
 }
 
 ?>

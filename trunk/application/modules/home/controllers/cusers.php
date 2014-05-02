@@ -179,7 +179,6 @@ class cusers extends CI_Controller {
             $title = $this->input->post('title_message');
             $content = $this->input->post('content_message');
             if ($this->input->post('send_message')) {
-                echo 'sdfsdf';
                 $ck = $this->Musers->sendMessage($temp['message_detail']['senderID'], $userid, $title, $content);
 //            echo ($ck= TRUE)? 'thanh cong': 'that bai!';
                 redirect('home/cusers/profile#messages');
