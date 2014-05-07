@@ -41,8 +41,39 @@
                 document.getElementById("re_new_pass").focus();
                 alert('nhap lai mat khau!');
             }
+            if(document.forms["form_pass"]["new_pass"].value == '1'){
+                evt.preventDefault();
+                document.getElementById("old_pass").focus();
+                alert('sai mat khau!');
+            }
         });
+        
+        $(".form_pass").submit(function(evt) {
+            if(document.forms["form_pass"]["new_pass"].value === 1){
+                evt.preventDefault();
+                document.getElementById("old_pass").focus();
+                alert('sai mat khau!');
+            }
+        });
+        
         $('#tab-container').easytabs();
+    });
+</script>
+<script type="text/javascript" src="<?php echo base_url() ?>tinymce/tiny_mce.js"></script>
+<script type="text/javascript">
+    tinyMCE.init({
+        // General options 
+        mode: "textareas", //textareas, exact 
+        theme: "advanced",
+        plugins: "pagebreak,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,inlinepopups,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template,wordcount,advlist,autosave,imagemanager",
+        // Theme options 
+        theme_advanced_buttons1: "bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,fontselect,fontsizeselect",
+        theme_advanced_buttons2: "bullist,numlist,|,outdent,indent,blockquote,|link,unlink,code,|,insertdate,inserttime,preview,|,forecolor,backcolor",
+        theme_advanced_buttons3: "|,sub,sup,|,charmap,emotions,iespell",
+        theme_advanced_toolbar_location: "top",
+        theme_advanced_toolbar_align: "left",
+        theme_advanced_statusbar_location: "bottom",
+        theme_advanced_resizing: true
     });
 </script>
 <section id="content" class="wrap">
@@ -263,23 +294,7 @@
                             </ul>
                         </div>
                         <div class="col_2 detail_content_3">
-                            <script type="text/javascript" src="<?php echo base_url() ?>tinymce/tiny_mce.js"></script>
-                            <script type="text/javascript">
-                                tinyMCE.init({
-                                    // General options 
-                                    mode: "textareas", //textareas, exact 
-                                    theme: "advanced",
-                                    plugins: "pagebreak,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,inlinepopups,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template,wordcount,advlist,autosave,imagemanager",
-                                    // Theme options 
-                                    theme_advanced_buttons1: "bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,fontselect,fontsizeselect",
-                                    theme_advanced_buttons2: "bullist,numlist,|,outdent,indent,blockquote,|link,unlink,code,|,insertdate,inserttime,preview,|,forecolor,backcolor",
-                                    theme_advanced_buttons3: "|,sub,sup,|,charmap,emotions,iespell",
-                                    theme_advanced_toolbar_location: "top",
-                                    theme_advanced_toolbar_align: "left",
-                                    theme_advanced_statusbar_location: "bottom",
-                                    theme_advanced_resizing: true
-                                });
-                            </script>
+
 
                             <?php
                             if (isset($message_detail) && count($message_detail))
@@ -418,8 +433,8 @@
                         $next = $paging_product['page'] + 1;
                         $curent = ($paging_product['start'] / $paging_product['display']) + 1;
                         if ($curent != 1) {// neu la trang dau tien thi khong co nut prev
-                            echo '<a href="' . base_url() . 'index.php/home/cusers/profile?page=' . $first . '#products">first</a>';
-                            echo '<a href="' . base_url() . 'index.php/home/cusers/profile?page=' . $prev . '#products">prev</a>';
+                            echo '<a href="' . base_url() . 'index.php/home/cusers/profile?sppage=' . $first . '#products">first</a>';
+                            echo '<a href="' . base_url() . 'index.php/home/cusers/profile?sppage=' . $prev . '#products">prev</a>';
                             if ($curent >= 6 && $total > 9) {
                                 echo '<span style="background=white; ">.....</span>';
                             }
@@ -452,8 +467,8 @@
                         if ($curent != $total) {// neu la trang cuoi cung thi khong co nut next
                             if ($curent <= ($total - 5) && $total > 9)
                                 echo '<span style="background=white; ">.....</span>';
-                            echo '<a href="' . base_url() . 'index.php/home/cusers/profile?page=' . $next . '#products">next</a>';
-                            echo '<a href="' . base_url() . 'index.php/home/cusers/profile?page=' . $total . '#products">last</a>';
+                            echo '<a href="' . base_url() . 'index.php/home/cusers/profile?sppage=' . $next . '#products">next</a>';
+                            echo '<a href="' . base_url() . 'index.php/home/cusers/profile?sppage=' . $total . '#products">last</a>';
                         }
                     }
                     echo '
@@ -492,7 +507,7 @@
                                     ?>
                                 </td>
                                 <td><?php echo $ord->date_cr; ?></td>
-                                <td><a href="#"><?php // echo $pro->name;                 ?></a></td>
+                                <td><a href="#"><?php // echo $pro->name;                  ?></a></td>
                                 <td><?php echo $ord->buyerID; ?></td>
                                 <td class="update">10000vnd</td>
                                 <td>
@@ -523,8 +538,8 @@
                         $next = $paging_order['page'] + 1;
                         $curent = ($paging_order['start'] / $paging_order['display']) + 1;
                         if ($curent != 1) {// neu la trang dau tien thi khong co nut prev
-                            echo '<a href="' . base_url() . 'index.php/home/cusers/profile?page=' . $first . '#bill">first</a>';
-                            echo '<a href="' . base_url() . 'index.php/home/cusers/profile?page=' . $prev . '#bill">prev</a>';
+                            echo '<a href="' . base_url() . 'index.php/home/cusers/profile?billpage=' . $first . '#bill">first</a>';
+                            echo '<a href="' . base_url() . 'index.php/home/cusers/profile?billpage=' . $prev . '#bill">prev</a>';
                             if ($curent >= 6 && $total > 9) {
                                 echo '<span style="background=white; ">.....</span>';
                             }
@@ -557,8 +572,8 @@
                         if ($curent != $total) {// neu la trang cuoi cung thi khong co nut next
                             if ($curent <= ($total - 5) && $total > 9)
                                 echo '<span style="background=white; ">.....</span>';
-                            echo '<a href="' . base_url() . 'index.php/home/cusers/profile?page=' . $next . '#bill">next</a>';
-                            echo '<a href="' . base_url() . 'index.php/home/cusers/profile?page=' . $total . '#bill">last</a>';
+                            echo '<a href="' . base_url() . 'index.php/home/cusers/profile?billpage=' . $next . '#bill">next</a>';
+                            echo '<a href="' . base_url() . 'index.php/home/cusers/profile?billpage=' . $total . '#bill">last</a>';
                         }
                     }
 

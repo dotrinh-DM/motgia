@@ -5,6 +5,7 @@ class Mproducts extends CI_Model {
     public function __construct() {
         parent::__construct();
         $this->load->database();
+        $this->load->model('Musers');
     }
 
     public function getAllCategories() {
@@ -14,20 +15,22 @@ class Mproducts extends CI_Model {
     }
 
     public function getAllProducts() {
-        $this->db->select("productsID,name,price,images,LEFT(intro,70) AS intro2,categoriesID ",FALSE);
-        $this->db->order_by('productsID','DESC');
+        $this->db->select("productsID,name,price,images,LEFT(intro,70) AS intro2,categoriesID ", FALSE);
+        $this->db->order_by('productsID', 'DESC');
         $this->db->limit(10);
         $query = $this->db->get("products");
         return $query->result();
     }
+
     public function show_more($id) {
-        $this->db->select("productsID,name,price,images,LEFT(intro,70) AS intro2,categoriesID ",FALSE);
+        $this->db->select("productsID,name,price,images,LEFT(intro,70) AS intro2,categoriesID ", FALSE);
         $this->db->where("productsID < $id");
-        $this->db->order_by('productsID','DESC');
+        $this->db->order_by('productsID', 'DESC');
         $this->db->limit(10);
         $query = $this->db->get("products");
         return $query->result();
     }
+
     public function getDataSlide() {
         $this->db->select("productsID,images,categoriesID");
         $this->db->order_by("soldnumber", "desc");
@@ -35,6 +38,7 @@ class Mproducts extends CI_Model {
         $query = $this->db->get("products");
         return $query->result();
     }
+
     public function getRandomProduct() {
         $this->db->select("productsID,name,price,images,categoriesID");
         $this->db->order_by("productsID", "desc");
@@ -42,6 +46,7 @@ class Mproducts extends CI_Model {
         $query = $this->db->get("products");
         return $query->result();
     }
+
     public function insertProducts($danhmuc, $soluong, $tensanpham, $motangan, $dacdiemnb, $dieukiensd, $chitietsp, $images) {
         $create_date = strtotime('now');
         $data = array(
@@ -84,13 +89,39 @@ class Mproducts extends CI_Model {
         $this->db->update('products', $data);
     }
 
+    public function insertOrder($seller, $buyer, $note) {
+        $id = $this->Musers->setID('order', 'orderID', 'ORD');
+        $creat = gmdate("Y-m-d H:i:s", time() + 3600 * (+7 + date("I")));
+        $data = array(
+            'orderID' => $id,
+            'sellerID' => $seller,
+            'buyerID' => $buyer,
+            'createdate' => $creat,
+            'shipdate' => $creat,
+            'note' => $note,
+            'status' => 0
+        );
+        $this->db->insert('order', $data);
+        return (string) $id;
+    }
+
+    public function insertOrderDetail($order,$pro, $number) {
+        $data = array(
+            'orderID' => $order,
+            'productID' => $pro,
+            'quantity' => $number
+        );
+        $this->db->insert('order_detail', $data);
+    }
+
     public function getProductByID($id) {
         $this->db->select("*");
         $this->db->where("productsID", "$id");
         $query = $this->db->get('products');
         return $query->result();
     }
-     public function getProductByCate($id,$cate) {
+
+    public function getProductByCate($id, $cate) {
         $this->db->select("productsID,name,price,images,categoriesID");
         $this->db->where("categoriesID", "$cate");
         $this->db->where("productsID != $id");
@@ -98,15 +129,15 @@ class Mproducts extends CI_Model {
         $query = $this->db->get('products');
         return $query->result();
     }
-    public function getCart($where)
-    {
+
+    public function getCart($where) {
         $this->db->select("*");
         $this->db->where("productsID in ($where)");
         $query = $this->db->get('products');
         return $query->result();
     }
-    
-    public function getImage($proid){
+
+    public function getImage($proid) {
         $this->db->select("images");
         $this->db->where("productsID = $proid");
         $query = $this->db->get('products');

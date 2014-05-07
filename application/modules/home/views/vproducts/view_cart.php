@@ -94,10 +94,10 @@
                         
                                 <div class="col">
                                     <div class="payment">
-                                        <input type="submit" name="updatecart" value="Cập nhật giỏ hàng" Style="margin-top: 10px"/>
+                                        
                                         <div class="pay">
-                                            <input type="submit" name="paymenthome" value="Trả tiền khi nhận hàng" />
-                                            <input type="submit" name="paymentonline" value="Trả tiền trực tuyến" />
+                                            <input type="submit" name="updatecart" value="Cập nhật giỏ hàng" Style="margin-top: 10px"/>
+                                            <input type="submit" name="paymenthome" value="Thanh toán" />
                                         </div>
                                     </div>
                                 </div><!-- End .boxcart-info--> 

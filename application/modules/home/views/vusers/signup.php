@@ -61,7 +61,7 @@
             </div> 
             <div  class="position">
                 <label>Tên <span>*</span></label>
-                <input type="text" required="" name="l_name"/>
+                <input type="text" required name="l_name"/>
                 <span class="tooltip">Không được để trống</span>
             </div>
             <div class="position">
@@ -74,11 +74,10 @@
                 <!--<input type="text" id="datePicker" required="" class="h5-day_vn"  name="birthday" placeholder="dd/mm/yyyy" title="dd/mm/yyyy"></p>-->
                 <input type="date" required="" class="h5-day_vn"  name="birthday" placeholder="dd/mm/yyyy" title="dd/mm/yyyy"
                                        style="
-                                       height: 15px;
+                                       height: 34px;
                                        font: -webkit-small-control;
                                        background: #e5e6e6;
                                        width: 290px;
-                                       padding: 10px 8px;
                                        color: #272727;
                                        border: 0 none;
                                        border-radius: 3px;
@@ -87,7 +86,7 @@
             </div>
             <div class="marginBottom_15">
                 <label>Giới tính<span>*</span></label>
-                <div class="select">
+                <div class="select" style="width: auto">
                     <select name="gender">
                         <option value="0">Nam</option>
                         <option value="1">Nữ</option>
@@ -106,7 +105,7 @@
             </div>
             <div>
                 <label>Tỉnh/Thành phố<span>*</span></label>
-                <div class="select country">
+                <div class="select country" style="width: auto">
                     <select name="province">
                         <option value="">--Chọn--</option>
                         <option value="Hà Nội">Hà Nội</option>
@@ -161,6 +160,7 @@
                         <option value="Sóc Trăng">Sóc Trăng</option>
                         <option value="Sơn La">Sơn La</option>
                         <option value="Tây Ninh">Tây Ninh</option>
+                        <option value="Thái Nguyên">Thái Bình</option>
                         <option value="Thái Nguyên">Thái Nguyên</option>
                         <option value="Thanh Hóa">Thanh Hóa</option>
                         <option value="Thừa Thiên Huế">Thừa Thiên Huế</option>
