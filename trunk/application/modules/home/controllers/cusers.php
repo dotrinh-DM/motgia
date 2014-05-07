@@ -212,23 +212,21 @@ class cusers extends CI_Controller {
     }
 
     public function active() {
-        if (isset($_GET['key'])) {
+        if ($_GET['key']) {
             $email = $this->encrypt->decode($_GET['key']); //gia ma key nhan tu url
             if ($this->Musers->checkMail($email) === FALSE) {//neu ma trung voi email thi tien hanh
-                $data = array(
-                    'status' => 1);
-                $this->db->where("email", "$email");
-                $this->db->update('user', $data);
+                $this->db->update('user', array('status'=>1),array('email'=>$email));
                 $ck = $this->db->affected_rows(); //kiem tra co bao nhieu ban ghi nao duoc chinh sua
                 $temp['template'] = 'vusers/notice';
+                $temp['ck']=$ck;
                 if ($ck > 0) {
                     $temp['content'] = '<h1>Tài khoản của bạn đã được đăng ký và kích hoạt thành công với email: ' . $email . '</h1>
-                <p>Xin chân thành cảm ơn</p>
-                <a href="' . base_url() . 'index.php/home/chome">Quay về trang chủ</a>';
+                                        <p>Xin chân thành cảm ơn</p>
+                                        <a href="' . base_url() . 'index.php/home/chome">Quay về trang chủ</a>';
                     $this->load->view('layout/layout', $temp);
                 } else {
-                    $temp['content'] = '<h1>Tài khoản này đã được kích hoạt với email: ' . $email . '</h1>
-                <a href="' . base_url() . 'index.php/home/chome">Quay về trang chủ</a>';
+                    $temp['content'] = '<h1>Tài khoản này đã được kích hoạt</h1>
+                                        <a href="' . base_url() . 'index.php/home/chome">Quay về trang chủ</a>';
                     $this->load->view('layout/layout', $temp);
                 }
             } else {
@@ -237,7 +235,7 @@ class cusers extends CI_Controller {
                 <a href="' . base_url() . 'index.php/home/chome">Quay về trang chủ</a>';
                 $temp['template'] = 'vusers/notice';
                 $this->load->view('layout/layout', $temp);
-            }
+            } 
         }
     }
 

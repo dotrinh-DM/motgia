@@ -1,34 +1,3 @@
-        <section  class="slide-infomation">
-            <ul id="mycarousel" class="jcarousel-skin-tango">
-                <li>
-                    <a href="#"><img src="<?php echo base_url();?>/template/uploads/1.png" title="" alt="1" ></a>
-                </li>
-                <li>
-                    <a href="#"><img src="<?php echo base_url();?>/template/uploads/2.png" title="" alt="2" ></a>
-                </li>
-                <li>
-                    <a href="#"><img src="<?php echo base_url();?>/template/uploads/3.png" title="" alt="3" ></a>
-                </li>
-                <li>
-                    <a href="#"><img src="<?php echo base_url();?>/template/uploads/1.png" title="" alt="1" ></a>
-                </li>
-                <li>
-                    <a href="#"><img src="<?php echo base_url();?>/template/uploads/2.png" title="" alt="2" ></a>
-                </li>
-                <li>
-                    <a href="#"><img src="<?php echo base_url();?>/template/uploads/3.png" title="" alt="3" ></a>
-                </li>
-                <li>
-                    <a href="#"><img src="<?php echo base_url();?>/template/uploads/1.png" title="" alt="1" ></a>
-                </li>
-                <li>
-                    <a href="#"><img src="<?php echo base_url();?>/template/uploads/2.png" title="" alt="2" ></a>
-                </li>
-                <li>
-                    <a href="#"><img src="<?php echo base_url();?>/template/uploads/3.png" title="" alt="3" ></a>
-                </li>
-            </ul>
-        </section> <!-- end .slide-infomation -->
        <div id="footer" class="bg_back"> 
             <footer class="wrap">
                 <div class="col floatLeft">

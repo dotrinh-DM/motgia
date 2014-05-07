@@ -134,7 +134,7 @@ foreach ($data_detail as $value)
                                 js.src = "//connect.facebook.net/vi_VN/all.js#xfbml=1";
                                 fjs.parentNode.insertBefore(js, fjs);
                             }(document, 'script', 'facebook-jssdk'));</script>
-                        <div class="fb-comments" data-href="http://localhost:7070/motgia" data-width="600" data-numposts="10" data-colorscheme="light"></div>
+                        <div class="fb-comments" data-href="<?php echo $_SERVER[''];?>" data-width="600" data-numposts="10" data-colorscheme="light"></div>
 
                     </div>
                     <div id="tabs1-css">
