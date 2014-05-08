@@ -172,7 +172,7 @@
     width: 100%;
 }
 .oder_table tr:nth-child(even){
-    background: #ffffff;
+    background: #F7F4F3;
 }
 .oder_table tr{
     border-top: 1px solid #dddddd;
