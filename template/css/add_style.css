@@ -185,7 +185,8 @@
     text-align: left;
 }
 .oder_table tr td{
-    padding: 8px 3px;
+padding: 5px;
+border-right: 1px solid #EFF0ED;
 }
 .bg_blue{
     background: #60b760;
