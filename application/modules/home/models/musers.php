@@ -122,27 +122,92 @@ class Musers extends CI_Model {
         return $query->result();
     }
 
-    public function changeStatusPro($proid,$uid,$status){
-            $this->db->where(array('productsID'=> $proid, 'userID'=>$uid));
-            $this->db->update('products',array('status' => $status));
+    public function changeStatusPro($proid, $uid, $status) {
+        $this->db->where(array('productsID' => $proid, 'userID' => $uid));
+        $this->db->update('products', array('status' => $status));
     }
-        //lay tat ca hoa don da ban cua thanh vien
+
+    //lay tat ca hoa don da ban cua thanh vien
     public function getOrderByUID($Uid, $sum = 10000, $start = 0) {
-        $this->db->select("orderID,createdate,shipdate,buyerID,note,status");
-        $this->db->select("DATE_FORMAT(createdate, '%d-%m-%Y') AS date_cr", FALSE);
-        $this->db->select("DATE_FORMAT(shipdate, '%d/%m/%Y') AS date_ship", FALSE);
-        $this->db->where("sellerID", "$Uid");
-        $this->db->order_by('status');
+        $this->db->select("
+            order.orderID as orderID,
+            order.buyerID as buyerID,
+            order.note as note,
+            order.status as status, 
+            user.firstname as buyerfname,
+            user.lastname as buyerlname, 
+            user.email as buyeremail,
+            user.phone as buyerphone, 
+            user.address as buyeradd")
+                ->select("DATE_FORMAT(user.birthday, '%Y') AS buyeryear", FALSE)
+                ->select("DATE_FORMAT(order.createdate, '%d-%m-%Y, %H:%i %p') AS date_cr", FALSE)
+                ->select("DATE_FORMAT(order.createdate, '%d') AS date", FALSE)
+                ->select("DATE_FORMAT(order.createdate, '%m') AS month", FALSE)
+                ->select("DATE_FORMAT(order.createdate, '%Y') AS year", FALSE)
+                ->select("DATE_FORMAT(order.shipdate, '%d/%m/%Y') AS date_ship", FALSE)
+                ->where("order.sellerID", "$Uid")
+                ->join('user', 'user.userID = order.buyerID')
+        ->order_by('date_cr', 'desc');
         $query = $this->db->get('order', $sum, $start);
         return $query->result();
     }
 
-    //dem co bao nhieu hoa don chua xu ly cua thanh vien
+    public function getOrderByID($id) {
+        return $this->db->select("
+            order.orderID as orderID,
+            order.buyerID as buyerID,
+            order.note as note,
+            order.status as status, 
+            user.firstname as buyerfname,
+            user.lastname as buyerlname, 
+            user.email as buyeremail,
+            user.phone as buyerphone, 
+            user.address as buyeradd")
+                ->select("DATE_FORMAT(user.birthday, '%Y') AS buyeryear", FALSE)
+                ->select("DATE_FORMAT(order.createdate, '%d-%m-%Y, %H:%i %p') AS date_cr", FALSE)
+                ->select("DATE_FORMAT(order.createdate, '%d') AS date", FALSE)
+                ->select("DATE_FORMAT(order.createdate, '%m') AS month", FALSE)
+                ->select("DATE_FORMAT(order.createdate, '%Y') AS year", FALSE)
+                ->select("DATE_FORMAT(order.shipdate, '%d/%m/%Y') AS date_ship", FALSE)
+                ->where("order.orderID", "$id")
+                ->join('user', 'user.userID = order.buyerID')
+                ->get('order')->row_array();
+    }
+
+    //lay tong gia tri cua don hang
+    public function getValueOrder($orid) {
+        $kq = $this->db
+                ->select("sum(order_detail.quantity*products.price) as value")
+                ->where("order_detail.orderID", "$orid")
+                ->join('products', 'products.productsID = order_detail.productsID')
+                ->get('order_detail')
+                ->row_array();
+        return (int) $kq['value'];
+    }
+
+    //Lay chi tiet don hang
+    public function getOrderDetail($ordid) {
+        return $this->db
+                        ->select(" products.name as proname,
+                    products.productsid as proid,
+                    order_detail.quantity as number,
+                    products.price as price")
+                        ->where("order_detail.orderID", "$ordid")
+                        ->join('products', 'products.productsID = order_detail.productsID')
+                        ->get('order_detail')
+                        ->result();
+    }
+    public function confirmOrder($orid,$st){
+        $this->db->where('orderID',$orid)
+                 ->update('order', array('status' => $st));
+    }
+
+        //dem co bao nhieu hoa don chua xu ly cua thanh vien
     public function getNumOrderStatus($UID) {
         $this->db->select("status");
-        $this->db->where(array('status' => 0, 'sellerID' => $UID));
+        $this->db->where(array('status' => 1, 'sellerID' => $UID));
         $qr = $this->db->get('order')->result();
-        return $num = count($qr);
+        return count($qr);
     }
 
     public function getNumMessageUnread($UID) {
@@ -151,6 +216,7 @@ class Musers extends CI_Model {
         $qr = $this->db->get('message')->result();
         return $num = count($qr);
     }
+
     //lay tat ca tin nhan cua thanh vien
     public function getMessageByUID($Uid, $sum = 10000, $start = 0) {
         $this->db->select('messageID,senderID,user.firstname AS ho_nguoi_gui,user.lastname AS ten_nguoi_gui,title,content,message.status AS status');
@@ -158,7 +224,7 @@ class Musers extends CI_Model {
         $this->db->select("DATE_FORMAT(date, '%d-%m-%Y') AS date", FALSE);
         $this->db->where('message.receiverID', $Uid);
         $this->db->JOIN('user', 'user.userID = message.senderID');
-        $this->db->order_by('date','desc');
+        $this->db->order_by('date', 'desc');
         $query = $this->db->get('message', $sum, $start);
         return $query->result();
     }
@@ -171,12 +237,12 @@ class Musers extends CI_Model {
         $this->db->JOIN('user', 'user.userID = message.senderID');
         return $query = $this->db->get('message')->row_array();
     }
-    
-    public function changeMessageStatus($id){
-        $data= array(
+
+    public function changeMessageStatus($id) {
+        $data = array(
             'status' => 1
         );
-        $this->db->where('messageID',$id)->update('message',$data);
+        $this->db->where('messageID', $id)->update('message', $data);
     }
 
     public function getLevel($userID) {
