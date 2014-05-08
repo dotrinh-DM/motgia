@@ -77,7 +77,7 @@
     });
 </script>
 <section id="content" class="wrap">
-    <div id="primary">
+    <div class="boxconfirm clearfix">
         <div id="tab-container" class='tab-container marginBottom_15'>
             <ul class='etabs'>
                 <li class='tab active' ><a href="#profile">Thông tin người dùng</a></li>
@@ -85,12 +85,12 @@
                 <?php
                 if ($level['levelID'] == 2) {
                     echo '<li class="tab"><a href="#products">Quản lý sản phẩm</a></li>
-                        <li class="tab"><a href="#bill"><span>' . $num_order . '</span>Quản lý đơn hàng</a></li>';
+                        <li class="tab"><a href="#bill" title="có ' . $num_order . ' đơn hàng chưa xử lý"><span>' . $num_order . '</span>Đơn hàng đã nhận</a></li>';
                 }
                 else
                     echo '<li class="tab"><a href="#upgrade">Nâng cấp lên gian hàng</a></li>';
                 ?>
-                <li class='tab'><a href="#history">Lịch sử</a></li>
+                <li class='tab'><a href="#history">Đơn hàng đã đặt</a></li>
                 <li class='tab'><a href="#monney">Nạp tiền</a></li>
             </ul>
             <div class='panel-container'>
@@ -378,6 +378,7 @@
                                     <form method="get" action="">
                                         <input type="submit" name="change_status" value="edit" style="width: 30px;height: 20px;padding: 0px;"/>
                                         <input type="hidden" value="<?php echo $pro->productsID ?>" name="proID"/>
+                                        <?php echo (isset($_GET['sppage']))? '<input type="hidden" value="'.$_GET['sppage'].'" name="sppage">': '';?>
                                         <select class="form-control floatLeft" name="status_pro">
 
                                             <?php
@@ -488,30 +489,68 @@
                         echo '
                         <tr>
                         <th>#</th>
-                        <th>Ngày đặt</th>
-                        <th>Tên sản phẩm</th>
                         <th>Người mua</th>
-                        <th>Tổng tiền</th>
-                        <th>Trạng thái</th>
+                        <th>Thông tin đơn hàng</th>
+                        <th>Giá trị đơn hàng</th>
+                        <th><center>Trạng thái</center></th>
+                        <th><center>Thao tác</center></th>
                     </tr>';
                         $i = $paging_order['start'];
-                        foreach ($order as $value => $ord) {
+                        foreach ($order as $key => $ord) {
                             ?>
                             <tr>
                                 <td><?php
-                                    for ($i; $i < $paging_order['start'] + $paging_order['display']; $i++) {
-                                        echo $i + 1;
+                                for ($i; $i < $paging_order['start'] + $paging_order['display']; $i++) {
+                                        echo $i + 1; 
                                         $i = $i + 1;
                                         break;
-                                    }
-                                    ?>
+                                }?>
                                 </td>
-                                <td><?php echo $ord->date_cr; ?></td>
-                                <td><a href="#"><?php // echo $pro->name;                  ?></a></td>
-                                <td><?php echo $ord->buyerID; ?></td>
-                                <td class="update">10000vnd</td>
+                                
+                                <td><?php
+                                echo '<p style="color:#7769AD"><b>'.$ord->buyerfname.' '.$ord->buyerlname.'</b></p>';
+                                echo '<p>Năm sinh: '.$ord->buyeryear.'</p>';
+                                echo '<p>Địa chỉ: '.$ord->buyeradd.'</p>';
+                                echo '<p>SĐT: '.$ord->buyerphone.' ... ';
+                                ?>
+                                    <a href="#">>>Chi tiết</a></p>
+                                </td>
                                 <td>
-                                    <span class="bg_gray">Đã bán</span>
+                                    <p>Mã đơn hàng: <?php echo $ord->orderID;?></p>
+                                    <p>Ngày mua: <?php $ts = mktime(0,0,0,$ord->date,$ord->month,$ord->year); echo date("l", $ts).', '.$ord->date_cr;?></p>
+                                    <p>Hình thức thanh toán: online</p>
+                                    <a href="<?php echo site_url('home/cusers/orderdetail').'?orderid='.$ord->orderID;?>">>>Chi tiết</a>
+                                </td>
+                                <td><?php 
+                                $this->load->model('Musers');
+                                echo '<p style="font-style: italic;color: #A8370B;"><b>'.number_format($this->Musers->getValueOrder($ord->orderID), 2, ', ', '.').' VNĐ</b></p>';
+                                ?></td>
+                                <td><span class="bg_gray" style="float: left">
+                                    <?php 
+                                    if($ord->status==0) echo 'Đã hủy';
+                                    else if($ord->status==1) echo 'Đang chờ xác nhận';
+                                    else if($ord->status==2) echo 'Đã xác nhận';
+                                    ?></span></td>
+                                <td>
+                            <?php if($ord->status==1) 
+                            echo '<form action="" method="post">
+                            <input type="hidden" name="orderid" value="'.$ord->orderID.'"/>
+                            <input type="submit" class="btn btn-primary btn-lg btn-block" style="
+                            width: 75px; float:left;
+                            font-size: 9pt;
+                            padding: 5px;
+                            margin-top: 0px;
+                            border-radius: 3px;
+                            background-color: #CEB711; 
+                            " value="Xác nhận" name="confirm_order" onclick="return confirm(' . "'" . 'Bạn muốn xác nhận đơn hàng này và gửi tin nhắn hệ thống đến tài khoản khách hàng?' . "'" . ');"/>
+                            <input type="submit" class="btn btn-primary btn-lg btn-block" style="
+                            width: 50px; float:right;
+                            font-size: 9pt;
+                            padding: 5px;
+                            margin-top: 0px;
+                            border-radius: 3px;
+                            background-color: #CEB711; 
+                            " value="Hủy" name="deny_order" onclick="return confirm(' . "'" . 'Bạn có muốn hủy đơn hàng này?' . "'" . ');"/></form>';?>
                                 </td>
                             </tr>
                             <?php

@@ -1,4 +1,5 @@
 <?php
+
 session_start();
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
@@ -147,7 +148,7 @@ class cusers extends CI_Controller {
                 $statuspro = $_GET['status_pro'];
                 $this->Musers->changeStatusPro($proid, $userid, $statuspro);
                 if (isset($_GET['sppage']))
-                    $url = 'home/cusers/profile' . $_GET['sppage'] . '#products';
+                    $url = 'home/cusers/profile?sppage=' . $_GET['sppage'] . '#products';
                 else
                     $url = 'home/cusers/profile#products';
                 redirect($url);
@@ -165,10 +166,24 @@ class cusers extends CI_Controller {
                 $num_page2 = ceil($record2 / $display); //tong so trang
             else
                 $num_page2 = 1;
-            $temp['num_order'] = $this->Musers->getNumOrderStatus($userid, 1000, 0); //Lấy số hóa đơn chưa xử lý
+            
+            //xu ly don hang
+            if($this->input->post('confirm_order')){
+                $this->Musers->confirmOrder($this->input->post('orderid'),'2');
+                if (isset($_GET['billpage']))
+                    $url = 'home/cusers/profile?billpage=' . $_GET['billpage'] . '#bill';
+                else
+                    $url = 'home/cusers/profile#bill';
+                redirect($url);
+            }
+             if($this->input->post('deny_order'))
+                $this->Musers->confirmOrder($this->input->post('orderid'),'0');
+            
+            $temp['num_order'] = $this->Musers->getNumOrderStatus($userid); //Lấy số hóa đơn chưa xử lý
             $temp['order'] = $this->Musers->getOrderByUID($userid, $display, $billstart);
             $temp['paging_order'] = array('num_page' => $num_page2, 'page' => $billpage, 'start' => $billstart, 'display' => $display);
         }
+
 
         //quan ly tin nhan
         $temp['num_message'] = $this->Musers->getNumMessageUnread($userid); //Lấy số tin nhắn mới nhận chưa đọc
@@ -190,6 +205,19 @@ class cusers extends CI_Controller {
         $temp['title'] = 'Thông tin cá nhân';
         $temp['template'] = 'vusers/profile';
         $this->load->view('layout/layout', $temp);
+    }
+
+    public function orderdetail(){
+            $temp['info'] = $this->Mlog->log();
+            
+            if(isset($_GET['orderid'])){
+                $temp['detail']= $this->Musers->getOrderDetail($_GET['orderid']);
+                $temp['buyer']=  $this->Musers->getOrderByID($_GET['orderid']);
+            }
+            
+            $temp['title'] = 'Chi tiết hóa đơn';
+            $temp['template'] = 'vusers/order_detail';
+            $this->load->view('layout/layout', $temp);
     }
 
     public function sendMail($email, $psw, $name) {
@@ -215,10 +243,10 @@ class cusers extends CI_Controller {
         if ($_GET['key']) {
             $email = $this->encrypt->decode($_GET['key']); //gia ma key nhan tu url
             if ($this->Musers->checkMail($email) === FALSE) {//neu ma trung voi email thi tien hanh
-                $this->db->update('user', array('status'=>1),array('email'=>$email));
+                $this->db->update('user', array('status' => 1), array('email' => $email));
                 $ck = $this->db->affected_rows(); //kiem tra co bao nhieu ban ghi nao duoc chinh sua
                 $temp['template'] = 'vusers/notice';
-                $temp['ck']=$ck;
+                $temp['ck'] = $ck;
                 if ($ck > 0) {
                     $temp['content'] = '<h1>Tài khoản của bạn đã được đăng ký và kích hoạt thành công với email: ' . $email . '</h1>
                                         <p>Xin chân thành cảm ơn</p>
@@ -235,7 +263,7 @@ class cusers extends CI_Controller {
                 <a href="' . base_url() . 'index.php/home/chome">Quay về trang chủ</a>';
                 $temp['template'] = 'vusers/notice';
                 $this->load->view('layout/layout', $temp);
-            } 
+            }
         }
     }
 

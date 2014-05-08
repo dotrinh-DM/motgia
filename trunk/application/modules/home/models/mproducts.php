@@ -99,7 +99,7 @@ class Mproducts extends CI_Model {
             'createdate' => $creat,
             'shipdate' => $creat,
             'note' => $note,
-            'status' => 0
+            'status' => 1//don hang chua xu ly
         );
         $this->db->insert('order', $data);
         return (string) $id;
@@ -108,7 +108,7 @@ class Mproducts extends CI_Model {
     public function insertOrderDetail($order,$pro, $number) {
         $data = array(
             'orderID' => $order,
-            'productID' => $pro,
+            'productsID' => $pro,
             'quantity' => $number
         );
         $this->db->insert('order_detail', $data);

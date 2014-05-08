@@ -185,18 +185,6 @@
                             }
                         }
                     }
-                    $pro = array();
-                    foreach ($_SESSION['pay'] as $uid => $value) {
-//                        echo $seller = $uid;
-                        foreach ($value as $proid => $value2) {
-                            if ($proid != 'shopname') {
-                                echo $proid.'='.$value2['soluong'].' ';
-                                $pro1 = array($proid => (int)$value2['soluong']);
-                            }
-                        }
-                    } 
-                    $pro = $pro1;
-                    var_dump($pro);
                     ?>
                     </tbody></table>
                     <div class="payment">
