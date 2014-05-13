@@ -79,7 +79,7 @@ input[type=button] , input[type=submit], .sub_menu_2 , :before , a , img{
 .detail-login div{
     width: 109px;
     float: left;
-    margin-right: 15px;
+    margin-right: 5px;
     position: relative;
 }
 .gmail:before{
@@ -103,6 +103,7 @@ input[type=button] , input[type=submit], .sub_menu_2 , :before , a , img{
     border: 1px solid #1abc9c;
     border-radius: 2px;
     font-family: 'OpenSans-Light';
+    line-height: 20px;
 }
 .detail-login div.send{
     width: 47px;
@@ -122,6 +123,7 @@ input[type=button] , input[type=submit], .sub_menu_2 , :before , a , img{
     cursor: pointer;
     font-family: 'OpenSans-Light';
     margin-top: 0px !important;
+    line-height: 20px;
 }
 .detail-login input[type="submit"]:hover ,input[type=submit]:hover , input[type=button]:hover{
     box-shadow: 0 2px #16a085;
