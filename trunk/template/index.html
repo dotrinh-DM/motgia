@@ -8,7 +8,28 @@
         <script type="text/javascript" src="js/modernizr.custom.28468.js"></script><!-- Slideshow -->
         <script type="text/javascript" src="js/validateh5.js"></script>
         <script type="text/javascript" src="js/jquery.cslider.js"></script><!-- Slideshow -->
+  
+        <script src="js/responsiveslides.min.js"></script>
+        <script>
+            // You can also use "$(window).load(function() {"
+            $(function() {
+                // Slideshow 4
+                $("#slider4").responsiveSlides({
+                    auto: true,
+                    pager: false,
+                    nav: true,
+                    speed: 500,
+                    namespace: "callbacks",
+                    before: function() {
+                        $('.events').append("<li>before event fired.</li>");
+                    },
+                    after: function() {
+                        $('.events').append("<li>after event fired.</li>");
+                    }
+                });
 
+            });
+        </script>
         <script type="text/javascript">
 
             jQuery(document).ready(function() {
@@ -68,7 +89,7 @@
                             <ul>
                                 <li><h6 class="welcome"> Hai Le</h6></li>
                                 <li><a href="">Profile</a></li>
-                                <li><button id="logout">Đăng xuất</button></li>
+                                <li><button id="logout">Đăng xuất</button></li> 
                             </ul>
                         </div>
                     </li>
@@ -593,25 +614,22 @@
             </ul><!--End #Navigation-->
         </nav><!--End .navigation-->
         <div id="bg-slideshow">
-            <div class="swiper-container">
-                <div class="swiper-wrapper">
-                    <div class="swiper-slide" style="background-image:url(uploads/product_4.png)">
-                        <a href="#" target="_blank"></a>
-                    </div>
-                    <div class="swiper-slide" style="background-image:url(uploads/product_2.png)">
-                        <a href="#" target="_blank"></a>
-                    </div>
-                    <div class="swiper-slide" style="background-image:url(uploads/product_1.png)">
-                        <a href="#" target="_blank"></a>
-                    </div>
-                    <div class="swiper-slide" style="background-image:url(uploads/product_3.png)">
-                        <a href="#" target="_blank"></a>
-                    </div>
-                    <div class="swiper-slide" style="background-image:url(uploads/product_4.png)">
-                        <a href="#" target="_blank"></a>
-                    </div>
-                </div>
-            </div>
+            <div class="callbacks_container">
+                <ul class="rslides" id="slider4">
+                    <li>
+                        <img src="images/1.jpg" alt="">
+
+                    </li>
+                    <li>
+                        <img src="images/2.jpg" alt="">
+
+                    </li>
+                    <li>
+                        <img src="images/3.jpg" alt="">
+
+                    </li>
+                </ul>
+            </div>  
         </div>   
 
         <section id="content" class="wrap_2">
@@ -725,7 +743,7 @@
                 <div class="clear"></div>
             </div>
 
-        
+
             <div class="clear"></div>
             <div class="text_center">
                 <button class="btn_showmore">Xem thêm</button>
