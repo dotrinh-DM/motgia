@@ -1,24 +1,12 @@
 
 <!---hàm validate--->
+<script src="<?php echo base_url(); ?>template/js/jquery.hashchange.min.js" type="text/javascript"></script>
 <script src="<?php echo base_url(); ?>template/js/jquery.easytabs.min.js" type="text/javascript"></script>
-
+<script type="text/javascript" src="<?php echo base_url(); ?>template/js/validateh5.js"></script>
 <script type="text/javascript">
     $(function() {
-        $('#datePicker').datepick({
-            defaultDate: '26/08/1992',
-            yearRange: '1940:2014',
-            maxDate: '2014',
-            showTrigger: '<button type="button" class="trigger">' + '<img src="<?php echo base_url(); ?>template/images/calendar-green.gif" alt="Popup"></button>',
-            renderer: $.extend({}, $.datepick.defaultRenderer,
-                    {picker: $.datepick.defaultRenderer.picker.
-                                replace(/\{link:clear\}/, '{button:clear}').
-                                replace(/\{link:close\}/, '{button:close}')}),
-        });
-
+        $('#tab-container').easytabs();
     });
-</script>
-
-<script type="text/javascript">
     jQuery(document).ready(function() {
         $.h5Validate.addPatterns({
             day_vn: /(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\d\d/
@@ -56,7 +44,6 @@
             }
         });
 
-        $('#tab-container').easytabs();
     });
 </script>
 <script type="text/javascript" src="<?php echo base_url() ?>tinymce/tiny_mce.js"></script>
@@ -518,9 +505,10 @@
                                 </td>
                                 <td>
                                     <p>Mã đơn hàng: <?php echo $ord->orderID; ?></p>
-                                    <p>Ngày mua: <?php $ts = mktime(0, 0, 0, $ord->date, $ord->month, $ord->year);
-                        echo date("l", $ts) . ', ' . $ord->date_cr;
-                                    ?></p>
+                                    <p>Ngày mua: <?php
+                                        $ts = mktime(0, 0, 0, $ord->date, $ord->month, $ord->year);
+                                        echo date("l", $ts) . ', ' . $ord->date_cr;
+                                        ?></p>
                                     <p>Hình thức thanh toán: online</p>
                                     <a href="<?php echo site_url('home/cusers/orderdetail') . '?orderid=' . $ord->orderID; ?>">>>Chi tiết</a>
                                 </td>
@@ -633,14 +621,14 @@
 
                 <!--start History-->
                 <?php
-                 echo '
+                echo '
             <div id="history">
                 <h6 class="title_detail_item">history</h6>
                 <table class="oder_table">
                     ';
 
-                    if (isset($order_buy) && count($order_buy)) {
-                        echo '
+                if (isset($order_buy) && count($order_buy)) {
+                    echo '
                         <tr>
                             <th>#</th>
                             <th>Người bán</th>
@@ -649,122 +637,123 @@
                             <th><center>Trạng thái</center></th>
                             <th><center>Thao tác</center></th>
                         </tr>';
-                        $i = $paging_order_buy['start'];
-                        foreach ($order_buy as $key => $ord) {
-                            ?>
-                            <tr>
-                                <td>
-                                    <?php
-                                    for ($i; $i < $paging_order_buy['start'] + $paging_order_buy['display']; $i++) {
-                                        echo $i + 1;
-                                        $i = $i + 1;
-                                        break;
-                                    }
-                                    ?>
-                                </td>
+                    $i = $paging_order_buy['start'];
+                    foreach ($order_buy as $key => $ord) {
+                        ?>
+                        <tr>
+                            <td>
+                                <?php
+                                for ($i; $i < $paging_order_buy['start'] + $paging_order_buy['display']; $i++) {
+                                    echo $i + 1;
+                                    $i = $i + 1;
+                                    break;
+                                }
+                                ?>
+                            </td>
 
-                                <td>
+                            <td>
+                                <?php
+                                echo '<p style="color:#7769AD"><b>' . $ord->sellerfname . ' ' . $ord->sellerlname . '</b></p>';
+                                echo '<p>Năm sinh: ' . $ord->selleryear . '</p>';
+                                echo '<p>Địa chỉ: ' . $ord->selleradd . '</p>';
+                                echo '<p>SĐT: ' . $ord->sellerphone . ' ... ';
+                                ?>
+                                <a href="#">>>Chi tiết</a></p>
+                            </td>
+                            <td>
+                                <p>Mã đơn hàng: <?php echo $ord->orderID; ?></p>
+                                <p>Ngày mua: 
                                     <?php
-                                    echo '<p style="color:#7769AD"><b>' . $ord->sellerfname . ' ' . $ord->sellerlname . '</b></p>';
-                                    echo '<p>Năm sinh: ' . $ord->selleryear . '</p>';
-                                    echo '<p>Địa chỉ: ' . $ord->selleradd . '</p>';
-                                    echo '<p>SĐT: ' . $ord->sellerphone . ' ... ';
+                                    $ts = mktime(0, 0, 0, $ord->date, $ord->month, $ord->year);
+                                    echo date("l", $ts) . ', ' . $ord->date_cr;
                                     ?>
-                                    <a href="#">>>Chi tiết</a></p>
-                                </td>
-                                <td>
-                                    <p>Mã đơn hàng: <?php echo $ord->orderID; ?></p>
-                                    <p>Ngày mua: 
-                                        <?php $ts = mktime(0, 0, 0, $ord->date, $ord->month, $ord->year);
-                                        echo date("l", $ts) . ', ' . $ord->date_cr;
-                                        ?>
-                                    </p>
-                                    <p>Hình thức thanh toán: online</p>
-                                    <a href="<?php echo site_url('home/cusers/orderdetail') . '?orderid=' . $ord->orderID; ?>">>>Chi tiết</a>
-                                </td>
-                                <td>
+                                </p>
+                                <p>Hình thức thanh toán: online</p>
+                                <a href="<?php echo site_url('home/cusers/orderdetail') . '?orderid=' . $ord->orderID; ?>">>>Chi tiết</a>
+                            </td>
+                            <td>
+                                <?php
+                                $this->load->model('Musers');
+                                echo '<p style="font-style: italic;color: #A8370B;"><b>' . number_format($this->Musers->getValueOrder($ord->orderID), 2, ', ', '.') . ' VNĐ</b></p>';
+                                ?>
+                            </td>
+                            <td><span class="bg_gray" style="float: left">
                                     <?php
-                                    $this->load->model('Musers');
-                                    echo '<p style="font-style: italic;color: #A8370B;"><b>' . number_format($this->Musers->getValueOrder($ord->orderID), 2, ', ', '.') . ' VNĐ</b></p>';
+                                    if ($ord->status == 0)
+                                        echo 'Đã hủy';
+                                    else if ($ord->status == 1)
+                                        echo 'Đang chờ xác nhận';
+                                    else if ($ord->status == 2)
+                                        echo 'Đã xác nhận';
                                     ?>
-                                </td>
-                                <td><span class="bg_gray" style="float: left">
-                                        <?php
-                                        if ($ord->status == 0)
-                                            echo 'Đã hủy';
-                                        else if ($ord->status == 1)
-                                            echo 'Đang chờ xác nhận';
-                                        else if ($ord->status == 2)
-                                            echo 'Đã xác nhận';
-                                        ?>
-                                    </span>
-                                </td>
-                                <td></td>
-                            </tr>
-                            <?php
-                        }
+                                </span>
+                            </td>
+                            <td></td>
+                        </tr>
+                        <?php
                     }
-                    else
-                        echo 'Không có nội dung hiển thị';
+                }
+                else
+                    echo 'Không có nội dung hiển thị';
 
-                    echo '</table>
+                echo '</table>
                     <section class="pagination">
                         <div>';
 
-                    function showpaging3($curent3, $i3) {
-                        if ($curent3 != $i3)
-                            echo'<a href="' . base_url() . 'index.php/home/cusers/profile?hspage=' . $i3 . '#bill">' . $i3 . '</a>';
-                        else
-                            echo'<span class="active">' . $i3 . '</span>';
-                    }
+                function showpaging3($curent3, $i3) {
+                    if ($curent3 != $i3)
+                        echo'<a href="' . base_url() . 'index.php/home/cusers/profile?hspage=' . $i3 . '#bill">' . $i3 . '</a>';
+                    else
+                        echo'<span class="active">' . $i3 . '</span>';
+                }
 
-                    if ($paging_order_buy['num_page'] > 1 && isset($ord) && count($ord)) {//neu can hien thi so trang
-                        $first = 1;
-                        $total = $paging_order_buy['num_page'];
-                        $prev = $paging_order_buy['page'] - 1;
-                        $next = $paging_order_buy['page'] + 1;
-                        $curent = ($paging_order_buy['start'] / $paging_order_buy['display']) + 1;
-                        if ($curent != 1) {// neu la trang dau tien thi khong co nut prev
-                            echo '<a href="' . base_url() . 'index.php/home/cusers/profile?hspage=' . $first . '#bill">first</a>';
-                            echo '<a href="' . base_url() . 'index.php/home/cusers/profile?hspage=' . $prev . '#bill">prev</a>';
-                            if ($curent >= 6 && $total > 9) {
-                                echo '<span style="background=white; ">.....</span>';
-                            }
+                if ($paging_order_buy['num_page'] > 1 && isset($ord) && count($ord)) {//neu can hien thi so trang
+                    $first = 1;
+                    $total = $paging_order_buy['num_page'];
+                    $prev = $paging_order_buy['page'] - 1;
+                    $next = $paging_order_buy['page'] + 1;
+                    $curent = ($paging_order_buy['start'] / $paging_order_buy['display']) + 1;
+                    if ($curent != 1) {// neu la trang dau tien thi khong co nut prev
+                        echo '<a href="' . base_url() . 'index.php/home/cusers/profile?hspage=' . $first . '#bill">first</a>';
+                        echo '<a href="' . base_url() . 'index.php/home/cusers/profile?hspage=' . $prev . '#bill">prev</a>';
+                        if ($curent >= 6 && $total > 9) {
+                            echo '<span style="background=white; ">.....</span>';
                         }
-                        //hien thi so trang
-                        for ($i = 1; $i <= $paging_order_buy['num_page']; $i++) {
+                    }
+                    //hien thi so trang
+                    for ($i = 1; $i <= $paging_order_buy['num_page']; $i++) {
 
-                            if ($total > 9) {//neu tong so trang lon hon 9
-                                if ($curent <= 5) {
+                        if ($total > 9) {//neu tong so trang lon hon 9
+                            if ($curent <= 5) {
+                                showpaging3($curent, $i);
+                                if ($i == 9)
+                                    break;
+                            }
+                            elseif ($curent >= 6 && $curent <= ($total - 5)) {
+                                if ($i >= ($curent - 4) && $i <= $curent + 4) {
                                     showpaging3($curent, $i);
-                                    if ($i == 9)
+                                    if ($i == $curent + 4)
                                         break;
                                 }
-                                elseif ($curent >= 6 && $curent <= ($total - 5)) {
-                                    if ($i >= ($curent - 4) && $i <= $curent + 4) {
-                                        showpaging3($curent, $i);
-                                        if ($i == $curent + 4)
-                                            break;
-                                    }
-                                }
-                                elseif ($curent >= ($total - 4)) {
-                                    if ($i >= ($total - 8))
-                                        showpaging3($curent, $i);
-                                }
                             }
-                            else {
-                                showpaging3($curent, $i);
+                            elseif ($curent >= ($total - 4)) {
+                                if ($i >= ($total - 8))
+                                    showpaging3($curent, $i);
                             }
                         }
-                        if ($curent != $total) {// neu la trang cuoi cung thi khong co nut next
-                            if ($curent <= ($total - 5) && $total > 9)
-                                echo '<span style="background=white; ">.....</span>';
-                            echo '<a href="' . base_url() . 'index.php/home/cusers/profile?hspage=' . $next . '#bill">next</a>';
-                            echo '<a href="' . base_url() . 'index.php/home/cusers/profile?hspage=' . $total . '#bill">last</a>';
+                        else {
+                            showpaging3($curent, $i);
                         }
                     }
+                    if ($curent != $total) {// neu la trang cuoi cung thi khong co nut next
+                        if ($curent <= ($total - 5) && $total > 9)
+                            echo '<span style="background=white; ">.....</span>';
+                        echo '<a href="' . base_url() . 'index.php/home/cusers/profile?hspage=' . $next . '#bill">next</a>';
+                        echo '<a href="' . base_url() . 'index.php/home/cusers/profile?hspage=' . $total . '#bill">last</a>';
+                    }
+                }
 
-                    echo '</div>
+                echo '</div>
                     </section><!-- #End pagination-->
                     </div><!----End #history-->
                 ';
