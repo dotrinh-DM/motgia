@@ -2,6 +2,7 @@
 
 .rslides {
   margin: 0 auto;
+
   }
 .rslides {
   position: relative;
@@ -151,4 +152,27 @@ h3 {
   .callbacks_nav {
     top: 47%;
     }
+  }
+  .callbacks_tabs{
+      z-index:10000;
+      position: absolute;
+      bottom:10px;
+   margin-left: 47%;
+  }
+  .callbacks_tabs li {
+   
+      float: left;
+     margin-left:5px;
+      list-style: none;
+
+    
+  }
+  .callbacks_tabs li a{
+      display: block;
+       width:15px;
+      height:15px;
+        cursor: pointer;
+      background: url("../images/point.png");
+      text-indent: -99999px;
+    
   }
