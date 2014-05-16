@@ -1,6 +1,31 @@
-<style type="text/css">@import "<?php echo base_url(); ?>template/css/datepick.css";</style>
-<script type="text/javascript" src="<?php echo base_url(); ?>template/js/jquery.datepick.js"></script>
-<script src="<?php echo base_url(); ?>template/js/jquery.easytabs.min.js" type="text/javascript"></script>
+
+<script type="text/javascript" src="<?php echo base_url(); ?>template/js/validateh5.js"></script>
+<script type="text/javascript">
+    jQuery(document).ready(function() {
+        jQuery(document).ready(function() {
+            $.h5Validate.addPatterns({
+                day_vn: /(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\d\d/
+            });
+            $(".form").h5Validate({
+                errorClass: "validationError",
+                validClass: "validationValid"
+            });
+            $(".form").submit(function(evt) {
+                var x = document.forms["signup"]["pass"].value;
+                var y = document.forms["signup"]["re-pass"].value;
+                if ($(".form").h5Validate("allValid") === false) {
+                    evt.preventDefault();
+                }
+                if (x !== y) {
+                    alert('Yêu cầu nhập lại mật khẩu!');
+                    document.getElementById("repass").focus();
+                    evt.preventDefault();
+                }
+            });
+        });
+    });
+</script>
+
 <section class="bg_shadow">
     <div class="wrap clearfix">
         <div class="title floatLeft">
@@ -26,7 +51,7 @@
         <header class="title_form">
             <span>Thông tin cá nhân</span>
         </header>
-        <form class="form error" id="Form" method="post" action="" name="Form">
+        <form class="form error" id="signup" method="post" action="" name="Form">
             <div> 
                 <div ></div>
                 <?php
@@ -72,7 +97,7 @@
             <div class="position marginBottom_15">
                 <label>Ngày sinh<span>*</span></label>
                 <!--<input type="text" id="datePicker" required="" class="h5-day_vn"  name="birthday" placeholder="dd/mm/yyyy" title="dd/mm/yyyy"></p>-->
-                <input type="date" required="" class="h5-day_vn"  name="birthday" placeholder="dd/mm/yyyy" title="dd/mm/yyyy"
+                <input type="date" required=""  name="birthday" placeholder="dd/mm/yyyy" title="dd/mm/yyyy"
                                        style="
                                        height: 34px;
                                        font: -webkit-small-control;
@@ -185,12 +210,12 @@
             </div>
             <div class="position">
                 <label >Mật khẩu<span>*</span></label>
-                <input type="password" name="passw" required=""/>
+                <input type="password" name="pass" required=""/>
                 <span class="tooltip">Không được để trống</span>
             </div>
             <div class="position">
                 <label id="lbpass">Gõ lại Mật khẩu<span>*</span></label>
-                <input type="password" name="re-pass" value="" required=""/>
+                <input type="password" name="re-pass" value="" required="" id="repass"/>
                 <span class="tooltip">Không được để trống</span>
             </div>
 
@@ -215,41 +240,3 @@
         </form>
     </section><!--End #primary-->
     <?php // $this->load->view('layout/sidebar'); ?>
-    <script type="text/javascript">
-        jQuery(document).ready(function() {
-            $.h5Validate.addPatterns({
-                day_vn: /(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\d\d/
-            });
-            $(".form").h5Validate({
-                errorClass: "validationError",
-                validClass: "validationValid"
-            });
-            $(".form").submit(function(evt) {
-                var x = document.forms["Form"]["passw"].value;
-                var y = document.forms["Form"]["re-pass"].value;
-                if ($(".form").h5Validate("allValid") === false) {
-                    evt.preventDefault();
-                }
-                if (x !== y) {
-                    evt.preventDefault();
-                    document.getElementById("lbpass").focus();
-                    alert('nhap lai mat khau!');
-                }
-            });
-        });
-    </script>
-
-    <script type="text/javascript">
-        $(function() {
-            $('#datePicker').datepick({
-                defaultDate: '1/1/1992',
-                yearRange: '1940:2014',
-                maxDate: '2014',
-                showTrigger: '<button type="button" class="trigger">' + '<img src="<?php echo base_url(); ?>template/images/calendar-green.gif" alt="Popup"></button>',
-                renderer: $.extend({}, $.datepick.defaultRenderer,
-                        {picker: $.datepick.defaultRenderer.picker.
-                                    replace(/\{link:clear\}/, '{button:clear}').
-                                    replace(/\{link:close\}/, '{button:close}')}),
-            });
-        });
-    </script>

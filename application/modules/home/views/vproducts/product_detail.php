@@ -1,7 +1,26 @@
-<script src="<?php echo base_url(); ?>template/js/jquery.easytabs.min.js" type="text/javascript"></script>
+
 <script type="text/javascript" src="<?php echo base_url(); ?>public/homejs/jquery.jqzoom-core.js"></script>
 <script type="text/javascript" src="<?php echo base_url(); ?>public/homejs/modernizr.custom.17475.js"></script>
-<script type="text/javascript" src="<?php echo base_url(); ?>public/homejs/jquery.elastislide.js"></script>
+<script src="<?php echo base_url(); ?>template/js/jquery.hashchange.min.js" type="text/javascript"></script>
+<script src="<?php echo base_url(); ?>template/js/jquery.easytabs.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+    $(function() {
+        $('#tab-container').easytabs();
+    });
+</script>
+<script type="text/javascript">
+    jQuery(document).ready(function() {
+        jQuery('.jqzoom').jqzoom({
+            zoomType: 'standard',
+            lens: true,
+            zoomWidth: 250,
+            zoomHeight: 200,
+            preloadImages: false,
+            alwaysOn: false
+        });
+    });
+</script>	
+
 <?php
 foreach ($data_detail as $value)
     $images1 = json_decode($value->images);
@@ -58,7 +77,7 @@ foreach ($data_detail as $value)
             <section id="product_content">
                 <h1><?php echo $value->name ?></h1>
                 <header class="longer_products">
-                    <h6 class="icon_longer_products">Còn hàng</h6>
+                    <h6 class="icon_longer_products" style="height: 30px">Còn hàng</h6>
                 </header>
                 <div class="subdetail">
                     <?php echo $value->intro ?>
