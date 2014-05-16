@@ -217,7 +217,6 @@ border-right: 1px solid #EFF0ED;
     float: left;
 }
 .detail_content_3{
-    border-left: 1px solid #ececec;
     font-size: 12px;
     width: 59.8%;
 }
@@ -265,7 +264,7 @@ border-right: 1px solid #EFF0ED;
     color: #fff;
 }
 .detail_content_3 li .listitem_ct{
-    width: 129px;
+    width: 200px;
     display: inline-block;
     color: gray;
 }
@@ -339,11 +338,10 @@ border-right: 1px solid #EFF0ED;
 }
 .scroll_2{
     font-size: 12px;
-    height: 300px;
+    height: auto;
 }
 .post_content{
     padding: 10px;
-    margin-top: 30px;
 }
 .post_content .btn{
     margin-top: 0px;
@@ -375,17 +373,16 @@ border-right: 1px solid #EFF0ED;
     margin: auto !important;
 }
 #formSearch_mss .txt-search {
-    width: 179px;
+    width: 120%;
     padding: 4px 10px;
-    margin-bottom: 0px;
     background: transparent;
     border: 1px solid #8b8b8b;
     color: #8b8b8b;
     font-family: 'OpenSans-Italic';
     float: left;
-    margin-right: 5px;
     border-radius: 0;
     box-shadow: none;
+    margin: 0px 2px 0px -55px;
 }
 #formSearch_mss .btnsearch {
     height: 28px;
@@ -397,7 +394,7 @@ border-right: 1px solid #EFF0ED;
     float: left;
     position: relative;
     box-shadow: 0px 0px 0px #2980b9 !important;
-    margin-top: 0px !important;
+    margin: -29px 0px 0px 253px;
     border-radius: 0px;
 }
 .detail_content_3 .active .name_user , .detail_content_3 .active time, .detail_content_3 .active .title_post,
