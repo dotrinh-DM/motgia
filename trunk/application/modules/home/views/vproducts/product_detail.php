@@ -2,6 +2,18 @@
 <script type="text/javascript" src="<?php echo base_url(); ?>public/homejs/jquery.jqzoom-core.js"></script>
 <script type="text/javascript" src="<?php echo base_url(); ?>public/homejs/modernizr.custom.17475.js"></script>
 <script type="text/javascript" src="<?php echo base_url(); ?>public/homejs/jquery.elastislide.js"></script>
+        <script type="text/javascript">
+            jQuery(document).ready(function() {
+                jQuery('.jqzoom').jqzoom({
+                    zoomType: 'standard',
+                    lens: true,
+                    zoomWidth: 250,
+                    zoomHeight: 200,
+                    preloadImages: false,
+                    alwaysOn: false
+                });
+            });
+        </script>
 <?php
 foreach ($data_detail as $value)
     $images1 = json_decode($value->images);
