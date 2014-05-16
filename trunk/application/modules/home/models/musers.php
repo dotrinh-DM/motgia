@@ -210,6 +210,31 @@ class Musers extends CI_Model {
         return count($qr);
     }
 
+    //lay tat ca hoa don da dat cua thanh vien
+    public function getOrderByBuyerID($buyerid, $sum = 10000, $start = 0) {
+        $this->db->select("
+            order.orderID as orderID,
+            order.buyerID as buyerID,
+            order.note as note,
+            order.status as status, 
+            user.firstname as sellerfname,
+            user.lastname as sellerlname, 
+            user.email as selleremail,
+            user.phone as sellerphone, 
+            user.address as selleradd")
+                ->select("DATE_FORMAT(user.birthday, '%Y') AS selleryear", FALSE)
+                ->select("DATE_FORMAT(order.createdate, '%d-%m-%Y, %H:%i %p') AS date_cr", FALSE)
+                ->select("DATE_FORMAT(order.createdate, '%d') AS date", FALSE)
+                ->select("DATE_FORMAT(order.createdate, '%m') AS month", FALSE)
+                ->select("DATE_FORMAT(order.createdate, '%Y') AS year", FALSE)
+                ->select("DATE_FORMAT(order.shipdate, '%d/%m/%Y') AS date_ship", FALSE)
+                ->where("order.buyerID", "$buyerid")
+                ->join('user', 'user.userID = order.sellerID')
+        ->order_by('date_cr', 'desc');
+        $query = $this->db->get('order', $sum, $start);
+        return $query->result();
+    }
+    
     public function getNumMessageUnread($UID) {
         $this->db->select("status");
         $this->db->where(array('status' => 0, 'receiverID' => $UID));
@@ -259,12 +284,12 @@ class Musers extends CI_Model {
         $this->db->order_by("$pri_key", "desc");
         $arrr = $this->db->get("$table")->row_array();
         $count = strlen($arrr[$pri_key]);
-        $str = (int) substr($arrr[$pri_key], 3, $count);
+        $str = (int) substr($arrr[$pri_key], strlen($name), $count);
         $str++;
         $id = $name . $str;
         $leng = strlen($id);
         while ($leng <= 7) {
-            $ar1 = (int) substr($id, 3, $leng);
+            $ar1 = (int) substr($id, strlen($name), $leng);
             $ar2 = rtrim($id, $ar1);
             $id = $ar2 . '0' . $ar1;
             $leng++;

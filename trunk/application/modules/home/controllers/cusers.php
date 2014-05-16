@@ -120,19 +120,28 @@ class cusers extends CI_Controller {
             $addr = $this->input->post('address');
             $this->Musers->updateProfile($userid, $firstname, $lastname, $birthday, $gender, $phone, $addr, $province, $temp['info']['email']);
         }
-        //thay doi mat khau
+        
         //phan trang
         $display = 10; //so ban ghi moi trang
+        
         $spstart = 0; //vi tri mac dinh khi load trang
         $sppage = 1; //trang mac dinh khi load
+        
         $billstart = 0;
-        $billpage = 1;
-        if (isset($_GET['sppage']) && (int) $_GET['sppage'] > 0) {
-            $sppage = $_GET['sppage'];
-            $spstart = (isset($_GET['sppage']) && (int) $_GET['sppage'] > 0) ? ($_GET['sppage'] - 1) * $display : 0; //nhan bien truyen vao tu url
-        }
+        $billpage = 1;      
+        
+        $hsstart = 0;
+        $hspage = 1;
+
         //lay thong tin san pham va phan trang
-        if ($temp['level']['levelID'] == 2) {
+        if ($temp['level']['levelID'] == 2) {// chuc nang chi danh cho nha cung cap
+        
+            
+            ///////////////////////////bat dau chuc nang quan ly san pham
+            if (isset($_GET['sppage']) && (int) $_GET['sppage'] > 0) {
+                $sppage = $_GET['sppage'];
+                $spstart = (isset($_GET['sppage']) && (int) $_GET['sppage'] > 0) ? ($_GET['sppage'] - 1) * $display : 0; //nhan bien truyen vao tu url
+            }
             $record1 = count($this->Musers->getProductByUID($userid)); //tong so ban ghi
             if ($record1 > $display)//neu so ban ghi nho hon quy dinh thi khong can phan trang
                 $num_page1 = ceil($record1 / $display); //tong so trang
@@ -152,11 +161,10 @@ class cusers extends CI_Controller {
                 else
                     $url = 'home/cusers/profile#products';
                 redirect($url);
-            }
-
-
-            //ket thuc quan ly san pham
-            //Quản lý đơn hàng
+            }//////////////////////////////////////ket thuc quan ly san pham
+            
+            
+            //////////////////////////////////////Quản lý đơn hàng
             if (isset($_GET['billpage']) && (int) $_GET['billpage'] > 0) {
                 $billpage = $_GET['billpage'];
                 $billstart = (isset($_GET['billpage']) && (int) $_GET['billpage'] > 0) ? ($_GET['billpage'] - 1) * $display : 0; //nhan bien truyen vao tu url
@@ -166,26 +174,42 @@ class cusers extends CI_Controller {
                 $num_page2 = ceil($record2 / $display); //tong so trang
             else
                 $num_page2 = 1;
-            
+
             //xu ly don hang
-            if($this->input->post('confirm_order')){
-                $this->Musers->confirmOrder($this->input->post('orderid'),'2');
+            if ($this->input->post('confirm_order')) {
+                $this->Musers->confirmOrder($this->input->post('orderid'), '2');
                 if (isset($_GET['billpage']))
                     $url = 'home/cusers/profile?billpage=' . $_GET['billpage'] . '#bill';
                 else
                     $url = 'home/cusers/profile#bill';
                 redirect($url);
             }
-             if($this->input->post('deny_order'))
-                $this->Musers->confirmOrder($this->input->post('orderid'),'0');
-            
+            if ($this->input->post('deny_order'))
+                $this->Musers->confirmOrder($this->input->post('orderid'), '0');
+            //end- xu ly don hang
+
             $temp['num_order'] = $this->Musers->getNumOrderStatus($userid); //Lấy số hóa đơn chưa xử lý
             $temp['order'] = $this->Musers->getOrderByUID($userid, $display, $billstart);
             $temp['paging_order'] = array('num_page' => $num_page2, 'page' => $billpage, 'start' => $billstart, 'display' => $display);
+        }/////////////////////////////////////end- quan ly don hang
+        
+        
+        /////////////////////////////////////////lich su mua hang
+        if (isset($_GET['hspage']) && (int) $_GET['hspage'] > 0) {
+            $hspage = $_GET['hspage'];
+            $hsstart = (isset($_GET['hspage']) && (int) $_GET['hspage'] > 0) ? ($_GET['hspage'] - 1) * $display : 0; //nhan bien truyen vao tu url
         }
-
-
-        //quan ly tin nhan
+        $record3 = count($this->Musers->getOrderByBuyerID($userid)); //tong so ban ghi
+        if ($record3 > $display)//neu ban ghi nho hon quy dinh thi khong can phan trang
+            $num_page3 = ceil($record3 / $display); //tong so trang
+        else
+            $num_page3 = 1;
+        $temp['order_buy'] = $this->Musers->getOrderByBuyerID($userid, $display, $hsstart);
+        $temp['paging_order_buy'] = array('num_page' => $num_page3, 'page' => $hspage, 'start' => $hsstart, 'display' => $display);
+        ////////////////////////////////////////end-lich su mua hang
+        
+        
+        //////////////////////quan ly tin nhan
         $temp['num_message'] = $this->Musers->getNumMessageUnread($userid); //Lấy số tin nhắn mới nhận chưa đọc
         $temp['message_info'] = $this->Musers->getMessageByUID($userid);
         if (isset($_GET['messageid'])) {
@@ -195,29 +219,29 @@ class cusers extends CI_Controller {
             $content = $this->input->post('content_message');
             if ($this->input->post('send_message')) {
                 $ck = $this->Musers->sendMessage($temp['message_detail']['senderID'], $userid, $title, $content);
-//            echo ($ck= TRUE)? 'thanh cong': 'that bai!';
                 redirect('home/cusers/profile#messages');
             }
             $temp['Message_status_link'] = TRUE;
             $this->Musers->changeMessageStatus($msID); //Chuyển trạng thái tin nhắn từ chưa đọc sang đã đọc
         }
-
+        //////////////////////end-quan ly tin nhan
+        
         $temp['title'] = 'Thông tin cá nhân';
         $temp['template'] = 'vusers/profile';
         $this->load->view('layout/layout', $temp);
     }
 
-    public function orderdetail(){
-            $temp['info'] = $this->Mlog->log();
-            
-            if(isset($_GET['orderid'])){
-                $temp['detail']= $this->Musers->getOrderDetail($_GET['orderid']);
-                $temp['buyer']=  $this->Musers->getOrderByID($_GET['orderid']);
-            }
-            
-            $temp['title'] = 'Chi tiết hóa đơn';
-            $temp['template'] = 'vusers/order_detail';
-            $this->load->view('layout/layout', $temp);
+    public function orderdetail() {
+        $temp['info'] = $this->Mlog->log();
+
+        if (isset($_GET['orderid'])) {
+            $temp['detail'] = $this->Musers->getOrderDetail($_GET['orderid']);
+            $temp['buyer'] = $this->Musers->getOrderByID($_GET['orderid']);
+        }
+
+        $temp['title'] = 'Chi tiết hóa đơn';
+        $temp['template'] = 'vusers/order_detail';
+        $this->load->view('layout/layout', $temp);
     }
 
     public function sendMail($email, $psw, $name) {
