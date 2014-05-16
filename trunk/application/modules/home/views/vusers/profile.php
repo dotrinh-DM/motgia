@@ -1,12 +1,10 @@
 
 <!---hàm validate--->
+<script src="<?php echo base_url(); ?>template/js/change.js" type="text/javascript"></script>
 <script src="<?php echo base_url(); ?>template/js/jquery.hashchange.min.js" type="text/javascript"></script>
 <script src="<?php echo base_url(); ?>template/js/jquery.easytabs.min.js" type="text/javascript"></script>
 <script type="text/javascript" src="<?php echo base_url(); ?>template/js/validateh5.js"></script>
 <script type="text/javascript">
-    $(function() {
-        $('#tab-container').easytabs();
-    });
     jQuery(document).ready(function() {
         $.h5Validate.addPatterns({
             day_vn: /(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\d\d/
@@ -25,14 +23,9 @@
             var x = document.forms["form_pass"]["new_pass"].value;
             var y = document.forms["form_pass"]["re_new_pass"].value;
             if (x !== y) {
+                alert('Yêu cầu nhập lại mật khẩu!');
+                document.getElementById("renew").focus();
                 evt.preventDefault();
-                document.getElementById("re_new_pass").focus();
-                alert('nhap lai mat khau!');
-            }
-            if (document.forms["form_pass"]["new_pass"].value == '1') {
-                evt.preventDefault();
-                document.getElementById("old_pass").focus();
-                alert('sai mat khau!');
             }
         });
 
@@ -44,6 +37,9 @@
             }
         });
 
+        $(function() {
+            $('#tab-container').easytabs();
+        });
     });
 </script>
 <script type="text/javascript" src="<?php echo base_url() ?>tinymce/tiny_mce.js"></script>
@@ -59,7 +55,6 @@
         theme_advanced_buttons3: "|,sub,sup,|,charmap,emotions,iespell",
         theme_advanced_toolbar_location: "top",
         theme_advanced_toolbar_align: "left",
-        theme_advanced_statusbar_location: "bottom",
         theme_advanced_resizing: true
     });
 </script>
@@ -113,96 +108,97 @@
                             </tr>
 
                         </table><!--End detail_profile -->
-                        <form class="form change_open" id="form_info" method="post" name="form_info" action="">
-                            <!--<input type="number" name="quantity" min="1" max="5">-->
-                            <div class="position">
-                                <label>Họ<span>*</span></label>
-                                <input type="text" required="" name="first_name" value="<?php echo $profile['firstname']; ?>"/>
-                                <span class="tooltip">Không được để trống</span>
-                            </div>
-                            <div>
-                                <label>Tên<span>*</span></label>
-                                <input type="text" required="" name="last_name" value="<?php echo $profile['lastname']; ?>"/>
-                                <span class="tooltip">Không được để trống</span>
-                            </div>
-                            <div class="clearfix">
-                                <label>Ngày sinh<span>*</span></label>
-                                <input type="date" id="datePicker" required="" class="h5-day_vn"  name="birthday" value="<?php echo $profile['birthofday']; ?>" placeholder="dd/mm/yyyy" title="dd/mm/yyyy"
-                                       style="
-                                       height: 15px;
-                                       font: -webkit-small-control;
-                                       background: #e5e6e6;
-                                       width: 290px;
-                                       padding: 10px 8px;
-                                       color: #272727;
-                                       border: 0 none;
-                                       border-radius: 3px;
-                                       "/></p>
-                                <span class="tooltip">Định dạng: ngày/tháng/năm</span>
-                            </div>
-                            <div class="clearfix"></div>
-                            <div class=" clearfix" style="
-                                 margin: 20px 0px 20px 0px;">
-                                <label>Giới tính<span>*</span></label>
-                                <input type="radio" name="gender" id="1" <?php if ($profile['gender'] == 0) echo 'checked'; ?> value="0"/>Nam
-                                <input type="radio" name="gender" id="2" <?php if ($profile['gender'] == 1) echo 'checked'; ?> value="1"
-                                       style="margin: 10px 0px 0px 10px;"/>Nữ
-                            </div>
-                            <div>
-                                <label>Điện thoại<span>*</span></label>
-                                <input type="text" class="h5-phone" name="phone" required="" value="<?php echo $profile['phone']; ?>"/>
-
-                                <span class="tooltip">Phải điền số</span>
-                            </div>
-                            <div>
-                                <label>Địa chỉ<span>*</span></label>
-                                <input type="text" required="" name="address" value="<?php echo $profile['address']; ?>"/>
-                                <span class="tooltip">Không được để trống</span>
-                            </div>
-                            <div>
-                                <label>Tỉnh/Thành phố<span>*</span></label>
-                                <div class="select width70">
-                                    <select required="" name="province" >
-                                        <option value="">--Chọn--</option>
-                                        <?php
-                                        $arr = array(
-                                            0 => 'Hà Nội', 1 => 'TP HCM', 2 => 'Cần Thơ', 3 => 'Đà Nẵng', 4 => 'Hải Phòng',
-                                            5 => 'An Giang', 6 => 'Bà Rịa - Vũng Tàu', 7 => 'Bắc Giang', 8 => 'Bắc Kạn',
-                                            9 => 'Bạc Liêu', 10 => 'Bắc Ninh', 11 => 'Bến Tre', 12 => 'Bình Định',
-                                            13 => 'Bình Dương', 14 => 'Bình Phước', 15 => 'Bình Thuận', 16 => 'Cà Mau',
-                                            17 => 'Cao Bằng', 18 => 'Đắk Lắk', 19 => 'Đắk Nông', 20 => 'Điện Biên',
-                                            21 => 'Đồng Nai', 22 => 'Đồng Tháp', 23 => 'Gia Lai', 24 => 'Hà Giang',
-                                            25 => 'Hà Nam', 26 => 'Hà Tĩnh', 27 => 'Hải Dương', 28 => 'Hậu Giang',
-                                            29 => 'Hòa Bình', 30 => 'Hưng Yên', 31 => 'Khánh Hòa', 32 => 'Kiên Giang',
-                                            33 => 'Kon Tum', 34 => 'Lai Châu', 35 => 'Lâm Đồng', 36 => 'Lạng Sơn',
-                                            37 => 'Lào Cai', 38 => 'Long An', 39 => 'Nam Định', 40 => 'Nghệ An',
-                                            41 => 'Ninh Bình', 42 => 'Ninh Thuận', 43 => 'Phú Thọ', 44 => 'Quảng Bình',
-                                            45 => 'Quảng Nam', 46 => 'Quảng Ngãi', 47 => 'Quảng Ninh', 48 => 'Quảng Trị',
-                                            49 => 'Sóc Trăng', 50 => 'Sơn La', 51 => 'Tây Ninh', 52 => 'Thái Bình',
-                                            53 => 'Thái Nguyên', 54 => 'Thanh Hóa', 55 => 'Thừa Thiên Huế', 56 => 'Tiền Giang',
-                                            57 => 'Trà Vinh', 58 => 'Tuyên Quang', 59 => 'Vĩnh Long', 60 => 'Vĩnh Phúc',
-                                            61 => 'Yên Bái', 62 => 'Phú Yên'
-                                        );
-                                        for ($i = 0; $i < 62; $i++) {
-                                            if ($arr[$i] == $profile['province'])
-                                                echo '<option value="' . $arr[$i] . '" selected="selected">' . $arr[$i] . '</option>';
-                                            else
-                                                echo '<option value="' . $arr[$i] . '">' . $arr[$i] . '</option>';
-                                        }
-                                        ?>
-                                    </select>
+                        <div class="form change_open">
+                            <form class="form change_open" id="form_info" method="post" name="form_info" action="">
+                                <!--<input type="number" name="quantity" min="1" max="5">-->
+                                <div class="position">
+                                    <label>Họ<span>*</span></label>
+                                    <input type="text" required="" name="first_name" value="<?php echo $profile['firstname']; ?>"/>
+                                    <span class="tooltip">Không được để trống</span>
                                 </div>
-                            </div>
-                            <div>
-                                <label></label>
-                                <input type="submit" id="save_info" name="save_info" value="SAVE"/>
-                                <button class="btn" style="margin-left: 20px;">CANCEL</button>
-                            </div>
-                        </form>
+                                <div>
+                                    <label>Tên<span>*</span></label>
+                                    <input type="text" required="" name="last_name" value="<?php echo $profile['lastname']; ?>"/>
+                                    <span class="tooltip">Không được để trống</span>
+                                </div>
+                                <div class="clearfix">
+                                    <label>Ngày sinh<span>*</span></label>
+                                    <input type="date" required=""  name="birthday" placeholder="dd/mm/yyyy" title="dd/mm/yyyy"
+                                           style="
+                                           height: 34px;
+                                           font: -webkit-small-control;
+                                           background: #e5e6e6;
+                                           width: 290px;
+                                           color: #272727;
+                                           border: 0 none;
+                                           border-radius: 3px;
+                                           "/></p><span class="tooltip">Định dạng: ngày/tháng/năm</span>
+                                    <span class="tooltip">Định dạng: ngày/tháng/năm</span>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class=" clearfix" style="
+                                     margin: 20px 0px 20px 0px;">
+                                    <label>Giới tính<span>*</span></label>
+                                    <input type="radio" name="gender" id="1" <?php if ($profile['gender'] == 0) echo 'checked'; ?> value="0"/>Nam
+                                    <input type="radio" name="gender" id="2" <?php if ($profile['gender'] == 1) echo 'checked'; ?> value="1"
+                                           style="margin: 10px 0px 0px 10px;"/>Nữ
+                                </div>
+                                <div>
+                                    <label>Điện thoại<span>*</span></label>
+                                    <input type="text" class="h5-phone" name="phone" required="" value="<?php echo $profile['phone']; ?>"/>
+
+                                    <span class="tooltip">Phải điền số</span>
+                                </div>
+                                <div>
+                                    <label>Địa chỉ<span>*</span></label>
+                                    <input type="text" required="" name="address" value="<?php echo $profile['address']; ?>"/>
+                                    <span class="tooltip">Không được để trống</span>
+                                </div>
+                                <div>
+                                    <label>Tỉnh/Thành phố<span>*</span></label>
+                                    <div class="select" style="width:auto">
+                                        <select required="" name="province" >
+                                            <option value="">--Chọn--</option>
+                                            <?php
+                                            $arr = array(
+                                                0 => 'Hà Nội', 1 => 'TP HCM', 2 => 'Cần Thơ', 3 => 'Đà Nẵng', 4 => 'Hải Phòng',
+                                                5 => 'An Giang', 6 => 'Bà Rịa - Vũng Tàu', 7 => 'Bắc Giang', 8 => 'Bắc Kạn',
+                                                9 => 'Bạc Liêu', 10 => 'Bắc Ninh', 11 => 'Bến Tre', 12 => 'Bình Định',
+                                                13 => 'Bình Dương', 14 => 'Bình Phước', 15 => 'Bình Thuận', 16 => 'Cà Mau',
+                                                17 => 'Cao Bằng', 18 => 'Đắk Lắk', 19 => 'Đắk Nông', 20 => 'Điện Biên',
+                                                21 => 'Đồng Nai', 22 => 'Đồng Tháp', 23 => 'Gia Lai', 24 => 'Hà Giang',
+                                                25 => 'Hà Nam', 26 => 'Hà Tĩnh', 27 => 'Hải Dương', 28 => 'Hậu Giang',
+                                                29 => 'Hòa Bình', 30 => 'Hưng Yên', 31 => 'Khánh Hòa', 32 => 'Kiên Giang',
+                                                33 => 'Kon Tum', 34 => 'Lai Châu', 35 => 'Lâm Đồng', 36 => 'Lạng Sơn',
+                                                37 => 'Lào Cai', 38 => 'Long An', 39 => 'Nam Định', 40 => 'Nghệ An',
+                                                41 => 'Ninh Bình', 42 => 'Ninh Thuận', 43 => 'Phú Thọ', 44 => 'Quảng Bình',
+                                                45 => 'Quảng Nam', 46 => 'Quảng Ngãi', 47 => 'Quảng Ninh', 48 => 'Quảng Trị',
+                                                49 => 'Sóc Trăng', 50 => 'Sơn La', 51 => 'Tây Ninh', 52 => 'Thái Bình',
+                                                53 => 'Thái Nguyên', 54 => 'Thanh Hóa', 55 => 'Thừa Thiên Huế', 56 => 'Tiền Giang',
+                                                57 => 'Trà Vinh', 58 => 'Tuyên Quang', 59 => 'Vĩnh Long', 60 => 'Vĩnh Phúc',
+                                                61 => 'Yên Bái', 62 => 'Phú Yên'
+                                            );
+                                            for ($i = 0; $i < 62; $i++) {
+                                                if ($arr[$i] == $profile['province'])
+                                                    echo '<option value="' . $arr[$i] . '" selected="selected">' . $arr[$i] . '</option>';
+                                                else
+                                                    echo '<option value="' . $arr[$i] . '">' . $arr[$i] . '</option>';
+                                            }
+                                            ?>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div>
+                                    <label></label>
+                                    <input type="submit" id="save_info" name="save_info" value="SAVE"/>
+                                </div>
+                            </form>
+                            <button class="btn" style="margin: -57px 0px 0px 283px;"  class="onclick">CANCEL</button>
+                        </div>
                     </div>
 
                     <div class="change">
-                        <h6 class="title_detail_item">Account<span class="onclick">[ Sửa ]</span> </h6>
+                        <h6 class="title_detail_item">Mật khẩu <span class="onclick">[ Sửa ]</span> </h6>
                         <table class="detail_profile"> 
                             <tr>
                                 <td>Email</td>
@@ -213,30 +209,31 @@
                                 <td>......</td>
                             </tr>
                         </table><!--End detail_profile -->
+                        <div class="form change_open">
+                            <form class="form change_open" action="" method="post" name="form_pass" id="form_pass">
+                                <div>
+                                    <label>Mật khẩu cũ<span>*</span></label>
+                                    <input type="password" required="" name="old_pass"/>
+                                    <span class="tooltip">không được để trống</span>
+                                </div>
+                                <div>
+                                    <label>Mật khẩu mới<span>*</span></label>
+                                    <input type="password" required="" name="new_pass"/>
+                                    <span class="tooltip">không được để trống</span>
+                                </div>
+                                <div>
+                                    <label>Nhập lại mật khẩu mới<span>*</span></label>
+                                    <input type="password" required="" name="re_new_pass" id="renew"/>
+                                    <span class="tooltip">không được để trống</span>
+                                </div>
 
-                        <form class="form change_open" action="" method="post" name="form_pass" id="form_pass">
-                            <div>
-                                <label>Mật khẩu cũ<span>*</span></label>
-                                <input type="password" required="" name="old_pass" id="old_pass"/>
-                                <span class="tooltip">không được để trống</span>
-                            </div>
-                            <div>
-                                <label>Mật khẩu mới<span>*</span></label>
-                                <input type="password" required="" name="new_pass"/>
-                                <span class="tooltip">không được để trống</span>
-                            </div>
-                            <div>
-                                <label>Nhập lại mật khẩu mới<span>*</span></label>
-                                <input type="password" required="" name="re_new_pass"/>
-                                <span class="tooltip">không được để trống</span>
-                            </div>
-
-                            <div>
-                                <label></label>
-                                <input type="submit" id="save_pass" name="save_pass" value="SAVE"/>
-                                <button class="btn" style="margin-left: 20px;">CANCEL</button>
-                            </div>
-                        </form>
+                                <div>
+                                    <label></label>
+                                    <input type="submit" id="save_pass" name="save_pass" value="SAVE"/>
+                                </div>
+                            </form>
+                            <button class="btn" style="margin: -57px 0px 0px 283px;"  class="onclick">CANCEL</button>
+                        </div>
                     </div><!--end change-->
 
 
@@ -255,7 +252,7 @@
                                 <?php
                                 if (count($message_info))
                                     foreach ($message_info as $key => $value) {
-                                        echo '<a href="' . base_url() . 'index.php/home/cusers/profile?messageid=' . $value->messageID . '#messages">
+                                        echo '<a href="' . base_url() . 'index.php/home/cusers/profile?messageid=' . $value->messageID . '#messages" title="'.$value->title.'">
                                             <li';
                                         echo (isset($Message_status_link) && $Message_status_link == TRUE && $_GET['messageid'] == $value->messageID) ? ' class="active"' : '';
                                         echo'>
@@ -266,7 +263,7 @@
                                                 <div class="listitem_ct">';
 
                                         echo ($value->status == 0) ? '<b><span class="name_user">' . $value->ho_nguoi_gui . $value->ten_nguoi_gui . '</span>
-                                                    <span class="title_post2" style=" color: rgb(105, 71, 194);">' . $value->title . '</span></b>' :
+                                                    <span class="title_post2" style=" color: rgb(105, 71, 194);" title="'.$value->title.'">' . $value->title . '</span></b>' :
                                                 '<span class="name_user2">' . $value->ho_nguoi_gui . $value->ten_nguoi_gui . '</span>
                                                     <span class="title_post">' . $value->title . '</span>';
                                         echo '
@@ -280,14 +277,12 @@
                                 ?>
                             </ul>
                         </div>
-                        <div class="col_2 detail_content_3">
-
-
+                        <div class="col_2 detail_content_3" style="padding: 28px 0px 0px 0px;">
                             <?php
                             if (isset($message_detail) && count($message_detail))
                                 echo ' 
                                         <ul class="scroll scroll_2">
-                                            <li>
+                                            <li style="min-height: 170px;">
                                     <div class="listitem clearfix">
                                         <a href="#" class="name_user">' . $message_detail['ho_nguoi_gui'] . $message_detail['ten_nguoi_gui'] . '</a>
                                         <p>' . $message_detail['content'] . '</p>
@@ -296,24 +291,21 @@
                                 </li>
                                         
                             </ul>
-
                             <form method="post" name="message" action="">
                                 <div class="post_content">
                                     <div>
                                         <span>Tiêu đề:</span></br>
-                                        <input type="text" name="title_message" value="Reply: ' . $message_detail['title'] . '"/>
+                                        <input type="text" name="title_message" value="Reply: ' . $message_detail['title'] . '" style="width:100%"/>
                                     </div>
                                     <div>
                                         <span>Nội dung:</span>
-                                        <textarea class="content_add" name="content_message"></textarea>       
+                                        <textarea class="content_add" name="content_message" style="width:100%"></textarea>       
                                     </div>
                                     <div>
                                         <input type="submit" class="btn" name="send_message" value="Send"/>
                                     </div>
                                 </div>
-                            </form>
-                        
-                        ';
+                            </form>';
                             ?>
                         </div>
                     </div>
@@ -362,7 +354,7 @@
                                 <td><a href="#"><?php echo $pro->name; ?></a></td>
                                 <td><?php echo $pro->date_expiration; ?></td>
                                 <td><?php echo $pro->soldnumber; ?></td>
-                                <td style="width:160px">
+                                <td style="width:161px">
                                     <form method="get" action="">
                                         <input type="submit" name="change_status" value="Edit" style="width: 30px;height: 32px;padding: 0px;float: right;margin-top: 0px;border-radius: 0px 5px 5px 0px;"/>
                                         <input type="hidden" value="<?php echo $pro->productsID ?>" name="proID"/>
@@ -759,9 +751,6 @@
                 ';
                 ?>
                 <div id="monney">
-                    <p>
-                        form nạp tiền
-                    </p>
                 </div>
             </div>
         </div> <!--End #tabs-->
