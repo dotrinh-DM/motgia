@@ -41,21 +41,21 @@
                 document.getElementById("re_new_pass").focus();
                 alert('nhap lai mat khau!');
             }
-            if(document.forms["form_pass"]["new_pass"].value == '1'){
+            if (document.forms["form_pass"]["new_pass"].value == '1') {
                 evt.preventDefault();
                 document.getElementById("old_pass").focus();
                 alert('sai mat khau!');
             }
         });
-        
+
         $(".form_pass").submit(function(evt) {
-            if(document.forms["form_pass"]["new_pass"].value === 1){
+            if (document.forms["form_pass"]["new_pass"].value === 1) {
                 evt.preventDefault();
                 document.getElementById("old_pass").focus();
                 alert('sai mat khau!');
             }
         });
-        
+
         $('#tab-container').easytabs();
     });
 </script>
@@ -356,6 +356,7 @@
                             <th>Ngày hết hạn</th>
                             <th>Đã bán</th>
                             <th>Trạng thái</th>
+                            <th>Thao tác xử lý</th>
                         </tr>';
                         $i = $paging_product['start'];
                         foreach ($product as $value => $pro) {
@@ -374,13 +375,12 @@
                                 <td><a href="#"><?php echo $pro->name; ?></a></td>
                                 <td><?php echo $pro->date_expiration; ?></td>
                                 <td><?php echo $pro->soldnumber; ?></td>
-                                <td style="width:100px">
+                                <td style="width:160px">
                                     <form method="get" action="">
-                                        <input type="submit" name="change_status" value="edit" style="width: 30px;height: 20px;padding: 0px;"/>
+                                        <input type="submit" name="change_status" value="Edit" style="width: 30px;height: 32px;padding: 0px;float: right;margin-top: 0px;border-radius: 0px 5px 5px 0px;"/>
                                         <input type="hidden" value="<?php echo $pro->productsID ?>" name="proID"/>
-                                        <?php echo (isset($_GET['sppage']))? '<input type="hidden" value="'.$_GET['sppage'].'" name="sppage">': '';?>
-                                        <select class="form-control floatLeft" name="status_pro">
-
+                                        <?php echo (isset($_GET['sppage'])) ? '<input type="hidden" value="' . $_GET['sppage'] . '" name="sppage">' : ''; ?>
+                                        <select class="form-control floatLeft" name="status_pro" style="width: 120px;">
                                             <?php
                                             // echo '<option value="'.$pro->status.'"></option>';
                                             if ($pro->status == 1)
@@ -500,41 +500,48 @@
                             ?>
                             <tr>
                                 <td><?php
-                                for ($i; $i < $paging_order['start'] + $paging_order['display']; $i++) {
-                                        echo $i + 1; 
+                                    for ($i; $i < $paging_order['start'] + $paging_order['display']; $i++) {
+                                        echo $i + 1;
                                         $i = $i + 1;
                                         break;
-                                }?>
+                                    }
+                                    ?>
                                 </td>
-                                
+
                                 <td><?php
-                                echo '<p style="color:#7769AD"><b>'.$ord->buyerfname.' '.$ord->buyerlname.'</b></p>';
-                                echo '<p>Năm sinh: '.$ord->buyeryear.'</p>';
-                                echo '<p>Địa chỉ: '.$ord->buyeradd.'</p>';
-                                echo '<p>SĐT: '.$ord->buyerphone.' ... ';
-                                ?>
+                                    echo '<p style="color:#7769AD"><b>' . $ord->buyerfname . ' ' . $ord->buyerlname . '</b></p>';
+                                    echo '<p>Năm sinh: ' . $ord->buyeryear . '</p>';
+                                    echo '<p>Địa chỉ: ' . $ord->buyeradd . '</p>';
+                                    echo '<p>SĐT: ' . $ord->buyerphone . ' ... ';
+                                    ?>
                                     <a href="#">>>Chi tiết</a></p>
                                 </td>
                                 <td>
-                                    <p>Mã đơn hàng: <?php echo $ord->orderID;?></p>
-                                    <p>Ngày mua: <?php $ts = mktime(0,0,0,$ord->date,$ord->month,$ord->year); echo date("l", $ts).', '.$ord->date_cr;?></p>
+                                    <p>Mã đơn hàng: <?php echo $ord->orderID; ?></p>
+                                    <p>Ngày mua: <?php $ts = mktime(0, 0, 0, $ord->date, $ord->month, $ord->year);
+                        echo date("l", $ts) . ', ' . $ord->date_cr;
+                                    ?></p>
                                     <p>Hình thức thanh toán: online</p>
-                                    <a href="<?php echo site_url('home/cusers/orderdetail').'?orderid='.$ord->orderID;?>">>>Chi tiết</a>
+                                    <a href="<?php echo site_url('home/cusers/orderdetail') . '?orderid=' . $ord->orderID; ?>">>>Chi tiết</a>
                                 </td>
-                                <td><?php 
-                                $this->load->model('Musers');
-                                echo '<p style="font-style: italic;color: #A8370B;"><b>'.number_format($this->Musers->getValueOrder($ord->orderID), 2, ', ', '.').' VNĐ</b></p>';
-                                ?></td>
+                                <td><?php
+                                    $this->load->model('Musers');
+                                    echo '<p style="font-style: italic;color: #A8370B;"><b>' . number_format($this->Musers->getValueOrder($ord->orderID), 2, ', ', '.') . ' VNĐ</b></p>';
+                                    ?></td>
                                 <td><span class="bg_gray" style="float: left">
-                                    <?php 
-                                    if($ord->status==0) echo 'Đã hủy';
-                                    else if($ord->status==1) echo 'Đang chờ xác nhận';
-                                    else if($ord->status==2) echo 'Đã xác nhận';
-                                    ?></span></td>
+                                        <?php
+                                        if ($ord->status == 0)
+                                            echo 'Đã hủy';
+                                        else if ($ord->status == 1)
+                                            echo 'Đang chờ xác nhận';
+                                        else if ($ord->status == 2)
+                                            echo 'Đã xác nhận';
+                                        ?></span></td>
                                 <td>
-                            <?php if($ord->status==1) 
-                            echo '<form action="" method="post">
-                            <input type="hidden" name="orderid" value="'.$ord->orderID.'"/>
+                                    <?php
+                                    if ($ord->status == 1)
+                                        echo '<form action="" method="post">
+                            <input type="hidden" name="orderid" value="' . $ord->orderID . '"/>
                             <input type="submit" class="btn btn-primary btn-lg btn-block" style="
                             width: 75px; float:left;
                             font-size: 9pt;
@@ -550,7 +557,8 @@
                             margin-top: 0px;
                             border-radius: 3px;
                             background-color: #CEB711; 
-                            " value="Hủy" name="deny_order" onclick="return confirm(' . "'" . 'Bạn có muốn hủy đơn hàng này?' . "'" . ');"/></form>';?>
+                            " value="Hủy" name="deny_order" onclick="return confirm(' . "'" . 'Bạn có muốn hủy đơn hàng này?' . "'" . ');"/></form>';
+                                    ?>
                                 </td>
                             </tr>
                             <?php
@@ -622,41 +630,145 @@
                 ';
                 }
                 ?>
-                <div id="history">
-                    <h6 class="title_detail_item">order</h6>
-                    <table class="oder_table">
+
+                <!--start History-->
+                <?php
+                 echo '
+            <div id="history">
+                <h6 class="title_detail_item">history</h6>
+                <table class="oder_table">
+                    ';
+
+                    if (isset($order_buy) && count($order_buy)) {
+                        echo '
                         <tr>
                             <th>#</th>
-                            <th>Hình</th>
-                            <th>Ngày đặt</th>
-                            <th>Tên sản phẩm</th>
-                            <th>Tổng tiền</th>
-                            <th>Trạng thái</th>
+                            <th>Người bán</th>
+                            <th>Thông tin đơn hàng</th>
+                            <th>Giá trị đơn hàng</th>
+                            <th><center>Trạng thái</center></th>
+                            <th><center>Thao tác</center></th>
+                        </tr>';
+                        $i = $paging_order_buy['start'];
+                        foreach ($order_buy as $key => $ord) {
+                            ?>
+                            <tr>
+                                <td>
+                                    <?php
+                                    for ($i; $i < $paging_order_buy['start'] + $paging_order_buy['display']; $i++) {
+                                        echo $i + 1;
+                                        $i = $i + 1;
+                                        break;
+                                    }
+                                    ?>
+                                </td>
 
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td><a href="#"><img src="uploads/product_1.png"/></a></td>
-                            <td>12/12/2014</td>
-                            <td><a href="#">Sản phẩm 1</a></td>
-                            <td>100.000VND</td>
-                            <td>
-                                <span class="bg_gray">Đã bán</span>
-                            </td>
-                        </tr>
-                    </table>
+                                <td>
+                                    <?php
+                                    echo '<p style="color:#7769AD"><b>' . $ord->sellerfname . ' ' . $ord->sellerlname . '</b></p>';
+                                    echo '<p>Năm sinh: ' . $ord->selleryear . '</p>';
+                                    echo '<p>Địa chỉ: ' . $ord->selleradd . '</p>';
+                                    echo '<p>SĐT: ' . $ord->sellerphone . ' ... ';
+                                    ?>
+                                    <a href="#">>>Chi tiết</a></p>
+                                </td>
+                                <td>
+                                    <p>Mã đơn hàng: <?php echo $ord->orderID; ?></p>
+                                    <p>Ngày mua: 
+                                        <?php $ts = mktime(0, 0, 0, $ord->date, $ord->month, $ord->year);
+                                        echo date("l", $ts) . ', ' . $ord->date_cr;
+                                        ?>
+                                    </p>
+                                    <p>Hình thức thanh toán: online</p>
+                                    <a href="<?php echo site_url('home/cusers/orderdetail') . '?orderid=' . $ord->orderID; ?>">>>Chi tiết</a>
+                                </td>
+                                <td>
+                                    <?php
+                                    $this->load->model('Musers');
+                                    echo '<p style="font-style: italic;color: #A8370B;"><b>' . number_format($this->Musers->getValueOrder($ord->orderID), 2, ', ', '.') . ' VNĐ</b></p>';
+                                    ?>
+                                </td>
+                                <td><span class="bg_gray" style="float: left">
+                                        <?php
+                                        if ($ord->status == 0)
+                                            echo 'Đã hủy';
+                                        else if ($ord->status == 1)
+                                            echo 'Đang chờ xác nhận';
+                                        else if ($ord->status == 2)
+                                            echo 'Đã xác nhận';
+                                        ?>
+                                    </span>
+                                </td>
+                                <td></td>
+                            </tr>
+                            <?php
+                        }
+                    }
+                    else
+                        echo 'Không có nội dung hiển thị';
+
+                    echo '</table>
                     <section class="pagination">
-                        <div class="paginationControl clearfix">
-                            <a href="#"></a>
-                            <span class="active">1</span>
-                            <a href="#">2</a>
-                            <a href="#">3</a>
-                            <a href="#"></a>
-                        </div>
+                        <div>';
+
+                    function showpaging3($curent3, $i3) {
+                        if ($curent3 != $i3)
+                            echo'<a href="' . base_url() . 'index.php/home/cusers/profile?hspage=' . $i3 . '#bill">' . $i3 . '</a>';
+                        else
+                            echo'<span class="active">' . $i3 . '</span>';
+                    }
+
+                    if ($paging_order_buy['num_page'] > 1 && isset($ord) && count($ord)) {//neu can hien thi so trang
+                        $first = 1;
+                        $total = $paging_order_buy['num_page'];
+                        $prev = $paging_order_buy['page'] - 1;
+                        $next = $paging_order_buy['page'] + 1;
+                        $curent = ($paging_order_buy['start'] / $paging_order_buy['display']) + 1;
+                        if ($curent != 1) {// neu la trang dau tien thi khong co nut prev
+                            echo '<a href="' . base_url() . 'index.php/home/cusers/profile?hspage=' . $first . '#bill">first</a>';
+                            echo '<a href="' . base_url() . 'index.php/home/cusers/profile?hspage=' . $prev . '#bill">prev</a>';
+                            if ($curent >= 6 && $total > 9) {
+                                echo '<span style="background=white; ">.....</span>';
+                            }
+                        }
+                        //hien thi so trang
+                        for ($i = 1; $i <= $paging_order_buy['num_page']; $i++) {
+
+                            if ($total > 9) {//neu tong so trang lon hon 9
+                                if ($curent <= 5) {
+                                    showpaging3($curent, $i);
+                                    if ($i == 9)
+                                        break;
+                                }
+                                elseif ($curent >= 6 && $curent <= ($total - 5)) {
+                                    if ($i >= ($curent - 4) && $i <= $curent + 4) {
+                                        showpaging3($curent, $i);
+                                        if ($i == $curent + 4)
+                                            break;
+                                    }
+                                }
+                                elseif ($curent >= ($total - 4)) {
+                                    if ($i >= ($total - 8))
+                                        showpaging3($curent, $i);
+                                }
+                            }
+                            else {
+                                showpaging3($curent, $i);
+                            }
+                        }
+                        if ($curent != $total) {// neu la trang cuoi cung thi khong co nut next
+                            if ($curent <= ($total - 5) && $total > 9)
+                                echo '<span style="background=white; ">.....</span>';
+                            echo '<a href="' . base_url() . 'index.php/home/cusers/profile?hspage=' . $next . '#bill">next</a>';
+                            echo '<a href="' . base_url() . 'index.php/home/cusers/profile?hspage=' . $total . '#bill">last</a>';
+                        }
+                    }
+
+                    echo '</div>
                     </section><!-- #End pagination-->
-                </div><!--End #history-->
-
-
+                    </div><!----End #history-->
+                ';
+                ?>
                 <div id="monney">
                     <p>
                         form nạp tiền

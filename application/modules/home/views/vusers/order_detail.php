@@ -152,14 +152,27 @@
         <p><b>Cảm ơn đã quý khách đã sử dụng dịch vụ trên onepricemarket.tk !</b></p>      
                         ';
                 if ($buyer['status'] == 1)
-                echo '<center><button type="button" class="btn btn-primary btn-lg btn-block" style="
+                echo '
+                    <form method="post" action="">
+                    <center><input type="submit" class="btn btn-primary btn-lg btn-block" style="
                             width: 300px;
                             font-size: 12pt;
                             padding: 18px;
                             border-radius: 10px;
                             background-color: #CEB711;
-                            ">Đơn hàng đang chờ xác nhận</button>
-                    </center>';
+                            " name="confirm" value="Xác nhận đơn hàng"/>
+                    </center>
+                    <center><input type="submit" class="btn btn-primary btn-lg btn-block" style="
+                            width: 300px;
+                            font-size: 12pt;
+                            padding: 18px;
+                            border-radius: 10px;
+                            background-color: #CEB711;
+                            " name="deny" value="Huỷ đơn hàng"/>
+                    </center>
+                    </form>
+                    ';
+               
             }
             ?>
         
