@@ -149,7 +149,7 @@ input[type=button] , input[type=submit], .sub_menu_2 , :before , a , img{
     border:1px solid #dddada;
 }
 #logo{
-margin-top: 30px;
+    margin-top: 30px;
     display: block;
     width: 146px;
     height: 46px;
@@ -409,7 +409,7 @@ margin-top: 30px;
 }
 .form label{
     display: block;
-   width: 165px;
+    width: 165px;
     display: inline-block;
     float: left;
     margin-top: 10px;
@@ -801,6 +801,8 @@ input[type=checkbox]{
     font-size: 12px;
     font-family: 'OpenSans-Regular';
     color: #5e5e5e;
+    height: 180px;
+    padding: 1px;
 }
 .module:before{
     content: "";
@@ -810,12 +812,10 @@ input[type=checkbox]{
     bottom: -28px; left: 0px;
 }
 .module:nth-child(even){
-    margin-right: 0px;
+    /*margin-right: 0px;*/
 }
 .module_item{
     padding: 8px;
-    height: 163px;
-    overflow: hidden;
 }
 .img_module{
     display: inline-block;
