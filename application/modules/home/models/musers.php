@@ -84,7 +84,7 @@ class Musers extends CI_Model {
             'senderID' => $sender,
             'title' => $title,
             'content' => $content,
-            'date' => $date,
+            'create_date' => $date,
             'status' => 0
         );
         $this->db->insert('message', $data);
@@ -113,7 +113,7 @@ class Musers extends CI_Model {
     //lay san pham tu userID
     public function getProductByUID($Uid, $sum = 10000, $start = 0) {
         $this->db->select("*");
-        $this->db->select("DATE_FORMAT(date_up, '%d/%m/%Y') AS date_up", FALSE);
+        $this->db->select("DATE_FORMAT(create_date, '%d/%m/%Y') AS date_up", FALSE);
         $this->db->select("DATE_FORMAT(date_expiration, '%d/%m/%Y') AS date_expiration", FALSE);
         $this->db->From('products');
         $this->db->where("userID", "$Uid");
@@ -140,10 +140,10 @@ class Musers extends CI_Model {
             user.phone as buyerphone, 
             user.address as buyeradd")
                 ->select("DATE_FORMAT(user.birthday, '%Y') AS buyeryear", FALSE)
-                ->select("DATE_FORMAT(order.createdate, '%d-%m-%Y, %H:%i %p') AS date_cr", FALSE)
-                ->select("DATE_FORMAT(order.createdate, '%d') AS date", FALSE)
-                ->select("DATE_FORMAT(order.createdate, '%m') AS month", FALSE)
-                ->select("DATE_FORMAT(order.createdate, '%Y') AS year", FALSE)
+                ->select("DATE_FORMAT(order.create_date, '%d-%m-%Y, %H:%i %p') AS date_cr", FALSE)
+                ->select("DATE_FORMAT(order.create_date, '%d') AS date", FALSE)
+                ->select("DATE_FORMAT(order.create_date, '%m') AS month", FALSE)
+                ->select("DATE_FORMAT(order.create_date, '%Y') AS year", FALSE)
                 ->select("DATE_FORMAT(order.shipdate, '%d/%m/%Y') AS date_ship", FALSE)
                 ->where("order.sellerID", "$Uid")
                 ->join('user', 'user.userID = order.buyerID')
@@ -164,10 +164,10 @@ class Musers extends CI_Model {
             user.phone as buyerphone, 
             user.address as buyeradd")
                 ->select("DATE_FORMAT(user.birthday, '%Y') AS buyeryear", FALSE)
-                ->select("DATE_FORMAT(order.createdate, '%d-%m-%Y, %H:%i %p') AS date_cr", FALSE)
-                ->select("DATE_FORMAT(order.createdate, '%d') AS date", FALSE)
-                ->select("DATE_FORMAT(order.createdate, '%m') AS month", FALSE)
-                ->select("DATE_FORMAT(order.createdate, '%Y') AS year", FALSE)
+                ->select("DATE_FORMAT(order.create_date, '%d-%m-%Y, %H:%i %p') AS date_cr", FALSE)
+                ->select("DATE_FORMAT(order.create_date, '%d') AS date", FALSE)
+                ->select("DATE_FORMAT(order.create_date, '%m') AS month", FALSE)
+                ->select("DATE_FORMAT(order.create_date, '%Y') AS year", FALSE)
                 ->select("DATE_FORMAT(order.shipdate, '%d/%m/%Y') AS date_ship", FALSE)
                 ->where("order.orderID", "$id")
                 ->join('user', 'user.userID = order.buyerID')
@@ -223,10 +223,10 @@ class Musers extends CI_Model {
             user.phone as sellerphone, 
             user.address as selleradd")
                 ->select("DATE_FORMAT(user.birthday, '%Y') AS selleryear", FALSE)
-                ->select("DATE_FORMAT(order.createdate, '%d-%m-%Y, %H:%i %p') AS date_cr", FALSE)
-                ->select("DATE_FORMAT(order.createdate, '%d') AS date", FALSE)
-                ->select("DATE_FORMAT(order.createdate, '%m') AS month", FALSE)
-                ->select("DATE_FORMAT(order.createdate, '%Y') AS year", FALSE)
+                ->select("DATE_FORMAT(order.create_date, '%d-%m-%Y, %H:%i %p') AS date_cr", FALSE)
+                ->select("DATE_FORMAT(order.create_date, '%d') AS date", FALSE)
+                ->select("DATE_FORMAT(order.create_date, '%m') AS month", FALSE)
+                ->select("DATE_FORMAT(order.create_date, '%Y') AS year", FALSE)
                 ->select("DATE_FORMAT(order.shipdate, '%d/%m/%Y') AS date_ship", FALSE)
                 ->where("order.buyerID", "$buyerid")
                 ->join('user', 'user.userID = order.sellerID')
@@ -245,19 +245,19 @@ class Musers extends CI_Model {
     //lay tat ca tin nhan cua thanh vien
     public function getMessageByUID($Uid, $sum = 10000, $start = 0) {
         $this->db->select('messageID,senderID,user.firstname AS ho_nguoi_gui,user.lastname AS ten_nguoi_gui,title,content,message.status AS status');
-        $this->db->select("DATE_FORMAT(date, '%d-%m-%Y %H:%i:%s') AS datetime", FALSE);
-        $this->db->select("DATE_FORMAT(date, '%d-%m-%Y') AS date", FALSE);
+        $this->db->select("DATE_FORMAT(message.create_date, '%d-%m-%Y %H:%i:%s') AS datetime", FALSE);
+        $this->db->select("DATE_FORMAT(message.create_date, '%d-%m-%Y') AS date", FALSE);
         $this->db->where('message.receiverID', $Uid);
         $this->db->JOIN('user', 'user.userID = message.senderID');
-        $this->db->order_by('message.date', 'desc');
+//        $this->db->order_by('message.create_date', 'desc');
         $query = $this->db->get('message', $sum, $start);
         return $query->result();
     }
 
     public function getMessageByID($id) {
         $this->db->select('messageID,senderID,user.firstname AS ho_nguoi_gui,user.lastname AS ten_nguoi_gui,title,content');
-        $this->db->select("DATE_FORMAT(date, '%d-%m-%Y %H:%i:%s') AS datetime", FALSE);
-        $this->db->select("DATE_FORMAT(date, '%d-%m-%Y') AS date", FALSE);
+        $this->db->select("DATE_FORMAT(message.create_date, '%d-%m-%Y %H:%i:%s') AS datetime", FALSE);
+        $this->db->select("DATE_FORMAT(message.create_date, '%d-%m-%Y') AS date", FALSE);
         $this->db->where('message.messageID', $id);
         $this->db->JOIN('user', 'user.userID = message.senderID');
         return $query = $this->db->get('message')->row_array();
@@ -281,7 +281,7 @@ class Musers extends CI_Model {
     public function setID($table, $pri_key, $name) {
         $this->db->select("$pri_key");
         $this->db->limit(1);
-        $this->db->order_by("$table.date", "desc");
+        $this->db->order_by("$table.create_date", "desc");
         $arrr = $this->db->get("$table")->row_array();
         $count = strlen($arrr[$pri_key]);
         $str = (int) substr($arrr[$pri_key], strlen($name), $count);

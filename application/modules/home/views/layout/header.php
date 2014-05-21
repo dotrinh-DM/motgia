@@ -114,7 +114,7 @@
 
 <nav id="navigation">
     <ul class="wrap clearfix lever1">
-        <li><a href="<?php echo site_url('home/cproducts') ?>">Home</a></li>
+        <li><a href="<?php echo site_url('home/chome') ?>">Home</a></li>
         
         <li><a href="#">woman </a>
             <div class="sub_menu">

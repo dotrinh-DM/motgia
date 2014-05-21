@@ -13,13 +13,9 @@
             errorClass: "validationError",
             validClass: "validationValid"
         });
+        
         $(".form").submit(function(evt) {
-            if ($(".form_info").h5Validate("allValid") === false) {
-                evt.preventDefault();
-            }
-            if ($(".form_pass").h5Validate("allValid") === false) {
-                evt.preventDefault();
-            }
+            
             var x = document.forms["form_pass"]["new_pass"].value;
             var y = document.forms["form_pass"]["re_new_pass"].value;
             if (x !== y) {
@@ -27,16 +23,14 @@
                 document.getElementById("renew").focus();
                 evt.preventDefault();
             }
-        });
-
-        $(".form_pass").submit(function(evt) {
-            if (document.forms["form_pass"]["new_pass"].value === 1) {
+            
+            if ($(".form_info").h5Validate("allValid") === false) {
                 evt.preventDefault();
-                document.getElementById("old_pass").focus();
-                alert('sai mat khau!');
+            }
+            if ($(".form_pass").h5Validate("allValid") === false) {
+                evt.preventDefault();
             }
         });
-
         $(function() {
             $('#tab-container').easytabs();
         });
@@ -252,7 +246,7 @@
                                 <?php
                                 if (count($message_info))
                                     foreach ($message_info as $key => $value) {
-                                        echo '<a href="' . base_url() . 'index.php/home/cusers/profile?messageid=' . $value->messageID . '#messages" title="'.$value->title.'">
+                                        echo '<a href="' . base_url() . 'index.php/home/cusers/profile?messageid=' . $value->messageID . '#messages" title="' . $value->title . '">
                                             <li';
                                         echo (isset($Message_status_link) && $Message_status_link == TRUE && $_GET['messageid'] == $value->messageID) ? ' class="active"' : '';
                                         echo'>
@@ -263,7 +257,7 @@
                                                 <div class="listitem_ct">';
 
                                         echo ($value->status == 0) ? '<b><span class="name_user">' . $value->ho_nguoi_gui . $value->ten_nguoi_gui . '</span>
-                                                    <span class="title_post2" style=" color: rgb(105, 71, 194);" title="'.$value->title.'">' . $value->title . '</span></b>' :
+                                                    <span class="title_post2" style=" color: rgb(105, 71, 194);" title="' . $value->title . '">' . $value->title . '</span></b>' :
                                                 '<span class="name_user2">' . $value->ho_nguoi_gui . $value->ten_nguoi_gui . '</span>
                                                     <span class="title_post">' . $value->title . '</span>';
                                         echo '
@@ -350,7 +344,7 @@
                                     }
                                     ?></td>
                                 <td><a href="#"><img src="<?php echo base_url() . $img[0]; ?>" alt="<?php echo $pro->name; ?>" height="50" width="50"/></a></td>
-                                <td><?php echo date('d/m/Y', $pro->create_date); ?></td>
+                                <td><?php echo $pro->date_up; ?></td>
                                 <td><a href="#"><?php echo $pro->name; ?></a></td>
                                 <td><?php echo $pro->date_expiration; ?></td>
                                 <td><?php echo $pro->soldnumber; ?></td>

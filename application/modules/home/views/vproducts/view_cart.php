@@ -1,3 +1,4 @@
+
 <section class="bg_shadow">
     <div class="wrap clearfix">
         <div class="title floatLeft">
@@ -6,19 +7,18 @@
         </div>
         <div class="clearfix breadcrumbs floatRight">
             <div class="fl" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
-                <a title="Trang nhất" href="/" itemprop="url">
-                    <span itemprop="title">Trang chủ</span>
-                </a> /
+                <a title="Xóa giỏ hàng" href="<?php echo site_url("home/cproducts/delCart"); ?>"  onclick="return confirm('Bạn có muốn xóa toàn bộ giỏ hàng?');"><img src="<?php echo base_url(); ?>public/icons/del.gif" style="float: right;margin-top: -4px;" height="25px" width="25px"/></a>
+                <span itemprop="title" class="floatLeft">Xóa giỏ hàng </span>
             </div>
-            <div itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb" class="fl">
-                <a class="highlight" href="/" title="Kiến thức SEO" itemprop="url">
-                    <span itemprop="title">Giỏ hàng</span>
-                </a>
-            </div>
+            <!--            <div itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb" class="fl">
+                            <a class="highlight" href="/" title="Kiến thức SEO" itemprop="url">
+                                <span itemprop="title">Giỏ hàng</span>
+                            </a>
+                        </div>-->
         </div>
     </div>
 </section>
-
+<?php // var_dump($_SESSION['cart']);?>
 <section id="content" class="wrap">
     <div class="form boxcart box-drop">
 
@@ -30,10 +30,10 @@
 
                 $tong = 0;
                 echo '
-                        <form action="" method="post">
+                        <form action="" method="post" id="cart">
                           <div class="seller">
                             <h3>Gian hàng <a href="#">' . $value['shopname'] . '</a></h3>
-                            <a title="Xóa sản phẩm của gian hàng" href="' . site_url("home/cproducts/delCart/$userid") . '" style="float: right;margin-top: -55px;" onclick="return confirm(' . "'" . 'Bạn có muốn xóa toàn bộ sản phẩm này từ gian hàng này?' . "'" . ');">Xóa</a>
+                            <a title="Xóa sản phẩm của gian hàng" href="' . site_url("home/cproducts/delCart/$userid") . '" style="float: right;margin: -55px 18px;" onclick="return confirm(' . "'" . 'Bạn có muốn xóa toàn bộ sản phẩm này từ gian hàng này?' . "'" . ');">Xóa</a>
                           </div>
                           <table>
                             <thead>
@@ -70,12 +70,12 @@
                                         </td>
                                         <td>
                                             <div>
-                                                <input type="number" style="height: 30px;width: 60px;margin: 10px;padding: 5px;" name="soluong[' . $userid . '][' . $productid . ']" value="' . $value2['soluong'] . '"/>
+                                                <input type="number" min="1" max="99" style="height: 30px;width: 60px;margin: 10px;padding: 5px;" name="soluong[' . $userid . '][' . $productid . ']" value="' . $value2['soluong'] . '"/>
                                             </div>
                                         </td>
                                         <td style="text-align: right;padding:10px">' . number_format(100000, 0, ',', '. ') . ' VNĐ</td>
                                         <td style="text-align: right;padding:10px"><span class="subprice">' . number_format(100000 * $value2['soluong'], 0, ',', '. ') . '</span> VNĐ</td>
-                                        <td>
+                                        <td style="text-align: center">
                                             <a title="Xóa khỏi giỏ hàng" href="' . site_url("home/cproducts/delCart/$userid/$productid") . '" onclick="return confirm(' . "'" . 'Bạn có muốn xóa sản phẩm này từ giỏ hàng?' . "'" . ');">Xóa</a>
                                         </td>
                                     </tr>

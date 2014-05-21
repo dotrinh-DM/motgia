@@ -1,15 +1,49 @@
 
+<?php
+
+function curPageURL() {
+    $pageURL = 'http';
+    if (isset($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] == "on") {
+        $pageURL .= "s";
+    }
+    $pageURL .= "://";
+    if ($_SERVER["SERVER_PORT"] != "80") {
+        $pageURL .= $_SERVER["SERVER_NAME"] . ":" . $_SERVER["SERVER_PORT"] . $_SERVER["REQUEST_URI"];
+    } else {
+        $pageURL .= $_SERVER["SERVER_NAME"] . $_SERVER["REQUEST_URI"];
+    }
+    return $pageURL;
+}
+
+//                        echo "Day la dia chi website hien tai: <b>" . curPageURL() . "</b><br />";
+
+function curPageName() {
+    return substr($_SERVER["SCRIPT_NAME"], strrpos($_SERVER["SCRIPT_NAME"], "/") + 1);
+}
+
+//                        echo "Trang .php truy cap la: <b>" . curPageName() . "</b>";
+?>
+
 <script type="text/javascript" src="<?php echo base_url(); ?>public/homejs/jquery.jqzoom-core.js"></script>
+
 <script type="text/javascript" src="<?php echo base_url(); ?>public/homejs/modernizr.custom.17475.js"></script>
+<script type="text/javascript" src="<?php echo base_url(); ?>template/js/gallery.js"></script>
+<script type="text/javascript" src="<?php echo base_url(); ?>template/js/jquery.jcarousel.js"></script>
+<script type="text/javascript" src="<?php echo base_url(); ?>template/js/jquery.elastislide.js"></script>
+
 <script src="<?php echo base_url(); ?>template/js/jquery.hashchange.min.js" type="text/javascript"></script>
 <script src="<?php echo base_url(); ?>template/js/jquery.easytabs.min.js" type="text/javascript"></script>
+
+
+
 <script type="text/javascript">
     $(function() {
         $('#tab-container').easytabs();
     });
-</script>
-<script type="text/javascript">
     jQuery(document).ready(function() {
+        jQuery('#carousel').elastislide({
+            autoplay: true
+        });
         jQuery('.jqzoom').jqzoom({
             zoomType: 'standard',
             lens: true,
@@ -19,7 +53,9 @@
             alwaysOn: false
         });
     });
-</script>	
+</script>	        
+
+
 
 <?php
 foreach ($data_detail as $value)
@@ -80,7 +116,7 @@ foreach ($data_detail as $value)
                     <h6 class="icon_longer_products" style="height: 30px">Còn hàng</h6>
                 </header>
                 <div class="subdetail">
-                    <?php echo $value->intro ?>
+<?php echo $value->intro ?>
                 </div>
 
                 <div class="price_3">
@@ -100,7 +136,24 @@ foreach ($data_detail as $value)
                     </form>
                 </div>
                 <div class="social_02">
-                    <img src="<?php echo base_url(); ?>template/uploads/lienket.jpg"/>
+                    <div id="fb-root"></div>
+                    <script>(function(d, s, id) {
+                            var js, fjs = d.getElementsByTagName(s)[0];
+                            if (d.getElementById(id))
+                                return;
+                            js = d.createElement(s);
+                            js.id = id;
+                            js.src = "//connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v2.0";
+                            fjs.parentNode.insertBefore(js, fjs);
+                        }(document, 'script', 'facebook-jssdk'));</script>
+                    <div class="fb-like" data-href="<?php echo curPageURL(); ?>" data-width="100" 
+                         data-layout="button" 
+                         data-action="like" 
+                         data-show-faces="true" 
+                         data-share="true">
+                    </div>
+
+
                 </div>
             </section>
             <div class="clear"></div>
@@ -117,7 +170,7 @@ foreach ($data_detail as $value)
                                 <h6 class="title_detail_item">Đặc điểm nổi bật</h6>
                                 <ul>
                                     <li>
-                                        <?php echo $value->hightlight ?> 
+<?php echo $value->hightlight ?> 
                                     </li>
                                 </ul>
                             </div>
@@ -126,7 +179,7 @@ foreach ($data_detail as $value)
                                 <ul>
                                     <li>
 
-                                        <?php echo $value->condition ?>
+<?php echo $value->condition ?>
 
                                     </li>
                                 </ul>
@@ -135,7 +188,7 @@ foreach ($data_detail as $value)
                             <div class="detail_item_post">
                                 <header class="title_post_detail">Detail information</header>
                                 <p>
-                                    <?php echo $value->productinfo ?>
+<?php echo $value->productinfo ?>
                                 </p>
                             </div>
 
@@ -144,16 +197,7 @@ foreach ($data_detail as $value)
                     </div>
                     <div id="tabs1-js">
                         <div id="fb-root"></div>
-                        <script>(function(d, s, id) {
-                                var js, fjs = d.getElementsByTagName(s)[0];
-                                if (d.getElementById(id))
-                                    return;
-                                js = d.createElement(s);
-                                js.id = id;
-                                js.src = "//connect.facebook.net/vi_VN/all.js#xfbml=1";
-                                fjs.parentNode.insertBefore(js, fjs);
-                            }(document, 'script', 'facebook-jssdk'));</script>
-                        <div class="fb-comments" data-href="http://localhost:7070/motgia" data-width="600" data-numposts="10" data-colorscheme="light"></div>
+                        <div class="fb-comments" data-href="<?php echo curPageURL(); ?>" data-width="600" data-numposts="10" data-colorscheme="light"></div>
 
                     </div>
                     <div id="tabs1-css">
@@ -214,5 +258,5 @@ foreach ($data_detail as $value)
         </section><!-- .End product_detail -->
 
     </section><!--End #primary-->
-    <?php $this->load->view('layout/sidebar'); ?>
+<?php $this->load->view('layout/sidebar'); ?>
     <div class="clear"></div>

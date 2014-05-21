@@ -20,6 +20,11 @@ class Cproducts extends CI_Controller {
 
     public function index() {
         $temp['info'] = $this->Mlog->log();
+        if (count($temp['info'])) {
+            $userid = $temp['info']['userID'];
+            $temp['num_order'] = $this->Musers->getNumOrderStatus($userid);
+            $temp['num_message'] = $this->Musers->getNumMessageUnread($userid);
+        }
         $temp['title'] = 'Trang chủ';
         $temp['data_home'] = $this->Mproducts->getAllProducts();
         $temp['data_slide'] = $this->Mproducts->getDataSlide();
@@ -33,38 +38,43 @@ class Cproducts extends CI_Controller {
     }
 
     public function show_more() {
-        if (isset($_POST['idl'])) {
-            $id = $_POST['idl'];
+        if (isset($_POST['start'])) {
+            $start = $_POST['start'];
 
-            if ($temp = $this->Mproducts->show_more($id)) {
+            if ($temp = $this->Mproducts->show_more($start)) {
 
                 foreach ($temp as $value) {
                     $img = json_decode($value->images);
-                    echo '<section class="module">
-                <div class="module_item clearfix">
-                    <a href="' . site_url("home/cproducts/showDetailProducts/$value->productsID/$value->categoriesID") . '" class="img_module">
-                        <img src="' . base_url() . $img[0] . '" alt="' . $value->name . '"/>
-                    </a>
-                    <div class="reduced">
-                        <header class="title_item"><a href="' . site_url("home/cproducts/showDetailProducts/$value->productsID/$value->categoriesID") . '">' . $value->name . '</a></header>
-                        <p>' . substr($value->intro2, 0, strrpos($value->intro2, ' ')) . '...</p>
-                    </div><!--End .reduced-->
-                    <a style="cursor: pointer" id="' . $value->productsID . '" class="btn_readmore">Đặt Mua</a>
-                    <span class="price">' . $value->price . '</span>
-                </div><!--End .module_item-->
-            </section><!--End .module-->';
+                    echo '
+                         <section class="module">
+                            <div class="module_item clearfix">
+                                <a href="' . site_url("home/cproducts/showDetailProducts/$value->productsID/$value->categoriesID") . '" class="img_module">
+                                    <img src="' . base_url() . $img[0] . '" alt="' . $value->name . '"/>
+                                </a>
+                                <div class="reduced">
+                                    <header class="title_item" style="height: 25px;"><a href="' . site_url("home/cproducts/showDetailProducts/$value->productsID/$value->categoriesID") . '">' . $value->name . '</a></header>
+                                    <div style="height: 47px;overflow: hidden;"><span>' . substr($value->intro, 0, strrpos($value->intro, ' ')) . '</span> ...</div>
+                                </div><!--End .reduced-->
+                                <a style="cursor: pointer" id="' . $value->productsID . '" class="btn_readmore">Đặt Mua</a>
+
+                                <span class="price">' . $value->price . 'K</span>
+                                <div style="margin:50px" class="clearfix"><a href="" style="color: #93B1CC"><b>' . $value->fname . ' ' . $value->lname . '</b></a></div>
+                            </div><!--End .module_item-->
+                        </section><!--End .module-->
+                          ';
                 }
-                echo "<div class='clear'></div><div class='text_center' id='more" . $value->productsID . "' >";
-                echo "<button class='btn_showmore' id='" . $value->productsID . "'>Xem thêm</button>";
+                echo "<div class='clear'></div><div class='text_center' id='more" . ($start + 10) . "' >";
+                echo "<button class='btn_showmore' id='" . ($start + 10) . "'>Xem thêm</button>";
                 echo "</div>";
             } else {
                 echo "<div class='clear'></div><div class='text_center'>";
-                echo "<button class='btn_showmore' id=''>Hết Sản phẩm</button>";
+                echo "<button class='btn_showmore' id='' disabled='disabled'>Hết Sản phẩm</button>";
                 echo "</div>";
             }
-        } else {
-            echo 'ko co j';
         }
+//        else {
+//            echo 'ko co j';
+//        }
     }
 
     public function showDetailProducts($id, $cate) {
@@ -124,6 +134,8 @@ class Cproducts extends CI_Controller {
                     redirect('home/cproducts/upProducts');
                 }
             }
+            $temp = $this->Mlog->log();
+            $uid = $temp['userID'];
             $images = json_encode($url);
             $danhmuc = $this->input->post('danhmuc');
             $soluong = $this->input->post('soluong');
@@ -132,7 +144,8 @@ class Cproducts extends CI_Controller {
             $dacdiemnb = $this->input->post('dacdiemnb');
             $dieukiensd = $this->input->post('dieukiensd');
             $chitietsp = $this->input->post('chitietsp');
-            $kq = $this->Mproducts->insertProducts($danhmuc, $soluong, $tensanpham, $motangan, $dacdiemnb, $dieukiensd, $chitietsp, $images);
+            $proid = $this->Musers->setID('products', 'productsID', 'PRO');
+            $kq = $this->Mproducts->insertProducts($proid, $danhmuc, $soluong, $tensanpham, $motangan, $dacdiemnb, $dieukiensd, $chitietsp, $images, $uid);
             $this->session->set_flashdata('addproduct_alert', 'Đã Thêm sản phẩm Thành Công');
             redirect('home/cproducts/upProducts');
         }
@@ -208,16 +221,6 @@ class Cproducts extends CI_Controller {
     }
 
     public function addcart() {
-//        $id = $_POST['idpro'];
-//        $uid = $this->Mproducts->getProductbyID($id)->userID;
-//        if (isset($_SESSION['cart'][$id])) {
-//            $ql = $_SESSION['cart'][$id] + 1;
-//        } else {
-//            $ql = 1;
-//        }
-//        $_SESSION['cart'][$id] = $ql;
-//        echo count($_SESSION['cart']);
-
         $id = $_POST['idpro'];
         $uid2 = $this->Mproducts->getProductbyID($id);
         foreach ($uid2 as $key => $value) {
@@ -226,20 +229,24 @@ class Cproducts extends CI_Controller {
         }
         $uname2 = $this->Musers->getProfile($uid);
         $uname = $uname2['firstname'] . ' ' . $uname2['lastname'];
-
-
         if (isset($_SESSION['cart'][$uid][$id])) {
             $ql = $_SESSION['cart'][$uid][$id]['soluong'] + 1;
         } else {
             $ql = 1;
         }
-
         $arr = array(
             "productname" => $proname,
             "soluong" => $ql
         );
         $_SESSION['cart'][$uid][$id] = $arr;
         $_SESSION['cart'][$uid]["shopname"] = $uname;
+        $dem = 0;
+
+        foreach ($_SESSION['cart'] as $key => $value) {
+            $dem+= count($value);
+            $dem--;
+        }
+        echo $dem;
     }
 
     public function view_cart() {
@@ -289,13 +296,11 @@ class Cproducts extends CI_Controller {
     }
 
     public function delCart($uid, $proid) {
-        if (count($_SESSION['cart'][$uid]) > 2 && $uid != '' && $proid != '')
-            unset($_SESSION['cart'][$uid][$proid]); //neu so san pham cua gian hang >1 thi xoa tung sp
-        elseif ($proid == '' || count($_SESSION['cart'][$uid]) <= 2)
-            unset($_SESSION['cart'][$uid]); //neu gian hang co 1 sp thi xoa ca gian hang
-        elseif ($uid == '' && $proid == '')
-            session_destroy();
-
+        unset($_SESSION['cart']["$uid"]["$proid"]); 
+        if ($proid == '' || count($_SESSION['cart'][$uid]) < 2)//neu so san pham cua gian hang >1 (tinh ca "shopname" nen phai la <2) thi xoa tung sp
+            unset($_SESSION['cart']["$uid"]);
+        if ($proid =='' && $uid == '')
+            unset ($_SESSION['cart']);
         redirect('home/cproducts/view_cart');
     }
 
@@ -323,8 +328,9 @@ class Cproducts extends CI_Controller {
         $this->load->view('layout/layout', $data);
     }
 
-    public function vd() {
-        $this->load->view('vd');
+    public function vd($uid, $pro) {
+        unset($_SESSION['cart'][$uid][$pro]);
+//        unset($_SESSION['cart']['UID00003']);
     }
 
     public function vd2() {
