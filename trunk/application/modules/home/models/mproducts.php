@@ -15,18 +15,33 @@ class Mproducts extends CI_Model {
     }
 
     public function getAllProducts() {
-        $this->db->select("productsID,name,price,images,LEFT(intro,70) AS intro2,categoriesID ", FALSE);
-        $this->db->order_by('productsID', 'DESC');
-        $this->db->limit(10);
+        $this->db->select("products.productsID as productsID,
+            products.name as name,
+            products.price as price,
+            products.images as images,
+            products.intro as intro,
+            products.categoriesID as categoriesID,
+            user.firstname as fname,
+            user.lastname as lname", FALSE);
+//        $this->db->order_by('productsID', 'DESC');
+        $this->db->join('user','user.userID=products.userID');
+        $this->db->limit(10,0);
         $query = $this->db->get("products");
         return $query->result();
     }
 
-    public function show_more($id) {
-        $this->db->select("productsID,name,price,images,LEFT(intro,70) AS intro2,categoriesID ", FALSE);
-        $this->db->where("productsID < $id");
-        $this->db->order_by('productsID', 'DESC');
-        $this->db->limit(10);
+    public function show_more($start) {
+        $this->db->select("products.productsID as productsID,
+            products.name as name,
+            products.price as price,
+            products.images as images,
+            products.intro as intro,
+            products.categoriesID as categoriesID,
+            user.firstname as fname,
+            user.lastname as lname", FALSE);
+//        $this->db->order_by('productsID', 'DESC');
+        $this->db->join('user','user.userID=products.userID');
+        $this->db->limit(10,$start);
         $query = $this->db->get("products");
         return $query->result();
     }
@@ -47,9 +62,10 @@ class Mproducts extends CI_Model {
         return $query->result();
     }
 
-    public function insertProducts($danhmuc, $soluong, $tensanpham, $motangan, $dacdiemnb, $dieukiensd, $chitietsp, $images) {
-        $create_date = strtotime('now');
+    public function insertProducts($id, $danhmuc, $soluong, $tensanpham, $motangan, $dacdiemnb, $dieukiensd, $chitietsp, $images,$uid) {
+        $create_date = gmdate("Y-m-d H:i:s", time() + 3600 * (+7 + date("I")));
         $data = array(
+            'productsID' => $id,
             'name' => $tensanpham,
             'quantity' => $soluong,
             'price' => 10000,
@@ -60,8 +76,8 @@ class Mproducts extends CI_Model {
             'condition' => $dieukiensd,
             'productinfo' => $chitietsp,
             'create_date' => $create_date,
-            'userID' => 0,
-            'categoriesID' => $danhmuc,
+            'userID' => $uid,
+            'categoriesID' => $danhmuc
         );
         $this->db->insert('products', $data);
     }
@@ -96,7 +112,7 @@ class Mproducts extends CI_Model {
             'orderID' => $id,
             'sellerID' => $seller,
             'buyerID' => $buyer,
-            'createdate' => $creat,
+            'create_date' => $creat,
             'shipdate' => $creat,
             'note' => $note,
             'status' => 1//don hang chua xu ly
@@ -116,7 +132,7 @@ class Mproducts extends CI_Model {
 
     public function getProductByID($id) {
         $this->db->select("*");
-        $this->db->where("productsID", "$id");
+        $this->db->where('productsID', "$id");
         $query = $this->db->get('products');
         return $query->result();
     }
@@ -124,7 +140,7 @@ class Mproducts extends CI_Model {
     public function getProductByCate($id, $cate) {
         $this->db->select("productsID,name,price,images,categoriesID");
         $this->db->where("categoriesID", "$cate");
-        $this->db->where("productsID != $id");
+        $this->db->where("productsID != '$id' ");
         $this->db->limit(5);
         $query = $this->db->get('products');
         return $query->result();
@@ -132,14 +148,14 @@ class Mproducts extends CI_Model {
 
     public function getCart($where) {
         $this->db->select("*");
-        $this->db->where("productsID in ($where)");
+        $this->db->where("productsID in ('$where')");
         $query = $this->db->get('products');
         return $query->result();
     }
 
     public function getImage($proid) {
         $this->db->select("images");
-        $this->db->where("productsID = $proid");
+        $this->db->where('productsID' , $proid);
         $query = $this->db->get('products');
         return $query->row_array();
     }

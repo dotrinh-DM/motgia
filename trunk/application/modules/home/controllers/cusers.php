@@ -13,9 +13,8 @@ class cusers extends CI_Controller {
         $this->load->model(array('Musers', 'Mlog', 'Mproducts'));
         $this->load->database();
     }
-
     public function index() {
-
+        var_dump($temp);
         $temp['info'] = $this->Mlog->log();
         if (count($temp['info'])) {
             $userid = $temp['info']['userID'];
