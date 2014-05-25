@@ -186,8 +186,8 @@
     text-align: left;
 }
 .oder_table tr td{
-padding: 5px;
-border-right: 1px solid #EFF0ED;
+    padding: 5px;
+    border-right: 1px solid #EFF0ED;
 }
 .bg_blue{
     background: #60b760;
@@ -229,7 +229,7 @@ border-right: 1px solid #EFF0ED;
     list-style: none;
     padding: 7px 10px;
     cursor: pointer;
-     border-top: 1px solid #e8e8e8;
+    border-top: 1px solid #e8e8e8;
 }
 .detail_content_3 li .listitem{
     position: relative;
@@ -281,9 +281,11 @@ border-right: 1px solid #EFF0ED;
     display: block;
 }
 .name_user{
-    color: #373737;
+    color: #6947C2;
     font-family: 'OpenSans-Bold';
     margin-bottom: 2px;
+    text-underline: #0D0E0F;
+    text-decoration: underline;
 }
 .name_user2{
     color: #7E7272;
@@ -295,9 +297,9 @@ border-right: 1px solid #EFF0ED;
     color: #999a9a;
 }
 .detail_content_3 time{
-   float: right;
-   font-size: 10px;
-   font-style: italic;
+    float: right;
+    font-size: 10px;
+    font-style: italic;
 }
 .title_post{
     color: gray;
