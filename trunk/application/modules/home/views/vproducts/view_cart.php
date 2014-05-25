@@ -10,15 +10,9 @@
                 <a title="Xóa giỏ hàng" href="<?php echo site_url("home/cproducts/delCart"); ?>"  onclick="return confirm('Bạn có muốn xóa toàn bộ giỏ hàng?');"><img src="<?php echo base_url(); ?>public/icons/del.gif" style="float: right;margin-top: -4px;" height="25px" width="25px"/></a>
                 <span itemprop="title" class="floatLeft">Xóa giỏ hàng </span>
             </div>
-            <!--            <div itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb" class="fl">
-                            <a class="highlight" href="/" title="Kiến thức SEO" itemprop="url">
-                                <span itemprop="title">Giỏ hàng</span>
-                            </a>
-                        </div>-->
         </div>
     </div>
 </section>
-<?php // var_dump($_SESSION['cart']);?>
 <section id="content" class="wrap">
     <div class="form boxcart box-drop">
 

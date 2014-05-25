@@ -21,7 +21,7 @@ class Chome extends CI_Controller {
         $temp['num_order']= $this->Musers->getNumOrderStatus($userid);
         $temp['num_message'] = $this->Musers->getNumMessageUnread($userid);
         }
-        $temp['title'] = 'Trang chủ';
+        $temp['title'] = 'Trang chủ siêu thị một giá | Đăng sản phẩm | Thanh toán Trực tuyến';
         $temp['data_home'] = $this->Mproducts->getAllProducts();
         $temp['data_slide'] = $this->Mproducts->getDataSlide();
         $temp['template'] = 'home';
@@ -30,7 +30,7 @@ class Chome extends CI_Controller {
 
     public function logout() {
         $this->session->unset_userdata('user');
-        redirect('home/chome');
+        redirect('trang-chu');
     }
 
 }

@@ -1,5 +1,5 @@
 
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.0/jquery.min.js"></script>
+<!--<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.0/jquery.min.js"></script>-->
 <script src="<?php echo base_url(); ?>template/js/responsiveslides.min.js"></script>
 <script src="<?php echo base_url(); ?>template/js/responsiveslides.js"></script>
 <script src="<?php // echo base_url();  ?>js/responsiveslides.min.js"></script>
@@ -93,11 +93,11 @@
             ?>
             <section class="module">
                 <div class="module_item clearfix">
-                    <a href="<?php echo site_url("home/cproducts/showDetailProducts/$value->productsID/$value->categoriesID"); ?>" class="img_module">
+                    <a href="<?php echo site_url("san-pham/$value->productsID/$value->categoriesID"); ?>" class="img_module">
                         <img src="<?php echo base_url() . $img[0]; ?>" alt="<?php echo $value->name ?>"/>
                     </a>
                     <div class="reduced">
-                        <header class="title_item" style="height: 25px;"><a href="<?php echo site_url("home/cproducts/showDetailProducts/$value->productsID/$value->categoriesID"); ?>"><?php echo $value->name ?></a></header>
+                        <header class="title_item" style="height: 25px;"><a href="<?php echo site_url("san-pham/$value->productsID/$value->categoriesID"); ?>"><?php echo $value->name ?></a></header>
                         <div style="height: 47px;overflow: hidden;"><span><?php echo substr($value->intro, 0, strrpos($value->intro, ' ')); ?></span> ...</div>
                     </div><!--End .reduced-->
                     <a style="cursor: pointer" id="<?php echo $value->productsID; ?>" class="btn_readmore">Đặt Mua</a>

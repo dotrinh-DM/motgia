@@ -10,7 +10,7 @@ class Cproducts extends CI_Controller {
     public function __construct() {
         parent::__construct();
         $this->load->helper('form');
-        $this->load->helper('html');
+        $this->load->helper('html','file');
         $this->load->library('session');
         $this->load->helper('url');
         $this->load->model('Mproducts');
@@ -25,7 +25,7 @@ class Cproducts extends CI_Controller {
             $temp['num_order'] = $this->Musers->getNumOrderStatus($userid);
             $temp['num_message'] = $this->Musers->getNumMessageUnread($userid);
         }
-        $temp['title'] = 'Trang chủ';
+        $temp['title'] = 'Trang chủ siêu thị một giá | Đăng sản phẩm | Thanh toán Trực tuyến';
         $temp['data_home'] = $this->Mproducts->getAllProducts();
         $temp['data_slide'] = $this->Mproducts->getDataSlide();
         $temp['template'] = 'home';
@@ -40,9 +40,7 @@ class Cproducts extends CI_Controller {
     public function show_more() {
         if (isset($_POST['start'])) {
             $start = $_POST['start'];
-
             if ($temp = $this->Mproducts->show_more($start)) {
-
                 foreach ($temp as $value) {
                     $img = json_decode($value->images);
                     echo '
@@ -72,9 +70,6 @@ class Cproducts extends CI_Controller {
                 echo "</div>";
             }
         }
-//        else {
-//            echo 'ko co j';
-//        }
     }
 
     public function showDetailProducts($id, $cate) {
@@ -131,7 +126,7 @@ class Cproducts extends CI_Controller {
                         $this->load->view('layout/layout', $temp);
                     }
                 } else {
-                    redirect('home/cproducts/upProducts');
+                    redirect('up-product');
                 }
             }
             $temp = $this->Mlog->log();
@@ -147,7 +142,7 @@ class Cproducts extends CI_Controller {
             $proid = $this->Musers->setID('products', 'productsID', 'PRO');
             $kq = $this->Mproducts->insertProducts($proid, $danhmuc, $soluong, $tensanpham, $motangan, $dacdiemnb, $dieukiensd, $chitietsp, $images, $uid);
             $this->session->set_flashdata('addproduct_alert', 'Đã Thêm sản phẩm Thành Công');
-            redirect('home/cproducts/upProducts');
+            redirect('up-product');
         }
     }
 
@@ -281,7 +276,7 @@ class Cproducts extends CI_Controller {
                     $_SESSION['pay'][$uid] = $_SESSION['cart'][$uid];
                 }
             }
-            redirect('home/cproducts/payment');
+            redirect('pay');
         }
     }
 
@@ -292,7 +287,7 @@ class Cproducts extends CI_Controller {
                 $_SESSION['cart'][$userid][$productid]['soluong'] = $soluong;
             }
         }
-        redirect('home/cproducts/view_cart');
+        redirect('cart');
     }
 
     public function delCart($uid, $proid) {
@@ -301,7 +296,7 @@ class Cproducts extends CI_Controller {
             unset($_SESSION['cart']["$uid"]);
         if ($proid =='' && $uid == '')
             unset ($_SESSION['cart']);
-        redirect('home/cproducts/view_cart');
+        redirect('cart');
     }
 
     public function payment() {
@@ -321,7 +316,7 @@ class Cproducts extends CI_Controller {
                 }
             }
             unset($_SESSION['pay']);
-            redirect('home/cproducts/view_cart');
+            redirect('cart');
         }
         $data['title'] = 'Thanh toán';
         $data['template'] = 'vproducts/payment';

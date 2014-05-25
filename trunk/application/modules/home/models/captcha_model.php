@@ -14,13 +14,14 @@ class Captcha_model extends CI_Model {
             'font_path' => $url . 'captcha/fonts/texb.ttf',
             'img_width' => '170',
             'img_height' => '45',
-            'expiration' => 7200);
+            'expiration' => 3600);
         $cap = create_captcha($vals);
         $data = array(
             'captcha_time' => $cap['time'],
-            'ip_address' => $this->input->ip_address(),
+            'ip_address' => isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : '',
             'word' => $cap['word']);
         $this->saveData($data);
+        
         return $cap;
     }
 

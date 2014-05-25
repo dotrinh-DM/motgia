@@ -1,5 +1,6 @@
 
 <script type="text/javascript" src="<?php echo base_url(); ?>template/js/validateh5.js"></script>
+
 <script type="text/javascript">
     jQuery(document).ready(function() {
         jQuery(document).ready(function() {
@@ -25,7 +26,25 @@
         });
     });
 </script>
-
+<script type="text/javascript">
+    $(function() {
+        //More Button
+        $('.recaptcha').live(
+                "click", 
+                function()
+                {
+                    $.ajax({
+                        type: "POST",
+                        url: "<?php echo site_url('home/cusers/re_captcha'); ?>",
+//                        cache: false,
+                        success: function(kq) {
+                            $("#capt").html(kq);
+                        }
+                    });
+                    return false;
+        });
+    });
+</script>
 <section class="bg_shadow">
     <div class="wrap clearfix">
         <div class="title floatLeft">
@@ -62,7 +81,7 @@
                         border: 2px solid;
                         border-radius: 5px 5px 5px 5px;
                         padding: 10px; margin-bottom: 20px;' 
-                        class='success'><b>Thành công!</b> $success </div>
+                        class='success'><b style='margin-left: -66px'>Thành công!</b> $success </div>
                          ";
                 } elseif (isset($error1) || isset($error2) || isset($error3)) {
                     echo "<div style='color:red; line-height:2; 
@@ -73,6 +92,9 @@
                         class='error'><b>Lỗi đăng ký:</b>";
                     if (isset($error1)) {
                         echo '</br><span style="margin-left:88px">- ' . $error1 . '</span>';
+                    } 
+                    if (isset($error4)) {
+                        echo '</br><span style="margin-left:88px">- ' . $error4 . '</span>';
                     }
                     if (isset($error2)) {
                         echo '</br><span style="margin-left:88px">- ' . $error2 . '</span>';
@@ -98,15 +120,15 @@
                 <label>Ngày sinh<span>*</span></label>
                 <!--<input type="text" id="datePicker" required="" class="h5-day_vn"  name="birthday" placeholder="dd/mm/yyyy" title="dd/mm/yyyy"></p>-->
                 <input type="date" required=""  name="birthday" placeholder="dd/mm/yyyy" title="dd/mm/yyyy"
-                                       style="
-                                       height: 34px;
-                                       font: -webkit-small-control;
-                                       background: #e5e6e6;
-                                       width: 290px;
-                                       color: #272727;
-                                       border: 0 none;
-                                       border-radius: 3px;
-                                       "/></p><span class="tooltip">Định dạng: ngày/tháng/năm</span>
+                       style="
+                       height: 34px;
+                       font: -webkit-small-control;
+                       background: #e5e6e6;
+                       width: 290px;
+                       color: #272727;
+                       border: 0 none;
+                       border-radius: 3px;
+                       "/></p><span class="tooltip">Định dạng: ngày/tháng/năm</span>
                 <div class="clearfix"></div>
             </div>
             <div class="marginBottom_15">
@@ -206,6 +228,7 @@
             <div class="position">
                 <label>Email<span>*</span></label>
                 <input type="email" class="h5-email" name="email" required=""/>
+                <span id ="check"></span>
                 <span class="tooltip">Ex: Billgate@microsoft.com,..</span>
             </div>
             <div class="position">
@@ -228,8 +251,10 @@
             </div>
             <div>
                 <label></label>
-                <span><?php echo $Data; ?></span>
+                <div style="float: left"><span id="capt"><?php echo $Data; ?></span></div>
+                <div><button class="recaptcha" style="border: none; background-color: white"><img src="<?php echo base_url(); ?>public/icons/refresh-icon.png" height="40px" width="40px"/></button></div>
             </div>
+            <div class="clearfix"></div>
             <div class="type_checkbox">
                 <input type="checkbox" name="check" id="checkbox" value="ok"/>
                 <label for="checkbox" style="color:#848282;">Tôi đã đọc và đồng ý <span style="color: #3498db;">Quy đinh</span> của website</label>

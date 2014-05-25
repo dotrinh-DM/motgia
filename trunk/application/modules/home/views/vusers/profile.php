@@ -13,9 +13,9 @@
             errorClass: "validationError",
             validClass: "validationValid"
         });
-        
+
         $(".form").submit(function(evt) {
-            
+
             var x = document.forms["form_pass"]["new_pass"].value;
             var y = document.forms["form_pass"]["re_new_pass"].value;
             if (x !== y) {
@@ -23,7 +23,7 @@
                 document.getElementById("renew").focus();
                 evt.preventDefault();
             }
-            
+
             if ($(".form_info").h5Validate("allValid") === false) {
                 evt.preventDefault();
             }
@@ -33,6 +33,47 @@
         });
         $(function() {
             $('#tab-container').easytabs();
+
+            $('.showmessage').live("click", function()
+            {
+                var ID = $(this).attr("id");
+                if (ID)
+                {
+                    $.ajax({
+                        type: "POST",
+                        url: "<?php echo site_url('home/cusers/showMessage'); ?>",
+                        data: "messID=" + ID,
+                        success: function(html) {
+                            $('.act').removeClass('active');
+                            $('.unread1' + ID).removeClass('name_user').addClass('name_user2');
+                            $('.unread2' + ID).removeClass('title_post2').addClass('title_post');
+                            $("#message_content").empty();
+                            $("#message_content").append(html);
+                            $('.active' + ID).addClass('active');
+
+                        }
+                    });
+                }
+                return false;
+            });
+            
+            $('.edit_status_product').live("click", function()
+            {
+                var ID = $(this).attr("id");
+                var UID = '<?php echo $info['userID']?>';
+                var STATUS = $( "#status_product"+ID ).val();
+                $.ajax({
+                    type: "POST",
+                    url: "<?php echo site_url('home/cusers/changeStatusProduct'); ?>",
+                    data: {"proid": ID, "userid": UID, "status": STATUS},
+                    success: function(html) {
+                        $("#status_product" + ID).empty();
+                        $("#status_product" + ID).append(html);
+                    }
+                });
+                return false;
+            });
+
         });
     });
 </script>
@@ -61,7 +102,9 @@
                 <?php
                 if ($level['levelID'] == 2) {
                     echo '<li class="tab"><a href="#products">Quản lý sản phẩm</a></li>
-                        <li class="tab"><a href="#bill" title="có ' . $num_order . ' đơn hàng chưa xử lý"><span>' . $num_order . '</span>Đơn hàng đã nhận</a></li>';
+                        <li class="tab"><a href="#bill"';
+                    echo (isset($num_order) && $num_order > 0) ? 'tile="có ' . $num_order . ' đơn hàng chưa xử lý"><span>' . $num_order . '</span> ' : '>';
+                    echo 'Đơn hàng đã nhận</a></li>';
                 }
                 else
                     echo '<li class="tab"><a href="#upgrade">Nâng cấp lên gian hàng</a></li>';
@@ -246,18 +289,17 @@
                                 <?php
                                 if (count($message_info))
                                     foreach ($message_info as $key => $value) {
-                                        echo '<a href="' . base_url() . 'index.php/home/cusers/profile?messageid=' . $value->messageID . '#messages" title="' . $value->title . '">
-                                            <li';
-                                        echo (isset($Message_status_link) && $Message_status_link == TRUE && $_GET['messageid'] == $value->messageID) ? ' class="active"' : '';
-                                        echo'>
+                                        echo '
+                                            <a title="' . $value->title . '" class="showmessage" id="' . $value->messageID . '" class="active">
+                                            <li class="active' . $value->messageID . ' act">
                                                 <div class="listitem clearfix">
                                                     <figure class="img_post">
                                                         <img src="uploads/1076505_100003738868761_2002716988_q.jpg" alt="img-hot"/>
                                                     </figure>
                                                 <div class="listitem_ct">';
 
-                                        echo ($value->status == 0) ? '<b><span class="name_user">' . $value->ho_nguoi_gui . $value->ten_nguoi_gui . '</span>
-                                                    <span class="title_post2" style=" color: rgb(105, 71, 194);" title="' . $value->title . '">' . $value->title . '</span></b>' :
+                                        echo ($value->status == 0) ? '<b><span class="unread1' . $value->messageID . ' name_user">' . $value->ho_nguoi_gui . $value->ten_nguoi_gui . '</span>
+                                                    <span class="unread2' . $value->messageID . ' title_post2" title="' . $value->title . '">' . $value->title . '</span></b>' :
                                                 '<span class="name_user2">' . $value->ho_nguoi_gui . $value->ten_nguoi_gui . '</span>
                                                     <span class="title_post">' . $value->title . '</span>';
                                         echo '
@@ -272,35 +314,9 @@
                             </ul>
                         </div>
                         <div class="col_2 detail_content_3" style="padding: 28px 0px 0px 0px;">
-                            <?php
-                            if (isset($message_detail) && count($message_detail))
-                                echo ' 
-                                        <ul class="scroll scroll_2">
-                                            <li style="min-height: 170px;">
-                                    <div class="listitem clearfix">
-                                        <a href="#" class="name_user">' . $message_detail['ho_nguoi_gui'] . $message_detail['ten_nguoi_gui'] . '</a>
-                                        <p>' . $message_detail['content'] . '</p>
-                                        <time>' . $message_detail['datetime'] . '</time>
-                                    </div>
-                                </li>
-                                        
-                            </ul>
-                            <form method="post" name="message" action="">
-                                <div class="post_content">
-                                    <div>
-                                        <span>Tiêu đề:</span></br>
-                                        <input type="text" name="title_message" value="Reply: ' . $message_detail['title'] . '" style="width:100%"/>
-                                    </div>
-                                    <div>
-                                        <span>Nội dung:</span>
-                                        <textarea class="content_add" name="content_message" style="width:100%"></textarea>       
-                                    </div>
-                                    <div>
-                                        <input type="submit" class="btn" name="send_message" value="Send"/>
-                                    </div>
-                                </div>
-                            </form>';
-                            ?>
+                            <div id="message_content">
+                                <!--noi dung tin nhan-->
+                            </div>
                         </div>
                     </div>
                 </div><!--End #messages-->
@@ -316,7 +332,7 @@
                     height: 40px;
                     margin-top: 0px;">
                         <h6 class="title_detail_item" style="float:left">order</h6>
-                        <a href="' . base_url() . 'index.php/home/cproducts/upproducts" class="btn btn-warning" style="float:right; margin-top:-15px; background:#35C72F" >Thêm sản phẩm mới</a>
+                        <a href="' . base_url() . 'up-product" class="btn btn-warning" style="float:right; margin-top:-15px; background:#35C72F" >Thêm sản phẩm mới</a>
                     </div>
                     <table class="oder_table">';
                     if (isset($product) && count($product)) {
@@ -349,29 +365,25 @@
                                 <td><?php echo $pro->date_expiration; ?></td>
                                 <td><?php echo $pro->soldnumber; ?></td>
                                 <td style="width:161px">
-                                    <form method="get" action="">
-                                        <input type="submit" name="change_status" value="Edit" style="width: 30px;height: 32px;padding: 0px;float: right;margin-top: 0px;border-radius: 0px 5px 5px 0px;"/>
-                                        <input type="hidden" value="<?php echo $pro->productsID ?>" name="proID"/>
-                                        <?php echo (isset($_GET['sppage'])) ? '<input type="hidden" value="' . $_GET['sppage'] . '" name="sppage">' : ''; ?>
-                                        <select class="form-control floatLeft" name="status_pro" style="width: 120px;">
-                                            <?php
-                                            // echo '<option value="'.$pro->status.'"></option>';
-                                            if ($pro->status == 1)
-                                                echo'
+                                    <input type="submit" class="edit_status_product" id="<?php echo $pro->productsID ?>" name="change_status" value="Edit" style="width: 30px;height: 32px;padding: 0px;float: right;margin-top: 0px;border-radius: 0px 5px 5px 0px;"/>
+                                    <input type="hidden" value="<?php echo $pro->productsID ?>" name="proID"/>
+                                    <select class="form-control floatLeft" id="status_product<?php echo $pro->productsID ?>" name="status_pro" style="width: 120px;">
+                                        <?php
+                                        if ($pro->status == 1)
+                                            echo'
                                             <option value="1">Đang bán</option>
                                             <option value="2">Hết hàng</option>
                                             <option value="0">Ngừng bán</option>';
-                                            elseif ($pro->status == 0)
-                                                echo'
+                                        elseif ($pro->status == 0)
+                                            echo'
                                             <option value="0">Ngừng bán</option>
                                             <option value="1">Tiếp tục bán</option>';
-                                            elseif ($pro->status == 2)
-                                                echo'
+                                        elseif ($pro->status == 2)
+                                            echo'
                                             <option value="2">Hết hàng</option>
                                             <option value="1">Tiếp tục bán</option>';
-                                            ?>
-                                        </select>
-                                    </form>
+                                        ?>
+                                    </select>
                                 </td>
                                 <td class="update">
                                     <ul>
@@ -395,7 +407,7 @@
 
                     function showpaging($curent1, $i1) {
                         if ($curent1 != $i1)
-                            echo'<a href="' . base_url() . 'index.php/home/cusers/profile?sppage=' . $i1 . '#products">' . $i1 . '</a>';
+                            echo'<a href="' . base_url() . 'profile?sppage=' . $i1 . '#products">' . $i1 . '</a>';
                         else
                             echo'<span class="active">' . $i1 . '</span>';
                     }
@@ -407,8 +419,8 @@
                         $next = $paging_product['page'] + 1;
                         $curent = ($paging_product['start'] / $paging_product['display']) + 1;
                         if ($curent != 1) {// neu la trang dau tien thi khong co nut prev
-                            echo '<a href="' . base_url() . 'index.php/home/cusers/profile?sppage=' . $first . '#products">first</a>';
-                            echo '<a href="' . base_url() . 'index.php/home/cusers/profile?sppage=' . $prev . '#products">prev</a>';
+                            echo '<a href="' . base_url() . 'profile?sppage=' . $first . '#products">first</a>';
+                            echo '<a href="' . base_url() . 'profile?sppage=' . $prev . '#products">prev</a>';
                             if ($curent >= 6 && $total > 9) {
                                 echo '<span style="background=white; ">.....</span>';
                             }
@@ -441,8 +453,8 @@
                         if ($curent != $total) {// neu la trang cuoi cung thi khong co nut next
                             if ($curent <= ($total - 5) && $total > 9)
                                 echo '<span style="background=white; ">.....</span>';
-                            echo '<a href="' . base_url() . 'index.php/home/cusers/profile?sppage=' . $next . '#products">next</a>';
-                            echo '<a href="' . base_url() . 'index.php/home/cusers/profile?sppage=' . $total . '#products">last</a>';
+                            echo '<a href="' . base_url() . 'profile?sppage=' . $next . '#products">next</a>';
+                            echo '<a href="' . base_url() . 'profile?sppage=' . $total . '#products">last</a>';
                         }
                     }
                     echo '
@@ -547,7 +559,7 @@
 
                     function showpaging2($curent2, $i2) {
                         if ($curent2 != $i2)
-                            echo'<a href="' . base_url() . 'index.php/home/cusers/profile?billpage=' . $i2 . '#bill">' . $i2 . '</a>';
+                            echo'<a href="' . base_url() . 'profile?billpage=' . $i2 . '#bill">' . $i2 . '</a>';
                         else
                             echo'<span class="active">' . $i2 . '</span>';
                     }
@@ -559,8 +571,8 @@
                         $next = $paging_order['page'] + 1;
                         $curent = ($paging_order['start'] / $paging_order['display']) + 1;
                         if ($curent != 1) {// neu la trang dau tien thi khong co nut prev
-                            echo '<a href="' . base_url() . 'index.php/home/cusers/profile?billpage=' . $first . '#bill">first</a>';
-                            echo '<a href="' . base_url() . 'index.php/home/cusers/profile?billpage=' . $prev . '#bill">prev</a>';
+                            echo '<a href="' . base_url() . 'profile?billpage=' . $first . '#bill">first</a>';
+                            echo '<a href="' . base_url() . 'profile?billpage=' . $prev . '#bill">prev</a>';
                             if ($curent >= 6 && $total > 9) {
                                 echo '<span style="background=white; ">.....</span>';
                             }
@@ -593,8 +605,8 @@
                         if ($curent != $total) {// neu la trang cuoi cung thi khong co nut next
                             if ($curent <= ($total - 5) && $total > 9)
                                 echo '<span style="background=white; ">.....</span>';
-                            echo '<a href="' . base_url() . 'index.php/home/cusers/profile?billpage=' . $next . '#bill">next</a>';
-                            echo '<a href="' . base_url() . 'index.php/home/cusers/profile?billpage=' . $total . '#bill">last</a>';
+                            echo '<a href="' . base_url() . 'profile?billpage=' . $next . '#bill">next</a>';
+                            echo '<a href="' . base_url() . 'profile?billpage=' . $total . '#bill">last</a>';
                         }
                     }
 
@@ -688,7 +700,7 @@
 
                 function showpaging3($curent3, $i3) {
                     if ($curent3 != $i3)
-                        echo'<a href="' . base_url() . 'index.php/home/cusers/profile?hspage=' . $i3 . '#bill">' . $i3 . '</a>';
+                        echo'<a href="' . base_url() . 'profile?hspage=' . $i3 . '#bill">' . $i3 . '</a>';
                     else
                         echo'<span class="active">' . $i3 . '</span>';
                 }
@@ -700,8 +712,8 @@
                     $next = $paging_order_buy['page'] + 1;
                     $curent = ($paging_order_buy['start'] / $paging_order_buy['display']) + 1;
                     if ($curent != 1) {// neu la trang dau tien thi khong co nut prev
-                        echo '<a href="' . base_url() . 'index.php/home/cusers/profile?hspage=' . $first . '#bill">first</a>';
-                        echo '<a href="' . base_url() . 'index.php/home/cusers/profile?hspage=' . $prev . '#bill">prev</a>';
+                        echo '<a href="' . base_url() . 'profile?hspage=' . $first . '#bill">first</a>';
+                        echo '<a href="' . base_url() . 'profile?hspage=' . $prev . '#bill">prev</a>';
                         if ($curent >= 6 && $total > 9) {
                             echo '<span style="background=white; ">.....</span>';
                         }
@@ -734,8 +746,8 @@
                     if ($curent != $total) {// neu la trang cuoi cung thi khong co nut next
                         if ($curent <= ($total - 5) && $total > 9)
                             echo '<span style="background=white; ">.....</span>';
-                        echo '<a href="' . base_url() . 'index.php/home/cusers/profile?hspage=' . $next . '#bill">next</a>';
-                        echo '<a href="' . base_url() . 'index.php/home/cusers/profile?hspage=' . $total . '#bill">last</a>';
+                        echo '<a href="' . base_url() . 'profile?hspage=' . $next . '#bill">next</a>';
+                        echo '<a href="' . base_url() . 'profile?hspage=' . $total . '#bill">last</a>';
                     }
                 }
 

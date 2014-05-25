@@ -29,7 +29,7 @@ class Musers extends CI_Model {
     public function insertUser($l_name = 0, $f_name = 0, $month = 0, $birthday = 0, $gender = 0, $phone = 0, $province = 0, $email = 0, $pass = 0, $adr = 0) {
         if ($this->input->post('Add')) {
             $userID = $this->setID('user', 'userID', 'UID');
-            $expiredate = gmdate("Y-m-d H:i:s", time() + 3600 * (+7 + date("I")));
+            $date = gmdate("Y-m-d H:i:s", time() + 3600 * (+7 + date("I")));
             $data2 = array(
                 'userID' => $userID,
                 'firstname' => $f_name,
@@ -43,7 +43,7 @@ class Musers extends CI_Model {
                 'phone' => $phone,
                 'address' => $adr,
                 'status' => '0',
-                'expiredate' => $expiredate,
+                'create_date' => $date,
                 'levelID' => '1'
             );
             $this->db->insert('user', $data2);

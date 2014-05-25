@@ -22,9 +22,9 @@
                         <div class="detail_user">
                             <ul>
                                 <li><h6 class="welcome">Xin chào ' . $info['fullname'] . ' !</h6></li>
-                                <li><a href="' . base_url() . 'index.php/home/cproducts/upproducts">Đăng tin</a></li>
-                                <li><a href="' . base_url() . 'index.php/home/cusers/profile">Trang cá nhân</a></li>
-                                <li><a href="' . base_url() . 'index.php/home/cusers/profile#bill">Đơn đặt hàng
+                                <li><a href="' . base_url() . 'up-product">Đăng tin</a></li>
+                                <li><a href="' . base_url() . 'profile">Trang cá nhân</a></li>
+                                <li><a href="' . base_url() . 'profile#bill">Đơn đặt hàng
                                 ';
                     //hien thi so hoa don chua xu ly
                     echo (isset($num_order) && $num_order > 0) ? '<span
@@ -47,7 +47,7 @@
                                 >' . $num_order . '</span>' : '';
                     echo '
                                 </a></li>    
-                                <li><a href="' . base_url() . 'index.php/home/cusers/profile#messages">Tin nhắn';
+                                <li><a href="' . base_url() . 'profile#messages">Tin nhắn';
                     //hien thi so tin nhan moi nhan chua doc
                     echo (isset($num_message) && $num_message > 0) ? '<span
                                 style="
@@ -68,24 +68,20 @@
                                 "    
                                 >' . $num_message . '</span>' : '';
                     echo '</a></li>
-                                <li><a href="' . base_url() . 'index.php/home/chome/logout">Đăng xuất</a></li>
+                                <li><a href="' . base_url() . 'home/chome/logout">Đăng xuất</a></li>
                             </ul>
                         </div>
                     </li>
                         ';
                 } else {
                     echo '
-
-                        <li><a href="' . base_url() . 'index.php/home/cproducts/upproducts">Đăng tin</a></li>
+                        <li><a href="' . base_url() . 'dang-ky">Đăng ký</a></li>
                         <li><a href="#">Đăng nhập</a>';
                     $this->load->view('vusers/login');
-                    echo '
-                        </li>
-                        ';
+                    echo '</li>';
                 }
             }
             ?>
-
         </ul>
     </header><!--End .top_Nav-->
 </section>
@@ -97,7 +93,7 @@
             <input type="button" id="btnSearch" class="btnsearch"/>
         </form>
         <section class="cart">
-            <a class="icon_cart" href="<?php echo base_url() . "index.php/home/cproducts/view_cart"; ?>"><span id="choxemgiohang">
+            <a class="icon_cart" href="<?php echo base_url() . "cart"; ?>"><span id="choxemgiohang">
                     <?php
                     $dem=0;
                     if (isset($_SESSION['cart']) && count($_SESSION['cart'])){
@@ -114,7 +110,7 @@
 
 <nav id="navigation">
     <ul class="wrap clearfix lever1">
-        <li><a href="<?php echo site_url('home/chome') ?>">Home</a></li>
+        <li><a href="<?php echo site_url('trang-chu') ?>">Home</a></li>
         
         <li><a href="#">woman </a>
             <div class="sub_menu">
