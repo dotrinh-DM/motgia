@@ -8,13 +8,13 @@ class cusers extends CI_Controller {
 
     public function __construct() {
         parent::__construct();
-        $this->load->helper(array('form', 'html', 'url'));
+        $this->load->helper(array('form', 'html', 'url', 'file'));
         $this->load->library(array('session', 'encrypt', 'email', 'my_email'));
         $this->load->model(array('Musers', 'Mlog', 'Mproducts'));
         $this->load->database();
     }
+
     public function index() {
-        var_dump($temp);
         $temp['info'] = $this->Mlog->log();
         if (count($temp['info'])) {
             $userid = $temp['info']['userID'];
@@ -30,12 +30,12 @@ class cusers extends CI_Controller {
 
     public function message() {
         if ($this->session->userdata('user') == '') {
-            redirect('home/chome');
+            redirect('trang-chu');
         }
         $temp['info'] = $this->Mlog->log();
         $sender = $temp['info']['userID'];
         $temp['num_order'] = $this->Musers->getNumOrderStatus($sender);
-        $temp['title'] = 'Trang chủ';
+        $temp['title'] = 'Trang chủ siêu thị một giá | Đăng sản phẩm | Thanh toán Trực tuyến';
         $temp['template'] = 'vusers/message';
         $this->load->view('layout/layout', $temp);
 
@@ -50,7 +50,6 @@ class cusers extends CI_Controller {
     }
 
     public function signup() {
-
         $this->load->helper(array('captcha'));
         $this->load->model('captcha_model');
         $cap = $this->captcha_model->createCaptcha();
@@ -67,14 +66,14 @@ class cusers extends CI_Controller {
         $adr = $this->input->post('adr');
         $name = $f_name . ' ' . $l_name;
 
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        if ($this->input->post('Add')) {
             $sz_Word = $this->input->post('captcha');
             $b_Check = $this->captcha_model->b_fCheck($sz_Word);
             $cbx = $this->input->post('check');
             $ckmail = $this->Musers->checkMail($email);
             if ($ckmail && $b_Check && $cbx == 'ok') {
                 $this->Musers->insertUser($l_name, $f_name, $month, $birthday, $gender, $phone, $province, $email, $pass, $adr);
-
+                $this->db->WHERE('word !=', $cap['word'])->DELETE('captcha');
                 $this->sendMail($email, $psw, $name);
                 $temp['success'] = '
                     </br><span style="margin-left:88px">Bạn đã đăng ký thành công!</span>
@@ -84,22 +83,36 @@ class cusers extends CI_Controller {
                 ';
             } if ($ckmail == FALSE) {
                 $temp['error1'] = 'Email này đã được sử dụng!';
-            } if ($cbx != 'ok') {
-                $temp['error2'] = 'Bạn không đồng ý với các điều khoản quy định của chúng tôi!';
+            } if ($this->input->post('pass') != $this->input->post('repass')) {
+                $temp['error4'] = 'Mật khẩu nhập chưa khớp!';
             } if ($b_Check == FALSE) {
-                $temp['error3'] = 'Mã xác nhận không đúng!';
+                $temp['error2'] = 'Mã xác nhận không đúng!';
+            } if ($cbx != 'ok') {
+                $temp['error3'] = 'Bạn không đồng ý với các điều khoản quy định của chúng tôi!';
             }
         }
         $temp['info'] = $this->Mlog->log();
         $temp['Data'] = $cap['image'];
-        $temp['title'] = 'Đăng ký';
+        $temp['title'] = 'Đăng ký thành viên siêu thị một giá motgia.tk';
         $temp['template'] = 'vusers/signup';
         $this->load->view('layout/layout', $temp);
     }
 
+    public function re_captcha() {
+        $this->load->helper(array('captcha'));
+        $this->load->model('captcha_model');
+        $cap = $this->captcha_model->createCaptcha();
+        $this->db->WHERE('word !=', $cap['word'])->DELETE('captcha');
+//        
+//        $file = $_POST['file'];
+////        $file= 'captcha/vd/1400697616.0051.jpg';
+//        unlink($file);
+        echo $cap['image'];
+    }
+
     public function profile() {
         if ($this->session->userdata('user') == '') {
-            redirect('home/chome');
+            redirect('trang-chu');
         } //neu chua dang nhap thi quay lai trang chu
         $temp['info'] = $this->Mlog->log(); //hien thi ten nguoi dung tren header
         $userid = $temp['info']['userID'];
@@ -119,23 +132,21 @@ class cusers extends CI_Controller {
             $addr = $this->input->post('address');
             $this->Musers->updateProfile($userid, $firstname, $lastname, $birthday, $gender, $phone, $addr, $province, $temp['info']['email']);
         }
-        
+
         //phan trang
         $display = 10; //so ban ghi moi trang
-        
+
         $spstart = 0; //vi tri mac dinh khi load trang
         $sppage = 1; //trang mac dinh khi load
-        
+
         $billstart = 0;
-        $billpage = 1;      
-        
+        $billpage = 1;
+
         $hsstart = 0;
         $hspage = 1;
 
-        //lay thong tin san pham va phan trang
+        //////////////////////////////Quan ly san pham
         if ($temp['level']['levelID'] == 2) {// chuc nang chi danh cho nha cung cap
-        
-            
             ///////////////////////////bat dau chuc nang quan ly san pham
             if (isset($_GET['sppage']) && (int) $_GET['sppage'] > 0) {
                 $sppage = $_GET['sppage'];
@@ -151,18 +162,18 @@ class cusers extends CI_Controller {
             $temp['paging_product'] = array('num_page' => $num_page1, 'page' => $sppage, 'start' => $spstart, 'display' => $display);
 
             //sua trang thai san pham
-            if (isset($_GET['change_status']) && isset($_GET['proID']) && isset($_GET['status_pro'])) {
-                $proid = $_GET['proID'];
-                $statuspro = $_GET['status_pro'];
-                $this->Musers->changeStatusPro($proid, $userid, $statuspro);
-                if (isset($_GET['sppage']))
-                    $url = 'home/cusers/profile?sppage=' . $_GET['sppage'] . '#products';
-                else
-                    $url = 'home/cusers/profile#products';
-                redirect($url);
-            }//////////////////////////////////////ket thuc quan ly san pham
-            
-            
+//            if (isset($_GET['change_status']) && isset($_GET['proID']) && isset($_GET['status_pro'])) {
+//                $proid = $_GET['proID'];
+//                $statuspro = $_GET['status_pro'];
+//                $this->Musers->changeStatusPro($proid, $userid, $statuspro);
+//                if (isset($_GET['sppage']))
+//                    $url = 'profile?sppage=' . $_GET['sppage'] . '#products';
+//                else
+//                    $url = 'profile#products';
+//                redirect($url);
+//            }//////////////////////////////////////ket thuc quan ly san pham
+            //
+            //
             //////////////////////////////////////Quản lý đơn hàng
             if (isset($_GET['billpage']) && (int) $_GET['billpage'] > 0) {
                 $billpage = $_GET['billpage'];
@@ -174,13 +185,13 @@ class cusers extends CI_Controller {
             else
                 $num_page2 = 1;
 
-            //xu ly don hang
+            /////////////////////////////xu ly don hang
             if ($this->input->post('confirm_order')) {
                 $this->Musers->confirmOrder($this->input->post('orderid'), '2');
                 if (isset($_GET['billpage']))
-                    $url = 'home/cusers/profile?billpage=' . $_GET['billpage'] . '#bill';
+                    $url = 'profile?billpage=' . $_GET['billpage'] . '#bill';
                 else
-                    $url = 'home/cusers/profile#bill';
+                    $url = 'profile#bill';
                 redirect($url);
             }
             if ($this->input->post('deny_order'))
@@ -191,8 +202,8 @@ class cusers extends CI_Controller {
             $temp['order'] = $this->Musers->getOrderByUID($userid, $display, $billstart);
             $temp['paging_order'] = array('num_page' => $num_page2, 'page' => $billpage, 'start' => $billstart, 'display' => $display);
         }/////////////////////////////////////end- quan ly don hang
-        
-        
+        //
+        //
         /////////////////////////////////////////lich su mua hang
         if (isset($_GET['hspage']) && (int) $_GET['hspage'] > 0) {
             $hspage = $_GET['hspage'];
@@ -206,28 +217,81 @@ class cusers extends CI_Controller {
         $temp['order_buy'] = $this->Musers->getOrderByBuyerID($userid, $display, $hsstart);
         $temp['paging_order_buy'] = array('num_page' => $num_page3, 'page' => $hspage, 'start' => $hsstart, 'display' => $display);
         ////////////////////////////////////////end-lich su mua hang
-        
-        
+        //
+        //
         //////////////////////quan ly tin nhan
         $temp['num_message'] = $this->Musers->getNumMessageUnread($userid); //Lấy số tin nhắn mới nhận chưa đọc
         $temp['message_info'] = $this->Musers->getMessageByUID($userid);
-        if (isset($_GET['messageid'])) {
-            $msID = $_GET['messageid'];
-            $temp['message_detail'] = $this->Musers->getMessageByID($msID);
-            $title = $this->input->post('title_message');
-            $content = $this->input->post('content_message');
-            if ($this->input->post('send_message')) {
-                $ck = $this->Musers->sendMessage($temp['message_detail']['senderID'], $userid, $title, $content);
-                redirect('home/cusers/profile#messages');
-            }
-            $temp['Message_status_link'] = TRUE;
-            $this->Musers->changeMessageStatus($msID); //Chuyển trạng thái tin nhắn từ chưa đọc sang đã đọc
-        }
         //////////////////////end-quan ly tin nhan
-        
+
         $temp['title'] = 'Thông tin cá nhân';
         $temp['template'] = 'vusers/profile';
         $this->load->view('layout/layout', $temp);
+    }
+
+    public function changeStatusProduct() {
+        $proid = $_POST['proid'];
+        $userid = $_POST['userid'];
+        $statuspro = $_POST['status'];
+        $this->Musers->changeStatusPro($proid, $userid, $statuspro);
+
+        if ($statuspro == 1)
+            echo'
+            <option value="1">Đang bán</option>
+            <option value="2">Hết hàng</option>
+            <option value="0">Ngừng bán</option>';
+        if ($statuspro == 0)
+            echo'
+            <option value="0">Ngừng bán</option>
+            <option value="1">Tiếp tục bán</option>';
+        if ($statuspro == 2)
+            echo'
+            <option value="2">Hết hàng</option>
+            <option value="1">Tiếp tục bán</option>';
+    }
+
+    public function showMessage() {
+        $message_detail = $this->Musers->getMessageByID($_POST['messID']);
+        if (isset($message_detail) && count($message_detail)) {
+            echo ' 
+               <ul class="scroll scroll_2">
+                                <li style="min-height: 170px;">
+                        <div class="listitem clearfix">
+                            <a href="#" class="name_user">' . $message_detail['ho_nguoi_gui'] . $message_detail['ten_nguoi_gui'] . '</a>
+                            <p>' . $message_detail['content'] . '</p>
+                            <time>' . $message_detail['datetime'] . '</time>
+                        </div>
+                    </li>
+
+                </ul>
+                <form method="post" name="message" action="home/cusers/sendMessage">
+                    <div class="post_content">
+                        <div>
+                            <span>Tiêu đề:</span></br>
+                            <input type="text" name="title_message" value="Reply: ' . $message_detail['title'] . '" style="width:100%"/>
+                        </div>
+                        <div>
+                            <span>Nội dung:</span>
+                            <textarea class="content_add" name="content_message" style="width:100%"></textarea>       
+                        </div>
+                        <div>
+                            <input type="hidden" name="sender" value="' . $message_detail['senderID'] . '"/>
+                            <input type="submit" class="btn" name="send_message" value="Send"/>
+                        </div>
+                    </div>
+                </form>';
+            $this->Musers->changeMessageStatus($_POST['messID']);
+        }
+    }
+
+    public function sendMessage() {
+        $sender = $this->input->post('sender');
+        $temp['info'] = $this->Mlog->log(); //hien thi ten nguoi dung tren header
+        $userid = $temp['info']['userID'];
+        $title = $this->input->post('title_message');
+        $content = $this->input->post('content_message');
+        $this->Musers->sendMessage($sender, $userid, $title, $content);
+        redirect('profile#messages');
     }
 
     public function orderdetail() {
@@ -245,7 +309,7 @@ class cusers extends CI_Controller {
 
     public function sendMail($email, $psw, $name) {
         $key = $this->encrypt->encode($email);
-        $link_active = base_url() . "index.php/home/cusers/active/?key=" . urlencode($key);
+        $link_active = base_url() . "active?key=" . urlencode($key);
         $message = "Xin chào " . $name . ".</br>
             Bạn đã đăng ký tài khoản thành công</br>
             Vui lòng click vào link bên dưới để kích hoạt tài khoản và sử dụng dịch vụ! <br/>
@@ -271,19 +335,22 @@ class cusers extends CI_Controller {
                 $temp['template'] = 'vusers/notice';
                 $temp['ck'] = $ck;
                 if ($ck > 0) {
+                    $temp['title'] = 'Kích hoạt tài khoản';
                     $temp['content'] = '<h1>Tài khoản của bạn đã được đăng ký và kích hoạt thành công với email: ' . $email . '</h1>
                                         <p>Xin chân thành cảm ơn</p>
-                                        <a href="' . base_url() . 'index.php/home/chome">Quay về trang chủ</a>';
+                                        <a href="' . base_url() . 'trang-chu">Quay về trang chủ</a>';
                     $this->load->view('layout/layout', $temp);
                 } else {
+                    $temp['title'] = 'Kích hoạt tài khoản';
                     $temp['content'] = '<h1>Tài khoản này đã được kích hoạt</h1>
-                                        <a href="' . base_url() . 'index.php/home/chome">Quay về trang chủ</a>';
+                                        <a href="' . base_url() . 'trang-chu">Quay về trang chủ</a>';
                     $this->load->view('layout/layout', $temp);
                 }
             } else {
+                $temp['title'] = 'Kích hoạt tài khoản';
                 $temp['content'] = '<h1>Quá trình kích hoạt thất bại</h1>
                 <p>Vui lòng kiểm tra email hoặc đăng nhập để gửi lại key kích hoạt</p>
-                <a href="' . base_url() . 'index.php/home/chome">Quay về trang chủ</a>';
+                <a href="' . base_url() . 'trang-chu">Quay về trang chủ</a>';
                 $temp['template'] = 'vusers/notice';
                 $this->load->view('layout/layout', $temp);
             }
@@ -291,10 +358,11 @@ class cusers extends CI_Controller {
     }
 
     public function vd() {
-        $temp['title'] = 'Chi tiết sản phẩm';
-        $show = $this->Musers->getNumOrderStatus();
-        echo $show;
         $this->load->view('vd');
+    }
+
+    public function vd2() {
+        echo 'adsdfgdhfjghkjl';
     }
 
 }
