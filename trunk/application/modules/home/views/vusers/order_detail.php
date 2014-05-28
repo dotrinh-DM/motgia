@@ -24,7 +24,7 @@
                  border: 1px solid #ABC3D8;
                  border-radius: 5px;
                  padding: 10px;">
-                <p>Đơn hàng mang mã số <b>' . $_GET['orderid'] . '</b> đã bị hủy bởi <b>'.$buyer['buyerfname'] . ' ' . $buyer['buyerlname'].'</b> vào ngày '.$buyer['date_cr'].'</p>
+                <p>Đơn hàng mang mã số <b>' . $_GET['orderid'] . '</b> đã bị hủy bởi <b>'.$buyer['fullname'].'</b> vào ngày '.$buyer['date_cr'].'</p>
                 <p><b>Lý do : </b></p>
             </div>';
 
@@ -36,7 +36,7 @@
                  border-radius: 5px;
                  padding: 10px;">
                 <p>Đơn hàng mang mã số <b>' . $_GET['orderid'] . '</b> đang chờ xác nhận của gian hàng</p>
-                <p>Đã được mua bởi <b>'.$buyer['buyerfname'] . ' ' . $buyer['buyerlname'].'</b> vào ngày '.$buyer['date_cr'].'</p>
+                <p>Đã được mua bởi <b>'.$buyer['fullname'].'</b> vào ngày '.$buyer['date_cr'].'</p>
                 <p><i><u>Ghi chú bởi khách hàng :</u> '.$buyer['note'].'</i></p>
             </div>
             ';
@@ -101,7 +101,7 @@
                                 <p>Hình thức thanh toán : </p></b>
                             </td>
                             <td>
-                                <p><b>Online</b></p>
+                                <p><b>'; echo ($buyer['method']==0)?'Thanh toán tại nhà': 'Thanh toán trực tuyến';echo'</b></p>
                             </td>
                         </tr>
                         ';
@@ -127,7 +127,7 @@
                                 </b>
                             </td>
                             <td>
-                                <p>' . $buyer['buyerfname'] . ' ' . $buyer['buyerlname'] . '</p>
+                                <p>' . $buyer['fullname'] . '</p>
                                 <p>' . $buyer['buyeremail'] . '</p>
                                 <p>' . $buyer['buyerphone'] . '</p>
                                 <p>' . $buyer['buyeradd'] . '</p>
@@ -141,7 +141,7 @@
                                 </b>
                             </td>
                             <td>
-                                <p>' . $buyer['buyerfname'] . ' ' . $buyer['buyerlname'] . '</p>
+                                <p>' . $buyer['fullname'] . '</p>
                                 <p>' . $buyer['buyeremail'] . '</p>
                                 <p>' . $buyer['buyerphone'] . '</p>
                                 <p>' . $buyer['buyeradd'] . '</p>

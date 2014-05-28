@@ -15,8 +15,9 @@ class Musers extends CI_Model {
     }
 
     public function getProfile($userid) {
-        $this->db->select('firstname,lastname,gender,birthday,province,phone,address,password');
+        $this->db->select('*');
         $this->db->select("DATE_FORMAT(birthday, '%d-%m-%Y') AS birthofday", FALSE);
+        $this->db->select("CONCAT(firstname ,' ',lastname) as fullname", FALSE);
         $this->db->select("DATE_FORMAT(birthday, '%e') AS day", FALSE);
         $this->db->select("DATE_FORMAT(birthday, '%m') AS month", FALSE);
         $this->db->select("DATE_FORMAT(birthday, '%Y') AS year", FALSE);
@@ -48,6 +49,36 @@ class Musers extends CI_Model {
             );
             $this->db->insert('user', $data2);
         }
+    }
+
+    public function insertGuest($guestID, $fullname = 0, $mail = 0, $phone = 0, $province = 0, $address = 0) {
+        $date = gmdate("Y-m-d H:i:s", time() + 3600 * (+7 + date("I")));
+        $data2 = array(
+            'guestID' => $guestID,
+            'fullname' => $fullname,
+            'mail' => $mail,
+            'phone' => $phone,
+            'province' => $province,
+            'address' => $address,
+            'create_date' => $date,
+        );
+        $this->db->insert('guest', $data2);
+        return $this->db->affected_rows();
+    }
+
+    public function updateGuest($guestID, $fullname = 0, $mail = 0, $phone = 0, $province = 0, $address = 0) {
+        $date = gmdate("Y-m-d H:i:s", time() + 3600 * (+7 + date("I")));
+        $data2 = array(
+            'guestID' => $guestID,
+            'fullname' => $fullname,
+            'mail' => $mail,
+            'phone' => $phone,
+            'province' => $province,
+            'address' => $address,
+            'create_date' => $date,
+        );
+        $this->db->where("guestID", "$guestID")->update('guest', $data2);
+        return $this->db->affected_rows();
     }
 
     public function updateProfile($userid = 0, $firstname = 0, $lastname = 0, $birthday = 0, $gender = 0, $phone = 0, $addr = 0, $province = 0, $email = 0) {
@@ -128,50 +159,53 @@ class Musers extends CI_Model {
     }
 
     //lay tat ca hoa don da ban cua thanh vien
-    public function getOrderByUID($Uid, $sum = 10000, $start = 0) {
-        $this->db->select("
-            order.orderID as orderID,
-            order.buyerID as buyerID,
-            order.note as note,
-            order.status as status, 
-            user.firstname as buyerfname,
-            user.lastname as buyerlname, 
-            user.email as buyeremail,
-            user.phone as buyerphone, 
-            user.address as buyeradd")
-                ->select("DATE_FORMAT(user.birthday, '%Y') AS buyeryear", FALSE)
-                ->select("DATE_FORMAT(order.create_date, '%d-%m-%Y, %H:%i %p') AS date_cr", FALSE)
-                ->select("DATE_FORMAT(order.create_date, '%d') AS date", FALSE)
-                ->select("DATE_FORMAT(order.create_date, '%m') AS month", FALSE)
-                ->select("DATE_FORMAT(order.create_date, '%Y') AS year", FALSE)
-                ->select("DATE_FORMAT(order.shipdate, '%d/%m/%Y') AS date_ship", FALSE)
-                ->where("order.sellerID", "$Uid")
-                ->join('user', 'user.userID = order.buyerID')
-        ->order_by('date_cr', 'desc');
+    public function getOrderByUID($Uid, $sum = 10000, $start = 0) {//đơn hàng đã nhận- dành cho chủ gian hàng
+        $this->db->select("*")
+                ->select("DATE_FORMAT(create_date, '%d-%m-%Y, %H:%i %p') AS date_cr", FALSE)
+                ->select("DATE_FORMAT(create_date, '%d') AS date", FALSE)
+                ->select("DATE_FORMAT(create_date, '%m') AS month", FALSE)
+                ->select("DATE_FORMAT(create_date, '%Y') AS year", FALSE)
+                ->where("sellerID", "$Uid")
+                ->order_by('date_cr', 'desc');
         $query = $this->db->get('order', $sum, $start);
         return $query->result();
     }
 
-    public function getOrderByID($id) {
+    public function getOrder_UserBuy($oid,$buyid) {// chi tiet hoa don mau boi thanh vien
         return $this->db->select("
             order.orderID as orderID,
             order.buyerID as buyerID,
             order.note as note,
+            order.method as method,
             order.status as status, 
-            user.firstname as buyerfname,
-            user.lastname as buyerlname, 
             user.email as buyeremail,
             user.phone as buyerphone, 
             user.address as buyeradd")
-                ->select("DATE_FORMAT(user.birthday, '%Y') AS buyeryear", FALSE)
-                ->select("DATE_FORMAT(order.create_date, '%d-%m-%Y, %H:%i %p') AS date_cr", FALSE)
-                ->select("DATE_FORMAT(order.create_date, '%d') AS date", FALSE)
-                ->select("DATE_FORMAT(order.create_date, '%m') AS month", FALSE)
-                ->select("DATE_FORMAT(order.create_date, '%Y') AS year", FALSE)
-                ->select("DATE_FORMAT(order.shipdate, '%d/%m/%Y') AS date_ship", FALSE)
-                ->where("order.orderID", "$id")
-                ->join('user', 'user.userID = order.buyerID')
-                ->get('order')->row_array();
+                        ->select("CONCAT(firstname ,' ',lastname) as fullname", FALSE)
+                        ->select("DATE_FORMAT(order.create_date, '%d-%m-%Y, %H:%i %p') AS date_cr", FALSE)
+                        ->select("DATE_FORMAT(user.birthday, '%Y') AS buyeryear", FALSE)
+                        ->where("order.orderID", "$oid")
+                        ->where("order.buyerID", "$buyid")
+                        ->join('user', 'user.userID = order.buyerID')
+                        ->get('order')->row_array();
+    }
+    
+       public function getOrder_GuestBuy($oid,$buyid) {//chi tiet hoa don mua boi khach vang lai
+        return $this->db->select("
+            order.orderID as orderID,
+            order.buyerID as buyerID,
+            order.note as note,
+            order.method as method,
+            order.status as status, 
+            guest.fullname as fullname,
+            guest.mail as buyeremail,
+            guest.phone as buyerphone,")
+                        ->select("CONCAT(address ,' ',province) as buyeradd", FALSE)
+                        ->select("DATE_FORMAT(order.create_date, '%d-%m-%Y, %H:%i %p') AS date_cr", FALSE)
+                        ->where("order.orderID", "$oid")
+                        ->where("order.buyerID", "$buyid")
+                        ->join('guest', 'guest.guestID = order.buyerID')
+                        ->get('order')->row_array();
     }
 
     //lay tong gia tri cua don hang
@@ -197,12 +231,30 @@ class Musers extends CI_Model {
                         ->get('order_detail')
                         ->result();
     }
-    public function confirmOrder($orid,$st){
-        $this->db->where('orderID',$orid)
-                 ->update('order', array('status' => $st));
+    
+       public function getOrderDetail_History($oid) {// chi tiet hoa don mau boi thanh vien
+        return $this->db->select("
+            order.orderID as orderID,
+            order.buyerID as buyerID,
+            order.note as note,
+            order.method as method,
+            order.status as status, 
+            user.email as selleremail,
+            user.phone as sellerphone,")
+                        ->select("CONCAT(user.firstname ,' ',user.lastname) as fullname", FALSE)
+                        ->select("CONCAT(user.address ,' ',user.province) as selleradd", FALSE)
+                        ->select("DATE_FORMAT(order.create_date, '%d-%m-%Y, %H:%i %p') AS date_cr", FALSE)
+                        ->where("order.orderID", "$oid")
+                        ->join('user', 'user.userID = order.sellerID')
+                        ->get('order')->row_array();
+    }
+    
+    public function confirmOrder($orid, $st) {
+        $this->db->where('orderID', $orid)
+                ->update('order', array('status' => $st));
     }
 
-        //dem co bao nhieu hoa don chua xu ly cua thanh vien
+    //dem co bao nhieu hoa don chua xu ly cua thanh vien
     public function getNumOrderStatus($UID) {
         $this->db->select("status");
         $this->db->where(array('status' => 1, 'sellerID' => $UID));
@@ -211,11 +263,12 @@ class Musers extends CI_Model {
     }
 
     //lay tat ca hoa don da dat cua thanh vien
-    public function getOrderByBuyerID($buyerid, $sum = 10000, $start = 0) {
+    public function getOrderByBuyerID($buyerid, $sum = 10000, $start = 0) {//đơn hàng đã đặt - dành cho người mua hàng
         $this->db->select("
             order.orderID as orderID,
             order.buyerID as buyerID,
             order.note as note,
+            order.method as method,
             order.status as status, 
             user.firstname as sellerfname,
             user.lastname as sellerlname, 
@@ -227,14 +280,13 @@ class Musers extends CI_Model {
                 ->select("DATE_FORMAT(order.create_date, '%d') AS date", FALSE)
                 ->select("DATE_FORMAT(order.create_date, '%m') AS month", FALSE)
                 ->select("DATE_FORMAT(order.create_date, '%Y') AS year", FALSE)
-                ->select("DATE_FORMAT(order.shipdate, '%d/%m/%Y') AS date_ship", FALSE)
                 ->where("order.buyerID", "$buyerid")
                 ->join('user', 'user.userID = order.sellerID')
-        ->order_by('date_cr', 'desc');
+                ->order_by('date_cr', 'desc');
         $query = $this->db->get('order', $sum, $start);
         return $query->result();
     }
-    
+
     public function getNumMessageUnread($UID) {
         $this->db->select("status");
         $this->db->where(array('status' => 0, 'receiverID' => $UID));
@@ -244,12 +296,12 @@ class Musers extends CI_Model {
 
     //lay tat ca tin nhan cua thanh vien
     public function getMessageByUID($Uid, $sum = 10000, $start = 0) {
-        $this->db->select('messageID,senderID,user.firstname AS ho_nguoi_gui,user.lastname AS ten_nguoi_gui,title,content,message.status AS status');
+        $this->db->select('messageID,senderID,user.firstname AS ho_nguoi_gui,user.lastname AS ten_nguoi_gui,title,content,message.status AS status,user.levelID as LVsender');
         $this->db->select("DATE_FORMAT(message.create_date, '%d-%m-%Y %H:%i:%s') AS datetime", FALSE);
         $this->db->select("DATE_FORMAT(message.create_date, '%d-%m-%Y') AS date", FALSE);
         $this->db->where('message.receiverID', $Uid);
         $this->db->JOIN('user', 'user.userID = message.senderID');
-//        $this->db->order_by('message.create_date', 'desc');
+        $this->db->order_by('message.create_date', 'desc');
         $query = $this->db->get('message', $sum, $start);
         return $query->result();
     }

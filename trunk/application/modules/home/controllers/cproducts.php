@@ -10,7 +10,7 @@ class Cproducts extends CI_Controller {
     public function __construct() {
         parent::__construct();
         $this->load->helper('form');
-        $this->load->helper('html','file');
+        $this->load->helper('html', 'file');
         $this->load->library('session');
         $this->load->helper('url');
         $this->load->model('Mproducts');
@@ -215,6 +215,30 @@ class Cproducts extends CI_Controller {
         $this->load->view('layout/layout', $data);
     }
 
+    public function buynow() {
+        $id = $this->input->post('proid');
+        $sl = $this->input->post('soluong');
+        $uid2 = $this->Mproducts->getProductbyID($id);
+        foreach ($uid2 as $key => $value) {
+            $uid = $value->userID;
+            $proname = $value->name;
+        }
+        $uname2 = $this->Musers->getProfile($uid);
+        $uname = $uname2['firstname'] . ' ' . $uname2['lastname'];
+        if (isset($_SESSION['cart'][$uid][$id])) {
+            $sl = $_SESSION['cart'][$uid][$id]['soluong'] + 1;
+        } else {
+            $sl = 1;
+        }
+        $arr = array(
+            "productname" => $proname,
+            "soluong" => $sl
+        );
+        $_SESSION['cart'][$uid][$id] = $arr;
+        $_SESSION['cart'][$uid]["shopname"] = $uname;
+        redirect('cart');
+    }
+
     public function addcart() {
         $id = $_POST['idpro'];
         $uid2 = $this->Mproducts->getProductbyID($id);
@@ -246,6 +270,8 @@ class Cproducts extends CI_Controller {
 
     public function view_cart() {
         $data['info'] = $this->Mlog->log(); //lấy thông tin đăng nhập
+        if ($this->session->userdata('guest'))
+            $data['guest'] = $this->session->userdata('guest');
         if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
             $where1 = array();
             foreach ($_SESSION['cart'] as $userid => $value) {
@@ -264,68 +290,103 @@ class Cproducts extends CI_Controller {
             $data['template'] = 'vproducts/view_cart';
             $this->load->view('layout/layout', $data);
         }
-
-        if ($this->input->post('updatecart'))
-            $this->updateCart();
-        if ($this->input->post('paymenthome')) {
-            $payinfo = $this->input->post('payinfo');
+//
+//        if ($this->input->post('updatecart'))
+//            $this->updateCart();
+        if ($this->input->post('payhome')) {//thanh toán khi nhận hàng
+            $payinfo = $this->input->post('payhome');
             if (isset($_SESSION['pay']))
                 unset($_SESSION['pay']);
             foreach ($payinfo as $uid => $value) {
-                foreach ($value as $proid => $soluong) {
-                    $_SESSION['pay'][$uid] = $_SESSION['cart'][$uid];
-                }
+                $_SESSION['pay'][$uid] = $_SESSION['cart'][$uid];
+                $_SESSION['pay']['method'] = 0;//hinh thuc thanh toan tai nha
             }
             redirect('pay');
         }
     }
 
     public function updateCart() {
-        $mangSoluong = $this->input->post('soluong');
-        foreach ($mangSoluong as $userid => $value) {
-            foreach ($value as $productid => $soluong) {
-                $_SESSION['cart'][$userid][$productid]['soluong'] = $soluong;
-            }
+        if (isset($_POST['soluong'], $_POST['userid'], $_POST['proid'])) {
+            $userid = $_POST['userid'];
+            $productid = $_POST['proid'];
+            $soluong = $_POST['soluong'];
+            $_SESSION['cart'][$userid][$productid]['soluong'] = $soluong;
         }
-        redirect('cart');
     }
 
     public function delCart($uid, $proid) {
-        unset($_SESSION['cart']["$uid"]["$proid"]); 
+        unset($_SESSION['cart']["$uid"]["$proid"]);
         if ($proid == '' || count($_SESSION['cart'][$uid]) < 2)//neu so san pham cua gian hang >1 (tinh ca "shopname" nen phai la <2) thi xoa tung sp
             unset($_SESSION['cart']["$uid"]);
-        if ($proid =='' && $uid == '')
-            unset ($_SESSION['cart']);
+        if ($proid == '' && $uid == '')
+            unset($_SESSION['cart']);
         redirect('cart');
     }
 
     public function payment() {
         $data['info'] = $this->Mlog->log();
-        $userid = $data['info']['userID'];
-        $data['profile'] = $this->Musers->getProfile($userid); //lấy thông tin cá nhân
-        $create = strtotime('now');
-        if ($this->input->post('thanhtoan')) {
-            $note = $this->input->post('note');
-            foreach ($_SESSION['pay'] as $uid => $value) {
-                $orderid = $this->Mproducts->insertOrder($uid, $userid, $note);
-                unset($_SESSION['cart'][$uid]);
-                foreach ($value as $proid => $value2) {
-                    if ($proid != 'shopname') {
-                        $this->Mproducts->insertOrderDetail($orderid, $proid, $value2['soluong']);
+        if ($this->session->userdata('guest')) {
+            $data['guest'] = $this->session->userdata('guest');
+            if ($this->input->post('thanhtoan')) {
+                $note = $this->input->post('note');
+                $method = $_SESSION['pay']['method'];
+                foreach ($_SESSION['pay'] as $uid => $value) {
+                    if ($uid != 'method') {
+                        $orderid = $this->Mproducts->insertOrder($uid, $data['guest']['guestID'], $note, $method);
+                        unset($_SESSION['cart'][$uid]);
+                        foreach ($value as $proid => $value2) {
+                            if ($proid != 'shopname') {
+                                $this->Mproducts->insertOrderDetail($orderid, $proid, $value2['soluong']);
+                            }
+                        }
                     }
                 }
+                unset($_SESSION['pay']);
+                redirect('cart');
             }
-            unset($_SESSION['pay']);
-            redirect('cart');
+        }
+        if (isset($data['info']) && count($data['info']['userID'])) {
+            $userid = $data['info']['userID'];
+            $data['profile'] = $this->Musers->getProfile($userid); //lấy thông tin cá nhân
+            $create = strtotime('now');
+
+            if ($this->input->post('thanhtoan')) {
+                $note = $this->input->post('note');
+                $method = $_SESSION['pay']['method'];
+                foreach ($_SESSION['pay'] as $uid => $value) {
+                    if ($uid != 'method') {
+                        $orderid = $this->Mproducts->insertOrder($uid, $userid, $note, $method);
+                        unset($_SESSION['cart'][$uid]);
+                        foreach ($value as $proid => $value2) {
+                            if ($proid != 'shopname') {
+                                $this->Mproducts->insertOrderDetail($orderid, $proid, $value2['soluong']);
+                            }
+                        }
+                    }
+                }
+                unset($_SESSION['pay']);
+                redirect('cart');
+            }
         }
         $data['title'] = 'Thanh toán';
         $data['template'] = 'vproducts/payment';
         $this->load->view('layout/layout', $data);
     }
 
-    public function vd($uid, $pro) {
-        unset($_SESSION['cart'][$uid][$pro]);
-//        unset($_SESSION['cart']['UID00003']);
+    public function vd() {
+//        if ($this->input->post('paymenthome')) {
+//            $payinfo = $this->input->post('payhome');
+////            if (isset($_SESSION['pay']))
+////                unset($_SESSION['pay']);
+////            foreach ($payinfo as $uid => $value) {
+////                foreach ($value as $proid => $soluong) {
+////                    $_SESSION['pay'][$uid] = $_SESSION['cart'][$uid];
+////                }
+////            }
+////            redirect('pay');
+//            var_dump($payinfo);
+//        }
+        $this->load->view('vd');
     }
 
     public function vd2() {

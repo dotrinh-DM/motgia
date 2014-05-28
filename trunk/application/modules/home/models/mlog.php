@@ -19,7 +19,7 @@ class Mlog extends CI_Model {
         if ($this->input->post('logout')) {
             $this->logout();
         }
-        return $temp['info'];
+        return $temp['info']; //tra ve FALSE neu chua dang nhap, tra ve array neu da dang nhap
     }
 
     public function login() {
@@ -37,7 +37,9 @@ class Mlog extends CI_Model {
             );
             $this->session->set_userdata('user', $newdata);
             echo 'đăng nhập thành công';
-            redirect('home/chome');
+            if($this->session->userdata('guest'))
+                $this->session->unset_userdata('guest'); //nếu khách vãng lai đăng nhập thì xóa các phiên làm việc trước đó
+            redirect('trang-chu');                      // và khởi tạo phiên làm việc mới như 1 thành viên
         }
         else
             echo 'đăng nhập thất bại';

@@ -49,6 +49,42 @@ class cusers extends CI_Controller {
         }
     }
 
+    public function addGuest() {
+        if (isset($_POST['fullname'], $_POST['mail'], $_POST['phone'], $_POST['province'], $_POST['address'])) {
+            if ($_POST['fullname'] == '' || $_POST['mail'] == '' || $_POST['phone'] == '' || $_POST['province'] == '' || $_POST['address'] == '') {
+                echo 'Vui lòng nhập đầy đủ thông tin';
+                exit();
+            }
+            $guestID = $this->Musers->setID('guest', 'guestID', 'GUEST');
+            $fullname = $_POST['fullname'];
+            $mail = $_POST['mail'];
+            $phone = $_POST['phone'];
+            $province = $_POST['province'];
+            $address = $_POST['address'];
+            if ($this->session->userdata('guest')) {
+                $ID = $this->session->userdata('guest');
+                $guestID = $ID['guestID'];
+                $ck = $this->Musers->updateGuest($guestID, $fullname, $mail, $phone, $province, $address);
+                echo ($ck == TRUE) ? 'Thêm thông tin thành công!' : 'Thất bại! có lỗi xảy ra!';
+            } else {
+                $ck = $this->Musers->insertGuest($guestID, $fullname, $mail, $phone, $province, $address);
+                echo ($ck == TRUE) ? 'Thêm thông tin thành công!' : 'Thất bại! có lỗi xảy ra!';
+                $newdata = array(
+                    'guestID' => $guestID,
+                    'fullname' => $fullname,
+                    'mail' => $mail,
+                    'phone' => $phone,
+                    'province' => $province,
+                    'address' => $address,
+                    'logged_in' => TRUE
+                );
+                $this->session->set_userdata('guest', $newdata);
+            }
+        }
+        else
+            echo 'Thất bại! có lỗi xảy ra!';
+    }
+
     public function signup() {
         $this->load->helper(array('captcha'));
         $this->load->model('captcha_model');
@@ -297,13 +333,30 @@ class cusers extends CI_Controller {
     public function orderdetail() {
         $temp['info'] = $this->Mlog->log();
 
-        if (isset($_GET['orderid'])) {
+        if (isset($_GET['orderid'], $_GET['buyer'])) {
             $temp['detail'] = $this->Musers->getOrderDetail($_GET['orderid']);
-            $temp['buyer'] = $this->Musers->getOrderByID($_GET['orderid']);
+            if (substr($_GET['buyer'], 0, 3) == 'UID')
+                $temp['buyer'] = $this->Musers->getOrder_UserBuy($_GET['orderid'], $_GET['buyer']);
+            elseif (substr($_GET['buyer'], 0, 5) == 'GUEST')
+                $temp['buyer'] = $this->Musers->getOrder_GuestBuy($_GET['orderid'], $_GET['buyer']);
         }
 
         $temp['title'] = 'Chi tiết hóa đơn';
         $temp['template'] = 'vusers/order_detail';
+        $this->load->view('layout/layout', $temp);
+    }
+
+    public function historydetail() {
+        $temp['info'] = $this->Mlog->log();
+        $userid = $temp['info']['userID'];
+        $temp['profile'] = $this->Musers->getProfile($userid); //lấy thông tin cá nhân
+        if (isset($_GET['orderid'])) {
+            $temp['detail'] = $this->Musers->getOrderDetail($_GET['orderid']);
+            $temp['seller'] = $this->Musers->getOrderDetail_History($_GET['orderid']);
+        }
+
+        $temp['title'] = 'Chi tiết hóa đơn';
+        $temp['template'] = 'vusers/order_history';
         $this->load->view('layout/layout', $temp);
     }
 
