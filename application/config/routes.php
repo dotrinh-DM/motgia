@@ -38,9 +38,28 @@
 |
 */
 
-$route['default_controller'] = "Home";
+$route['default_controller'] = "home/chome";
 $route['404_override'] = '';
 
+$route['trang-chu'] = "home/chome"; 
+$route['san-pham/(:any)/(:any)'] = "home/cproducts/showDetailProducts/$1/$2";
+$route['update-san-pham'] = "home/cproducts/updateProducts"; 
+$route['profile'] = "home/cusers/profile";
+$route['dang-ky'] = "home/cusers/signup";
+$route['active'] = "home/cusers/active"; 
+$route['cart'] = "home/cproducts/view_cart";
+$route['up-product'] = "home/cproducts/upProducts";
+$route['pay'] = "home/cproducts/payment";
+
+///////////////////////////////////////
+//For pages those have a static name
+$route['{default_controller}/{default_method}/about.html'] = "{original_controller}/{original_method}";
+ 
+//rule to rout request with number values
+$route['{default_controller}/{default_method}/(:num)'] = "{original_controller}/{original_method}/$1";
+ 
+//rule to rout request with regular expression values
+$route['{default_controller}/{default_method}/([a-z]+)-{delimiter}'] = "{original_controller}/{original_method}/$1";
 
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */
