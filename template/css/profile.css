@@ -15,10 +15,10 @@
    
 }
  .oder_table tr td a{
-    color:#1abc9c;
+    color:blue;
 }
 .oder_table tr td a:hover{
-    color:#16a085;
+    color: red;
 }
 .oder_table tr td a img{
     width: 50px;
