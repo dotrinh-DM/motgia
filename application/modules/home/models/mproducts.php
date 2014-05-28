@@ -105,7 +105,7 @@ class Mproducts extends CI_Model {
         $this->db->update('products', $data);
     }
 
-    public function insertOrder($seller, $buyer, $note) {
+    public function insertOrder($seller, $buyer, $note,$method) {
         $id = $this->Musers->setID('order', 'orderID', 'ORD');
         $creat = gmdate("Y-m-d H:i:s", time() + 3600 * (+7 + date("I")));
         $data = array(
@@ -113,8 +113,8 @@ class Mproducts extends CI_Model {
             'sellerID' => $seller,
             'buyerID' => $buyer,
             'create_date' => $creat,
-            'shipdate' => $creat,
             'note' => $note,
+            'method' => $method,
             'status' => 1//don hang chua xu ly
         );
         $this->db->insert('order', $data);

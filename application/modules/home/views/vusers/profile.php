@@ -56,12 +56,12 @@
                 }
                 return false;
             });
-            
+
             $('.edit_status_product').live("click", function()
             {
                 var ID = $(this).attr("id");
-                var UID = '<?php echo $info['userID']?>';
-                var STATUS = $( "#status_product"+ID ).val();
+                var UID = '<?php echo $info['userID'] ?>';
+                var STATUS = $("#status_product" + ID).val();
                 $.ajax({
                     type: "POST",
                     url: "<?php echo site_url('home/cusers/changeStatusProduct'); ?>",
@@ -294,7 +294,14 @@
                                             <li class="active' . $value->messageID . ' act">
                                                 <div class="listitem clearfix">
                                                     <figure class="img_post">
-                                                        <img src="uploads/1076505_100003738868761_2002716988_q.jpg" alt="img-hot"/>
+                                                        <img src="' . base_url() . 'public/icons/';
+                                        if ($value->LVsender == 0)
+                                            echo 'user_icon.png';
+                                        if ($value->LVsender == 1)
+                                            echo 'seller_icon.png';
+                                        if ($value->LVsender == 2)
+                                            echo 'system_icon.png';
+                                        echo '" alt="img-hot"/>
                                                     </figure>
                                                 <div class="listitem_ct">';
 
@@ -330,7 +337,7 @@
                     <div style="
                     border-bottom: 1px solid #DDD;
                     height: 40px;
-                    margin-top: 0px;">
+                    margin-top: 15px;">
                         <h6 class="title_detail_item" style="float:left">order</h6>
                         <a href="' . base_url() . 'up-product" class="btn btn-warning" style="float:right; margin-top:-15px; background:#35C72F" >Thêm sản phẩm mới</a>
                     </div>
@@ -494,12 +501,23 @@
                                 </td>
 
                                 <td><?php
-                                    echo '<p style="color:#7769AD"><b>' . $ord->buyerfname . ' ' . $ord->buyerlname . '</b></p>';
-                                    echo '<p>Năm sinh: ' . $ord->buyeryear . '</p>';
-                                    echo '<p>Địa chỉ: ' . $ord->buyeradd . '</p>';
-                                    echo '<p>SĐT: ' . $ord->buyerphone . ' ... ';
+                                    if (substr($ord->buyerID, 0, 3) == 'UID') {//đối với khách vãng lai
+                                        $this->load->model('Musers');
+                                        $userbuy = $this->Musers->getOrder_UserBuy($ord->orderID, $ord->buyerID);
+                                        echo '<p style="color:#7769AD"><b>' . $userbuy['fullname'] .'</b> (thành viên)</p>';
+                                        echo '<p>Năm sinh: ' . $userbuy['buyeryear'] . '</p>';
+                                        echo '<p>Địa chỉ: ' . $userbuy['buyeradd'] . '</p>';
+                                        echo '<p>SĐT: ' . $userbuy['buyerphone'] . ' ... ';
+                                    }else if (substr($ord->buyerID, 0, 5) == 'GUEST') {//đối với thành viên
+                                        $this->load->model('Musers');
+                                        $userbuy = $this->Musers->getOrder_GuestBuy($ord->orderID, $ord->buyerID);
+                                        echo '<p style="color:#7769AD"><b>' . $userbuy['fullname'] . '</b> (khách vãng lai)</p>';
+                                        echo '<p>Email: ' . $userbuy['buyeremail'] . '</p>';
+                                        echo '<p>Địa chỉ: ' . $userbuy['buyeradd'] .'</p>';
+                                        echo '<p>SĐT: ' . $userbuy['buyerphone'] . ' ... ';
+                                    }
                                     ?>
-                                    <a href="#">>>Chi tiết</a></p>
+                                    <a href="#">> <b>Chi tiết</b></a></p>
                                 </td>
                                 <td>
                                     <p>Mã đơn hàng: <?php echo $ord->orderID; ?></p>
@@ -507,8 +525,8 @@
                                         $ts = mktime(0, 0, 0, $ord->date, $ord->month, $ord->year);
                                         echo date("l", $ts) . ', ' . $ord->date_cr;
                                         ?></p>
-                                    <p>Hình thức thanh toán: online</p>
-                                    <a href="<?php echo site_url('home/cusers/orderdetail') . '?orderid=' . $ord->orderID; ?>">>>Chi tiết</a>
+                                    <p>Hình thức thanh toán: <?php echo ($ord->method == 1) ? 'tại nhà' : 'online' ?></p>
+                                    <a href="<?php echo site_url('home/cusers/orderdetail') . '?orderid=' . $ord->orderID.'&buyer='.$ord->buyerID; ?>">> <b>Chi tiết</b></a>
                                 </td>
                                 <td><?php
                                     $this->load->model('Musers');
@@ -656,7 +674,7 @@
                                 echo '<p>Địa chỉ: ' . $ord->selleradd . '</p>';
                                 echo '<p>SĐT: ' . $ord->sellerphone . ' ... ';
                                 ?>
-                                <a href="#">>>Chi tiết</a></p>
+                                <a href="#">> <b>Chi tiết</b></a></p>
                             </td>
                             <td>
                                 <p>Mã đơn hàng: <?php echo $ord->orderID; ?></p>
@@ -667,7 +685,7 @@
                                     ?>
                                 </p>
                                 <p>Hình thức thanh toán: online</p>
-                                <a href="<?php echo site_url('home/cusers/orderdetail') . '?orderid=' . $ord->orderID; ?>">>>Chi tiết</a>
+                                <a href="<?php echo site_url('home/cusers/historydetail') . '?orderid=' . $ord->orderID; ?>">> <b>Chi tiết</b></a>
                             </td>
                             <td>
                                 <?php

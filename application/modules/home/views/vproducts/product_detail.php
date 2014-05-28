@@ -125,13 +125,15 @@ foreach ($data_detail as $value)
                 </div>
 
                 <div id="addCart">
-                    <form action="" method="POST">
+                    <form action="<?php echo site_url('home/cproducts/buynow'); ?>" method="POST">
                         <label for="qty">Số lượng</label>
+                        <input type="hidden" name="proid" value="<?php echo $value->productsID?>"/>
                         <input id="down" type="button" value="<"/>
-                        <input id="qty" type="text" value="1"/>
+                        <input id="qty" type="text" value="1" name="soluong"/>
                         <input id="up" type="button" value=">"/>
                         <div>
-                            <input id="btnAdd" type="submit" value="Buy now" />
+                            <input id="btnAdd" type="submit" value="Đặt mua" name="buynow"/>
+                            <!--<a href="https://www.baokim.vn/payment/product/version11?business=ductan_nguyen92%40yahoo.com&id=&order_description=mentum+mauris+pulvinar+eu.+Integer+eget+sapien+id+justo+iaculi%0D%0A%0D%0As+aliquam+ut+id+justo.+Pellentesque+adipiscing+sit+amet+metus+vitae%0D%0A%0D%0Amollis.+Proin+in+mi+sed+quam+iaculis+molestie+ac+nec+magna.+Vivamus+aliq%0D%0A%0D%0Auet+dui+sit+amet+nibh+mattis+tincidunt.+Vivamus+posuere+tincidunt+pulvi%0D%0A%0D%0Anar.+Quisque+quis+auctor+quam%2C+nec+consectetur+ligula.+Suspendisse+potenti.+S%0D%0A%0D%0Auspendisse+rutrum+sapien+vel+feugiat+euismod.%0D%0A%0D%0AQuisque+ornare+auctor+fringilla.+&product_name=Ao+So+mi&product_price=100000&product_quantity=1&total_amount=100000&url_cancel=&url_detail=http%3A%2F%2Fmotgia.tk%2Fsan-pham%2FPRO00016%2F2&url_success="><img src="http://developer.baokim.vn/uploads/baokim_btn/thanhtoanantoan-l.png" alt="Thanh toán an toàn với Bảo Kim !" border="0" title="Thanh toán trực tuyến an toàn dùng tài khoản Ngân hàng (VietcomBank, TechcomBank, Đông Á, VietinBank, Quân Đội, VIB, SHB,... và thẻ Quốc tế (Visa, Master Card...) qua Cổng thanh toán trực tuyến BảoKim.vn" ></a>-->
                         </div>
                     </form>
                 </div>
