@@ -42,14 +42,15 @@ $route['default_controller'] = "home/chome";
 $route['404_override'] = '';
 
 $route['trang-chu'] = "home/chome"; 
-$route['san-pham/(:any)/(:any)'] = "home/cproducts/showDetailProducts/$1/$2";
+$route['san-pham/(:any)'] = "home/cproducts/showDetailProducts/$1";
 $route['update-san-pham'] = "home/cproducts/updateProducts"; 
 $route['profile'] = "home/cusers/profile";
 $route['dang-ky'] = "home/cusers/signup";
 $route['active'] = "home/cusers/active"; 
 $route['cart'] = "home/cproducts/view_cart";
 $route['up-product'] = "home/cproducts/upProducts";
-$route['pay'] = "home/cproducts/payment";
+$route['thanh-toan-tai-nha'] = "home/cproducts/payhome";
+$route['thanh-toan-truc-tuyen'] = "home/cproducts/payonline";
 
 ///////////////////////////////////////
 //For pages those have a static name
