@@ -1,0 +1,212 @@
+/* 
+    Document   : popup-login
+    Created on : 29-05-2014, 18:07:13
+    Author     : TanTan
+    Description:
+        Purpose of the stylesheet follows.
+*/
+  #mask
+    {
+        position: absolute;
+        left: 0;
+        top: 0;
+        z-index: 9000;
+        background-color: #000;
+        display: none;
+    }
+    #boxes .window
+    {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 440px;
+        height: 200px;
+        display: none;
+        z-index: 9999;
+        padding: 20px;
+    }
+    #boxes #dialog
+    {
+        width: 375px;
+        height: 203px;
+        padding: 10px;
+        background-color: #ffffff;
+    }
+
+.loginwrapper { width: 400px; margin: 80px auto 0 auto; }
+.loginwrapper p { margin: 20px 0; }
+.loginwrapper p:first-child { margin-top: 0; }
+.loginwrapper p:last-child { margin-bottom: 0; }
+.logintitle { 
+	padding: 15px; text-transform: uppercase; line-height: 21px; font-size: 18px; border-bottom: 0;
+	-moz-border-radius: 2px 2px 0 0; -webkit-border-radius: 2px 2px 0 0; color: #666;
+}
+.logintitle span.iconfa-lock { font-size: 48px; margin-top: 14px; float: left; margin-right: 10px; }
+.logintitle span.subtitle { font-size: 12px; font-weight: normal; display: block; margin-left: 32px; text-transform: none; color: #999; }
+.loginwrapperinner { 
+	padding: 20px; background: #444; 
+	-moz-border-radius: 0 0 2px 2px; -webkit-border-radius: 0 0 2px 2px; border-radius: 0 0 2px 2px;
+}
+.loginshadow { background: url(../images/loginshadow.png) no-repeat center center; height: 30px; }
+.loginwrapper input { 
+	width: 100%; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box;
+	padding: 10px; min-height: 44px; font-size: 14px !important; border: 0; color: #999;
+	background: #eee; padding-left: 30px; 
+}
+.loginwrap input#username { background: #eee url(../images/username.png) no-repeat 8px 12px;padding-left: 40px;width: 365px; }
+.loginwrap input#password { background: #eee url(../images/password.png) no-repeat 8px 12px;padding-left: 40px;width: 365px; }
+.loginwrap input#username.error,
+.loginwrap input#password.error { background-color: #ffeaea; color: #ff0000; }
+.loginwrap input:focus { 
+	background-color: #fff;
+	color: #666 !important; 
+	box-shadow: 0 0 8px rgba(0,0,0,0.8) !important;
+}
+.loginwrapper button.btn { 
+	padding: 12px 0; border: 0; text-transform: uppercase; font-size: 13px; text-shadow: 1px 1px rgba(0,0,0,0.2);
+	box-shadow: 0 2px 3px rgba(0,0,0,0.3); 
+}
+.loginwrapper a { color: #999; }
+.bounceInDown{-webkit-animation-name:bounceInDown;-moz-animation-name:bounceInDown;-o-animation-name:bounceInDown;animation-name:bounceInDown}@-webkit-keyframes bounceInLeft{0%{opacity:0;-webkit-transform:translateX(-2000px)}60%{opacity:1;-webkit-transform:translateX(30px)}80%{-webkit-transform:translateX(-10px)}100%{-webkit-transform:translateX(0)}}@-moz-keyframes bounceInLeft{0%{opacity:0;-moz-transform:translateX(-2000px)}60%{opacity:1;-moz-transform:translateX(30px)}80%{-moz-transform:translateX(-10px)}100%{-moz-transform:translateX(0)}}@-o-keyframes bounceInLeft{0%{opacity:0;-o-transform:translateX(-2000px)}60%{opacity:1;-o-transform:translateX(30px)}80%{-o-transform:translateX(-10px)}100%{-o-transform:translateX(0)}}@keyframes bounceInLeft{0%{opacity:0;transform:translateX(-2000px)}60%{opacity:1;transform:translateX(30px)}80%{transform:translateX(-10px)}100%{transform:translateX(0)}}
+.animate2{
+   	-webkit-animation-duration: .8s;
+	-webkit-animation-delay: .4s;
+	-webkit-animation-timing-function: ease;
+	-webkit-animation-fill-mode: both;
+	-moz-animation-duration: .8s;
+	-moz-animation-delay: .4s;
+	-moz-animation-timing-function: ease;
+	-moz-animation-fill-mode: both;
+	-ms-animation-duration: .8s;
+	-ms-animation-delay: .4s;
+	-ms-animation-timing-function: ease;
+	-ms-animation-fill-mode: both;
+	animation-duration: .8s;
+	animation-delay: .4s;
+	animation-timing-function: ease;
+	animation-fill-mode: both;	          
+} 
+
+.animate4{
+   	-webkit-animation-duration: .8s;
+	-webkit-animation-delay: .8s;
+	-webkit-animation-timing-function: ease;
+	-webkit-animation-fill-mode: both;
+	-moz-animation-duration: .8s;
+	-moz-animation-delay: .8s;
+	-moz-animation-timing-function: ease;
+	-moz-animation-fill-mode: both;
+	-ms-animation-duration: .8s;
+	-ms-animation-delay: .8s;
+	-ms-animation-timing-function: ease;
+	-ms-animation-fill-mode: both;
+	animation-duration: .8s;
+	animation-delay: .8s;
+	animation-timing-function: ease;
+	animation-fill-mode: both;	          
+}  
+
+.animate5{
+   	-webkit-animation-duration: .8s;
+	-webkit-animation-delay: 1s;
+	-webkit-animation-timing-function: ease;
+	-webkit-animation-fill-mode: both;
+	-moz-animation-duration: .8s;
+	-moz-animation-delay: 1s;
+	-moz-animation-timing-function: ease;
+	-moz-animation-fill-mode: both;
+	-ms-animation-duration: .8s;
+	-ms-animation-delay: 1s;
+	-ms-animation-timing-function: ease;
+	-ms-animation-fill-mode: both;
+	animation-duration: .8s;
+	animation-delay: 1s;
+	animation-timing-function: ease;
+	animation-fill-mode: both;	          
+}    
+.animate6{
+   	-webkit-animation-duration: .8s;
+	-webkit-animation-delay: 1.2s;
+	-webkit-animation-timing-function: ease;
+	-webkit-animation-fill-mode: both;
+	-moz-animation-duration: .8s;
+	-moz-animation-delay: 1.2s;
+	-moz-animation-timing-function: ease;
+	-moz-animation-fill-mode: both;
+	-ms-animation-duration: .8s;
+	-ms-animation-delay: 1.2s;
+	-ms-animation-timing-function: ease;
+	-ms-animation-fill-mode: both;
+	animation-duration: .8s;
+	animation-delay: 1.2s;
+	animation-timing-function: ease;
+	animation-fill-mode: both;	          
+}    
+.animate7{
+   	-webkit-animation-duration: .8s;
+	-webkit-animation-delay: 1.4s;
+	-webkit-animation-timing-function: ease;
+	-webkit-animation-fill-mode: both;
+	-moz-animation-duration: .8s;
+	-moz-animation-delay: 1.4s;
+	-moz-animation-timing-function: ease;
+	-moz-animation-fill-mode: both;
+	-ms-animation-duration: .8s;
+	-ms-animation-delay: 1.4s;
+	-ms-animation-timing-function: ease;
+	-ms-animation-fill-mode: both;
+	animation-duration: .8s;
+	animation-delay: 1.4s;
+	animation-timing-function: ease;
+	animation-fill-mode: both;	          
+}
+.bounceIn{-webkit-animation-name:bounceIn;-moz-animation-name:bounceIn;-o-animation-name:bounceIn;animation-name:bounceIn}@-webkit-keyframes bounceInUp{0%{opacity:0;-webkit-transform:translateY(2000px)}60%{opacity:1;-webkit-transform:translateY(-30px)}80%{-webkit-transform:translateY(10px)}100%{-webkit-transform:translateY(0)}}@-moz-keyframes bounceInUp{0%{opacity:0;-moz-transform:translateY(2000px)}60%{opacity:1;-moz-transform:translateY(-30px)}80%{-moz-transform:translateY(10px)}100%{-moz-transform:translateY(0)}}@-o-keyframes bounceInUp{0%{opacity:0;-o-transform:translateY(2000px)}60%{opacity:1;-o-transform:translateY(-30px)}80%{-o-transform:translateY(10px)}100%{-o-transform:translateY(0)}}@keyframes bounceInUp{0%{opacity:0;transform:translateY(2000px)}60%{opacity:1;transform:translateY(-30px)}80%{transform:translateY(10px)}100%{transform:translateY(0)}}.bounceInUp{-webkit-animation-name:bounceInUp;-moz-animation-name:bounceInUp;-o-animation-name:bounceInUp;animation-name:bounceInUp}@-webkit-keyframes bounceInDown{0%{opacity:0;-webkit-transform:translateY(-2000px)}60%{opacity:1;-webkit-transform:translateY(30px)}80%{-webkit-transform:translateY(-10px)}100%{-webkit-transform:translateY(0)}}@-moz-keyframes bounceInDown{0%{opacity:0;-moz-transform:translateY(-2000px)}60%{opacity:1;-moz-transform:translateY(30px)}80%{-moz-transform:translateY(-10px)}100%{-moz-transform:translateY(0)}}@-o-keyframes bounceInDown{0%{opacity:0;-o-transform:translateY(-2000px)}60%{opacity:1;-o-transform:translateY(30px)}80%{-o-transform:translateY(-10px)}100%{-o-transform:translateY(0)}}@keyframes bounceInDown{0%{opacity:0;transform:translateY(-2000px)}60%{opacity:1;transform:translateY(30px)}80%{transform:translateY(-10px)}100%{transform:translateY(0)}}.bounceInDown{-webkit-animation-name:bounceInDown;-moz-animation-name:bounceInDown;-o-animation-name:bounceInDown;animation-name:bounceInDown}@-webkit-keyframes bounceInLeft{0%{opacity:0;-webkit-transform:translateX(-2000px)}60%{opacity:1;-webkit-transform:translateX(30px)}80%{-webkit-transform:translateX(-10px)}100%{-webkit-transform:translateX(0)}}@-moz-keyframes bounceInLeft{0%{opacity:0;-moz-transform:translateX(-2000px)}60%{opacity:1;-moz-transform:translateX(30px)}80%{-moz-transform:translateX(-10px)}100%{-moz-transform:translateX(0)}}@-o-keyframes bounceInLeft{0%{opacity:0;-o-transform:translateX(-2000px)}60%{opacity:1;-o-transform:translateX(30px)}80%{-o-transform:translateX(-10px)}100%{-o-transform:translateX(0)}}@keyframes bounceInLeft{0%{opacity:0;transform:translateX(-2000px)}60%{opacity:1;transform:translateX(30px)}80%{transform:translateX(-10px)}100%{transform:translateX(0)}}
+.fadeIn{-webkit-animation-name:fadeIn;-moz-animation-name:fadeIn;-o-animation-name:fadeIn;animation-name:fadeIn}@-webkit-keyframes fadeInUp{0%{opacity:0;-webkit-transform:translateY(20px)}100%{opacity:1;-webkit-transform:translateY(0)}}@-moz-keyframes fadeInUp{0%{opacity:0;-moz-transform:translateY(20px)}100%{opacity:1;-moz-transform:translateY(0)}}@-o-keyframes fadeInUp{0%{opacity:0;-o-transform:translateY(20px)}100%{opacity:1;-o-transform:translateY(0)}}@keyframes fadeInUp{0%{opacity:0;transform:translateY(20px)}100%{opacity:1;transform:translateY(0)}}
+.zindex100 { z-index: 100; }
+.logintitle { font-family: 'RobotoBold', 'HelveticaNeue', Arial, sans-serif; }
+
+.center {text-align:center;margin:0 auto;margin-left: auto;margin-right: auto;width:960px;}
+    #open_popup {color: #FEF4E9;border: solid 1px #DA7C0C;background: #F78D1D;background: -webkit-gradient(linear, left top, left bottom, from(#FAA51A), to(#F47A20));background: -moz-linear-gradient(top, #FAA51A, #F47A20);filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#faa51a', endColorstr='#f47a20');display: inline-block;outline: none;cursor: pointer;text-align: center;text-decoration: none;font: 12px/100% Arial, Helvetica, sans-serif;padding: .5em 2em .55em;text-shadow: 0 1px 1px rgba(0, 0, 0, .3);-webkit-border-radius: .5em;-moz-border-radius: .5em;border-radius: .5em;-webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, .2);-moz-box-shadow: 0 1px 2px rgba(0,0,0,.2);box-shadow: 0 1px 2px rgba(0, 0, 0, .2);
+    }
+    #lean_overlay {
+	position: fixed;
+    z-index:100;
+    top: 0px;
+    left: 0px;
+    height:100%;
+    width:100%;
+    background: #000;
+    display: none;
+}
+
+#popup, .popup {
+    width: 404px;
+ 	padding-bottom: 2px;
+	display:none;
+    background: #FFF;
+    border-radius: 5px; -moz-border-radius: 5px; 
+    -webkit-border-radius: 5px;
+    box-shadow: 0px 0px 4px rgba(0,0,0,0.7); 
+    -webkit-box-shadow: 0 0 4px rgba(0,0,0,0.7); 
+    -moz-box-shadow: 0 0px 4px rgba(0,0,0,0.7);
+}
+
+#popup-header, .popup-header { 
+	background-color: #A0CDF5; 
+	padding: 18px 18px 14px 18px; 
+	border-bottom: 1px solid #CCC; 
+	border-top-left-radius: 5px; 
+	-moz-border-radius-topleft: 5px; 
+	-webkit-border-top-left-radius: 5px; 
+	border-top-right-radius: 5px; 
+	-moz-border-radius-topright: 5px; 
+	-webkit-border-top-right-radius: 5px; 
+}
+
+#popup-header  h2, .popup-header  h2 { color: #444; text-align:center; font-size: 2em; font-weight: 700; margin-bottom: 3px; text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.5); }
+#popup-header  p, .popup-header  p { color: #444; font-size: 1.3em; margin: 0; text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.5); text-shadow: none; }
+.info_popup { text-align:center; margin:20px; }      
+.close_popup { position: absolute; top: 12px; right: 12px; display: block; width: 14px; height: 14px; z-index: 2; }
+
+.center {text-align:center;margin:0 auto;margin-left: auto;margin-right: auto;width:960px;}
+#open_popup {color: #FEF4E9;border: solid 1px #DA7C0C;background: #F78D1D;background: -webkit-gradient(linear, left top, left bottom, from(#FAA51A), to(#F47A20));background: -moz-linear-gradient(top, #FAA51A, #F47A20);filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#faa51a', endColorstr='#f47a20');display: inline-block;outline: none;cursor: pointer;text-align: center;text-decoration: none;font: 12px/100% Arial, Helvetica, sans-serif;padding: .5em 2em .55em;text-shadow: 0 1px 1px rgba(0, 0, 0, .3);-webkit-border-radius: .5em;-moz-border-radius: .5em;border-radius: .5em;-webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, .2);-moz-box-shadow: 0 1px 2px rgba(0,0,0,.2);box-shadow: 0 1px 2px rgba(0, 0, 0, .2)}
