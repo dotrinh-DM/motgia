@@ -411,11 +411,56 @@ class cusers extends CI_Controller {
     }
 
     public function vd() {
+
         $this->load->view('vd');
     }
 
     public function vd2() {
-        echo 'adsdfgdhfjghkjl';
+        $errors = array(); //To store errors
+        $form_data = array(); //Pass back the data to `form.php`
+
+
+        /* Validate the form on server side */
+        if (empty($_POST['name'])) { //Name cannot be empty
+            $errors['name'] = 'Name cannot be blank';
+        }
+
+        if (!empty($errors)) { //If errors in validation
+            $form_data['success'] = false;
+            $form_data['errors'] = $errors;
+        } else { //If not, process the form, and return true on success
+            $form_data['success'] = true;
+            $form_data['posted'] = 'Data Was Posted Successfully';
+        }
+
+        //Return the data back to form.php
+        echo json_encode($form_data);
+    }
+
+    public function checkmail() {
+        $email = $_POST['email'];
+        $ckmail = $this->Musers->checkMail($email);
+        if ($ckmail == TRUE)
+            echo '<img src="' . base_url() . 'public/icons/ok-icon.png"/> Bạn có thể đăng ký bằng Email này!';
+        else
+            echo 'Email này đã được đăng ký vui lòng chọn email khác!';
+    }
+
+    public function login() {// Hàm được gọi bởi sự kiện submit-ajax trong trang view login.php
+        $errors = array(); //Lưu tên lỗi
+        $form_data = array(); //trả lại dữ liệu cho form dưới dạng data json
+        if ($this->Mlog->login($_POST['email2'], $_POST['pass2']) == FALSE) { //Nếu đăng nhập thất bại
+            $errors['name'] = 'dang nhap that bai';
+        }
+        if (!empty($errors)) { //Nếu có lỗi
+            $form_data['success'] = false;
+            $form_data['errors'] = $errors;
+        } else { //Nếu không báo lỗi thì báo thành công
+            $form_data['success'] = true;
+            $form_data['posted'] = 'thanh cong';
+        }
+        echo json_encode($form_data);
+        //trả lại dữ liệu cho trang login
     }
 
 }

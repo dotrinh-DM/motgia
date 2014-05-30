@@ -31,31 +31,95 @@
     $('.number').live("click", function()
     {
         var number = $(this).val();
+//        var number2 = $.parseNumber(number, {format:"#.###,000", locale:"us"});
         var id = $(this).attr("id");
         $("#changenumber" + id).empty();
         $("#changenumber" + id).append('<input class="ok" type="button" id="' + id + '" value="ok"style="padding: 0px;width: 30px;height: 28px;"/>\n\
                     <input class="cancel" type="button" id="' + id + '" value="hủy" style="padding: 0px;width: 30px;height: 28px;"/>');
 
 
-        $('.cancel').live("click", function() {
+        $('.cancel').click( function() {
             var id = $(this).attr("id");
             $("#changenumber" + id).empty();
         });
 
-        $('.ok').live("click", function() {
+        $('.ok').click( function(){
             var proid = $(this).attr("id");
-            var uid = $('.hidden_user'+proid).val();
+            var uid = $('.hidden_user' + proid).val();
+//            var number2 = $.formatNumber(number*100000, {format: "#,###.00", locale: "us"});
+//            $("#salaryUS").val(number);
+//            var tong =+ parseInt($('.totalprice'+uid).val());
             $.ajax({
                 type: "POST",
                 url: "<?php echo site_url('home/cproducts/updatecart'); ?>",
                 data: {"userid": uid, "soluong": number, "proid": proid},
                 success: function(html) {
                     $("#changenumber" + proid).empty();
+                    $('.subprice'+id).empty();
+                    $('.subprice'+id).append(number * 100000);
+//                    $('.total'+uid).append(tong);
+
                 }
             });
         });
+        $('.ok').live ("click", function(){
+        var uid = $('.hidden_user' + proid).val();
+            var tong =+ parseInt($('.totalprice'+uid).html());
+                                $('.total'+uid).empty();
+
+            $('.total'+uid).append(tong);
+        });
     });
+    $('.payonline').live("click", "submit", function(e) {//Nếu chưa đăng nhập thì hiện cửa sổ popup để đăng nhập
+            var login = '<?php echo $info['logged_in'] == TRUE ? "TRUE" : "FALSE"; ?>';
+            if (login == "TRUE") {
+                $('.formcart').attr('action', '<?php echo base_url() ?>thanh-toan-truc-tuyen');
+            } else {
+                $(this).showPopup({
+                    top: 120, //khoảng cách popup cách so với phía trên
+                    closeButton: ".close_popup", //khai báo nút close cho popup
+                    scroll: false, //cho phép scroll khi mở popup, mặc định là không cho phép
+                    onClose: function() {
+                        //sự kiện cho phép gọi sau khi đóng popup, cho phép chúng ta gọi 1 số sự kiện khi đóng popup, bạn có thể để null ở đây
+                    }
+                });
+                return false;
+            }
+        });
 </script>
+<style type="text/css" >
+    @import url('<?php echo base_url(); ?>public/adminstyle/css/animate.min.css')
+    @import url('<?php echo base_url(); ?>public/adminstyle/css/animate.delay.css')
+
+</style>
+<script type="text/javascript" src="<?php echo base_url() ?>template/js/popup.js"></script>
+<div id="popup_content" class="popup">
+    <a class="close_popup" href="javascript:void(0)"><img src="<?php echo base_url() ?>public/icons/del.png" style="width: 35px;margin: -37px 0px 0px 3px;"/></a>
+    <div class="loginwrap zindex100 animate2 bounceInDown" style="margin-top: -20px;margin-right: -1px;">
+        <h1 class="logintitle" style="font-weight: bold;"><span class="iconfa-lock"></span> Đăng nhập <span class="subtitle" style="margin: 5px 0px -15px 10px;">Xin chào! Bạn phải đăng nhập để sử dụng chức năng thanh toán!</span></h1>
+        <div class="loginwrapperinner">
+            <form id="loginform" action="" method="post">
+                <div  class="position">
+                    <p class="animate5 bounceIn">
+                        <input type="text" id="username" name="inputemail" required="" placeholder="Username" />
+                        <span class="tooltip">Không được để trống</span>
+                    </p>
+                </div>
+                <div  class="position">
+                    <p class="animate5 bounceIn">
+                        <input type="password" id="password" name="inputpass" required="" placeholder="Password" />
+                        <span class="tooltip">Không được để trống</span>
+                    </p>
+                </div>
+                </p>
+                <p class="animate6 bounceIn"><input type="submit" class="btn btn-default btn-block" name="login" value="Login"/></p>
+                <p class="animate7 fadeIn"><a href="" style="color:#C8D6E2"><span class="icon-question-sign icon-white"></span> Forgot Password?</a></p>
+            </form>
+        </div><!--loginwrapperinner-->
+    </div>
+    <div class="loginshadow animate3 fadeInUp"></div>
+</div>
+
 <section class="bg_shadow">
     <div class="wrap clearfix">
         <div class="title floatLeft">
@@ -73,10 +137,11 @@
 
 <section id="content" class="wrap">
     <form action="" method="post" id="cart" class="formcart">
-        <?php if($info == FALSE && count($_SESSION['cart'])){
-        echo '
+        <?php
+        if ($info == FALSE && isset($_SESSION['cart']) && count($_SESSION['cart'])) {
+            echo '
         <div style="border: 1px solid;border-color: #374BB4;padding: 15px; margin-top: 20px;border-radius: 0px 50px 0px 50px;">
-            <img src="'.base_url().'public/icons/place_icon.png" width="13px" height="20px"/>
+            <img src="' . base_url() . 'public/icons/place_icon.png" width="13px" height="20px"/>
             <label style="color: #8494A2;">&nbsp;Địa chỉ người nhận: <a href="#">Đăng nhập</a> để lấy thông tin</label>
             <div class="form col-box marginTop_30" style="display: block; margin: 19px">
                 <span style="color: #545D64;font-size: 16px;font-weight: bold;">HÃY ĐIỀN ĐẦY ĐỦ THÔNG TIN MUA HÀNG:</span>
@@ -86,8 +151,8 @@
                             <div>
                                 <label for="fullname">Họ & tên:</label>
                                 <input class="fullname" required="" style="margin-bottom: 0px;" type="text" id="fullname" name="fullname" value="';
-                                echo (isset($guest) && count($guest)) ? $guest['fullname'] : '';
-                                    echo '">
+            echo (isset($guest) && count($guest)) ? $guest['fullname'] : '';
+            echo '">
                                 <span class="tooltip" style="display: block;width: 180px;margin-top: -20px;">Vui lòng nhập họ tên người nhận</span>
                             </div>
 
@@ -98,31 +163,31 @@
                                 <select id="province" name="province" style="min-width: 150px" required="">
                                     <option value="">--Tỉnh - Thành phố--</option>
                                     ';
-                                    $arr = array(
-                                        0 => 'Hà Nội', 1 => 'TP HCM', 2 => 'Cần Thơ', 3 => 'Đà Nẵng', 4 => 'Hải Phòng',
-                                        5 => 'An Giang', 6 => 'Bà Rịa - Vũng Tàu', 7 => 'Bắc Giang', 8 => 'Bắc Kạn',
-                                        9 => 'Bạc Liêu', 10 => 'Bắc Ninh', 11 => 'Bến Tre', 12 => 'Bình Định',
-                                        13 => 'Bình Dương', 14 => 'Bình Phước', 15 => 'Bình Thuận', 16 => 'Cà Mau',
-                                        17 => 'Cao Bằng', 18 => 'Đắk Lắk', 19 => 'Đắk Nông', 20 => 'Điện Biên',
-                                        21 => 'Đồng Nai', 22 => 'Đồng Tháp', 23 => 'Gia Lai', 24 => 'Hà Giang',
-                                        25 => 'Hà Nam', 26 => 'Hà Tĩnh', 27 => 'Hải Dương', 28 => 'Hậu Giang',
-                                        29 => 'Hòa Bình', 30 => 'Hưng Yên', 31 => 'Khánh Hòa', 32 => 'Kiên Giang',
-                                        33 => 'Kon Tum', 34 => 'Lai Châu', 35 => 'Lâm Đồng', 36 => 'Lạng Sơn',
-                                        37 => 'Lào Cai', 38 => 'Long An', 39 => 'Nam Định', 40 => 'Nghệ An',
-                                        41 => 'Ninh Bình', 42 => 'Ninh Thuận', 43 => 'Phú Thọ', 44 => 'Quảng Bình',
-                                        45 => 'Quảng Nam', 46 => 'Quảng Ngãi', 47 => 'Quảng Ninh', 48 => 'Quảng Trị',
-                                        49 => 'Sóc Trăng', 50 => 'Sơn La', 51 => 'Tây Ninh', 52 => 'Thái Bình',
-                                        53 => 'Thái Nguyên', 54 => 'Thanh Hóa', 55 => 'Thừa Thiên Huế', 56 => 'Tiền Giang',
-                                        57 => 'Trà Vinh', 58 => 'Tuyên Quang', 59 => 'Vĩnh Long', 60 => 'Vĩnh Phúc',
-                                        61 => 'Yên Bái', 62 => 'Phú Yên'
-                                    );
-                                    for ($i = 0; $i < 62; $i++) {
-                                        if (isset($guest) && $arr[$i] == $guest['province'])
-                                            echo '<option value="' . $arr[$i] . '" selected="selected">' . $arr[$i] . '</option>';
-                                        else
-                                            echo '<option value="' . $arr[$i] . '">' . $arr[$i] . '</option>';
-                                    }
-                                    echo '
+            $arr = array(
+                0 => 'Hà Nội', 1 => 'TP HCM', 2 => 'Cần Thơ', 3 => 'Đà Nẵng', 4 => 'Hải Phòng',
+                5 => 'An Giang', 6 => 'Bà Rịa - Vũng Tàu', 7 => 'Bắc Giang', 8 => 'Bắc Kạn',
+                9 => 'Bạc Liêu', 10 => 'Bắc Ninh', 11 => 'Bến Tre', 12 => 'Bình Định',
+                13 => 'Bình Dương', 14 => 'Bình Phước', 15 => 'Bình Thuận', 16 => 'Cà Mau',
+                17 => 'Cao Bằng', 18 => 'Đắk Lắk', 19 => 'Đắk Nông', 20 => 'Điện Biên',
+                21 => 'Đồng Nai', 22 => 'Đồng Tháp', 23 => 'Gia Lai', 24 => 'Hà Giang',
+                25 => 'Hà Nam', 26 => 'Hà Tĩnh', 27 => 'Hải Dương', 28 => 'Hậu Giang',
+                29 => 'Hòa Bình', 30 => 'Hưng Yên', 31 => 'Khánh Hòa', 32 => 'Kiên Giang',
+                33 => 'Kon Tum', 34 => 'Lai Châu', 35 => 'Lâm Đồng', 36 => 'Lạng Sơn',
+                37 => 'Lào Cai', 38 => 'Long An', 39 => 'Nam Định', 40 => 'Nghệ An',
+                41 => 'Ninh Bình', 42 => 'Ninh Thuận', 43 => 'Phú Thọ', 44 => 'Quảng Bình',
+                45 => 'Quảng Nam', 46 => 'Quảng Ngãi', 47 => 'Quảng Ninh', 48 => 'Quảng Trị',
+                49 => 'Sóc Trăng', 50 => 'Sơn La', 51 => 'Tây Ninh', 52 => 'Thái Bình',
+                53 => 'Thái Nguyên', 54 => 'Thanh Hóa', 55 => 'Thừa Thiên Huế', 56 => 'Tiền Giang',
+                57 => 'Trà Vinh', 58 => 'Tuyên Quang', 59 => 'Vĩnh Long', 60 => 'Vĩnh Phúc',
+                61 => 'Yên Bái', 62 => 'Phú Yên'
+            );
+            for ($i = 0; $i < 62; $i++) {
+                if (isset($guest) && $arr[$i] == $guest['province'])
+                    echo '<option value="' . $arr[$i] . '" selected="selected">' . $arr[$i] . '</option>';
+                else
+                    echo '<option value="' . $arr[$i] . '">' . $arr[$i] . '</option>';
+            }
+            echo '
                                 </select>
                                 <span class="tooltip" style="display: block;width: 180px;margin-top: -20px;">Vui lòng chọn Tỉnh - Thành phố nơi bạn đang sống</span>
                             </div>
@@ -133,16 +198,16 @@
                             <div class="marginBottom_0">
                                 <label for="phone">Số điện thoại:</label>
                                 <input required="" class="h5-phone" style="margin-bottom: 0px;" type="text" id="phone" name="phone" value="';
-                                    echo ( isset($guest)) ? $guest['phone'] : '';
-                                    echo '">
+            echo ( isset($guest)) ? $guest['phone'] : '';
+            echo '">
                                 <span class="tooltip" style="display: block;width: 180px;margin-top: -20px;">Vui lòng nhập số điện thoại người nhận</span>
                             </div>
                         </td>
                         <td rowspan="2">
                             <div>
                                 <textarea required="" id="address" name="address" placeholder="Địa chỉ chi tiết (số nhà tên đường)" style="height: 94px;margin-left: 20px;">';
-                                    echo ( isset($guest)) ? $guest['address'] : '';
-                                    echo '</textarea>
+            echo ( isset($guest)) ? $guest['address'] : '';
+            echo '</textarea>
                                 <span class="tooltip" style="display: block;width: 180px;margin-top: -20px;">Vui nhập số nhà và tên đường nơi bạn đang sống</span>
                             </div>
                         </td>
@@ -152,8 +217,8 @@
                             <div class="marginBottom_0">
                                 <label for="phone">E-mail:</label>
                                 <input required="" class="h5-email" style="margin-bottom: 0px;" type="text" id="phone" name="mail" value="';
-                                    echo ( isset($guest)) ? $guest['mail'] : '';
-                                    echo'">
+            echo ( isset($guest)) ? $guest['mail'] : '';
+            echo'">
                                 <span class="tooltip" style="display: block;width: 180px;margin-top: -20px;">Vui lòng nhập email người nhận</span>
                             </div>
                         </td>
@@ -165,7 +230,8 @@
 
             </div>
         </div>';
-        }?>
+        }
+        ?>
         <div class="form boxcart box-drop">
 
             <?php
@@ -189,14 +255,14 @@
                                     <th style="text-align: left;padding:10px">Tên Sản phẩm</th>
                                     <th style="width:auto; text-align: left; padding:10px; max-width:180px;">Số lượng</th>
                                     <th style="text-align: right;padding:10px">Đơn giá</th>
-                                    <th style="text-align: right;padding:10px">Tổng tiền</th>
+                                    <th style="text-align: right;padding:10px">Thành tiền</th>
                                     <th style="width: auto"></th>
                                 </tr>
                             </thead>
-                            <input type = "hidden" name = "payinfo['.$userid.']" value = "' . $userid . '"/>
+                            <input type = "hidden" name = "payinfo[' . $userid . ']" value = "' . $userid . '"/>
+                                <input type="hidden" id="uid" value="'.$userid.'">
                         ';
                     $stt = 0;
-//                    foreach ($cart as $value3) {$images1 = json_decode($value3->images);
                     foreach ($value as $productid => $value2) {
 
                         if ($productid != 'shopname') {//key2= productid
@@ -217,7 +283,7 @@
                                         </td>
                                         <td>
                                             <div>
-                                                <input type="hidden" class="hidden_user'.$productid.'" value="' . $userid . '"/>
+                                                <input type="hidden" class="hidden_user' . $productid . '" value="' . $userid . '"/>
                                                 <input class="number" id="' . $productid . '" type="number" min="1" max="99" style="float:left;height: 30px;width: 60px;margin: 10px;padding: 5px;" name="soluong[' . $userid . '][' . $productid . ']" value="' . $value2['soluong'] . '"/>
                                                 <div id="changenumber' . $productid . '" style="float: left;margin-top: -10px;">
                                                    </div>
@@ -225,7 +291,7 @@
                                         </td>
                                         
                                         <td style="text-align: right;padding:10px">' . number_format(100000, 0, ',', '. ') . ' VNĐ</td>
-                                        <td style="text-align: right;padding:10px"><span class="subprice">' . number_format(100000 * $value2['soluong'], 0, ',', '. ') . '</span> VNĐ</td>
+                                        <td style="text-align: right;padding:10px"><span class="subprice'.$productid.' totalprice'.$userid.'">' . number_format(100000 * $value2['soluong'], 0, ',', '. ') . '</span> VNĐ</td>
                                         <td style="text-align: center">
                                             <a title="Xóa khỏi giỏ hàng" href="' . site_url("home/cproducts/delCart/$userid/$productid") . '" onclick="return confirm(' . "'" . 'Bạn có muốn xóa sản phẩm này từ giỏ hàng?' . "'" . ');">Xóa</a>
                                         </td>
@@ -238,7 +304,7 @@
                             <tfoot>
                                 <tr><td colspan="7">                                        
                                     <p id="productTotal" class="product-total"
-                                    style="text-align: right;font-size: 16px;">Tổng tiền sản phẩm: ' . number_format($tong, 3, ' ,', '. ') . '</span> VNĐ</p>
+                                    style="text-align: right;font-size: 16px;">Tổng tiền: <span class="total'.$userid.'">' . number_format($tong, 3, ' ,', '. ') . '</span> VNĐ</p>
                                 </td></tr>
                             </tfoot>
                         </table>
@@ -247,8 +313,8 @@
                                     <div class="payment">
                                         
                                         <div class="pay">
-                                            <input type="submit" name="payonline" value="Thanh toán trực tuyến" class="payonline"/>
-                                            <input type="submit" name="payhome['.$userid.']" value="Thanh toán khi nhận hàng" class="payhome" />
+                                            <input type="submit" href="#popup_content" name="payonline['.$userid.']" value="Thanh toán trực tuyến" class="payonline"/>
+                                            <input type="submit" name="payhome['. $userid .']" value="Thanh toán khi nhận hàng" class="payhome" />
                                         </div>
                                     </div>
                                 </div><!-- End .boxcart-info--> 
