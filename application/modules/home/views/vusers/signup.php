@@ -3,25 +3,49 @@
 
 <script type="text/javascript">
     jQuery(document).ready(function() {
-        jQuery(document).ready(function() {
-            $.h5Validate.addPatterns({
-                day_vn: /(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\d\d/
-            });
-            $(".form").h5Validate({
-                errorClass: "validationError",
-                validClass: "validationValid"
-            });
-            $(".form").submit(function(evt) {
-                var x = document.forms["signup"]["pass"].value;
-                var y = document.forms["signup"]["re-pass"].value;
-                if ($(".form").h5Validate("allValid") === false) {
-                    evt.preventDefault();
-                }
-                if (x !== y) {
-                    alert('Yêu cầu nhập lại mật khẩu!');
-                    document.getElementById("repass").focus();
-                    evt.preventDefault();
-                }
+        $.h5Validate.addPatterns({
+            day_vn: /(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\d\d/
+        });
+        $("#signup").h5Validate({
+            errorClass: "validationError",
+            validClass: "validationValid"
+        });
+        $("#signup").submit(function(evt) {
+            var x = document.forms["signup"]["pass"].value;
+            var y = document.forms["signup"]["re-pass"].value;
+            if ($("#signup").h5Validate("allValid") === false) {
+                evt.preventDefault();
+            }
+            if (x !== y) {
+                alert('Yêu cầu nhập lại mật khẩu!');
+                document.getElementById("repass").focus();
+                evt.preventDefault();
+            }
+        });
+        $('#pass').live("keyup", function() {
+            $('.errorpass').empty();
+            if ((this).value.length <= 6) {
+                $('.errorpass').append('Bảo mật: Yếu!');
+            } else if ((this).value.length > 6 && (this).value.length <= 10) {
+                $('.errorpass').append('Bảo mật: Trung bình!');
+            } else if ((this).value.length > 10) {
+                $('.errorpass').append('<img src="<?php echo base_url() ?>public/icons/ok-icon.png"/>Good!');
+            }
+        }
+        );
+        $('#inputmail').on("blur", function() {
+            $(this).val(function(i, val) {
+                $.ajax({
+                    type: "POST",
+                    url: "<?php echo site_url('home/cusers/checkmail'); ?>",
+                    data: "email=" + val,
+                    cache: false,
+                    success: function(html) {
+                        $('.errormail').empty();
+                        $('.errormail').append(html);
+                    }
+                });
+                return val();
             });
         });
     });
@@ -30,7 +54,7 @@
     $(function() {
         //More Button
         $('.recaptcha').live(
-                "click", 
+                "click",
                 function()
                 {
                     $.ajax({
@@ -42,7 +66,7 @@
                         }
                     });
                     return false;
-        });
+                });
     });
 </script>
 <section class="bg_shadow">
@@ -92,7 +116,7 @@
                         class='error'><b>Lỗi đăng ký:</b>";
                     if (isset($error1)) {
                         echo '</br><span style="margin-left:88px">- ' . $error1 . '</span>';
-                    } 
+                    }
                     if (isset($error4)) {
                         echo '</br><span style="margin-left:88px">- ' . $error4 . '</span>';
                     }
@@ -227,13 +251,15 @@
             </div>
             <div class="position">
                 <label>Email<span>*</span></label>
-                <input type="email" class="h5-email" name="email" required=""/>
+                <input type="email" class="h5-email" name="email" required="" id="inputmail"/>
+                <div class="errormail" style="height: 30px;width: 250px;float: right;color: red;margin: -48px -45px 0px 10px;font-weight: bold;text-align: left;"></div>
                 <span id ="check"></span>
                 <span class="tooltip">Ex: Billgate@microsoft.com,..</span>
             </div>
             <div class="position">
                 <label >Mật khẩu<span>*</span></label>
-                <input type="password" name="pass" required=""/>
+                <input type="password" name="pass" required="" id="pass"/>
+                <div class="errorpass" style="height: 30px;width: 150px;float: right;color: red;margin: 8px 58px 0px 0px;font-weight: bold;text-align: left;"></div>
                 <span class="tooltip">Không được để trống</span>
             </div>
             <div class="position">

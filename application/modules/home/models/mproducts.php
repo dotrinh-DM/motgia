@@ -128,6 +128,11 @@ class Mproducts extends CI_Model {
             'quantity' => $number
         );
         $this->db->insert('order_detail', $data);
+        $ck = $this->db->affected_rows();
+        if ($ck >0) 
+            return TRUE ;
+        else
+            return FALSE;
     }
 
     public function getProductByID($id) {
@@ -138,7 +143,7 @@ class Mproducts extends CI_Model {
     }
 
     public function getProductByCate($id, $cate) {
-        $this->db->select("productsID,name,price,images,categoriesID");
+        $this->db->select("productsID,name,price,images");
         $this->db->where("categoriesID", "$cate");
         $this->db->where("productsID != '$id' ");
         $this->db->limit(5);

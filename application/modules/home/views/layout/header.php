@@ -1,8 +1,7 @@
-
 <section class="bg_back">
     <header class="top_Nav wrap clearfix">
         <ul class="Top_menu floatLeft">
-            <li><a onclick="confirm('Bạn có chắc mình muốn đăng xuất?');">Giới thiệu</a></li>
+            <li><a href="#">Giới thiệu</a></li>
             <li><a href="#">Liên hệ</a></li>
         </ul><!--End .Top_menu-->
         <ul class="user clearfix floatRight">

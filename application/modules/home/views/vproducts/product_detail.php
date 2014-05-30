@@ -1,4 +1,3 @@
-
 <?php
 
 function curPageURL() {
@@ -12,33 +11,85 @@ function curPageURL() {
     } else {
         $pageURL .= $_SERVER["SERVER_NAME"] . $_SERVER["REQUEST_URI"];
     }
-    return $pageURL;
+    return $pageURL; //lay dia chi url của trang hiện tại
 }
-
-//                        echo "Day la dia chi website hien tai: <b>" . curPageURL() . "</b><br />";
 
 function curPageName() {
     return substr($_SERVER["SCRIPT_NAME"], strrpos($_SERVER["SCRIPT_NAME"], "/") + 1);
 }
-
-//                        echo "Trang .php truy cap la: <b>" . curPageName() . "</b>";
 ?>
 
 <script type="text/javascript" src="<?php echo base_url(); ?>public/homejs/jquery.jqzoom-core.js"></script>
-
 <script type="text/javascript" src="<?php echo base_url(); ?>public/homejs/modernizr.custom.17475.js"></script>
 <script type="text/javascript" src="<?php echo base_url(); ?>template/js/gallery.js"></script>
 <script type="text/javascript" src="<?php echo base_url(); ?>template/js/jquery.jcarousel.js"></script>
 <script type="text/javascript" src="<?php echo base_url(); ?>template/js/jquery.elastislide.js"></script>
-
 <script src="<?php echo base_url(); ?>template/js/jquery.hashchange.min.js" type="text/javascript"></script>
 <script src="<?php echo base_url(); ?>template/js/jquery.easytabs.min.js" type="text/javascript"></script>
+<style type="text/css" >
+    @import url('<?php echo base_url(); ?>public/adminstyle/css/animate.min.css')
+    @import url('<?php echo base_url(); ?>public/adminstyle/css/animate.delay.css')
 
-
-
+</style>
+<script type="text/javascript" src="<?php echo base_url(); ?>template/js/validateh5.js"></script>
+<script type="text/javascript">
+    jQuery(document).ready(function() {
+        jQuery(document).ready(function() {
+            $.h5Validate.addPatterns({
+                day_vn: /(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\d\d/
+            });
+            $("#loginform").h5Validate({
+                errorClass: "validationError",
+                validClass: "validationValid"
+            });
+            $("#loginform").live("submit", function(evt) {
+                if ($("#loginform").h5Validate("allValid") === false) {
+                    evt.preventDefault();
+                }
+            });
+        });
+    });
+</script>
+<script type="text/javascript" src="<?php echo base_url() ?>template/js/popup.js"></script>
 <script type="text/javascript">
     $(function() {
         $('#tab-container').easytabs();
+        $('#paynow').live("click", "submit", function(e) {//Nếu chưa đăng nhập thì hiện cửa sổ popup để đăng nhập
+            var login = '<?php echo $info['logged_in'] == TRUE ? "TRUE" : "FALSE"; ?>';
+            if (login == "TRUE") {
+                $('#form-action').attr('action', '<?php echo base_url() ?>thanh-toan-truc-tuyen');
+            } else {
+                $(this).showPopup({
+                    top: 120, //khoảng cách popup cách so với phía trên
+                    closeButton: ".close_popup", //khai báo nút close cho popup
+                    scroll: false, //cho phép scroll khi mở popup, mặc định là không cho phép
+                    onClose: function() {
+                        //sự kiện cho phép gọi sau khi đóng popup, cho phép chúng ta gọi 1 số sự kiện khi đóng popup, bạn có thể để null ở đây
+                    }
+                });
+                return false;
+            }
+        });
+
+        $('#qty').live("keyup", function() {//ko dc phép nhập nhỏ hơn 1
+            var qty = $('#qty').val();
+            if (qty < 1)
+                $('#qty').val(1);
+        });
+        $('#up').live("click", function() {//Nút tăng số lượng
+            var qty = parseInt($('#qty').val());
+            if (qty < 1)
+                qty = 1;
+            ++qty;
+            $('#qty').val(qty);
+        });
+        $('#down').live("click", function() {//Nút giảm số lượng
+            var qty = parseInt($('#qty').val());
+            if (qty > 1) {
+                --qty;
+            }
+            $('#qty').val(qty);
+        });
     });
     jQuery(document).ready(function() {
         jQuery('#carousel').elastislide({
@@ -53,9 +104,34 @@ function curPageName() {
             alwaysOn: false
         });
     });
-</script>	        
 
-
+</script>
+<div id="popup_content" class="popup">
+    <a class="close_popup" href="javascript:void(0)"><img src="<?php echo base_url() ?>public/icons/del.png" style="width: 35px;margin: -37px 0px 0px 3px;"/></a>
+    <div class="loginwrap zindex100 animate2 bounceInDown" style="margin-top: -20px;margin-right: -1px;">
+        <h1 class="logintitle" style="font-weight: bold;"><span class="iconfa-lock"></span> Đăng nhập <span class="subtitle" style="margin: 5px 0px -15px 10px;">Xin chào! Bạn phải đăng nhập để sử dụng chức năng thanh toán!</span></h1>
+        <div class="loginwrapperinner">
+            <form id="loginform" action="" method="post">
+                <div  class="position">
+                    <p class="animate5 bounceIn">
+                        <input type="text" id="username" name="inputemail" required="" placeholder="Username" />
+                        <span class="tooltip">Không được để trống</span>
+                    </p>
+                </div>
+                <div  class="position">
+                    <p class="animate5 bounceIn">
+                        <input type="password" id="password" name="inputpass" required="" placeholder="Password" />
+                        <span class="tooltip">Không được để trống</span>
+                    </p>
+                </div>
+                </p>
+                <p class="animate6 bounceIn"><input type="submit" class="btn btn-default btn-block" name="login" value="Login"/></p>
+                <p class="animate7 fadeIn"><a href="" style="color:#C8D6E2"><span class="icon-question-sign icon-white"></span> Forgot Password?</a></p>
+            </form>
+        </div><!--loginwrapperinner-->
+    </div>
+    <div class="loginshadow animate3 fadeInUp"></div>
+</div>
 
 <?php
 foreach ($data_detail as $value)
@@ -116,7 +192,7 @@ foreach ($data_detail as $value)
                     <h6 class="icon_longer_products" style="height: 30px">Còn hàng</h6>
                 </header>
                 <div class="subdetail">
-<?php echo $value->intro ?>
+                    <?php echo $value->intro ?>
                 </div>
 
                 <div class="price_3">
@@ -125,19 +201,22 @@ foreach ($data_detail as $value)
                 </div>
 
                 <div id="addCart">
-                    <form action="<?php echo site_url('home/cproducts/buynow'); ?>" method="POST">
+                    <form action="" method="POST" id="form-action">
                         <label for="qty">Số lượng</label>
-                        <input type="hidden" name="proid" value="<?php echo $value->productsID?>"/>
+                        <input type="hidden" name="seller" value="<?php echo $value->userID ?>"/>
+                        <input type="hidden" name="proid" value="<?php echo $value->productsID ?>"/>
+                        <input type="hidden" name="proname" value="<?php echo $value->name ?>"/>
+                        <input type="hidden" name="proprice" value="<?php echo $value->price ?>"/>
                         <input id="down" type="button" value="<"/>
                         <input id="qty" type="text" value="1" name="soluong"/>
                         <input id="up" type="button" value=">"/>
-                        <div>
-                            <input id="btnAdd" type="submit" value="Đặt mua" name="buynow"/>
-                            <!--<a href="https://www.baokim.vn/payment/product/version11?business=ductan_nguyen92%40yahoo.com&id=&order_description=mentum+mauris+pulvinar+eu.+Integer+eget+sapien+id+justo+iaculi%0D%0A%0D%0As+aliquam+ut+id+justo.+Pellentesque+adipiscing+sit+amet+metus+vitae%0D%0A%0D%0Amollis.+Proin+in+mi+sed+quam+iaculis+molestie+ac+nec+magna.+Vivamus+aliq%0D%0A%0D%0Auet+dui+sit+amet+nibh+mattis+tincidunt.+Vivamus+posuere+tincidunt+pulvi%0D%0A%0D%0Anar.+Quisque+quis+auctor+quam%2C+nec+consectetur+ligula.+Suspendisse+potenti.+S%0D%0A%0D%0Auspendisse+rutrum+sapien+vel+feugiat+euismod.%0D%0A%0D%0AQuisque+ornare+auctor+fringilla.+&product_name=Ao+So+mi&product_price=100000&product_quantity=1&total_amount=100000&url_cancel=&url_detail=http%3A%2F%2Fmotgia.tk%2Fsan-pham%2FPRO00016%2F2&url_success="><img src="http://developer.baokim.vn/uploads/baokim_btn/thanhtoanantoan-l.png" alt="Thanh toán an toàn với Bảo Kim !" border="0" title="Thanh toán trực tuyến an toàn dùng tài khoản Ngân hàng (VietcomBank, TechcomBank, Đông Á, VietinBank, Quân Đội, VIB, SHB,... và thẻ Quốc tế (Visa, Master Card...) qua Cổng thanh toán trực tuyến BảoKim.vn" ></a>-->
-                        </div>
+                        <input id="btnAdd" type="submit" value="Cho vào giỏ" name="order"/>
+                        <input type="submit" name="paynow" href="#popup_content" rel="tantan" id="paynow" name="paynow" value="Mua ngay"/>
+                        <img src="http://developer.baokim.vn/uploads/baokim_btn/thanhtoanantoan-l.png" alt="Thanh toán an toàn với Bảo Kim !" border="0" title="Thanh toán trực tuyến an toàn qua Cổng thanh toán trực tuyến BảoKim.vn" >
                     </form>
                 </div>
-                <div class="social_02">
+
+                <div class="social_02 marginTop_30">
                     <div id="fb-root"></div>
                     <script>(function(d, s, id) {
                             var js, fjs = d.getElementsByTagName(s)[0];
@@ -147,15 +226,14 @@ foreach ($data_detail as $value)
                             js.id = id;
                             js.src = "//connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v2.0";
                             fjs.parentNode.insertBefore(js, fjs);
-                        }(document, 'script', 'facebook-jssdk'));</script>
+                        }(document, 'script', 'facebook-jssdk'));
+                    </script>
                     <div class="fb-like" data-href="<?php echo curPageURL(); ?>" data-width="100" 
                          data-layout="button" 
                          data-action="like" 
                          data-show-faces="true" 
                          data-share="true">
                     </div>
-
-
                 </div>
             </section>
             <div class="clear"></div>
@@ -172,7 +250,7 @@ foreach ($data_detail as $value)
                                 <h6 class="title_detail_item">Đặc điểm nổi bật</h6>
                                 <ul>
                                     <li>
-<?php echo $value->hightlight ?> 
+                                        <?php echo $value->hightlight ?> 
                                     </li>
                                 </ul>
                             </div>
@@ -181,7 +259,7 @@ foreach ($data_detail as $value)
                                 <ul>
                                     <li>
 
-<?php echo $value->condition ?>
+                                        <?php echo $value->condition ?>
 
                                     </li>
                                 </ul>
@@ -190,7 +268,7 @@ foreach ($data_detail as $value)
                             <div class="detail_item_post">
                                 <header class="title_post_detail">Detail information</header>
                                 <p>
-<?php echo $value->productinfo ?>
+                                    <?php echo $value->productinfo ?>
                                 </p>
                             </div>
 
@@ -260,5 +338,6 @@ foreach ($data_detail as $value)
         </section><!-- .End product_detail -->
 
     </section><!--End #primary-->
-<?php $this->load->view('layout/sidebar'); ?>
+    <?php $this->load->view('layout/sidebar');
+    ?>
     <div class="clear"></div>

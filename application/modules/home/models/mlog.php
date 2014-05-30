@@ -11,24 +11,37 @@ class Mlog extends CI_Model {
     public function log() {
         $ck = $this->session->userdata('user');
         if (isset($ck) && count($ck)) {
-            $temp['info'] = $this->session->userdata('user');
+            $temp = $this->session->userdata('user');
         }
+//        if (isset($_POST['email2'],$_POST['pass2'])) {
+//            $email = $this->input->post('inputemail');
+//            $psw = $this->input->post('inputpass');
+//            $this->login($email, $psw);
+//            $page = $_SERVER['PHP_SELF'];
+//            $sec = "1";
+//            header("Refresh: $sec; url=$page");
+////            echo "Watch the page reload itself!";
+//        }
+//        
         if ($this->input->post('login')) {
-            $this->login();
+            $email = $this->input->post('inputemail');
+            $psw = $this->input->post('inputpass');
+            $this->login($email, $psw);
+            $page = $_SERVER['PHP_SELF'];
+            $sec = "1";
+            header("Refresh: $sec; url=$page");
+//            echo "Watch the page reload itself!";
         }
         if ($this->input->post('logout')) {
             $this->logout();
         }
-        return $temp['info']; //tra ve FALSE neu chua dang nhap, tra ve array neu da dang nhap
+        return $temp; //tra ve FALSE neu chua dang nhap, tra ve array neu da dang nhap
     }
 
-    public function login() {
-        $email = $this->input->post('inputemail');
-        $psw = $this->input->post('inputpass');
-        $pass = $this->encrypt->decode($psw);
-        if ($this->checklogin($email, $pass) == TRUE) {
+    public function login($email, $psw) {
+        if ($this->checklogin($email, $psw)) {
             $fullname = $this->getName($email);
-            $userid=  $this->getID($email);
+            $userid = $this->getID($email);
             $newdata = array(
                 'userID' => $userid,
                 'fullname' => $fullname,
@@ -36,13 +49,12 @@ class Mlog extends CI_Model {
                 'logged_in' => TRUE
             );
             $this->session->set_userdata('user', $newdata);
-            echo 'đăng nhập thành công';
-            if($this->session->userdata('guest'))
+            if ($this->session->userdata('guest'))
                 $this->session->unset_userdata('guest'); //nếu khách vãng lai đăng nhập thì xóa các phiên làm việc trước đó
-            redirect('trang-chu');                      // và khởi tạo phiên làm việc mới như 1 thành viên
+            return TRUE;
         }
         else
-            echo 'đăng nhập thất bại';
+            return FALSE;
     }
 
     public function logout() {
@@ -50,22 +62,30 @@ class Mlog extends CI_Model {
         redirect('home/chome');
     }
 
-    public function checklogin($email = 0, $password = 0) {
-        $check1 = $this->db->select('email', 'password')->FROM('user')->WHERE(array('email' => $email, 'password' => $password))->get()->row_array();
-        if (count($check1))
-            return $check1 = TRUE;
+    public function checklogin($email, $password) {
+
+        $pwd = $this->db->select('password')->WHERE('email', $email)->get('user')->row_array();
+        if (isset($pwd) && count($pwd)) {
+            if ($this->encrypt->decode($pwd['password']) == $password)
+                $check1 = TRUE;
+            else
+                $check1 = FALSE;
+        }
         else
-            return $check1 = FALSE;
+            $check1 = FALSE;
+        return $check1;
     }
 
     public function getName($email = 0) {
-        $querry['fullname'] = $this->db->select('firstname,lastname')->WHERE('email', $email)->get('user')->row_array();
-        return $querry['fullname']['firstname'].' '.$querry['fullname']['lastname'];
+        $querry = $this->db->select('firstname,lastname')->WHERE('email', $email)->get('user')->row_array();
+        return $querry['firstname'] . ' ' . $querry['lastname'];
     }
+
     public function getID($email = 0) {
-        $querry['userID'] = $this->db->select('userID')->WHERE('email', $email)->get('user')->row_array();
-        return $querry['userID']['userID'];
+        $querry = $this->db->select('userID')->WHERE('email', $email)->get('user')->row_array();
+        return $querry['userID'];
     }
+
 }
 
 ?>
