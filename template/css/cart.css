@@ -12,10 +12,10 @@
     font-weight: bold;
 }
 .seller h3 a{
-    color:#16A085;
+    color:blue;
 }
 .seller h3 a:hover{
-    color:#27ae60;
+    color:red;
     text-decoration: underline;
 }
 .product-total{
