@@ -12,10 +12,10 @@
             	<li class="nav-header">Main Navigation</li>
                 <li class="active"><a href="dashboard.html"><span class="icon-align-justify"></span> Dashboard</a></li>
                 <li><a href="media.html"><span class="icon-picture"></span>Media</a></li>
-                <li class="dropdown"><a href=""><span class="icon-briefcase"></span> Thành Viên</a>
+                <li class="dropdown"><a href=""><span class="icon-th-list"></span> Thành Viên</a>
                 	<ul>
-                    	<li><a href="<?php echo site_url('admin/adminhome/addUser');?>">Thêm</a></li>
-                        <li><a href="<?php echo site_url('admin/adminhome/magageUser');?>">Quản lý</a></li>
+                    	<li><a href="<?php echo site_url('admin/user_controller/addUser');?>">Thêm</a></li>
+                        <li><a href="<?php echo site_url('admin/adminhome/manageUser');?>">Quản lý</a></li>
                     </ul>
                 </li>
                 <li class="dropdown"><a href=""><span class="icon-th-list"></span> Tables</a>
