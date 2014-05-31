@@ -7,19 +7,15 @@
     <link rel="stylesheet" href="<?php echo base_url(); ?>public/adminstyle/prettify/prettify.css" type="text/css"/>
     <script type="text/javascript" src="<?php echo base_url(); ?>public/adminstyle/prettify/prettify.js"></script>
     <script type="text/javascript" src="<?php echo base_url(); ?>public/adminstyle/js/jquery-1.9.1.min.js"></script>
-    <script type="text/javascript"
-<!--            src="--><?php //echo base_url(); ?><!--public/adminstyle/js/jquery-migrate-1.1.1.min.js"></script>-->
+    <script type="text/javascript" src="<?php echo base_url(); ?>public/adminstyle/js/jquery-migrate-1.1.1.min.js"></script>
     <script type="text/javascript" src="<?php echo base_url(); ?>public/adminstyle/js/jquery-ui-1.9.2.min.js"></script>
     <script type="text/javascript" src="<?php echo base_url(); ?>public/adminstyle/js/jquery.flot.min.js"></script>
-    <script type="text/javascript"
-            src="<?php echo base_url(); ?>public/adminstyle/js/jquery.flot.resize.min.js"></script>
+    <script type="text/javascript" src="<?php echo base_url(); ?>public/adminstyle/js/jquery.flot.resize.min.js"></script>
     <script type="text/javascript" src="<?php echo base_url(); ?>public/adminstyle/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="<?php echo base_url(); ?>public/adminstyle/js/jquery.cookie.js"></script>
     <script type="text/javascript" src="<?php echo base_url(); ?>public/adminstyle/js/custom.js"></script>
-    <script type="text/javascript"
-            src="<?php echo base_url(); ?>public/adminstyle/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="<?php echo base_url(); ?>public/adminstyle/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="<?php echo base_url(); ?>public/adminstyle/js/jquery.dataTables.js"></script>
-
 
     <!--[if lte IE 8]>
     <script language="javascript" type="text/javascript" src="js/excanvas.min.js"></script><![endif]-->
@@ -50,8 +46,6 @@
             </div>
         </div>
     </div>
-
-    <?php $this->load->view('layout_admin/bot'); ?>
 </div>
 <!--mainwrapper-->
 </body>

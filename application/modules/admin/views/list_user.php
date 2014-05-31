@@ -34,8 +34,8 @@
         <td><?php echo $value['levelID'] ?></td>
         <td><?php echo $value['phone'] ?></td>
         <td><?php  if($value['status']==0)  echo 'Chờ'; elseif($value['status']==1) echo 'Ok'; else echo 'Bị khóa'; ?></td>
-        <td><a href="">Sửa</a></td>
-        <td><a href="">Xóa</a></td>
+        <td><a href="<?php echo site_url("admin/user_controller/edituser/").'/'.$value['userID'];?>">Sửa</a></td>
+        <td><a href="<?php echo site_url("admin/user_controller/deluser/").'/'.$value['userID'];?>">Xóa</a></td>
         </tr>
     <?php
     }
