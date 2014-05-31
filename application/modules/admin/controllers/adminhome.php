@@ -17,7 +17,7 @@ class Adminhome extends CI_Controller {
 
     public function index() {
         $temp['info'] = $this->session->userdata('admin');
-        $temp['title']='trang quản trị';
+        $temp['title']='Trang quản trị';
         $temp['template']='user_control';
         $temp['data'] = $this->Adminmodel->getAll('user');
         $this->load->view('layout_admin/layout',$temp);
@@ -25,6 +25,21 @@ class Adminhome extends CI_Controller {
      public function logout(){
         $this->session->unset_userdata('admin');
         redirect('admin/adminhome/login');
-    }    
+    }
+
+    public function magageUser() {
+        $temp['info'] = $this->session->userdata('admin');
+        $temp['title']='Quản lý thành viên';
+        $temp['template']='user_control';
+        $temp['data'] = $this->Adminmodel->getAll('user');
+        $this->load->view('layout_admin/layout',$temp);
+    }
+
+    public function addUser() {
+        $temp['info'] = $this->session->userdata('admin');
+        $temp['title']='Thêm thành viên';
+        $temp['template']='adduser';
+        $this->load->view('layout_admin/layout',$temp);
+    }
 }
 ?>
