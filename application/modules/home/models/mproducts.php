@@ -134,6 +134,9 @@ class Mproducts extends CI_Model {
         else
             return FALSE;
     }
+    public function cancelOrder(){
+        $this->db->update('order', array('status' => 1), array('email' => $email));
+    }
 
     public function getProductByID($id) {
         $this->db->select("*");
