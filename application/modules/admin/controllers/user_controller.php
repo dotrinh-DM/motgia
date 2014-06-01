@@ -6,8 +6,7 @@ class User_controller extends CI_Controller
     public function __construct()
     {
         parent::__construct();
-        $this->load->helper(array('form', 'url'));
-        $this->load->helper('html');
+        $this->load->helper(array('form', 'url', 'province', 'html'));
         $this->load->model("user_model");
         $this->load->model("home/musers");
         $this->load->library('upload');
@@ -22,14 +21,15 @@ class User_controller extends CI_Controller
     {
         $temp['info'] = $this->session->userdata('admin');
         $temp['title'] = 'Thêm thành viên';
-        $temp['template'] = 'add_user';
+        $temp['template'] = 'user/add_user';
         $this->load->view('layout_admin/layout', $temp);
 
     }
 
-    public function addSubmit()
+    public function formSubmit()
     {
         if ($this->input->post()) {
+            $id = $this->input->post('id');
             $ho = $this->input->post('ho');
             $ten = $this->input->post('ten');
             $email = $this->input->post('mail');
@@ -41,21 +41,32 @@ class User_controller extends CI_Controller
             $phone = $this->input->post('phone');
             $diachi = $this->input->post('diachi');
             $phanquyen = $this->input->post('phanquyen');
-            $userID = $this->musers->setID('user', 'userID', 'UID');
+            if($id === false)
+            {
+                $userID = $this->musers->setID('user', 'userID', 'UID');
+            }else{
+                $userID = $id;
+            }
             $date = gmdate("Y-m-d H:i:s", time() + 3600 * (+7 + date("I")));
-            $this->user_model->insertUser($userID, $date, $ho, $ten, $email, $matkhau, $ngaysinh, $gioitinh, $tinh, $phone, $diachi, $phanquyen);
+            $this->user_model->changeDataUser($id,$userID, $date, $ho, $ten, $email, $matkhau, $ngaysinh, $gioitinh, $tinh, $phone, $diachi, $phanquyen);
             redirect('admin/adminhome/manageUser');
         }
 
     }
 
-    public function editSubmit($id)
+    public function edituser($id)
     {
         $temp['info'] = $this->session->userdata('admin');
         $temp['title'] = 'Sửa thành viên';
         $temp['data'] = $this->user_model->getUserId($id);
-        $temp['template'] = 'edit_user';
+        $temp['template'] = 'user/edit_user';
         $this->load->view('layout_admin/layout', $temp);
+    }
+
+    public function deluser($id)
+    {
+        $this->user_model->del($id);
+        redirect('admin/adminhome/manageUser');
     }
 }
 
