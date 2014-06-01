@@ -28,7 +28,7 @@ class User_model extends CI_Model
         return $query->result();
     }
 
-    public function insertUser($userID,$date,$ho,$ten,$email,$matkhau,$ngaysinh,$gioitinh,$tinh,$phone,$diachi,$phanquyen){
+    public function changeDataUser($id,$userID,$date,$ho,$ten,$email,$matkhau,$ngaysinh,$gioitinh,$tinh,$phone,$diachi,$phanquyen){
         $data = array(
             'userID' => $userID,
             'firstname' => $ho,
@@ -45,7 +45,20 @@ class User_model extends CI_Model
             'create_date' => $date,
             'levelID' => $phanquyen
         );
-        $this->db->insert($this->tbl_user, $data);
+        if($id == '' || $id === FALSE)
+        {
+            $this->db->insert($this->tbl_user, $data);
+        }
+        else
+        {
+            $this->db->where('userID', $id);
+            $this->db->update($this->tbl_user, $data);
+        }
+    }
+    public function del($id)
+    {
+        $this->db->where('userID',$id);
+        $this->db->delete($this->tbl_user);
     }
 
 }

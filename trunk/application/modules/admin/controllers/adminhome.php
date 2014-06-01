@@ -21,7 +21,7 @@ class Adminhome extends CI_Controller
     {
         $temp['info'] = $this->session->userdata('admin');
         $temp['title'] = 'Trang quản trị';
-        $temp['template'] = 'list_user';
+        $temp['template'] = 'user/list_user';
         $temp['data'] = $this->Adminmodel->getAll('user');
         $this->load->view('layout_admin/layout', $temp);
     }
@@ -36,7 +36,7 @@ class Adminhome extends CI_Controller
     {
         $temp['info'] = $this->session->userdata('admin');
         $temp['title'] = 'Quản lý thành viên';
-        $temp['template'] = 'list_user';
+        $temp['template'] = 'user/list_user';
         $temp['data'] = $this->Adminmodel->getAll('user');
         $this->load->view('layout_admin/layout', $temp);
     }
