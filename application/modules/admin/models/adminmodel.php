@@ -40,7 +40,7 @@ public function getAll($table)
       
 
         public function checklogin($email=0,$password=0){
-        $check1=$this->db->select('email','password')->FROM('user')->WHERE(array ('email'=>$email,'password'=>$password,'levelID'=>'3'))->get()->row_array(); 
+        $check1=$this->db->select('email','password')->FROM('user')->WHERE(array ('email'=>$email,'password'=>$password))->get()->row_array();
         if(count($check1))
             return $check1=TRUE;
         else
