@@ -10,7 +10,6 @@
     </head>
     <body>	
         <?php $this->load->view('layout/header'); ?>
-
         <div id="boxes">
             <div style="top: 199.5px; left: 551.5px; display: none; border: 1px solid;border-radius: 14px;" id="dialog" class="window">
                 <div style="width: 45px;height: 45px;float: left;margin: -25px -15px;">

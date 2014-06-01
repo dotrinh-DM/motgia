@@ -67,6 +67,7 @@ function curPageName() {
                         //sự kiện cho phép gọi sau khi đóng popup, cho phép chúng ta gọi 1 số sự kiện khi đóng popup, bạn có thể để null ở đây
                     }
                 });
+                $('.logintitle').html('Đăng nhập');
                 return false;
             }
         });
@@ -103,6 +104,29 @@ function curPageName() {
             preloadImages: false,
             alwaysOn: false
         });
+
+
+        $('#loginform').submit(function(event) { //Trigger on form submit
+            $('.logintitle').html('Đăng nhập');
+            var postForm = {//Fetch form data
+                'email2': $('input[name=inputemail2]').val(), //Store name fields value
+                'pass2': $('input[name=inputpass2]').val()
+            };
+            $.ajax({//Process the form using $.ajax()
+                type: 'POST', //Method type
+                url: '<?php echo base_url(); ?>home/cusers/login', //gọi đến controller xử lý
+                data: postForm, //truyền biến dưới dạng $_POST['ten bien']
+                dataType: 'json',
+                success: function(data) { // load lại trang sau 3 giay
+                    if (!data.success) { //nếu controller trả về kết quả lỗi
+                        if (data.errors.name) //Lấy thông tin báo lỗi
+                            $('.logintitle').fadeIn(1000).html('Sai tên truy nhập hoặc mật khẩu!'); //chèn mã lỗi vào thẻ có class = throw_error
+                    } else
+                        location.reload(true);//đăng nhập thành công thì reload lại trang
+                },
+            });
+            event.preventDefault(); //Prevent the default subm
+        });
     });
 
 </script>
@@ -114,13 +138,13 @@ function curPageName() {
             <form id="loginform" action="" method="post">
                 <div  class="position">
                     <p class="animate5 bounceIn">
-                        <input type="text" id="username" name="inputemail" required="" placeholder="Username" />
+                        <input type="text" id="username" name="inputemail2" required="" placeholder="Username" />
                         <span class="tooltip">Không được để trống</span>
                     </p>
                 </div>
                 <div  class="position">
                     <p class="animate5 bounceIn">
-                        <input type="password" id="password" name="inputpass" required="" placeholder="Password" />
+                        <input type="password" id="password" name="inputpass2" required="" placeholder="Password" />
                         <span class="tooltip">Không được để trống</span>
                     </p>
                 </div>

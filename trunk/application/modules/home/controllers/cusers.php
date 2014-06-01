@@ -446,11 +446,11 @@ class cusers extends CI_Controller {
             echo 'Email này đã được đăng ký vui lòng chọn email khác!';
     }
 
-    public function login() {// Hàm được gọi bởi sự kiện submit-ajax trong trang view login.php
+    public function login() {// Hàm được gọi bởi sự kiện submit-ajax trong trang view login.php, view_cart.php và product_detail.php
         $errors = array(); //Lưu tên lỗi
         $form_data = array(); //trả lại dữ liệu cho form dưới dạng data json
         if ($this->Mlog->login($_POST['email2'], $_POST['pass2']) == FALSE) { //Nếu đăng nhập thất bại
-            $errors['name'] = 'dang nhap that bai';
+            $errors['name'] = 'Sai tên đăng nhập hoặc mật khẩu';
         }
         if (!empty($errors)) { //Nếu có lỗi
             $form_data['success'] = false;

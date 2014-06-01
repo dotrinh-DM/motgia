@@ -128,7 +128,7 @@
                             </div>
                             <div>
                                 <label for="phone">Số điện thoại:</label>
-                                <input type="text" required="" id="phone1" name="phone" value="<?php
+                                <input type="text" required="" id="phone1" name="phone" class="h5-phone" value="<?php
                                 echo isset($profile) ? $profile['phone'] : '';
                                 echo (isset($guest) && count($guest)) ? $guest['phone'] : '';
                                 ?>">
@@ -136,7 +136,7 @@
                             </div>
                             <div>
                                 <label for="phone">Email:</label>
-                                <input type="text" required="" id="mail1" name="phone" value="<?php
+                                <input type="text" required="" id="mail1" class="h5-email" name="phone" value="<?php
                                 echo isset($profile) ? $profile['email'] : '';
                                 echo (isset($guest) && count($guest)) ? $guest['mail'] : '';
                                 ?>">
@@ -204,12 +204,12 @@
                             </div>
                             <div>
                                 <label for="phone2">Số điện thoại:</label>
-                                <input type="text" required="" id="phone2" name="phone">
+                                <input type="text" required="" id="phone2" name="phone" class="h5-phone">
                                 <span class="tooltip" style="display: block;margin-top: 33px">Vui lòng nhập số điện thoại người nhận</span>
                             </div>
                             <div>
                                 <label for="mail2">Email:</label>
-                                <input type="text" required="" id="mail2" name="mail2">
+                                <input type="text" required="" id="mail2" name="mail2" class="h5-email">
                                 <span class="tooltip" style="display: block;margin-top: 33px">Vui lòng nhập số điện thoại người nhận</span>
                             </div>
                             <label>Tỉnh  - Thành phố:</label>
@@ -328,6 +328,7 @@
                         ?>
 
                     </div><!-- End .box-drop-->
+                    <div style="padding: 15px"><b>Lưu ý:</b><br/>Vui lòng cung cấp chính xác thông tin!<br/>Các thông tin trên sẽ được sử dụng để giao nhận đơn hàng.</div>
                 </div>
             </form>
         </div>

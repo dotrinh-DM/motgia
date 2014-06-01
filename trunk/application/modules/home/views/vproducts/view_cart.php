@@ -10,6 +10,42 @@
                 evt.preventDefault();
             }
         });
+
+
+        $('#loginform3').submit(function(event) { //Trigger on form submit
+            $('.logintitle').html('Đăng nhập');
+            var postForm = {//Fetch form data
+                'email2': $('input[name=inputemail3]').val(), //Store name fields value
+                'pass2': $('input[name=inputpass3]').val()
+            };
+            $.ajax({//Process the form using $.ajax()
+                type: 'POST', //Method type
+                url: '<?php echo base_url(); ?>home/cusers/login', //gọi đến controller xử lý
+                data: postForm, //truyền biến dưới dạng $_POST['ten bien']
+                dataType: 'json',
+                success: function(data) { // load lại trang sau 3 giay
+                    if (!data.success) { //nếu controller trả về kết quả lỗi
+                        if (data.errors.name) //Lấy thông tin báo lỗi
+                            $('.logintitle').fadeIn(1000).html('Sai tên truy nhập hoặc mật khẩu!'); //chèn mã lỗi vào thẻ có class = throw_error
+                    } else
+                        location.reload(true);//đăng nhập thành công thì reload lại trang
+                },
+            });
+            event.preventDefault(); //Prevent the default subm
+        });
+        
+         $('.payhome').live("click", "submit", function(e) {//Nếu chưa đăng nhập thì hiện cửa sổ popup để đăng nhập
+        var guest1 = $('#errr').val();
+        var guest2 = '<?php echo $guest['logged_in'] == TRUE ? "TRUE" : "FALSE"; ?>';
+        if (guest1 == '1' || guest2 == 'TRUE') { 
+//            return true;
+            alert('ok');
+//            $('.formcart').attr('action', '<?php echo base_url() ?>thanh-toan-tai-nha');
+            
+        } else{
+            alert('Bạn phải nhập thông tin khách hàng');
+        return false;}
+    });
     });
     $('#continue').live("click", function()
     {
@@ -25,6 +61,7 @@
             success: function(html) {
                 $("#cke").empty();
                 $("#cke").append(html);
+                $("#errr").val(1);
             }
         });
     });
@@ -36,14 +73,12 @@
         $("#changenumber" + id).empty();
         $("#changenumber" + id).append('<input class="ok" type="button" id="' + id + '" value="ok"style="padding: 0px;width: 30px;height: 28px;"/>\n\
                     <input class="cancel" type="button" id="' + id + '" value="hủy" style="padding: 0px;width: 30px;height: 28px;"/>');
-
-
-        $('.cancel').click( function() {
+        $('.cancel').click(function() {
             var id = $(this).attr("id");
             $("#changenumber" + id).empty();
         });
 
-        $('.ok').click( function(){
+        $('.ok').click(function() {
             var proid = $(this).attr("id");
             var uid = $('.hidden_user' + proid).val();
 //            var number2 = $.formatNumber(number*100000, {format: "#,###.00", locale: "us"});
@@ -55,37 +90,39 @@
                 data: {"userid": uid, "soluong": number, "proid": proid},
                 success: function(html) {
                     $("#changenumber" + proid).empty();
-                    $('.subprice'+id).empty();
-                    $('.subprice'+id).append(number * 100000);
+                    $('.subprice' + id).empty();
+                    $('.subprice' + id).append(number * 100000);
 //                    $('.total'+uid).append(tong);
 
                 }
             });
         });
-        $('.ok').live ("click", function(){
-        var uid = $('.hidden_user' + proid).val();
-            var tong =+ parseInt($('.totalprice'+uid).html());
-                                $('.total'+uid).empty();
-
-            $('.total'+uid).append(tong);
+        $('.ok').live("click", function() {
+            var uid = $('.hidden_user' + proid).val();
+            var tong = +parseInt($('.totalprice' + uid).html());
+            $('.total' + uid).empty();
+            $('.total' + uid).append(tong);
         });
     });
     $('.payonline').live("click", "submit", function(e) {//Nếu chưa đăng nhập thì hiện cửa sổ popup để đăng nhập
-            var login = '<?php echo $info['logged_in'] == TRUE ? "TRUE" : "FALSE"; ?>';
-            if (login == "TRUE") {
-                $('.formcart').attr('action', '<?php echo base_url() ?>thanh-toan-truc-tuyen');
-            } else {
-                $(this).showPopup({
-                    top: 120, //khoảng cách popup cách so với phía trên
-                    closeButton: ".close_popup", //khai báo nút close cho popup
-                    scroll: false, //cho phép scroll khi mở popup, mặc định là không cho phép
-                    onClose: function() {
-                        //sự kiện cho phép gọi sau khi đóng popup, cho phép chúng ta gọi 1 số sự kiện khi đóng popup, bạn có thể để null ở đây
-                    }
-                });
-                return false;
-            }
-        });
+        var login = '<?php echo $info['logged_in'] == TRUE ? "TRUE" : "FALSE"; ?>';
+        if (login == "TRUE") {
+            $('.formcart').attr('action', '<?php echo base_url() ?>thanh-toan-truc-tuyen');
+        } else {
+            $(this).showPopup({
+                top: 120, //khoảng cách popup cách so với phía trên
+                closeButton: ".close_popup", //khai báo nút close cho popup
+                scroll: false, //cho phép scroll khi mở popup, mặc định là không cho phép
+                onClose: function() {
+                    //sự kiện cho phép gọi sau khi đóng popup, cho phép chúng ta gọi 1 số sự kiện khi đóng popup, bạn có thể để null ở đây
+                }
+            });
+            $('.logintitle').html('Đăng nhập');
+            return false;
+        }
+    });
+
+   
 </script>
 <style type="text/css" >
     @import url('<?php echo base_url(); ?>public/adminstyle/css/animate.min.css')
@@ -98,16 +135,16 @@
     <div class="loginwrap zindex100 animate2 bounceInDown" style="margin-top: -20px;margin-right: -1px;">
         <h1 class="logintitle" style="font-weight: bold;"><span class="iconfa-lock"></span> Đăng nhập <span class="subtitle" style="margin: 5px 0px -15px 10px;">Xin chào! Bạn phải đăng nhập để sử dụng chức năng thanh toán!</span></h1>
         <div class="loginwrapperinner">
-            <form id="loginform" action="" method="post">
+            <form id="loginform3" action="" method="post">
                 <div  class="position">
                     <p class="animate5 bounceIn">
-                        <input type="text" id="username" name="inputemail" required="" placeholder="Username" />
+                        <input type="text" id="username" name="inputemail3" required="" placeholder="Username" />
                         <span class="tooltip">Không được để trống</span>
                     </p>
                 </div>
                 <div  class="position">
                     <p class="animate5 bounceIn">
-                        <input type="password" id="password" name="inputpass" required="" placeholder="Password" />
+                        <input type="password" id="password" name="inputpass3" required="" placeholder="Password" />
                         <span class="tooltip">Không được để trống</span>
                     </p>
                 </div>
@@ -226,7 +263,9 @@
                     </tr>
                 </table>
                 <center><input id="continue" required="" type="button" value="xác nhận & tiếp tục" class="btn btn-primary next" style="margin-top: 0px"/>
-                    <p><div id="cke"></div></center>
+                    <p><div id="cke"></div>
+                    <input type="hidden" id="errr" value="0"/>
+                    </center>
 
             </div>
         </div>';
@@ -260,7 +299,7 @@
                                 </tr>
                             </thead>
                             <input type = "hidden" name = "payinfo[' . $userid . ']" value = "' . $userid . '"/>
-                                <input type="hidden" id="uid" value="'.$userid.'">
+                                <input type="hidden" id="uid" value="' . $userid . '">
                         ';
                     $stt = 0;
                     foreach ($value as $productid => $value2) {
@@ -289,9 +328,8 @@
                                                    </div>
                                             </div>
                                         </td>
-                                        
                                         <td style="text-align: right;padding:10px">' . number_format(100000, 0, ',', '. ') . ' VNĐ</td>
-                                        <td style="text-align: right;padding:10px"><span class="subprice'.$productid.' totalprice'.$userid.'">' . number_format(100000 * $value2['soluong'], 0, ',', '. ') . '</span> VNĐ</td>
+                                        <td style="text-align: right;padding:10px"><span class="subprice' . $productid . ' totalprice' . $userid . '">' . number_format(100000 * $value2['soluong'], 0, ',', '. ') . '</span> VNĐ</td>
                                         <td style="text-align: center">
                                             <a title="Xóa khỏi giỏ hàng" href="' . site_url("home/cproducts/delCart/$userid/$productid") . '" onclick="return confirm(' . "'" . 'Bạn có muốn xóa sản phẩm này từ giỏ hàng?' . "'" . ');">Xóa</a>
                                         </td>
@@ -304,21 +342,18 @@
                             <tfoot>
                                 <tr><td colspan="7">                                        
                                     <p id="productTotal" class="product-total"
-                                    style="text-align: right;font-size: 16px;">Tổng tiền: <span class="total'.$userid.'">' . number_format($tong, 3, ' ,', '. ') . '</span> VNĐ</p>
+                                    style="text-align: right;font-size: 16px;">Tổng tiền: <span class="total' . $userid . '">' . number_format($tong, 3, ' ,', '. ') . '</span> VNĐ</p>
                                 </td></tr>
                             </tfoot>
                         </table>
-                        
                                 <div class="col">
                                     <div class="payment">
-                                        
                                         <div class="pay">
-                                            <input type="submit" href="#popup_content" name="payonline['.$userid.']" value="Thanh toán trực tuyến" class="payonline"/>
-                                            <input type="submit" name="payhome['. $userid .']" value="Thanh toán khi nhận hàng" class="payhome" />
+                                            <input type="submit" href="#popup_content" name="payonline[' . $userid . ']" value="Thanh toán trực tuyến" class="payonline"/>
+                                            <input type="submit" name="payhome[' . $userid . ']" value="Thanh toán khi nhận hàng" class="payhome" />
                                         </div>
                                     </div>
                                 </div><!-- End .boxcart-info--> 
-                        
                         ';
                 }
             }

@@ -469,6 +469,10 @@ class Cproducts extends CI_Controller {
         redirect('cart');
     }
 
+public function cancel_order(){
+    
+}
+
     public function vd() {
 //        if ($this->input->post('paymenthome')) {
 //            $payinfo = $this->input->post('payhome');

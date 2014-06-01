@@ -1,6 +1,5 @@
 <script type="text/javascript" src="<?php echo base_url() ?>template/js/popup.js"></script>
 <style> 
-
 </style>
 <script type="text/javascript" language="JavaScript">
     function popupshow(param) {
@@ -35,11 +34,10 @@
             $('.window').hide();
         });
     }
-
     $(document).ready(function() {
 
 //        $('.clockmess').append('10');
-        $('#formlogin2').submit(function(event) { //Trigger on form submit
+        $('#formlogin2').live("submit",function(event) { //Trigger on form submit
 //            $('#name + .throw_error').empty(); //Clear the messages first
 //            $('#success').empty();
             $('.headermess').empty();
@@ -48,7 +46,7 @@
                 'email2': $('input[name=inputemail]').val(), //Store name fields value
                 'pass2': $('input[name=inputpass]').val()
             };
-            $('.clockmess').append('10');
+            $('.clockmess').append('5');
             var sec = 5;
             $.ajax({//Process the form using $.ajax()
                 type: 'POST', //Method type
@@ -68,21 +66,16 @@
                                     $('.deltex').empty();
                                     $('#mask').hide();
                                     $('.window').hide();
-                                    clearInterval(timer);
-//                                    stop();
-//                                    window.location.href = '<?php echo base_url() ?>'; 
+                                    clearInterval(timer); 
                                 }
                             }, 1000);
 
                             $('.headermess').fadeIn(1000).html('Sai tên truy nhập hoặc</br>mật khẩu!'); //chèn mã lỗi vào thẻ có class = throw_error
                             $('#contentmess').append('</br>\n\
-                                                <span class="clockmess" style="font-size: 33pt;"><b>10</b></span><span class="deltex">s</span></br>\n\
+                                                <span class="clockmess" style="font-size: 33pt;"><b>5</b></span><span class="deltex">s</span></br>\n\
                                                 <span><a href="<?php echo base_url() ?>">Quên mật khẩu</a> / <a href="<?php echo base_url() ?>dang-ky">Đăng ký</a></span>');
                         }
                     } else {
-//                        window.setTimeout(function() {
-//                            location.reload(true)
-//                        }, 3000);
                         popupshow();
                         sec = 3;
                         var timer = setInterval(function() {
@@ -93,8 +86,6 @@
                                 $('#mask').hide();
                                 $('.window').hide();
                                 clearInterval(timer);
-//                                    stop();
-//                                    window.location.href = '<?php echo base_url() ?>'; 
                             }
                         }, 1000);
                         $('.headermess').fadeIn(1000).html('Đăng nhập thành công!'); //nếu thành công thì báo thành công
@@ -111,22 +102,6 @@
         });
     });
 </script>
-<div id="popup_content" class="popup">
-    <div class="popup-header">
-        <h2>Tiêu Đề Popup</h2>
-        <a class="close_popup" href="javascript:void(0)"></a>
-        <p>Nội dung mô tả thêm cho tiêu đề (nếu có)</p>
-    </div>
-    <div class="info_popup">
-        miendatwebPopup<br/>
-        Phiên bản popup: 1.0<br/>
-        Tác giả: Miền Đất Web<br/>
-        Liên hệ: nguyentrungtinh29@gmail.com<br/>
-        Ngày tạo: 22/07/2012
-    </div>
-
-</div>
-
 <div id="success"></div>
 <span class="throw_error"></span>
 <div class="detail-login" name="formlogin">
