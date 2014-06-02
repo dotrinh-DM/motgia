@@ -21,7 +21,7 @@ class Adminhome extends CI_Controller
     {
         $temp['info'] = $this->session->userdata('admin');
         $temp['title'] = 'Trang quản trị';
-        $temp['template'] = 'user/list_user';
+        $temp['template'] = 'product/dashboard';
         $temp['data'] = $this->Adminmodel->getAll('user');
         $this->load->view('layout_admin/layout', $temp);
     }
