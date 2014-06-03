@@ -50,7 +50,7 @@
             var sec = 5;
             $.ajax({//Process the form using $.ajax()
                 type: 'POST', //Method type
-                url: '<?php echo base_url(); ?>home/cusers/login', //gọi đến controller xử lý
+                url: 'http://localhost/motgia/index.php/home/cusers/login', //gọi đến controller xử lý
                 data: postForm, //truyền biến dưới dạng $_POST['ten bien']
                 dataType: 'json',
                 success: function(data) { // load lại trang sau 3 giay

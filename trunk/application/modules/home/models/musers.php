@@ -167,7 +167,7 @@ class Musers extends CI_Model {
                 ->select("DATE_FORMAT(create_date, '%Y') AS year", FALSE)
                 ->where("sellerID", "$Uid")
                 ->order_by('date_cr', 'desc');
-        $query = $this->db->get('order', $sum, $start);
+        $query = $this->db->get('tbl_order', $sum, $start);
         return $query->result();
     }
 
@@ -258,32 +258,32 @@ class Musers extends CI_Model {
     public function getNumOrderStatus($UID) {
         $this->db->select("status");
         $this->db->where(array('status' => 1, 'sellerID' => $UID));
-        $qr = $this->db->get('order')->result();
+        $qr = $this->db->get('tbl_order')->result();
         return count($qr);
     }
 
     //lay tat ca hoa don da dat cua thanh vien
     public function getOrderByBuyerID($buyerid, $sum = 10000, $start = 0) {//đơn hàng đã đặt - dành cho người mua hàng
         $this->db->select("
-            order.orderID as orderID,
-            order.buyerID as buyerID,
-            order.note as note,
-            order.method as method,
-            order.status as status, 
-            user.firstname as sellerfname,
+            tbl_order.orderID as orderID,
+            tbl_order.buyerID as buyerID,
+            tbl_order.note as note,
+            tbl_order.method as method,
+            tbl_order.status as status, 
+            tbl_order.firstname as sellerfname,
             user.lastname as sellerlname, 
             user.email as selleremail,
             user.phone as sellerphone, 
             user.address as selleradd")
                 ->select("DATE_FORMAT(user.birthday, '%Y') AS selleryear", FALSE)
-                ->select("DATE_FORMAT(order.create_date, '%d-%m-%Y, %H:%i %p') AS date_cr", FALSE)
-                ->select("DATE_FORMAT(order.create_date, '%d') AS date", FALSE)
-                ->select("DATE_FORMAT(order.create_date, '%m') AS month", FALSE)
-                ->select("DATE_FORMAT(order.create_date, '%Y') AS year", FALSE)
-                ->where("order.buyerID", "$buyerid")
-                ->join('user', 'user.userID = order.sellerID')
+                ->select("DATE_FORMAT(tbl_order.create_date, '%d-%m-%Y, %H:%i %p') AS date_cr", FALSE)
+                ->select("DATE_FORMAT(tbl_order.create_date, '%d') AS date", FALSE)
+                ->select("DATE_FORMAT(tbl_order.create_date, '%m') AS month", FALSE)
+                ->select("DATE_FORMAT(tbl_order.create_date, '%Y') AS year", FALSE)
+                ->where("tbl_order.buyerID", "$buyerid")
+                ->join('user', 'user.userID = tbl_order.sellerID')
                 ->order_by('date_cr', 'desc');
-        $query = $this->db->get('order', $sum, $start);
+        $query = $this->db->get('tbl_order', $sum, $start);
         return $query->result();
     }
 
