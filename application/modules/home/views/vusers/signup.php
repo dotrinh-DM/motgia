@@ -241,7 +241,6 @@
                         <option value="Vĩnh Long">Vĩnh Long</option>
                         <option value="Vĩnh Phúc">Vĩnh Phúc</option>
                         <option value="Yên Bái">Yên Bái</option>
-
                     </select>
                 </div>
             </div>
