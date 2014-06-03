@@ -1,7 +1,7 @@
 <style>
     /** Tables (classified as "sTable") **/
     table.sTable {
-        width:701px; 
+        width:430px;
         margin:0 0 0 -10px; 
         border-collapse:collapse;
     }
@@ -63,7 +63,7 @@
     a.deleteLink:hover {
         text-decoration:underline;
     }
-
+    ul li {list-style-type: none}
 </style>
 <div id="leftBox">
     <a href="<?php echo site_url('admin/category_controller/addForm') ?>">Add category</a>
@@ -74,7 +74,7 @@
                 <h3><input type="submit" name="ook" value="Update order"/></h3>
             </div>
             <div class="innerContent">
-                <table class="sTable">
+                <table class="sTable" style="margin-left: 260px;">
 
                     <?php
                     show_cate($data);

@@ -24,9 +24,11 @@ public function getAll($table)
             
             if ($this->checklogin($email, $pass)==TRUE) {
                 $fullname = $this->getName($email);
+                $idd = $this->getID($email);
                 $newdata1 = array(
                 'fullname' => $fullname,
                 'email' => $email,
+                'userID'=>$idd[0]->userID,
                 'logged_in' => TRUE
                 );
                 $this->session->set_userdata('admin',$newdata1);
@@ -36,18 +38,26 @@ public function getAll($table)
             else                 
                 echo 'đăng nhập thất bại';
     }
-    
+
+    public function getID($email)
+    {
+       return $this->db->query("select userID from user where email = '$email' ")->result();
+
+    }
       
 
-        public function checklogin($email=0,$password=0){
-        $check1=$this->db->select('email','password')->FROM('user')->WHERE(array ('email'=>$email,'password'=>$password))->get()->row_array();
+    public function checklogin($email=0,$password=0){
+        $check1=$this->db->select('userID','email','password')->FROM('user')->WHERE(array ('email'=>$email,'password'=>$password))->get()->row_array();
         if(count($check1))
             return $check1=TRUE;
         else
             return $check1=FALSE;    
     }
     public function getName($email=0){
-        $querry['fullname'] = $this->db->select('firstname,lastname')->WHERE('email',$email)->get('user')->row_array();
+        $querry['fullname'] = $this->db->select('firstname,lastname')
+            ->WHERE('email',$email)
+            ->get('user')
+            ->row_array();
         return $querry['fullname']['firstname'].' '.$querry['fullname']['lastname'];
     }
 }

@@ -7,7 +7,7 @@
         <th>Giá</th>
 
         <th>Ngày tạo</th>
-        <th>Danh mục</th>
+
         <th>Trạng thái</th>
         <th>Sửa</th>
         <th>Xóa</th>
@@ -28,7 +28,7 @@
             <td><?php echo $value['price'] ?></td>
 
             <td><?php echo $value['create_date'] ?></td>
-            <td><?php echo $value['categoriesID'] ?></td>
+
             <td><?php if ($value['status'] == 0) echo 'Chờ'; elseif ($value['status'] == 1) echo 'Ok';
                 else echo 'Bị khóa'; ?></td>
             <td><a href="<?php echo site_url("admin/user_controller/edituser/") . '/' . $value['productsID']; ?>">Sửa</a>

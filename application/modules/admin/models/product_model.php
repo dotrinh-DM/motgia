@@ -3,6 +3,7 @@
 class Product_model extends CI_Model
 {
     protected $tbl_product = 'products';
+    protected $tbl_cp = 'tbl_category_product';
 
     public function __construct()
     {
@@ -28,37 +29,14 @@ class Product_model extends CI_Model
         return $query->result();
     }
 
-    public function changeDataUser($id,$userID,$date,$ho,$ten,$email,$matkhau,$ngaysinh,$gioitinh,$tinh,$phone,$diachi,$phanquyen){
-        $data = array(
-            'userID' => $userID,
-            'firstname' => $ho,
-            'lastname' => $ten,
-            'email' => $email,
-            'password' => $matkhau,
-            'birthday' => $ngaysinh,
-            'gender' => $gioitinh,
-            'coin' => '0',
-            'province' => $tinh,
-            'phone' => $phone,
-            'address' => $diachi,
-            'status' => '0',
-            'create_date' => $date,
-            'levelID' => $phanquyen
-        );
-        if($id == '' || $id === FALSE)
-        {
-            $this->db->insert($this->tbl_user, $data);
-        }
-        else
-        {
-            $this->db->where('userID', $id);
-            $this->db->update($this->tbl_user, $data);
-        }
+    public function insertProduct($data) {
+        $this->db->insert($this->tbl_product, $data);
     }
-    public function del($id)
+
+    public function insertCatePro($category_product)
     {
-        $this->db->where('userID',$id);
-        $this->db->delete($this->tbl_user);
+        $this->db->insert($this->tbl_cp, $category_product);
+//        var_dump($category_product); die();
     }
 
 }
