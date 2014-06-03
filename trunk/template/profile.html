@@ -625,9 +625,9 @@
                         <li class='tab'><a href="#tabs1-js">Quản lý sản phẩm</a></li>
                         <li class='tab'><a href="#tabs1-css"><span>0</span>Tin nhắn</a></li>
                         <li class='tab'><a href="#tabs1-monney">Nạp tiền</a></li>
-                        <li class='tab'><a href="#tabs1-bill"><span>0</span>Hóa đơn</a></li>
-                         <li class='tab'><a href="#tabs1-history">Lịch sử mua hàng</a></li>
-                   
+                        <li class='tab'><a href="#tabs1-upgrade">Mở gian hàng</a></li>
+                        <li class='tab'><a href="#tabs1-history">Lịch sử </a></li>
+
                     </ul>
                     <div class='panel-container'>
                         <div id="tabs1-html">
@@ -1049,73 +1049,109 @@
                                 sdfsdf nạp tiền
                             </p>
                         </div>
-                        <div id="tabs1-bill">
-                            <h6 class="title_detail_item">order</h6>
-                            <table class="oder_table">
-                                <tr>
-                                    <th>#</th>
-                                    <th>Hình</th>
-                                    <th>Ngày đặt</th>
-                                    <th>Tên sản phẩm</th>
-                                    <th>Người mua</th>
-                                    <th>Tổng tiền</th>
-                                    <th>Trạng thái</th>
-
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td><a href="#"><img src="uploads/product_1.png"/></a></td>
-                                    <td>12/12/2014</td>
-                                    <td><a href="#">Sản phẩm 1</a></td>
-                                    <td>Lê Hải</td>
-                                    <td>100.000 VND</td>
-                                    <td>
-                                        <span class="bg_gray">Đã bán</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td><a href="#"><img src="uploads/product_1.png"/></a></td>
-                                    <td>12/12/2014</td>
-                                    <td><a href="#">Sản phẩm 1</a></td>
-                                    <td>Lê Hải</td>
-                                    <td>100.000 VND</td>
-                                    <td>
-                                        <span class="bg_green">Chờ xử lý</span>
-                                    </td>
-                                </tr>
-                                  <tr>
-                                    <td>1</td>
-                                    <td><a href="#"><img src="uploads/product_1.png"/></a></td>
-                                    <td>12/12/2014</td>
-                                    <td><a href="#">Sản phẩm 1</a></td>
-                                    <td>Lê Hải</td>
-                                    <td>100.000 VND</td>
-                                    <td>
-                                        <span class="bg_red">Đã hủy</span>
-                                    </td>
-                                </tr>
-                               <tr>
-                                    <td>1</td>
-                                    <td><a href="#"><img src="uploads/product_1.png"/></a></td>
-                                    <td>12/12/2014</td>
-                                    <td><a href="#">Sản phẩm 1</a></td>
-                                    <td>Lê Hải</td>
-                                    <td>100.000 VND</td>
-                                    <td>
-                                        <span class="bg_gray">Đã bán</span>
-                                    </td>
-                                </tr>
-                            </table>
-                            <section class="pagination">
-                                <div class="paginationControl clearfix">
-                                    <a href="#"></a>
-                                    <span class="active">1</span>
-                                    <a href="#">2</a>
-                                    <a href="#">3</a>
-                                    <a href="#"></a>
+                  
+                        <div id="tabs1-upgrade">
+                            <h6 class="title_detail_item">Mở gian hàng</h6>
+                            <h5 class="marginBottom_15">
+                                Để khởi tạo gian hàng bạn cần nhập đầy đủ thông tin bên dưới và đồng ý với những điều khoản sử dụng gian hàng 
+                            </h5>
+                            <form class="form error" id="Form">
+                                <div class="position">
+                                    <label>Ảnh đại diện<span>*</span></label>
+                                    <input type="file"/>
+                                    <div class="clear"></div>
+                                     
                                 </div>
-                            </section><!-- #End pagination-->
+                                <div  class="position">
+                                    <label>HọTên <span>*</span></label>
+                                    <input type="text" required=""/>
+                                    <span class="tooltip">Không được để trống</span>
+                                </div>
+                                <div>
+                                    <label>Giới tính<span>*</span></label>
+                                    <div class="select country">
+                                        <select>
+                                            <option>Nam</option>
+                                            <option>Nữ</option>
+
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="marginBottom_15">
+                                    <label>Ngày sinh<span>*</span></label>
+                                    <div class="select">
+                                        <select>
+                                            <option>Oct</option>
+                                            <option>Jun</option>
+                                        </select>
+                                    </div>
+                                    <div class="select">
+                                        <select>
+                                            <option>12</option>
+                                            <option>13</option>
+                                        </select>
+                                    </div>
+                                    <div class="select">
+                                        <select>
+                                            <option>1990</option>
+                                            <option>1991</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="position">
+                                    <label>Email<span>*</span></label>
+                                    <input type="text" required=""/>
+                                    <span class="tooltip">Không được để trống</span>
+                                </div>
+                                  <div class="position">
+                                    <label>Trang web</label>
+                                    <input type="text" required=""/>
+                                    <span class="tooltip">Không được để trống</span>
+                                </div>
+                                 <div class="position">
+                                    <label>Điện thoại<span>*</span></label>
+                                    <input type="text" required=""/>
+                                    <span class="tooltip">Không được để trống</span>
+                                </div>
+                                <div class="position">
+                                    <label>Địa chỉ<span>*</span></label>
+                                    <input type="text" required=""/>
+                                    <span class="tooltip">Không được để trống</span>
+                                </div>
+                                <div class="position">
+                                    <label>Tỉnh<span>*</span></label>
+                                    <div class="select country">
+                                        <select>
+                                            <option>Vietnam</option>
+                                            <option>Thailan</option>
+                                            <option>Singapore</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="position">
+                                    <label>Lĩnh vực kinh doanh</label>
+                                    <textarea></textarea>
+                                    <span class="tooltip">Không được để trống</span>
+                                </div>
+                               
+                                <div class="position">
+                                    <label>Yahoo</label>
+                                    <input type="text" required=""/>
+                                </div>
+                                <div class="position">
+                                    <label>Skype</label>
+                                    <input type="text" required=""/>
+                                </div>
+                                
+                                 <div class="position">
+                                    <label>Nhập mã<span>*</span></label>
+                                    <input type="text" required=""/>
+                                    <span class="tooltip">Không được để trống</span>
+                                </div>
+                                <div>
+                                    <input type="submit" value="Đăng ký"/>
+                                </div>
+                            </form>
                         </div><!--End #tabs-2-->
                         <div id="tabs1-history">
                             <h6 class="title_detail_item">order</h6>
@@ -1149,7 +1185,7 @@
                                         <span class="bg_green">Chờ xử lý</span>
                                     </td>
                                 </tr>
-                                  <tr>
+                                <tr>
                                     <td>1</td>
                                     <td><a href="#"><img src="uploads/product_1.png"/></a></td>
                                     <td>12/12/2014</td>
@@ -1159,7 +1195,7 @@
                                         <span class="bg_red">Đã hủy</span>
                                     </td>
                                 </tr>
-                               <tr>
+                                <tr>
                                     <td>1</td>
                                     <td><a href="#"><img src="uploads/product_1.png"/></a></td>
                                     <td>12/12/2014</td>
@@ -1180,6 +1216,8 @@
                                 </div>
                             </section><!-- #End pagination-->
                         </div><!--End #tabs-2-->
+
+
                     </div>
                 </div> <!--End #tabs-->
             </div><!-- End Primary -->

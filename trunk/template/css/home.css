@@ -417,6 +417,12 @@ input[type=button] , input[type=submit], .sub_menu_2 , :before , a , img{
 .form label span{
     color: #e41346;
 }
+#tabs1-upgrade input[type=file]{
+    margin-left: 160px;
+}
+#tabs1-upgrade h4{
+    font-family:OpenSans-Light;
+}
 input[type=text] , input[type=password] , 
 input[type=email],textarea{
 
@@ -507,7 +513,7 @@ input[type=submit] , input[type=button]{
     margin-bottom: 15px;
 }
 .select{
-    width: 100%;
+    width: 100px;;
     height: 36px;
     overflow: hidden;
     background: #e5e6e6 url(../images/select.png) right no-repeat;
