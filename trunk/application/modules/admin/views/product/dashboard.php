@@ -1,1 +1,1 @@
-Hello!
+<center><h1>Xin chào bạn đến với trang quản lý hệ thống siêu thị một giá</h1></center>
