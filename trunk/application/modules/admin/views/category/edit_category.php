@@ -23,7 +23,7 @@
 
 
         <p class="stdformbutton">
-            <button class="btn btn-primary" type="submit" name="ook">Submit Button</button>
+            <button class="btn btn-primary" type="submit" name="ook">Update</button>
             <button type="reset" class="btn">Reset Form</button>
         </p>
     </form>
