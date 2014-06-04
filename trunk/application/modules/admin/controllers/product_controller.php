@@ -48,7 +48,7 @@ class Product_controller extends CI_Controller
             'quantity' => $this->input->post('soluong'),
             'create_date' => $date,
             'soldnumber' => 0,
-            'images'=>$link_json,
+            'images' => $link_json,
             'intro' => $this->input->post('txtdes'),
             'hightlight' => $this->input->post('noibat'),
             'condition' => $this->input->post('dieukien'),
@@ -69,7 +69,7 @@ class Product_controller extends CI_Controller
             $link_img_insert[] = $this->uploadImages($name_detail, $link);
         }
         foreach ($link_img_insert as $val) {
-            $newlink[] = $link.$val['file_name'];
+            $newlink[] = $link . $val['file_name'];
         }
         $link_json = json_encode($newlink);
         $data = $this->getInput($link_json);
@@ -80,7 +80,6 @@ class Product_controller extends CI_Controller
                 'productsID' => $data['productsID'],
                 'categoryID' => $row
             );
-//                var_dump($category_product); die();
             $this->product_model->insertCatePro($category_product);
         }
 
@@ -112,18 +111,60 @@ class Product_controller extends CI_Controller
      * @param string $id
      * load gia dien cho nguoi dung dua san pham
      */
-    public function editForm($id)
+    public function editproduct($id)
     {
-        $data['title'] = 'Sửa sản phẩm';
-        $data['h1'] = 'Edit Product';
-        $data['main_images'] = $this->product_model->getMainImages($id);
-        $data['detail_images'] = $this->product_model->getDetailImages($id);
-        $data['product_info'] = $this->product_model->getProductById($id);
-        $data['product_in_cate'] = $this->product_model->getProductIncate($id);
-        $data['cates'] = $this->category_model->getAll();
-        $data['brands'] = $this->brand_model->getAll();
-        $data['template'] = 'product/edit';
-        $this->load->view("layout/layout", $data);
+        $temp['info'] = $this->session->userdata('admin');
+        $temp['title'] = 'Sủa sản phẩm';
+        $temp['template'] = 'product/edit_product';
+        $temp['product'] = $this->product_model->getByID($id);
+        $temp['product_in_cate'] = $this->product_model->getProductIncate($id);
+        $temp['data'] = $this->category_model->getAll();
+        $this->load->view('layout_admin/layout', $temp);
+    }
+
+    public function updateProducts()
+    {
+        $idhidden = $this->input->post('idproduct');
+        $images11 = $this->product_model->getImages($idhidden);
+        $images22 = json_decode($images11[0]->images);
+        $raw_name = 'img';
+        $link = 'public/product_images/';
+        $arr = array();
+        for ($i = 0; $i < 3; $i++)
+        {
+            if($_FILES['img' . $i]['name'] != '')
+            {
+                $tam = $this->uploadImages($raw_name.$i,$link);
+                $arr[$i] = $link . $tam['file_name'];
+            }else{
+                $arr[$i] = $images22[$i];
+            }
+        }
+        $this->product_model->delProCate($idhidden);
+        $danhmuc = $this->input->post('danhmuc');
+        foreach ($danhmuc as $row) {
+            $category_product = array(
+                'productsID' => $idhidden,
+                'categoryID' => $row
+            );
+            $this->product_model->insertCatePro($category_product);
+        }
+        $link_json = json_encode($arr);
+        $data = array(
+            'name' => $this->input->post('txtname'),
+            'price' => $this->input->post('txtprice'),
+            'quantity' => $this->input->post('soluong'),
+            'images' => $link_json,
+            'intro' => $this->input->post('txtdes'),
+            'hightlight' => $this->input->post('noibat'),
+            'condition' => $this->input->post('dieukien'),
+            'productinfo' => $this->input->post('chitiet'),
+            'status' => $this->input->post('status')
+        );
+//        var_dump($data); die();
+        $this->product_model->updateProduct($idhidden, $data);
+        redirect('admin/product_controller');
+
     }
 
     /**
@@ -133,10 +174,8 @@ class Product_controller extends CI_Controller
      */
     public function del($id)
     {
-
-        $this->product_model->delImages($id);
         $this->product_model->delProCate($id);
-        $this->product_model->delProduct($id);
+        $this->product_model->del($id);
         redirect('admin/product_controller');
     }
 }

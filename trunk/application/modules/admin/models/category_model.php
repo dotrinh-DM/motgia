@@ -72,7 +72,8 @@ class Category_model extends CI_Model
      */
     public function del($id)
     {
-        $this->delRows('categoryID', $id, $this->_tbl_cate);
+        $this->db->where("categoryID", "$id");
+        $this->db->delete($this->_tbl_cate);
     }
 
     /**
@@ -83,8 +84,11 @@ class Category_model extends CI_Model
      */
     public function checkChildExist($id)
     {
-        $check = $this->getRow('category_parent', 'category_parent', $id, $this->_tbl_cate);
-        return count($check) > 0 ? TRUE : FALSE;
+        $this->db->select('category_parent');
+        $this->db->where("category_parent", "$id");
+        $sql = $this->db->get($this->_tbl_cate);
+        $aa = $sql->result();
+        return count($aa) > 0 ? TRUE : FALSE;
     }
 
     /**
@@ -99,5 +103,4 @@ class Category_model extends CI_Model
         $query = $this->db->query($sql);
         return $query->result();
     }
-
 }

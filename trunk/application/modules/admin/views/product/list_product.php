@@ -31,9 +31,9 @@
 
             <td><?php if ($value['status'] == 0) echo 'Chờ'; elseif ($value['status'] == 1) echo 'Ok';
                 else echo 'Bị khóa'; ?></td>
-            <td><a href="<?php echo site_url("admin/user_controller/edituser/") . '/' . $value['productsID']; ?>">Sửa</a>
+            <td><a href="<?php echo site_url("admin/product_controller/editproduct/") . '/' . $value['productsID']; ?>">Sửa</a>
             </td>
-            <td><a href="<?php echo site_url("admin/user_controller/deluser/") . '/' . $value['productsID']; ?>">Xóa</a></td>
+            <td><a href="<?php echo site_url("admin/product_controller/del/") . '/' . $value['productsID']; ?>">Xóa</a></td>
         </tr>
     <?php
     }

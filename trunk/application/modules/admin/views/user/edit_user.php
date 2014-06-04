@@ -23,7 +23,7 @@
         <p>
             <label> Mật khẩu </label>
             <span class="field"><input type="password" name="matkhau" class="input-large"
-                                       value="<?php echo $item->password; ?>"/></span>
+                                       value=""/></span>
         </p>
 
         <p>
