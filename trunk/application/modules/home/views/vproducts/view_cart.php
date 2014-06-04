@@ -33,96 +33,76 @@
             });
             event.preventDefault(); //Prevent the default subm
         });
-        
-         $('.payhome').live("click", "submit", function(e) {//Nếu chưa đăng nhập thì hiện cửa sổ popup để đăng nhập
-        var guest1 = $('#errr').val();
-        var guest2 = '<?php echo $guest['logged_in'] == TRUE ? "TRUE" : "FALSE"; ?>';
-        if (guest1 == '1' || guest2 == 'TRUE') { 
-//            return true;
-            alert('ok');
-//            $('.formcart').attr('action', '<?php echo base_url() ?>thanh-toan-tai-nha');
-            
-        } else{
-            alert('Bạn phải nhập thông tin khách hàng');
-        return false;}
-    });
-    });
-    $('#continue').live("click", function()
-    {
-        var fullname = $(".fullname").val();
-        var phone = $(".h5-phone").val();
-        var mail = $(".h5-email").val();
-        var province = $("#province").val();
-        var address = $("#address").val();
-        $.ajax({
-            type: "POST",
-            url: "<?php echo site_url('home/cusers/addGuest'); ?>",
-            data: {"fullname": fullname, "phone": phone, "mail": mail, "province": province, "address": address},
-            success: function(html) {
-                $("#cke").empty();
-                $("#cke").append(html);
-                $("#errr").val(1);
-            }
+
+        $('#continue').live("click", function()
+        {
+            var fullname = $(".fullname").val();
+            var phone = $(".h5-phone").val();
+            var mail = $(".h5-email").val();
+            var province = $("#province").val();
+            var address = $("#address").val();
+            $.ajax({
+                type: "POST",
+                url: "<?php echo site_url('home/cusers/addGuest'); ?>",
+                data: {"fullname": fullname, "phone": phone, "mail": mail, "province": province, "address": address},
+                success: function(html) {
+                    $("#cke").empty();
+                    $("#cke").append(html);
+                }
+            });
         });
-    });
-    $('.number').live("click", function()
-    {
-        var number = $(this).val();
+        $('.number').live("click", function()
+        {
+            var number = $(this).val();
 //        var number2 = $.parseNumber(number, {format:"#.###,000", locale:"us"});
-        var id = $(this).attr("id");
-        $("#changenumber" + id).empty();
-        $("#changenumber" + id).append('<input class="ok" type="button" id="' + id + '" value="ok"style="padding: 0px;width: 30px;height: 28px;"/>\n\
-                    <input class="cancel" type="button" id="' + id + '" value="hủy" style="padding: 0px;width: 30px;height: 28px;"/>');
-        $('.cancel').click(function() {
             var id = $(this).attr("id");
             $("#changenumber" + id).empty();
-        });
+            $("#changenumber" + id).append('<input class="ok" type="button" id="' + id + '" value="ok"style="padding: 0px;width: 30px;height: 28px;"/>\n\
+                    <input class="cancel" type="button" id="' + id + '" value="hủy" style="padding: 0px;width: 30px;height: 28px;"/>');
 
-        $('.ok').click(function() {
-            var proid = $(this).attr("id");
-            var uid = $('.hidden_user' + proid).val();
+
+            $('.cancel').click(function() {
+                var id = $(this).attr("id");//proid
+                $("#changenumber" + id).empty();
+            });
+
+            $('.ok').live("click", function() {
+                var proid = $(this).attr("id");
+                var uid = $('.hidden_user' + proid).val();
+
 //            var number2 = $.formatNumber(number*100000, {format: "#,###.00", locale: "us"});
 //            $("#salaryUS").val(number);
 //            var tong =+ parseInt($('.totalprice'+uid).val());
-            $.ajax({
-                type: "POST",
-                url: "<?php echo site_url('home/cproducts/updatecart'); ?>",
-                data: {"userid": uid, "soluong": number, "proid": proid},
-                success: function(html) {
-                    $("#changenumber" + proid).empty();
-                    $('.subprice' + id).empty();
-                    $('.subprice' + id).append(number * 100000);
-//                    $('.total'+uid).append(tong);
-
-                }
+                $.ajax({
+                    type: "POST",
+                    url: "<?php echo site_url('home/cproducts/updatecart'); ?>",
+                    data: {"userid": uid, "soluong": number, "proid": proid},
+                    success: function(html) {
+                        $("#changenumber" + proid).empty();
+                        $('.totalprice' + proid).empty();
+                        $('.totalprice' + proid).append(number * 100000);
+                    }
+                });
             });
         });
-        $('.ok').live("click", function() {
-            var uid = $('.hidden_user' + proid).val();
-            var tong = +parseInt($('.totalprice' + uid).html());
-            $('.total' + uid).empty();
-            $('.total' + uid).append(tong);
+        $('.payonline').live("click", function(e) {//Nếu chưa đăng nhập thì hiện cửa sổ popup để đăng nhập
+            var login = '<?php echo $info['logged_in'] == TRUE ? "TRUE" : "FALSE"; ?>';
+            if (login == "TRUE") {
+                $('.formcart').attr('action', '<?php echo base_url() ?>thanh-toan-truc-tuyen');
+            } else {
+                $(this).showPopup({
+                    top: 120, //khoảng cách popup cách so với phía trên
+                    closeButton: ".close_popup", //khai báo nút close cho popup
+                    scroll: false, //cho phép scroll khi mở popup, mặc định là không cho phép
+                    onClose: function() {
+                        //sự kiện cho phép gọi sau khi đóng popup, cho phép chúng ta gọi 1 số sự kiện khi đóng popup, bạn có thể để null ở đây
+                    }
+                });
+                $('.logintitle').html('Đăng nhập');
+                return false;
+            }
         });
     });
-    $('.payonline').live("click", "submit", function(e) {//Nếu chưa đăng nhập thì hiện cửa sổ popup để đăng nhập
-        var login = '<?php echo $info['logged_in'] == TRUE ? "TRUE" : "FALSE"; ?>';
-        if (login == "TRUE") {
-            $('.formcart').attr('action', '<?php echo base_url() ?>thanh-toan-truc-tuyen');
-        } else {
-            $(this).showPopup({
-                top: 120, //khoảng cách popup cách so với phía trên
-                closeButton: ".close_popup", //khai báo nút close cho popup
-                scroll: false, //cho phép scroll khi mở popup, mặc định là không cho phép
-                onClose: function() {
-                    //sự kiện cho phép gọi sau khi đóng popup, cho phép chúng ta gọi 1 số sự kiện khi đóng popup, bạn có thể để null ở đây
-                }
-            });
-            $('.logintitle').html('Đăng nhập');
-            return false;
-        }
-    });
-
-   
 </script>
 <style type="text/css" >
     @import url('<?php echo base_url(); ?>public/adminstyle/css/animate.min.css')
@@ -263,9 +243,7 @@
                     </tr>
                 </table>
                 <center><input id="continue" required="" type="button" value="xác nhận & tiếp tục" class="btn btn-primary next" style="margin-top: 0px"/>
-                    <p><div id="cke"></div>
-                    <input type="hidden" id="errr" value="0"/>
-                    </center>
+                    <p><div id="cke"></div></center>
 
             </div>
         </div>';
@@ -329,7 +307,9 @@
                                             </div>
                                         </td>
                                         <td style="text-align: right;padding:10px">' . number_format(100000, 0, ',', '. ') . ' VNĐ</td>
-                                        <td style="text-align: right;padding:10px"><span class="subprice' . $productid . ' totalprice' . $userid . '">' . number_format(100000 * $value2['soluong'], 0, ',', '. ') . '</span> VNĐ</td>
+                                        <td style="text-align: right;padding:10px"><span class="totalprice' . $productid . '" >' . number_format(100000 * $value2['soluong'], 0, ',', '. ') . '</span> VNĐ
+                                        <input type="hidden" class="hidden_price' . $userid . ' hidden_price' . $productid . '" value="' . 100000 * $value2['soluong'] . '"/>
+                                        </td>
                                         <td style="text-align: center">
                                             <a title="Xóa khỏi giỏ hàng" href="' . site_url("home/cproducts/delCart/$userid/$productid") . '" onclick="return confirm(' . "'" . 'Bạn có muốn xóa sản phẩm này từ giỏ hàng?' . "'" . ');">Xóa</a>
                                         </td>
@@ -343,17 +323,21 @@
                                 <tr><td colspan="7">                                        
                                     <p id="productTotal" class="product-total"
                                     style="text-align: right;font-size: 16px;">Tổng tiền: <span class="total' . $userid . '">' . number_format($tong, 3, ' ,', '. ') . '</span> VNĐ</p>
+                                        <input type="hidden" id="hidden_total" value="' . $tong . '"/>
                                 </td></tr>
                             </tfoot>
                         </table>
+                        
                                 <div class="col">
                                     <div class="payment">
+                                        
                                         <div class="pay">
                                             <input type="submit" href="#popup_content" name="payonline[' . $userid . ']" value="Thanh toán trực tuyến" class="payonline"/>
                                             <input type="submit" name="payhome[' . $userid . ']" value="Thanh toán khi nhận hàng" class="payhome" />
                                         </div>
                                     </div>
                                 </div><!-- End .boxcart-info--> 
+                        
                         ';
                 }
             }
