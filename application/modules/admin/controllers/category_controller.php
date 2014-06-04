@@ -11,7 +11,7 @@ class Category_controller extends CI_Controller
         $this->load->model("home/musers");
         $this->load->library('upload');
         $this->load->library('session');
-
+        $this->load->library('form_validation');
         if ($this->session->userdata('admin') == '') {
             redirect('admin/login');
         }
@@ -118,23 +118,14 @@ class Category_controller extends CI_Controller
 
     public function del($id)
     {
-        $check = $this->category_model->checkChildExist(
-            $id);
-        if (
-        $check)
-        {
-            $this->session->set_flashdata(
-                'error', 'Xin lỗi không thể xóa được do còn thư mục con!');
+        $check = $this->category_model->checkChildExist($id);
+        if ($check) {
+            $this->session->set_flashdata('error', 'Xin lỗi không thể xóa được do còn thư mục con!');
+        } else {
+            $this->category_model->del($id);
+            $this->session->set_flashdata('success', 'Thành công!');
         }
-        else
-        {
-            $this->category_model->del(
-                $id);
-            $this->session->set_flashdata(
-                'success', 'Thành công!');
-        }
-        redirect(
-            'admin/category_controller');
+        redirect('admin/category_controller');
     }
 
 }
