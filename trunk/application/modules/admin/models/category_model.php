@@ -1,6 +1,7 @@
 <?php
 
-class Category_model extends CI_Model {
+class Category_model extends CI_Model
+{
 
     protected $_tbl_cate = 'tbl_categories';
 
@@ -11,7 +12,7 @@ class Category_model extends CI_Model {
     }
 
     /**
-     * 
+     *
      * @return array
      * Lay tat ca data trong bang category
      */
@@ -29,53 +30,43 @@ class Category_model extends CI_Model {
     }
 
     /**
-     * 
+     *
      * @param type $key
      * @param type $data
      * @return type
      * Cao nhat thu tu cho danh muc
+     * Cap nhat danh muc luon
      */
-    public function updateOrder($key, $data)
+    public function update($id, $data)
     {
-        return $this->updateRow('categoryID', $key, $data, $this->_tbl_categories);
+        $this->db->where('categoryID', $id);
+        $this->db->update($this->_tbl_cate, $data);
     }
 
     /**
-     * 
+     *
      * @param type $id
      * @return type
      * Lay danh muc theo id
      */
     public function getById($id)
     {
-        return $this->getRow('*', 'categoryID', $id, $this->_tbl_cate);
+        return $this->db->query("select * from $this->_tbl_cate where categoryID = $id")->result();
     }
 
     /**
-     * 
+     *
      * @param type $data
      * @return type
      * Them san pham moi vao db
      */
     public function insertCategory($data)
     {
-        return $this->insertRow($this->_tbl_cate, $data);
+        $this->db->insert($this->_tbl_cate, $data);
     }
 
     /**
-     * 
-     * @param string $id
-     * @param array $data
-     * @return boolean
-     * Update danh muc theo id
-     */
-    public function updateCategory($id, $data)
-    {
-        return $this->updateRow('categoryID', $id, $data, $this->_tbl_cate);
-    }
-
-    /**
-     * 
+     *
      * @param string $id
      * Xoa danh muc theo id
      */
@@ -85,7 +76,7 @@ class Category_model extends CI_Model {
     }
 
     /**
-     * 
+     *
      * @param type $id
      * @return type
      * Kiem tra xem category hien tai cocon hay khong
@@ -97,7 +88,7 @@ class Category_model extends CI_Model {
     }
 
     /**
-     * 
+     *
      * @param type $check_child
      * @return type
      * kiem tra category controller con hay khing

@@ -20,7 +20,7 @@
         </li>
         <li class="dropdown"><a href=""><span class="icon-th-list"></span> Danh mục</a>
             <ul>
-                <li><a href="table-static.html"> Thêm </a></li>
+                <li><a href="<?php echo site_url('admin/category_controller/addForm'); ?>"> Thêm </a></li>
                 <li><a href="<?php echo site_url('admin/category_controller'); ?>"> Quản lý</a></li>
             </ul>
         </li>

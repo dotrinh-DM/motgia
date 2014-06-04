@@ -70,16 +70,15 @@
     <hr />
     <div class="contentBox">
         <form action="<?php echo site_url('admin/category_controller/sortOrder'); ?>" method="POST">
-            <div class="contentBoxTop">
-                <h3><input type="submit" name="ook" value="Update order"/></h3>
-            </div>
             <div class="innerContent">
                 <table class="sTable" style="margin-left: 260px;">
 
                     <?php
                     show_cate($data);
                     ?>
-
+                    <p class="stdformbutton">
+                        <button class="btn btn-primary" type="submit" name="ook">Submit Button</button>
+                    </p>
                 </table>
             </div><!--end of #box-3-->
         </form>
