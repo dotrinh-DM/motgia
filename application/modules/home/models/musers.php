@@ -333,7 +333,7 @@ class Musers extends CI_Model {
     public function setID($table, $pri_key, $name) {
         $this->db->select("$pri_key");
         $this->db->limit(1);
-        $this->db->order_by("$table.create_date", "desc");
+        $this->db->order_by("$pri_key", "desc");
         $arrr = $this->db->get("$table")->row_array();
         $count = strlen($arrr[$pri_key]);
         $str = (int) substr($arrr[$pri_key], strlen($name), $count);
