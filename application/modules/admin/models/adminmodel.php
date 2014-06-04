@@ -21,7 +21,6 @@ public function getAll($table)
             $email=  $this->input->post('username');
             $psw=  $this->input->post('password');
             $pass = $this->encrypt->decode($psw);
-            
             if ($this->checklogin($email, $pass)==TRUE) {
                 $fullname = $this->getName($email);
                 $idd = $this->getID($email);

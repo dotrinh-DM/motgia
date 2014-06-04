@@ -34,7 +34,7 @@
         <br>
 
         <p class="stdformbutton">
-            <button class="btn btn-primary" type="submit" name="ook">Submit Button</button>
+            <button class="btn btn-primary" type="submit" name="ook">Add new</button>
             <button type="reset" class="btn">Reset Form</button>
         </p>
     </form>

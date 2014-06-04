@@ -77,7 +77,7 @@
                     show_cate($data);
                     ?>
                     <p class="stdformbutton">
-                        <button class="btn btn-primary" type="submit" name="ook">Submit Button</button>
+                        <button class="btn btn-primary" type="submit" name="ook">Update</button>
                     </p>
                 </table>
             </div><!--end of #box-3-->
