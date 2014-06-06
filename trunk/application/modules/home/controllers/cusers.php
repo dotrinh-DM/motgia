@@ -197,19 +197,6 @@ class cusers extends CI_Controller {
             $temp['product'] = $this->Musers->getProductByUID($userid, $display, $spstart);
             $temp['paging_product'] = array('num_page' => $num_page1, 'page' => $sppage, 'start' => $spstart, 'display' => $display);
 
-            //sua trang thai san pham
-//            if (isset($_GET['change_status']) && isset($_GET['proID']) && isset($_GET['status_pro'])) {
-//                $proid = $_GET['proID'];
-//                $statuspro = $_GET['status_pro'];
-//                $this->Musers->changeStatusPro($proid, $userid, $statuspro);
-//                if (isset($_GET['sppage']))
-//                    $url = 'profile?sppage=' . $_GET['sppage'] . '#products';
-//                else
-//                    $url = 'profile#products';
-//                redirect($url);
-//            }//////////////////////////////////////ket thuc quan ly san pham
-            //
-            //
             //////////////////////////////////////Quản lý đơn hàng
             if (isset($_GET['billpage']) && (int) $_GET['billpage'] > 0) {
                 $billpage = $_GET['billpage'];
@@ -223,15 +210,14 @@ class cusers extends CI_Controller {
 
             /////////////////////////////xu ly don hang
             if ($this->input->post('confirm_order')) {
-                $this->Musers->confirmOrder($this->input->post('orderid'), '2');
+                $this->Mproducts->confirmOrder($this->input->post('orderid'), '2', $this->input->post('statusid'), $userid, '');
                 if (isset($_GET['billpage']))
                     $url = 'profile?billpage=' . $_GET['billpage'] . '#bill';
                 else
                     $url = 'profile#bill';
                 redirect($url);
             }
-            if ($this->input->post('deny_order'))
-                $this->Musers->confirmOrder($this->input->post('orderid'), '0');
+
             //end- xu ly don hang
 
             $temp['num_order'] = $this->Musers->getNumOrderStatus($userid); //Lấy số hóa đơn chưa xử lý
@@ -263,6 +249,14 @@ class cusers extends CI_Controller {
         $temp['title'] = 'Thông tin cá nhân';
         $temp['template'] = 'vusers/profile';
         $this->load->view('layout/layout', $temp);
+    }
+
+    public function cancel_order() {
+        $info = $this->Mlog->log();
+        $oid = $_POST['oid'];
+        $statusid = $_POST['statusID'];
+        $note = $_POST['note'];
+        $this->Mproducts->confirmOrder($oid, '0', $statusid, $info['userID'], $note);
     }
 
     public function changeStatusProduct() {
@@ -332,15 +326,19 @@ class cusers extends CI_Controller {
 
     public function orderdetail() {
         $temp['info'] = $this->Mlog->log();
-
         if (isset($_GET['orderid'], $_GET['buyer'])) {
             $temp['detail'] = $this->Musers->getOrderDetail($_GET['orderid']);
             if (substr($_GET['buyer'], 0, 3) == 'UID')
                 $temp['buyer'] = $this->Musers->getOrder_UserBuy($_GET['orderid'], $_GET['buyer']);
             elseif (substr($_GET['buyer'], 0, 5) == 'GUEST')
                 $temp['buyer'] = $this->Musers->getOrder_GuestBuy($_GET['orderid'], $_GET['buyer']);
+            if ($this->input->post('confirm')) {
+                $this->Mproducts->confirmOrder($_GET['orderid'], '2', $temp['buyer']['statusID'], $temp['info']['userID'], '');
+                $page = $_SERVER['PHP_SELF'].'?orderid='.$_GET['orderid'].'&buyer='.$_GET['buyer'].'';//url de load lai trang
+                $sec = "1";
+                header("Refresh: $sec; url=$page");
+            }
         }
-
         $temp['title'] = 'Chi tiết hóa đơn';
         $temp['template'] = 'vusers/order_detail';
         $this->load->view('layout/layout', $temp);

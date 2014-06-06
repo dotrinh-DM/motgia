@@ -34,15 +34,28 @@
         }
 //        $('.clockmess').append('10');
         $(function() {
-            $('#cancel_order').live("click", "submit", function(e) {//Hiện cửa sổ ghi lý do hủy
+            $('.cancel_order').live("click", "submit", function(e) {//Hiện cửa sổ ghi lý do hủy
                 $('.headermess').empty();
                 $('#contentmess').empty();
                 $('.headermess').fadeIn(1000).html('Hủy đơn hàng');
                 $('#contentmess').append('</br><form action="" method="post">\n\
                         <textarea id="note" name="note" placeholder="lý do hủy" required="" style="font-size: 11pt;margin-top: -10px;height: 80px;" class="validationValid"></textarea>\n\
-                        <input type="submit" class="btn" value="ok" style="margin-top: -8px;width: 80px;padding: 10px;"/></form>');
+                        <input type="submit" class="btn order_ok" value="ok" style="margin-top: -8px;width: 80px;padding: 10px;"/></form>');
                 popupshow();
                 return false;
+            });
+            $('.order_ok').live("click", function(e) {
+                var orderID = '<?php echo $_GET['orderid'] ?>';
+                var statusID = $('.statusid').val();
+                var note = $("#note").val();
+                $.ajax({
+                    type: "POST",
+                    url: "<?php echo site_url('home/cusers/cancel_order') ?>",
+                    data: {"oid": orderID, "statusID": statusID, "note": note},
+                    success: function(html) {
+                        location.reload(true);
+                    }
+                });
             });
         });
     });
@@ -51,7 +64,7 @@
 <section class="bg_shadow">
     <div class="wrap clearfix">
         <div class="title floatLeft">
-            <h6>Chi tiết hóa đơn mã số: <?php echo $_GET['orderid'] ?></h6>
+            <h6>Chi tiết hóa đơn mã số: <?php echo (isset($_GET['orderid'])) ? $_GET['orderid'] : '' ?></h6>
         </div>
     </div>
 </section>
@@ -59,7 +72,7 @@
 <div id="boxes">
     <div style="top: 199.5px; left: 551.5px; display: none; border: 1px solid;border-radius: 14px;" id="dialog" class="window">
         <div style="width: 45px;height: 45px;float: left;margin: -25px -15px;">
-            <img src="http://localhost:7070/motgia/public/icons/pin_icon.png" style="width: 41px;">
+            <img src="<?php echo base_url() ?>public/icons/pin_icon.png" style="width: 41px;">
         </div> 
         <div style="float: left;margin-left: 20px;width: 310px;">
             <center>
@@ -67,7 +80,7 @@
             </center>
         </div>
         <div style="float: right;">
-            <a href="#" class="close"><img src="http://localhost:7070/motgia/public/icons/del.png" style="width: 35px;margin: -14px -12px 0px 0px;float: right;"></a>
+            <a href="#" class="close"><img src="<?php echo base_url() ?>public/icons/del.png" style="width: 35px;margin: -14px -12px 0px 0px;float: right;"></a>
         </div>
         <div class="clear" id="contentmess" style="width: 100%;height: 70%;padding: 5px;text-align: center;font-size: 13pt;">
         </div>
@@ -97,12 +110,37 @@
                  border: 1px solid #ABC3D8;
                  border-radius: 5px;
                  padding: 10px;">
-                <p>Đơn hàng mang mã số <b>' . $_GET['orderid'] . '</b> đã bị hủy bởi <b>' . $seller['fullname'] . '</b> vào ngày ' . $seller['date_cr'] . '</p>
-                <p><b>Lý do : </b></p>
+                <p>Đơn hàng mang mã số <b>' . $_GET['orderid'] . '</b> đã bị hủy bởi <b>' . $profile['fullname'] . '</b> vào ngày ' . $seller['action_date'] . '</p>
+                <p><b>Lý do : '.$seller['note'].'</b></p>
             </div>';
-
+                else if ($seller['status'] == 1)//don hang dang cho xac nhan
+                    echo '
+            <div style="margin: 10px 0px 10px 0px;
+                 border: 1px solid #ABC3D8;
+                 border-radius: 5px;
+                 padding: 10px;">
+                <p>Đơn hàng mang mã số <b>' . $_GET['orderid'] . '</b> đang chờ xác nhận của gian hàng</p>
+                <p>Đã được mua vào ngày ' . $seller['date_cr'] . '</p>
+                <p><i><u>Ghi chú: </u> ' . $seller['note'] . '</i></p>
+            </div>
+            ';
                 else if ($seller['status'] == 2)//don hang da xac nhan
-                    echo '<span style="border: 1px solid #87EC19;border-radius: 5px 5px 5px 5px;padding: 15px;margin-bottom: 64px;">Đơn hàng đã được gian hàng xác nhận, yêu cầu xác nhận lại đơn hàng của bạn!</span>';
+                    echo '
+            <center><button type="button" class="btn btn-primary btn-lg btn-block" disabled="disabled" style="
+                            width: 300px;
+                            font-size: 12pt;
+                            padding: 18px;
+                            border-radius: 10px;
+                            background-color: #CEB711;
+                            ">Đơn hàng đã xác nhận</button>
+            </center>
+            <div style="margin: 10px 0px 10px 0px;
+                 border: 1px solid #ABC3D8;
+                 border-radius: 5px;
+                 padding: 10px;">
+                <p>Đơn hàng mang mã số <b>' . $_GET['orderid'] . '</b> đã được mua vào ngày ' . $seller['date_cr'] . '</p>
+                <p>Đã được gian hàng xác nhận vào ngày ' . $seller['action_date'] . '</p>
+            </div>';
             }
             ?>
 
@@ -246,19 +284,21 @@
                     if ($seller['status'] == 1)//Đơn hàng đang chờ xác nhận
                         echo '
                     <form method="post" action="">
-                    <center><input type="submit" class="btn btn-primary btn-lg btn-block" style="
+                    <input type="hidden" class="statusid" value="' . $seller['statusID'] . '"/>
+                    <center><input type="submit" class="btn btn-primary btn-lg btn-block cancel_order" style="
                             width: 300px;
                             font-size: 12pt;
                             padding: 18px;
                             border-radius: 10px;
                             background-color: #CEB711;
-                            " name="deny" value="Huỷ đơn hàng" id="cancel_order"/>
+                            " name="deny" value="Huỷ đơn hàng"/>
                     </center>
                     </form>
                     ';
-                    if ($seller['status'] == 2 && $seller['method'] == 0)//Đơn hàng đã xác nhận
+                    if ($seller['status'] == 2 && $seller['method'] == 0)//Đơn hàng đã xác nhận và thanh toán tại nhà
                         echo '
                     <form method="post" action="">
+                    <input type="hidden" class="statusid" value="' . $seller['statusID'] . '"/>
                     <center><input type="submit" class="btn btn-primary btn-lg btn-block" style="
                             width: 300px;
                             font-size: 12pt;

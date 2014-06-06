@@ -171,40 +171,48 @@ class Musers extends CI_Model {
         return $query->result();
     }
 
-    public function getOrder_UserBuy($oid,$buyid) {// chi tiet hoa don mau boi thanh vien
+    public function getOrder_UserBuy($oid, $buyid) {// chi tiet hoa don mua boi thanh vien
         return $this->db->select("
             tbl_order.orderID as orderID,
             tbl_order.buyerID as buyerID,
             tbl_order.note as note,
             tbl_order.method as method,
             tbl_order.status as status, 
+            tbl_order.statusID as statusID, 
             user.email as buyeremail,
             user.phone as buyerphone, 
-            user.address as buyeradd")
-                        ->select("CONCAT(firstname ,' ',lastname) as fullname", FALSE)
+            user.address as buyeradd,
+            bill_status.userID as action_uid")
+                        ->select("CONCAT(user.firstname ,' ',user.lastname) as fullname", FALSE)
                         ->select("DATE_FORMAT(tbl_order.create_date, '%d-%m-%Y, %H:%i %p') AS date_cr", FALSE)
                         ->select("DATE_FORMAT(user.birthday, '%Y') AS buyeryear", FALSE)
+                        ->select("DATE_FORMAT(bill_status.action_date, '%d-%m-%Y, %H:%i %p') AS action_date", FALSE)
                         ->where("tbl_order.orderID", "$oid")
                         ->where("tbl_order.buyerID", "$buyid")
                         ->join('user', 'user.userID = tbl_order.buyerID')//xem thông tin người mua
+                        ->join('bill_status', 'bill_status.statusID = tbl_order.statusID')
                         ->get('tbl_order')->row_array();
     }
-    
-       public function getOrder_GuestBuy($oid,$buyid) {//chi tiet hoa don mua boi khach vang lai
+
+    public function getOrder_GuestBuy($oid, $buyid) {//chi tiet hoa don mua boi khach vang lai
         return $this->db->select("
             tbl_order.orderID as orderID,
             tbl_order.buyerID as buyerID,
             tbl_order.note as note,
             tbl_order.method as method,
-            tbl_order.status as status, 
+            tbl_order.status as status,
+            tbl_order.statusID as statusID,
             guest.fullname as fullname,
             guest.mail as buyeremail,
-            guest.phone as buyerphone,")
+            guest.phone as buyerphone,
+            bill_status.userID as action_uid")
                         ->select("CONCAT(address ,' ',province) as buyeradd", FALSE)
                         ->select("DATE_FORMAT(tbl_order.create_date, '%d-%m-%Y, %H:%i %p') AS date_cr", FALSE)
+                        ->select("DATE_FORMAT(bill_status.action_date, '%d-%m-%Y, %H:%i %p') AS action_date", FALSE)
                         ->where("tbl_order.orderID", "$oid")
                         ->where("tbl_order.buyerID", "$buyid")
                         ->join('guest', 'guest.guestID = tbl_order.buyerID')//xem thông tin khách hàng vãng lai
+                        ->join('bill_status', 'bill_status.statusID = tbl_order.statusID')
                         ->get('tbl_order')->row_array();
     }
 
@@ -222,7 +230,7 @@ class Musers extends CI_Model {
     //Lay chi tiet don hang
     public function getOrderDetail($ordid) {
         return $this->db
-                        ->select(" products.name as proname,
+                    ->select(" products.name as proname,
                     products.productsid as proid,
                     order_detail.quantity as number,
                     products.price as price")
@@ -231,27 +239,26 @@ class Musers extends CI_Model {
                         ->get('order_detail')
                         ->result();
     }
-    
-       public function getOrderDetail_History($oid) {// chi tiet hoa don mua boi thanh vien
+
+    public function getOrderDetail_History($oid) {// chi tiet hoa don mua boi thanh vien
         return $this->db->select("
             tbl_order.orderID as orderID,
-            tbl_order.buyerID as buyerID,
+            tbl_order.sellerID as sellerID,
             tbl_order.note as note,
             tbl_order.method as method,
             tbl_order.status as status, 
+            tbl_order.statusID as statusID, 
             user.email as selleremail,
-            user.phone as sellerphone,")
+            user.phone as sellerphone, 
+            user.address as selleradd,
+            bill_status.userID as action_uid")
                         ->select("CONCAT(user.firstname ,' ',user.lastname) as fullname", FALSE)
-                        ->select("CONCAT(user.address ,' ',user.province) as selleradd", FALSE)
                         ->select("DATE_FORMAT(tbl_order.create_date, '%d-%m-%Y, %H:%i %p') AS date_cr", FALSE)
+                        ->select("DATE_FORMAT(bill_status.action_date, '%d-%m-%Y, %H:%i %p') AS action_date", FALSE)
                         ->where("tbl_order.orderID", "$oid")
-                        ->join('user', 'user.userID = tbl_order.sellerID')//xem thong tin nguoi ban
+                        ->join('user', 'user.userID = tbl_order.sellerID')//xem thông tin người mua
+                        ->join('bill_status', 'bill_status.statusID = tbl_order.statusID')
                         ->get('tbl_order')->row_array();
-    }
-    
-    public function confirmOrder($orid, $st) {
-        $this->db->where('orderID', $orid)
-                ->update('tbl_order', array('status' => $st));
     }
 
     //dem co bao nhieu hoa don chua xu ly cua thanh vien

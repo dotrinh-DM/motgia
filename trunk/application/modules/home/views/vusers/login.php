@@ -46,11 +46,11 @@
                 'email2': $('input[name=inputemail]').val(), //Store name fields value
                 'pass2': $('input[name=inputpass]').val()
             };
-            $('.clockmess').append('5');
-            var sec = 5;
+//            $('.clockmess').append('5');
+            var sec = 4;
             $.ajax({//Process the form using $.ajax()
                 type: 'POST', //Method type
-                url: 'home/cusers/login', //gọi đến controller xử lý
+                url: '<?php echo base_url()?>home/cusers/login', //gọi đến controller xử lý
                 data: postForm, //truyền biến dưới dạng $_POST['ten bien']
                 dataType: 'json',
                 success: function(data) { // load lại trang sau 3 giay
@@ -58,21 +58,22 @@
                         if (data.errors.name) { //Lấy thông tin báo lỗi
                             popupshow();
                             //Dong ho dem nguoc
-//                            var sec = 10;
+//                            var sec = 4;
                             var timer = setInterval(function() {
                                 $('.clockmess').text(sec--);
-                                if (sec == -2) {
+                                if (sec == -1) {
                                     $('.clockmess').empty();
                                     $('.deltex').empty();
                                     $('#mask').hide();
                                     $('.window').hide();
                                     clearInterval(timer); 
+                                    sec = 4;
                                 }
                             }, 1000);
-
+                            
                             $('.headermess').fadeIn(1000).html('Sai tên truy nhập hoặc</br>mật khẩu!'); //chèn mã lỗi vào thẻ có class = throw_error
                             $('#contentmess').append('</br>\n\
-                                                <span class="clockmess" style="font-size: 33pt;"><b>5</b></span><span class="deltex">s</span></br>\n\
+                                                <b><span class="clockmess" style="font-size: 33pt;">4</span></b><span class="deltex">s</span></br>\n\
                                                 <span><a href="<?php echo base_url() ?>">Quên mật khẩu</a> / <a href="<?php echo base_url() ?>dang-ky">Đăng ký</a></span>');
                         }
                     } else {
@@ -86,15 +87,16 @@
                                 $('#mask').hide();
                                 $('.window').hide();
                                 clearInterval(timer);
+                                sec = 3;
                             }
                         }, 1000);
                         $('.headermess').fadeIn(1000).html('Đăng nhập thành công!'); //nếu thành công thì báo thành công
                         $('#contentmess').append('<span>Chào mừng trở lại ghé thăm siêu thị!</span>\n\
                            <span>Chúc bạn một ngày tốt lành!</span></br>\n\
-                           <span class="clockmess" style="font-size: 33pt;"><b>3</b></span><span class="deltex">s</span>');
+                           <b><span class="clockmess" style="font-size: 33pt;">3</span></b><span class="deltex">s</span>');
                         window.setTimeout(function() {
                             location.reload(true)
-                        }, 3500);
+                        }, 3000);
                     }
                 },
             });

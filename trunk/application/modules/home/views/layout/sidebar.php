@@ -1,5 +1,6 @@
 <aside id="sidebar">
     <?php
+    if(isset($same_product) && count($same_product))
     foreach ($same_product as $giongnhau) { 
         $imggiongnhau = json_decode($giongnhau->images);
         ?>
