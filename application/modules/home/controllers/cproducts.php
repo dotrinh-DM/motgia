@@ -5,11 +5,9 @@ session_start();
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
-class Cproducts extends CI_Controller
-{
+class Cproducts extends CI_Controller {
 
-    public function __construct()
-    {
+    public function __construct() {
         parent::__construct();
         $this->load->helper('form');
         $this->load->helper('html', 'file');
@@ -22,8 +20,7 @@ class Cproducts extends CI_Controller
         $this->load->model('Musers');
     }
 
-    public function index()
-    {
+    public function index() {
         $temp['info'] = $this->Mlog->log();
         if (count($temp['info'])) {
             $userid = $temp['info']['userID'];
@@ -37,8 +34,7 @@ class Cproducts extends CI_Controller
         $this->load->view('layout/layout', $temp);
     }
 
-    public function show_more()
-    {
+    public function show_more() {
         if (isset($_POST['start'])) {
             $start = $_POST['start'];
             if ($temp = $this->Mproducts->show_more($start)) {
@@ -73,8 +69,7 @@ class Cproducts extends CI_Controller
         }
     }
 
-    public function showDetailProducts($id)
-    {
+    public function showDetailProducts($id) {
         $temp['info'] = $this->Mlog->log();
         $temp['title'] = 'Chi tiết sản phẩm';
         $temp['template'] = 'vproducts/product_detail';
@@ -108,8 +103,7 @@ class Cproducts extends CI_Controller
         $this->load->view('layout/layout', $temp);
     }
 
-    public function upProducts()
-    {
+    public function upProducts() {
         $temp['info'] = $this->Mlog->log();
         $temp['title'] = 'Đăng sản phẩm';
         $temp['cate'] = $this->Mproducts->getAllCategories();
@@ -118,8 +112,7 @@ class Cproducts extends CI_Controller
         $this->load->view('layout/layout', $temp);
     }
 
-    public function insertProducts()
-    {
+    public function insertProducts() {
         $this->load->library('form_validation');
         $this->form_validation->set_rules('soluong', 'Số lượng bắt buộc và phải là số', 'required|numeric|integer');
         $this->form_validation->set_rules('tensanpham', 'Tên sản phẩm bắt buộc', 'required');
@@ -165,15 +158,15 @@ class Cproducts extends CI_Controller
             $dieukiensd = $this->input->post('dieukiensd');
             $chitietsp = $this->input->post('chitietsp');
             $proid = $this->Musers->setID('products', 'productsID', 'PRO');
-            var_dump($proid); die();
+            var_dump($proid);
+            die();
             $kq = $this->Mproducts->insertProducts($proid, $danhmuc, $soluong, $tensanpham, $motangan, $dacdiemnb, $dieukiensd, $chitietsp, $images, $uid);
             $this->session->set_flashdata('addproduct_alert', 'Đã Thêm sản phẩm Thành Công');
             redirect('up-product');
         }
     }
 
-    public function editProducts($id)
-    {
+    public function editProducts($id) {
 //        $temp['info']=  $this->Mproducts->log();
         $data['cate'] = $this->Mproducts->getAllCategories();
         $data['edit'] = $this->Mproducts->editProducts($id);
@@ -183,8 +176,7 @@ class Cproducts extends CI_Controller
         $this->load->view('layout/layout', $data);
     }
 
-    public function updateProducts()
-    {
+    public function updateProducts() {
         $id = $this->input->post('idhidden');
         $a = $this->Mproducts->editProducts($id);
         foreach ($a as $value)
@@ -243,8 +235,7 @@ class Cproducts extends CI_Controller
         $this->load->view('layout/layout', $data);
     }
 
-    public function odernow()
-    {
+    public function odernow() {//nut cho vao gio tren trang chi tiet san pham
         if ($this->input->post('order')) {
             $proname = $this->input->post('proname');
             $seller = $this->input->post('seller');
@@ -265,25 +256,23 @@ class Cproducts extends CI_Controller
         }
     }
 
-    public function payonline()
-    {
+    public function payonline() {
         $data['info'] = $this->Mlog->log();
         if ($data['info'] != FALSE) {
             $buyer = $data['info']['userID'];
             $data['profile'] = $this->Musers->getProfile($buyer); //lấy thông tin cá nhân
 
-            if ($this->input->post('payonline')) {
+            if ($this->input->post('payonline')) {// nut thanh toan truc tuyen tren trang viewcart
                 $payinfo = $this->input->post('payonline');
                 if (isset($_SESSION['pay']))
                     unset($_SESSION['pay']);
-                foreach ($payinfo as $uid => $value) {
+                foreach ($payinfo as $uid => $value) {//lay ma nguoi ban
                     $_SESSION['pay'][$uid] = $_SESSION['cart'][$uid];
                     $_SESSION['pay']['method'] = 1; //hinh thuc thanh toan tai nha
                 }
-                redirect('thanh-toan-truc-tuyen');
             }
 
-            if ($this->input->post('paynow')) {
+            if ($this->input->post('paynow')) {//nut mua ngay tren trang chi tiet san pham
                 $proprice = $this->input->post('price');
                 $proname = $this->input->post('proname');
                 $seller = $this->input->post('seller');
@@ -300,6 +289,7 @@ class Cproducts extends CI_Controller
                 $_SESSION['pay'][$seller][$proid] = $arr;
                 $_SESSION['pay'][$seller]["shopname"] = $uname;
             }
+
             $_SESSION['pay']['method'] = 1;
             $method = $_SESSION['pay']['method'];
 
@@ -318,13 +308,8 @@ class Cproducts extends CI_Controller
                         }
                     }
                 }
-                if ($method == 1) { //neu hình thức thanh toán trực tuyến thì chuyển đến bảo kim
-                    unset($_SESSION['pay']);
-                    $this->BaokimPay($tong, $orderid);
-                } else if ($method == 0) { // nếu thanh toán tại nhà thì trở lại giỏ hàng
-                    unset($_SESSION['pay']);
-                    redirect('cart');
-                }
+                unset($_SESSION['pay']);
+                $this->BaokimPay($tong, $orderid);
             }
         }
         $data['title'] = 'Thanh toán';
@@ -332,17 +317,36 @@ class Cproducts extends CI_Controller
         $this->load->view('layout/layout', $data);
     }
 
-    public function payhome()
-    {
+    public function payhome() {
         $data['info'] = $this->Mlog->log();
-        if ($this->session->userdata('guest')) {
+        if ($data['info'] != FALSE) {//trường hợp đã đăng nhập
+            $buyer = $data['info']['userID'];
+            $data['profile'] = $this->Musers->getProfile($buyer);
+            if ($this->input->post('thanhtoan')) {
+                $note = $this->input->post('note');
+                foreach ($_SESSION['pay'] as $uid => $value) {
+                    if ($uid != 'method') {
+                        $orderid = $this->Mproducts->insertOrder($uid, $data['info']['userID'], $note, 0);
+                        unset($_SESSION['cart'][$uid]);
+                        foreach ($value as $proid => $value2) {
+                            if ($proid != 'shopname') {
+                                $this->Mproducts->insertOrderDetail($orderid, $proid, $value2['soluong']);
+                            }
+                        }
+                    }
+                }
+                unset($_SESSION['pay']);
+                redirect('cart');
+            }
+        }//lấy thông tin cá nhân
+        if ($this->session->userdata('guest')) {//trường hợp chưa đăng nhập
             $data['guest'] = $this->session->userdata('guest');
             if ($this->input->post('thanhtoan')) {
                 $note = $this->input->post('note');
-                $method = $_SESSION['pay']['method'];
+//                $method = $_SESSION['pay']['method'];
                 foreach ($_SESSION['pay'] as $uid => $value) {
                     if ($uid != 'method') {
-                        $orderid = $this->Mproducts->insertOrder($uid, $data['guest']['guestID'], $note, $method);
+                        $orderid = $this->Mproducts->insertOrder($uid, $data['guest']['guestID'], $note, 0);
                         unset($_SESSION['cart'][$uid]);
                         foreach ($value as $proid => $value2) {
                             if ($proid != 'shopname') {
@@ -355,43 +359,12 @@ class Cproducts extends CI_Controller
                 redirect('cart');
             }
         }
-        if (isset($data['info']) && count($data['info']['userID'])) {
-            $userid = $data['info']['userID'];
-            $data['profile'] = $this->Musers->getProfile($userid); //lấy thông tin cá nhân
-            $create = strtotime('now');
-
-            if ($this->input->post('thanhtoan')) {
-                $note = $this->input->post('note');
-                $method = $_SESSION['pay']['method'];
-                foreach ($_SESSION['pay'] as $uid => $value) {
-                    if ($uid != 'method') {
-                        $tong = 0;
-                        $orderid = $this->Mproducts->insertOrder($uid, $userid, $note, $method);
-                        unset($_SESSION['cart'][$uid]);
-                        foreach ($value as $proid => $value2) {
-                            if ($proid != 'shopname') {
-                                $this->Mproducts->insertOrderDetail($orderid, $proid, $value2['soluong']);
-                                $tong += $value2['soluong'] * 100000;
-                            }
-                        }
-                    }
-                }
-                if ($method == 1) { //neu hình thức thanh toán trực tuyến thì chuyển đến bảo kim
-                    unset($_SESSION['pay']);
-                    $this->BaokimPay($tong, $orderid);
-                } else if ($method == 0) { // nếu thanh toán tại nhà thì trở lại giỏ hàng
-                    unset($_SESSION['pay']);
-                    redirect('cart');
-                }
-            }
-        }
         $data['title'] = 'Thanh toán';
         $data['template'] = 'vproducts/payment';
         $this->load->view('layout/layout', $data);
     }
 
-    public function BaokimPay($total_amount = 100000, $order_id = 'tantan')
-    {
+    public function BaokimPay($total_amount = 100000, $order_id = 'tantan') {
         $this->Includebaokim->load_bk();
         $business = "ductan_nguyen92@yahoo.com";
         $description = "";
@@ -406,8 +379,7 @@ class Cproducts extends CI_Controller
         header("location: $request_url"); //Chuyến đến trang bảo kim
     }
 
-    public function view_cart()
-    {
+    public function view_cart() {
         $data['info'] = $this->Mlog->log(); //lấy thông tin đăng nhập
         if ($this->session->userdata('guest'))
             $data['guest'] = $this->session->userdata('guest');
@@ -433,8 +405,7 @@ class Cproducts extends CI_Controller
         }
     }
 
-    public function addcart()
-    {
+    public function addcart() {
         $id = $_POST['idpro'];
         $uid2 = $this->Mproducts->getProductbyID($id);
         foreach ($uid2 as $key => $value) {
@@ -463,8 +434,7 @@ class Cproducts extends CI_Controller
         echo $dem;
     }
 
-    public function updateCart()
-    {
+    public function updateCart() {
         if (isset($_POST['soluong'], $_POST['userid'], $_POST['proid'])) {
             $userid = $_POST['userid'];
             $productid = $_POST['proid'];
@@ -473,8 +443,7 @@ class Cproducts extends CI_Controller
         }
     }
 
-    public function delCart($uid, $proid)
-    {
+    public function delCart($uid, $proid) {
         unset($_SESSION['cart']["$uid"]["$proid"]);
         if ($proid == '' || count($_SESSION['cart'][$uid]) < 2) //neu so san pham cua gian hang >1 (tinh ca "shopname" nen phai la <2) thi xoa tung sp
             unset($_SESSION['cart']["$uid"]);
@@ -483,13 +452,11 @@ class Cproducts extends CI_Controller
         redirect('cart');
     }
 
-    public function cancel_order()
-    {
-
+    public function cancel_order() {
+        
     }
 
-    public function vd()
-    {
+    public function vd() {
 //        if ($this->input->post('paymenthome')) {
 //            $payinfo = $this->input->post('payhome');
 ////            if (isset($_SESSION['pay']))
@@ -505,8 +472,7 @@ class Cproducts extends CI_Controller
         $this->load->view('vd');
     }
 
-    public function vd2()
-    {
+    public function vd2() {
         $uid = 'UID0009';
         $id = 72;
         $proname = 'ao ngan';

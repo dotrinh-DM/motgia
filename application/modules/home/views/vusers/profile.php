@@ -6,6 +6,40 @@
 <script type="text/javascript" src="<?php echo base_url(); ?>template/js/validateh5.js"></script>
 <script type="text/javascript">
     jQuery(document).ready(function() {
+         function popupshow(param) {
+            var id = '#dialog';
+            //Get the screen height and width
+            var maskHeight = $(document).height();
+            var maskWidth = $(window).width();
+            //Set heigth and width to mask to fill up the whole screen
+            $('#mask').css({'width': maskWidth, 'height': maskHeight});
+            //transition effect
+            $('#mask').fadeIn(1000);
+            $('#mask').fadeTo("slow", 0.8);
+            //Get the window height and width
+            var winH = $(window).height();
+            var winW = $(window).width();
+            //Set the popup window to center
+            $(id).css('top', winH / 2 - $(id).height() / 2);
+            $(id).css('left', winW / 2 - $(id).width() / 2);
+            //transition effect
+            $(id).fadeIn(2000);
+            //if close button is clicked
+            $('.window .close').click(function(e) {
+                //Cancel the link behavior
+                e.preventDefault();
+
+                $('#mask').hide();
+                $('.window').hide();
+            });
+            //if mask is clicked
+            $('#mask').click(function() {
+                $(this).hide();
+                $('.window').hide();
+            });
+        }
+        
+    
         $.h5Validate.addPatterns({
             day_vn: /(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\d\d/
         });
@@ -31,7 +65,6 @@
                 evt.preventDefault();
             }
         });
-        $(function() {
             $('#tab-container').easytabs();
 
             $('.showmessage').live("click", function()
@@ -73,12 +106,34 @@
                 });
                 return false;
             });
-
+            $('.cancel_order').live("click", "submit", function(e) {//Hiện cửa sổ ghi lý do hủy$('.headermess').empty();
+                var oid = $(this).attr('id');
+                $('#contentmess').empty();
+                $('.headermess').fadeIn(1000).html('Hủy đơn hàng');
+                $('#contentmess').append('</br><form action="" method="post">\n\
+                        <textarea id="note" name="note" placeholder="lý do hủy" required="" style="font-size: 11pt;margin-top: -10px;height: 80px;" class="validationValid"></textarea>\n\
+                        <input type="submit" id="'+oid+'" class="btn order_ok" value="ok" style="margin-top: -8px;width: 80px;padding: 10px;"/></form>');
+                popupshow();
+                return false;
+            });
+            
+            $('.order_ok').live("click", function(e) {
+                var orderID = $(this).attr('id');
+                var statusID = $('.statusid'+orderID).val();
+                var note = $("#note").val();
+                $.ajax({
+                    type: "POST",
+                    url: "<?php echo site_url('home/cusers/cancel_order')?>",
+                    data: {"oid": orderID, "statusID": statusID, "note": note},
+                    success: function(html) {
+                        location.reload(true);
+                    }
+            });
         });
     });
 </script>
 <script type="text/javascript" src="<?php echo base_url() ?>tinymce/tiny_mce.js"></script>
-<script type="text/javascript">
+<!--<script type="text/javascript">
     tinyMCE.init({
         // General options 
         mode: "textareas", //textareas, exact 
@@ -92,7 +147,28 @@
         theme_advanced_toolbar_align: "left",
         theme_advanced_resizing: true
     });
-</script>
+</script>-->
+<div id="boxes">
+    <div style="top: 199.5px; left: 551.5px; display: none; border: 1px solid;border-radius: 14px;" id="dialog" class="window">
+        <div style="width: 45px;height: 45px;float: left;margin: -25px -15px;">
+            <img src="<?php echo base_url()?>public/icons/pin_icon.png" style="width: 41px;">
+        </div> 
+        <div style="float: left;margin-left: 20px;width: 310px;">
+            <center>
+                <span class="headermess" style="float: left;width: 100%;padding: 0px 25px;font-size: 13pt;font-weight: bold;color: #467259;"></span>
+            </center>
+        </div>
+        <div style="float: right;">
+            <a href="#" class="close"><img src="<?php echo base_url()?>public/icons/del.png" style="width: 35px;margin: -14px -12px 0px 0px;float: right;"></a>
+        </div>
+        <div class="clear" id="contentmess" style="width: 100%;height: 70%;padding: 5px;text-align: center;font-size: 13pt;">
+        </div>
+    </div>
+    <!-- Mask to cover the whole screen -->
+
+    <div style="width: 1478px; height: 602px; display: none; opacity: 0.8;" id="mask">
+    </div>
+</div>
 <section id="content" class="wrap">
     <div class="boxconfirm clearfix">
         <div id="tab-container" class='tab-container marginBottom_15'>
@@ -508,7 +584,7 @@
                                         echo '<p>Năm sinh: ' . $userbuy['buyeryear'] . '</p>';
                                         echo '<p>Địa chỉ: ' . $userbuy['buyeradd'] . '</p>';
                                         echo '<p>SĐT: ' . $userbuy['buyerphone'] . ' ... ';
-                                    }else if (substr($ord->buyerID, 0, 5) == 'GUEST') {//đối với thành viên
+                                    }else if (substr($ord->buyerID, 0, 5) == 'GUEST') {//đối với khach hang vang lai
                                         $this->load->model('Musers');
                                         $userbuy = $this->Musers->getOrder_GuestBuy($ord->orderID, $ord->buyerID);
                                         echo '<p style="color:#7769AD"><b>' . $userbuy['fullname'] . '</b> (khách vãng lai)</p>';
@@ -525,7 +601,7 @@
                                         $ts = mktime(0, 0, 0, $ord->date, $ord->month, $ord->year);
                                         echo date("l", $ts) . ', ' . $ord->date_cr;
                                         ?></p>
-                                    <p>Hình thức thanh toán: <?php echo ($ord->method == 1) ? 'tại nhà' : 'online' ?></p>
+                                    <p>Hình thức thanh toán: <?php echo ($ord->method == 1) ? 'online' : 'tại nhà'  ?></p>
                                     <a href="<?php echo site_url('home/cusers/orderdetail') . '?orderid=' . $ord->orderID.'&buyer='.$ord->buyerID; ?>">> <b>Chi tiết</b></a>
                                 </td>
                                 <td><?php
@@ -540,12 +616,15 @@
                                             echo 'Đang chờ xác nhận';
                                         else if ($ord->status == 2)
                                             echo 'Đã xác nhận';
+                                        else if ($ord->status == 3)
+                                            echo 'Đã thanh toán';
                                         ?></span></td>
                                 <td>
                                     <?php
                                     if ($ord->status == 1)
                                         echo '<form action="" method="post">
-                            <input type="hidden" name="orderid" value="' . $ord->orderID . '"/>
+                                <input type="hidden" class="orderid'.$ord->orderID.'" value="' . $ord->orderID . '"/>
+                                <input type="hidden" class="statusid'.$ord->orderID.'" value="' . $ord->statusID . '"/>
                             <input type="submit" class="btn btn-primary btn-lg btn-block" style="
                             width: 75px; float:left;
                             font-size: 9pt;
@@ -554,14 +633,14 @@
                             border-radius: 3px;
                             background-color: #CEB711; 
                             " value="Xác nhận" name="confirm_order" onclick="return confirm(' . "'" . 'Bạn muốn xác nhận đơn hàng này và gửi tin nhắn hệ thống đến tài khoản khách hàng?' . "'" . ');"/>
-                            <input type="submit" class="btn btn-primary btn-lg btn-block" style="
+                            <input type="submit" id="'.$ord->orderID.'" class="btn btn-primary btn-lg btn-block cancel_order" style="
                             width: 50px; float:right;
                             font-size: 9pt;
                             padding: 5px;
                             margin-top: 0px;
                             border-radius: 3px;
                             background-color: #CEB711; 
-                            " value="Hủy" name="deny_order" onclick="return confirm(' . "'" . 'Bạn có muốn hủy đơn hàng này?' . "'" . ');"/></form>';
+                            " value="Hủy" name="deny_order");"/></form>';
                                     ?>
                                 </td>
                             </tr>

@@ -143,7 +143,7 @@
                                 <span class="tooltip" style="display: block;margin-top: 33px">Vui lòng nhập số điện thoại</span>
                             </div>
                             <label>Tỉnh  - Thành phố:</label>
-                            <div class="select province1">
+                            <div class="select province1" style="width: 125px">
                                 <select id="province1" required="" name="province">
                                     <option value="">--Chọn--</option>
                                     <?php
@@ -213,7 +213,7 @@
                                 <span class="tooltip" style="display: block;margin-top: 33px">Vui lòng nhập số điện thoại người nhận</span>
                             </div>
                             <label>Tỉnh  - Thành phố:</label>
-                            <div class="select province2">
+                            <div class="select province2" style="width: 115px">
                                 <select id="province2" required="" name="province">
                                     <option value="">--Chọn--</option>
                                     <?php
@@ -340,6 +340,7 @@ border: 1px solid;
 border-radius: 5px;
 padding: 20px;">
                                 Bạn phải đăng nhập để sử dụng chức năng thanh toán trực tuyến!
+                                Hoặc cung cấp đầy đủ thông tin tại giỏ hàng để thanh toán tại nhà
                                 Vui lòng <a href="' . base_url() . 'dang-ky">Đăng ký</a> hoặc <a href="#">Đăng nhập</a>
                                 </br></br>
                                 <div id="hideMsg">
