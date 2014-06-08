@@ -37,8 +37,8 @@
         </li>
         <li class="dropdown"><a href=""><span class="icon-th-list"></span> Báo cáo</a>
             <ul>
-                <li><a href="table-static.html"> Thêm </a></li>
-                <li><a href="table-dynamic.html"> Quản lý</a></li>
+                <li><a href=""> Thêm </a></li>
+                <li><a href="<?php echo site_url('admin/report_controller/product'); ?>"> Báo cáo sản phẩm</a></li>
             </ul>
         </li>
         <li class="dropdown"><a href=""><span class="icon-th-list"></span> Quản lý cơ sở dữ liệu</a>

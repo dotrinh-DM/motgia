@@ -1,29 +1,30 @@
 <?php
 
-require_once 'my_core_controller.php';
-
-class Report_controller extends My_core_controller {
+class Report_controller extends CI_Controller {
 
     public function __construct()
     {
         parent::__construct();
         $this->load->model('report_model');
-        $login = $this->session->userdata('username');
-        if ($login == FALSE)
-        {
-            redirect('admin/login_controller');
+        $this->load->helper(array('form', 'url', 'province', 'html', 'category'));
+        $this->load->model("home/musers");
+        $this->load->model("category_model");
+        $this->load->library('session');
+
+        if ($this->session->userdata('admin') == '') {
+            redirect('admin/login');
         }
     }
 
     /**
      * Load giao dien cho nguoi dung chon ngay bao cao
      */
-    public function index()
+    public function product()
     {
-        $data['title'] = 'Quản lý báo cáo :: Admin';
-        $data['h1'] = 'Report';
-        $data['template'] = 'report/show';
-        $this->load->view("layout/layout", $data);
+        $data['info'] = $this->session->userdata('admin');
+        $data['title'] = 'Báo cáo sản phẩm';
+        $data['template'] = 'report/product';
+        $this->load->view("layout_admin/layout", $data);
     }
 
     /**
@@ -32,9 +33,9 @@ class Report_controller extends My_core_controller {
     public function view()
     {
         $data['title'] = 'Quản lý báo cáo :: Admin';
-        $data['h1'] = 'Report';
-        $from = strtotime($this->input->post('fromdate'));
-        $to = strtotime($this->input->post('todate'));
+        $data['info'] = $this->session->userdata('admin');
+        $from = $this->input->post('fromdate');
+        $to = $this->input->post('todate');
         $type = $this->input->post('type');
         if ($type == 'product')
         {
@@ -44,8 +45,8 @@ class Report_controller extends My_core_controller {
         {
             $data['category'] = $this->report_model->viewBycategory($from, $to);
         }
-        $data['template'] = 'report/show';
-        $this->load->view('layout/layout', $data);
+        $data['template'] = 'report/product';
+        $this->load->view('layout_admin/layout', $data);
     }
 
 }
