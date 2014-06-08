@@ -10,7 +10,7 @@ class cusers extends CI_Controller {
         parent::__construct();
         $this->load->helper(array('form', 'html', 'url', 'file'));
         $this->load->library(array('session', 'encrypt', 'email', 'my_email'));
-        $this->load->model(array('Musers', 'Mlog', 'Mproducts'));
+        $this->load->model(array('Musers', 'Mlog', 'Mproducts', 'Mshop'));
         $this->load->database();
     }
 
@@ -147,6 +147,7 @@ class cusers extends CI_Controller {
     }
 
     public function profile() {
+        $this->load->model('captcha_model');
         if ($this->session->userdata('user') == '') {
             redirect('trang-chu');
         } //neu chua dang nhap thi quay lai trang chu
@@ -154,6 +155,11 @@ class cusers extends CI_Controller {
         $userid = $temp['info']['userID'];
         $temp['level'] = $this->Musers->getLevel($userid); //kiểm tra cấp độ người dùng để hiển thị nội dung tương ứng
         //sua thong tin ca nhan
+        if ($temp['level'] != 2) {
+            $this->load->model('Captcha_model');
+            $cap = $this->Captcha_model->createCaptcha();
+            $temp['captcha'] = $cap['image'];
+        }
         $temp['profile'] = $this->Musers->getProfile($userid); //lấy thông tin cá nhân
         if ($this->input->post('save_info')) {
             $lastname = $this->input->post('last_name');
@@ -168,7 +174,41 @@ class cusers extends CI_Controller {
             $addr = $this->input->post('address');
             $this->Musers->updateProfile($userid, $firstname, $lastname, $birthday, $gender, $phone, $addr, $province, $temp['info']['email']);
         }
-
+        if ($this->input->post('save_pass')) {
+            $email = $temp['info']['email'];
+            $old = $this->input->post('old_pass');
+            $new = $this->input->post('re_new_pass');
+            $ck = $this->Musers->changePass($email, $old, $new);
+            if ($ck == TRUE) {
+                $this->session->set_flashdata('success_change_pass', 'Thay đổi mật khẩu thành công!');
+                redirect('profile');
+            }
+            $this->session->set_flashdata('success_change_pass', 'Thay đổi mật khẩu thất bại!');
+            redirect('profile');
+        }///
+        //
+        ////đăng ký gian hàng
+        if ($this->input->post('ok_shop')) {
+            $company = $this->input->post('name_shop');
+            $add = $this->input->post('address_shop');
+            $city = $this->input->post('province_shop');
+            $web = $this->input->post('website_shop');
+            $phone = $this->input->post('phone_shop');
+            $sz_Word = $this->input->post('captcha');
+            $b_Check = $this->captcha_model->b_fCheck($sz_Word);
+            $cbx = $this->input->post('check');
+            if ($b_Check && $cbx == 'ok') {
+                $ck = $this->Mshop->regShop($company, $add, $city, $phone, $web, $userid);
+                if ($ck == TRUE) {
+                    $this->session->set_flashdata('success_reg_shop', 'Chúc mừng bạn đã đăng ký gian hàng thành công!');
+                    redirect('profile');
+                }
+                $this->session->set_flashdata('success_reg_shop', 'Bạn không thể đăng ký gian hàng! Có thể bạn đã đăng ký một gian hàng trước đó!');
+                redirect('profile');
+            }
+            $this->session->set_flashdata('success_reg_shop', 'Vui lòng nhập lại mã xác nhận & đồng ý các điều khoản của chúng tôi');
+            redirect('profile');
+        }
         //phan trang
         $display = 10; //so ban ghi moi trang
 
@@ -180,6 +220,7 @@ class cusers extends CI_Controller {
 
         $hsstart = 0;
         $hspage = 1;
+
 
         //////////////////////////////Quan ly san pham
         if ($temp['level']['levelID'] == 2) {// chuc nang chi danh cho nha cung cap
@@ -245,7 +286,12 @@ class cusers extends CI_Controller {
         $temp['num_message'] = $this->Musers->getNumMessageUnread($userid); //Lấy số tin nhắn mới nhận chưa đọc
         $temp['message_info'] = $this->Musers->getMessageByUID($userid);
         //////////////////////end-quan ly tin nhan
-
+        //
+        ///////////////////////
+        //Lịch sử nạp tiền
+        $temp['money']=  $this->Musers->historyMoney($userid);
+        
+        /////////////////////
         $temp['title'] = 'Thông tin cá nhân';
         $temp['template'] = 'vusers/profile';
         $this->load->view('layout/layout', $temp);
@@ -334,7 +380,7 @@ class cusers extends CI_Controller {
                 $temp['buyer'] = $this->Musers->getOrder_GuestBuy($_GET['orderid'], $_GET['buyer']);
             if ($this->input->post('confirm')) {
                 $this->Mproducts->confirmOrder($_GET['orderid'], '2', $temp['buyer']['statusID'], $temp['info']['userID'], '');
-                $page = $_SERVER['PHP_SELF'].'?orderid='.$_GET['orderid'].'&buyer='.$_GET['buyer'].'';//url de load lai trang
+                $page = $_SERVER['PHP_SELF'] . '?orderid=' . $_GET['orderid'] . '&buyer=' . $_GET['buyer'] . ''; //url de load lai trang
                 $sec = "1";
                 header("Refresh: $sec; url=$page");
             }
@@ -442,6 +488,16 @@ class cusers extends CI_Controller {
             echo '<img src="' . base_url() . 'public/icons/ok-icon.png"/> Bạn có thể đăng ký bằng Email này!';
         else
             echo 'Email này đã được đăng ký vui lòng chọn email khác!';
+    }
+
+    public function checkpass() {
+        $pass = $_POST['oldpass'];
+        $email = $this->session->userdata('user');
+        $ckpass = $this->Mlog->checklogin($email['email'], $pass);
+        if ($ckpass == TRUE)
+            echo 'Mật khẩu chính xác!';
+        else
+            echo 'Sai mật khẩu!';
     }
 
     public function login() {// Hàm được gọi bởi sự kiện submit-ajax trong trang view login.php, view_cart.php và product_detail.php

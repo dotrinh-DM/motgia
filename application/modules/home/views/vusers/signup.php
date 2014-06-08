@@ -53,9 +53,7 @@
 <script type="text/javascript">
     $(function() {
         //More Button
-        $('.recaptcha').live(
-                "click",
-                function()
+        $('.recaptcha').live("click",function()
                 {
                     $.ajax({
                         type: "POST",
