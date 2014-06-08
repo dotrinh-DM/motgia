@@ -313,10 +313,10 @@ foreach ($data_detail as $value)
                                 <li><a  href="#">Website: 123.com</a></li>
                             </ul>
                         </div>
-                        <div class="detail_item">
+                        <div class="detail_item" style="width: 320px;height: 300px;">
                             <h6 class="title_detail_item">Bản đồ</h6>
                             <div class="address_maps">
-                                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3725.1942626576465!2d105.83886089999999!3d20.98484864999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x982365cd4337fdc8!2zVmnhu4duIMSQ4bqhaSBI4buNYyBN4bufIEjDoCBO4buZaSAtIEtob2EgQ8O0bmcgTmdo4buHIFRow7RuZyBUaW4!5e0!3m2!1svi!2s!4v1395263657004" width="275" height="300" frameborder="0" style="border:0"></iframe>
+                                <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3725.1876952152284!2d105.838734!3d20.985111999999994!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x982365cd4337fdc8!2zVmnhu4duIMSQ4bqhaSBI4buNYyBN4bufIEjDoCBO4buZaSAtIEtob2EgQ8O0bmcgTmdo4buHIFRow7RuZyBUaW4!5e0!3m2!1svi!2s!4v1402127043107" width="320" height="500" frameborder="0" style="border:0"></iframe>
                             </div>
                         </div><!--End .detail_item -->
                         <div class="clear"></div>

@@ -5,6 +5,7 @@ class Musers extends CI_Model {
     public function __construct() {
         parent::__construct();
         $this->load->database();
+        $this->load->library('encrypt');
     }
 
     public function getData($table) {
@@ -132,13 +133,21 @@ class Musers extends CI_Model {
         }
     }
 
-    public function checkpass($pass = 0) {
-        $query = $this->db->select('pass')->FROM('user')->WHERE('pass', $pass)->get()->row_array();
-        if (isset($query) && count($query)) {
-            return TRUE;
-        } else {
-            return FALSE;
+    public function changePass($email, $oldpass, $newpass) {
+        $pwd = $this->db->select('password')->WHERE('email', $email)->get('user')->row_array();
+        if (isset($pwd) && count($pwd)) {
+            if ($this->encrypt->decode($pwd['password']) == $oldpass) {
+                $newpass = $this->encrypt->encode($newpass);
+                $this->db->where("email", "$email")->update('user', array('password' => $newpass));
+                $ck = $this->db->affected_rows();
+                (count($ck)) ? $check1 = TRUE : $check1 == FALSE;
+            }
+            else
+                $check1 = FALSE;
         }
+        else
+            $check1 = FALSE;
+        return $check1;
     }
 
     //lay san pham tu userID
@@ -230,7 +239,7 @@ class Musers extends CI_Model {
     //Lay chi tiet don hang
     public function getOrderDetail($ordid) {
         return $this->db
-                    ->select(" products.name as proname,
+                        ->select(" products.name as proname,
                     products.productsid as proid,
                     order_detail.quantity as number,
                     products.price as price")
@@ -294,6 +303,22 @@ class Musers extends CI_Model {
         return $query->result();
     }
 
+    
+    /////////////////lịch sử nạp tiền
+    public function historyMoney($uid,$sum =100,$start = 0){
+        $this->db->select("*")
+                ->select("DATE_FORMAT(create_date, '%d-%m-%Y, %H:%i %p') AS date_cr", FALSE)
+                ->where("userID", "$uid")
+                ->order_by('date_cr', 'desc');
+        $query = $this->db->get('transaction', $sum, $start);
+        return $query->result();
+    }
+
+
+
+
+    ///////////////////////////////////////////
+    
     public function getNumMessageUnread($UID) {
         $this->db->select("status");
         $this->db->where(array('status' => 0, 'receiverID' => $UID));
@@ -342,6 +367,10 @@ class Musers extends CI_Model {
         $this->db->limit(1);
         $this->db->order_by("$pri_key", "desc");
         $arrr = $this->db->get("$table")->row_array();
+        if (!isset($arrr) && count($arrr) < 1) {
+            return $arrr = $name . '00001';
+            exit();
+        }
         $count = strlen($arrr[$pri_key]);
         $str = (int) substr($arrr[$pri_key], strlen($name), $count);
         $str++;
