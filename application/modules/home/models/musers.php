@@ -314,9 +314,6 @@ class Musers extends CI_Model {
         return $query->result();
     }
 
-
-
-
     ///////////////////////////////////////////
     
     public function getNumMessageUnread($UID) {
