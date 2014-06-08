@@ -238,6 +238,10 @@
                                 <td>Tỉnh/Thành phố</td>
                                 <td><?php echo $profile['province']; ?>,  Viet Nam</td>
                             </tr>
+                            <tr>
+                                <td>Ảnh đại diện</td>
+                                <td><input ty</td>
+                            </tr>
 
                         </table><!--End detail_profile -->
                         <div class="form change_open">
@@ -436,7 +440,7 @@
                     <div id="upgrade">
                         <h6 class="title_detail_item">Mở gian hàng miễn phí</h6>
                         <div class="change marginTop_30">
-                            <form class="form" id="form_reg_shop" method="post" action="" style="margin-top: 40px">
+                            <form enctype="multipart/form-data"  class="form" id="form_reg_shop" method="post" action="" style="margin-top: 40px">
                                 <b><span style="float: left;margin: -30px 163px;color: #5CB13B;">
                                         <?php
                                         if ($this->session->flashdata('success_reg_shop'))
@@ -491,6 +495,11 @@
                                     <label>Website</label>
                                     <input class="webshop" type="text" name="website_shop" value="<?php // echo $profile['address'];               ?>"/>
                                 </div>
+                                <div style="margin-top: 15px">
+                                    <label>Ảnh đại diện</label>
+                                    <input style="margin-left: 200px;" class="webshop" type="file" name="anh" title="Ảnh"/>
+                                </div>
+                                <br/>
                                 <div>
                                     <label>Điện thoại<span>*</span></label>
                                     <input type="text" class="h5-phone phoneshop" name="phone_shop" required="" value="<?php // echo $profile['phone'];               ?>"/>

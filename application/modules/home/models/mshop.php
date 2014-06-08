@@ -8,7 +8,7 @@ class Mshop extends CI_Model {
         $this->load->Model('Musers');
     }
 
-    public function regShop($company, $add, $city, $phone, $web, $uid) {//Mở gian hàng
+    public function regShop($company, $add, $city, $phone, $web, $uid,$link_insert) {//Mở gian hàng
         $id = $this->Musers->setID('shop', 'shopid', 'SHO');
         $create_date = gmdate("Y-m-d", time() + 3600 * (+7 + date("I")));
         $data = array(
@@ -19,7 +19,8 @@ class Mshop extends CI_Model {
             'website' => $web,
             'phone' => $phone,
             'create_date' => $create_date,
-            'userID' => $uid
+            'userID' => $uid,
+            'image' => $link_insert
         );
         $check = $this->db->select('userID')->where('userID', $uid)->get('shop')->num_rows();
         if ($check < 1) {

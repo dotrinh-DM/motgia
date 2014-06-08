@@ -11,6 +11,7 @@ class cusers extends CI_Controller {
         $this->load->helper(array('form', 'html', 'url', 'file'));
         $this->load->library(array('session', 'encrypt', 'email', 'my_email'));
         $this->load->model(array('Musers', 'Mlog', 'Mproducts', 'Mshop'));
+        $this->load->library('upload');
         $this->load->database();
     }
 
@@ -197,8 +198,10 @@ class cusers extends CI_Controller {
             $sz_Word = $this->input->post('captcha');
             $b_Check = $this->captcha_model->b_fCheck($sz_Word);
             $cbx = $this->input->post('check');
+            $link_img = $this->uploadImages('anh','public/gianhang/');
+            $link_insert = 'public/gianhang/'.$link_img['file_name'];
             if ($b_Check && $cbx == 'ok') {
-                $ck = $this->Mshop->regShop($company, $add, $city, $phone, $web, $userid);
+                $ck = $this->Mshop->regShop($company, $add, $city, $phone, $web, $userid,$link_insert);
                 if ($ck == TRUE) {
                     $this->session->set_flashdata('success_reg_shop', 'Chúc mừng bạn đã đăng ký gian hàng thành công!');
                     redirect('profile');
@@ -515,6 +518,20 @@ class cusers extends CI_Controller {
         }
         echo json_encode($form_data);
         //trả lại dữ liệu cho trang login
+    }
+    public function uploadImages($name, $link)
+    {
+
+        $config['upload_path'] = $link;
+        $config['allowed_types'] = 'gif|jpg|jpeg|png';
+        $config['file_name'] = $name . uniqid();
+        $config['max_size'] = '9000000';
+        $this->upload->initialize($config);
+        if ($this->upload->do_upload($name)) {
+            return $this->upload->data();
+        } else {
+            echo $this->upload->display_errors();
+        }
     }
 
 }
