@@ -14,18 +14,14 @@ class Msms extends CI_Model {
             'syntax' => $syntax,
             'phone' => $moblie,
             'userID' => $uid,
-            'money' => 150000,
+            'money' => 15000,
             'create_date' => $creat);
         $this->db->insert('transaction', $data);
         $this->upMoney($uid);
     }
 
     public function checkUid($uid) {//neu co ton tai UID thi lay ra so tien hien tai
-        $ckuid = $this->db->select('coin')->where('userID', $uid)->get('user')->row_array();
-        if (isset($ckuid) && count($ckuid))
-            return TRUE;
-        else
-            return FALSE;
+        return $this->db->select('*')->where('userID', $uid)->get('user')->row_array();
     }
     public function getmail($uid){
         $ckuid = $this->db->select('email')->where('userID', $uid)->get('user')->row_array();
