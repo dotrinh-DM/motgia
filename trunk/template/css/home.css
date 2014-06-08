@@ -618,6 +618,7 @@ input[type=checkbox]{
     width: 100%;
     text-align: center;
     position: relative;
+    margin-top: 10px
 }
 .box_item .img_box:before{
     position: absolute;
