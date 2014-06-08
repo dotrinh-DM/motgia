@@ -10,7 +10,7 @@ class Cproducts extends CI_Controller {
     public function __construct() {
         parent::__construct();
         $this->load->helper('form');
-        $this->load->helper('html', 'file');
+        $this->load->helper(array('html', 'file','category'));
         $this->load->library('session');
         $this->load->helper('url');
         $this->load->model('Mproducts');
@@ -18,6 +18,7 @@ class Cproducts extends CI_Controller {
         $this->load->model('Baokimpayment');
         $this->load->model('Mlog');
         $this->load->model('Musers');
+        $this->load->model("admin/category_model");
     }
 
     public function index() {
@@ -107,7 +108,8 @@ class Cproducts extends CI_Controller {
         $temp['info'] = $this->Mlog->log();
         $temp['title'] = 'Đăng sản phẩm';
         $temp['cate'] = $this->Mproducts->getAllCategories();
-        $temp['sidebar_product'] = $this->Mproducts->getRandomProduct();
+//        $temp['sidebar_product'] = $this->Mproducts->getRandomProduct();
+        $temp['data'] = $this->category_model->getAll();
         $temp['template'] = 'vproducts/upproducts';
         $this->load->view('layout/layout', $temp);
     }

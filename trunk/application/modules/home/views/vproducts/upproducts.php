@@ -15,6 +15,7 @@
         theme_advanced_resizing: true
     });
 </script>
+<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>public/homecss/table_category.css" />
 <section class="bg_shadow">
     <div class="wrap clearfix">
         <div class="title floatLeft">
@@ -51,17 +52,6 @@
                 </header>
             </div>
             <div id="tabs-1" class="ui-tabs">
-                <div class="floatLeft marginRight_50">
-                    <label>Danh mục<span>*</span></label>
-                    <div class="select width_200">
-                        <select name="danhmuc">
-                            <?php foreach ($cate as $value) { ?>
-                                <option value="<?php echo $value->categoriesID ?>"><?php echo $value->name ?></option>
-                            <?php } ?>
-                        </select>
-                    </div>
-                </div>
-
                 <div class="floatLeft">
                     <label>Số lượng<span>*</span></label>
                     <input type="text" name="soluong" value="<?php
@@ -153,7 +143,11 @@ if (isset($thongbao)) {
                         }
                         ?></textarea>
                 </div>
-
+                <?php
+                echo "<table class='sTable' style='margin-left: 220px;'>";
+                checkBoxCate($data);
+                echo '</table>';
+                ?>
             </div><!--End #tabs-2-->
 
         </div> <!--End #tabs-->
