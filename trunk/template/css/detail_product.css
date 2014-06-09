@@ -243,12 +243,9 @@ ul.rank li{
     float:left;
     width:30px;
     height:30px;
-    background: #ccc;
-    border-radius: 20px;
     display:block;
-    line-height:30px;
     text-align: center;
-    color:#ffffff;
+    color: black;
  
         
 }
