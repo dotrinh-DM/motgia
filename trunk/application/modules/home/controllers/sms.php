@@ -8,7 +8,7 @@ class sms extends CI_Controller {
 //
     public function __construct() {
         parent::__construct();
-        $this->load->helper(array('form', 'html', 'url', 'file'));
+        $this->load->helper(array('form', 'html', 'url', 'file','menu'));
         $this->load->model('Msms');
         $this->load->database();
     }

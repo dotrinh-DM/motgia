@@ -8,7 +8,7 @@ class cusers extends CI_Controller {
 
     public function __construct() {
         parent::__construct();
-        $this->load->helper(array('form', 'html', 'url', 'file'));
+        $this->load->helper(array('form', 'html', 'url', 'file','menu'));
         $this->load->library(array('session', 'encrypt', 'email', 'my_email'));
         $this->load->model(array('Musers', 'Mlog', 'Mproducts', 'Mshop'));
         $this->load->library('upload');
