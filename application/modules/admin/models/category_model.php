@@ -21,6 +21,11 @@ class Category_model extends CI_Model
         return $this->db->query("select * from $this->_tbl_cate ORDER BY order_sort DESC")->result();
     }
 
+    public function getProCate()
+    {
+        return $this->db->query('select * from tbl_category_product')->result();
+    }
+
     // Lấy order_sort lớn nhất của bảng category
     public function getMaxOrder()
     {
