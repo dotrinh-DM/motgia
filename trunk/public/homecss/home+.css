@@ -4,7 +4,7 @@
     Author     : LEENGUYEN
     Description:
         Purpose of the stylesheet follows.
-*/ 
+*/
 input[type=button] , input[type=submit], .sub_menu_2 , :before , a , img , .detail_content_3 li{
     -moz-transition: all 0.3s ease;
     -webkit-transition: all 0.3s ease;
@@ -191,7 +191,7 @@ input[type=button] , input[type=submit], .sub_menu_2 , :before , a , img , .deta
     padding: 4px 20px !important;
 }
 #search .btnsearch:hover{
-    background: #297fb8 url(../images/icon-search.png)scroll center no-repeat; 
+    background: #297fb8 url(../images/icon-search.png)scroll center no-repeat;
 }
 /*** Navigation ***/
 
@@ -296,7 +296,7 @@ input[type=button] , input[type=submit], .sub_menu_2 , :before , a , img , .deta
 #navigation li:nth-child(10) .sub_menu li .sub_menu_2, #navigation li:nth-child(9) .sub_menu li .sub_menu_2{
     left: -252px;
 }
-/******/ 
+/******/
 .bg_shadow{
     background: #f6f6f6;
     height: 88px;
@@ -332,7 +332,7 @@ input[type=button] , input[type=submit], .sub_menu_2 , :before , a , img , .deta
 }
 .breadcrumbs div{
     float: left;
-    margin-left: 10px; 
+    margin-left: 10px;
 }
 .breadcrumbs a{
     color: #272727;
@@ -385,7 +385,7 @@ input[type=button] , input[type=submit], .sub_menu_2 , :before , a , img , .deta
 .form label span{
     color: #e41346;
 }
-input[type=text] , input[type=password] , 
+input[type=text] , input[type=password] ,
 input[type=email]{
     background: #e5e6e6;
     box-shadow: inset 2px 2px 1px #d9dada;
@@ -431,10 +431,10 @@ input[type=email]{
 .tooltip:before{
     content: "";
     color:#ffffff;
-    position: absolute; 
+    position: absolute;
     bottom:-10px;
     left:46px;
-    border-top: 10px solid #f6eab6; 
+    border-top: 10px solid #f6eab6;
     border-left: 10px solid transparent;
     border-right: 10px solid transparent;
 }
@@ -445,7 +445,7 @@ input[type=email]{
     -o-transition: all .7s ease;
     transition: all .7s ease;
 }
-.form input:required:valid + .tooltip, 
+.form input:required:valid + .tooltip,
 .form textarea:required:valid + .tooltip{
     opacity: -1;
     margin-right: 120px;
