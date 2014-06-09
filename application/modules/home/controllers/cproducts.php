@@ -327,7 +327,7 @@ class Cproducts extends CI_Controller {
         $data['title'] = 'Thanh toán';
         $data['template'] = 'vproducts/payment';
         $data['category'] = $this->category_model->getAll();
-        $data['kq'] = getChildren($temp['category']);
+        $data['kq'] = getChildren($data['category']);
         $data['procate'] = $this->category_model->getProCate();
         $this->load->view('layout/layout', $data);
     }
