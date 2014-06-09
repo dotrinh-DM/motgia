@@ -5,14 +5,17 @@ if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
 class cusers extends CI_Controller {
+    public static $info = 'Thongtin';
 
     public function __construct() {
         parent::__construct();
         $this->load->helper(array('form', 'html', 'url', 'file','menu'));
         $this->load->library(array('session', 'encrypt', 'email', 'my_email'));
         $this->load->model(array('Musers', 'Mlog', 'Mproducts', 'Mshop'));
+        $this->load->model("admin/category_model");
         $this->load->library('upload');
         $this->load->database();
+
     }
 
     public function index() {
@@ -297,6 +300,9 @@ class cusers extends CI_Controller {
         /////////////////////
         $temp['title'] = 'Thông tin cá nhân';
         $temp['template'] = 'vusers/profile';
+        $temp['category'] = $this->category_model->getAll();
+        $temp['kq'] = getChildren($temp['category']);
+        $temp['procate'] = $this->category_model->getProCate();
         $this->load->view('layout/layout', $temp);
     }
 

@@ -108,6 +108,8 @@ class Cproducts extends CI_Controller {
         $this->load->view('layout/layout', $temp);
     }
 
+    
+
     public function upProducts() {
         $temp['info'] = $this->Mlog->log();
         $temp['title'] = 'Đăng sản phẩm';
