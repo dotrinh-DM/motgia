@@ -3,7 +3,8 @@
         <ul class="Top_menu floatLeft">
             <li><a href="#">Giới thiệu</a></li>
             <li><a href="#">Liên hệ</a></li>
-        </ul><!--End .Top_menu-->
+        </ul>
+        <!--End .Top_menu-->
         <ul class="user clearfix floatRight">
             <?php
             if (isset($info) && count($info)) {
@@ -82,22 +83,25 @@
             }
             ?>
         </ul>
-    </header><!--End .top_Nav-->
+    </header>
+    <!--End .top_Nav-->
 </section>
 <section class="logo_formSearch">
     <div class="wrap clearfix">
         <a href="#" id="logo" class="floatLeft"><img src="<?php echo base_url(); ?>/template/uploads/logo.png" alt=""/></a>
-        <form id="search" >
+
+        <form id="search">
             <input type="text" placeholder="search" class="txt-search"/>
             <input type="button" id="btnSearch" class="btnsearch"/>
         </form>
         <section class="cart">
             <a class="icon_cart" href="<?php echo base_url() . "cart"; ?>"><span id="choxemgiohang">
                     <?php
-                    $dem=0;
-                    if (isset($_SESSION['cart']) && count($_SESSION['cart'])){
+                    $dem = 0;
+                    if (isset($_SESSION['cart']) && count($_SESSION['cart'])) {
                         foreach ($_SESSION['cart'] as $key => $value) {
-                            $dem+= count($value);$dem --;
+                            $dem += count($value);
+                            $dem--;
                         }
                     }
                     echo $dem;
@@ -106,120 +110,9 @@
         </section>
     </div>
 </section><!--End .logo_formSearch-->
-
-<nav id="navigation">
-    <ul class="wrap clearfix lever1">
-        <li><a href="<?php echo site_url('trang-chu') ?>">Home</a></li>
-        
-        <li><a href="#">woman </a>
-            <div class="sub_menu">
-                <ul>
-                    <li> <a href="#">Hoodies & Sweatshirts Hoodies & Sweatshirts</a></li>
-                    <li> <a href="#">Jackets & Coats</a></li>
-                    <li> <a href="#">Beauty</a></li>
-                </ul>
-            </div>
-        </li>
-        <li><a href="#">kids </a>
-            <div class="sub_menu">
-                <ul>
-                    <li><a href="#">Dresses</a></li>
-                    <li><a href="#">Shirts</a>
-                        <div class="sub_menu_2">
-                            <ul>
-                                <li><a href="#">Dresses</a></li>
-                                <li><a href="#">Shirts</a></li>
-                                <li><a href="#">Shoes</a></li>
-                                <li><a href="#">Bags & Purses</a></li>
-                                <li> <a href="#">Hoodies & Sweatshirts Hoodies & Sweatshirts</a></li>
-                                <li> <a href="#">Jackets & Coats</a></li>
-                                <li> <a href="#">Beauty</a></li>
-
-                            </ul>
-                        </div>
-                    </li>
-                    <li><a href="#">Shoes</a>
-                        <div class="sub_menu_2">
-                            <ul>
-                                <li><a href="#">Dresses</a></li>
-                                <li><a href="#">Shirts</a></li>
-                                <li><a href="#">Shoes</a></li>
-                                <li><a href="#">Bags & Purses</a></li>
-                                <li> <a href="#">Hoodies & Sweatshirts Hoodies & Sweatshirts</a></li>
-                                <li> <a href="#">Jackets & Coats</a></li>
-                                <li> <a href="#">Beauty</a></li>
-
-                            </ul>
-                        </div>
-                    </li>
-                    
-                    <li> <a href="#">Hoodies & Sweatshirts Hoodies & Sweatshirts</a></li>
-                    <li> <a href="#">Jackets & Coats</a></li>
-                    <li> <a href="#">Beauty</a></li>
-
-                </ul>
-            </div>
-        </li>
-        <li><a href="#">fashion </a>
-            <div class="sub_menu">
-                <ul>
-                    
-                    <li><a href="#">Shoes</a>
-                        <div class="sub_menu_2">
-                            <ul>
-                                <li><a href="#">Dresses</a></li>
-                                <li><a href="#">Shirts</a></li>
-                                <li><a href="#">Shoes</a></li>
-                                <li><a href="#">Bags & Purses</a></li>
-                                <li> <a href="#">Hoodies & Sweatshirts Hoodies & Sweatshirts Hoodies & Sweatshirts Hoodies & Sweatshirts</a></li>
-                                <li> <a href="#">Jackets & Coats</a></li>
-                                <li> <a href="#">Beauty</a></li>
-
-                            </ul>
-                        </div>
-                    </li>
-                    
-
-                </ul>
-            </div>
-        </li>
-       
-        <li><a href="#">Bags & Purses</a>
-            <div class="sub_menu">
-                <ul>
-                    <li><a href="#">Dresses</a></li>
-                    <li><a href="#">Shirts</a>
-                        <div class="sub_menu_2">
-                            <ul>
-                                <li><a href="#">Dresses</a></li>
-                                <li><a href="#">Shirts</a></li>
-                                <li><a href="#">Shoes</a></li>
-                                <li><a href="#">Bags & Purses</a></li>
-                                <li> <a href="#">Hoodies & Sweatshirts Hoodies & Sweatshirts</a></li>
-                                <li> <a href="#">Jackets & Coats</a></li>
-                                <li> <a href="#">Beauty</a></li>
-
-                            </ul>
-                        </div>
-                    </li>
-                    <li><a href="#">Shoes</a>
-                        <div class="sub_menu_2">
-                            <ul>
-                                <li><a href="#">Dresses</a></li>
-                                <li><a href="#">Shirts</a></li>
-                                <li><a href="#">Shoes</a></li>
-                                <li><a href="#">Bags & Purses</a></li>
-                                <li> <a href="#">Hoodies & Sweatshirts Hoodies & Sweatshirts</a></li>
-                                <li> <a href="#">Jackets & Coats</a></li>
-                                <li> <a href="#">Beauty</a></li>
-
-                            </ul>
-                        </div>
-                    </li>
-                    
-
-                </ul>
-            </div>
-        </li>
-    </ul><!--End #Navigation-->
-</nav><!--End .navigation-->
+<nav id="nav">
+    <div class="center" id="droppdown">
+        <?php generateMenu($kq, $procate, $category); ?>
+    </div>
+    <!--End navigation-->
+</nav><!--End Nav-->
