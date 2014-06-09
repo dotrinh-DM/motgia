@@ -24,8 +24,8 @@ class Msms extends CI_Model {
         return $this->db->select('*')->where('userID', $uid)->get('user')->row_array();
     }
     public function getmail($uid){
-        $ckuid = $this->db->select('email')->where('userID', $uid)->get('user')->row_array();
-        return $ckuid['email'];
+        return $this->db->select('email')->where('userID', $uid)->get('user')->row_array();
+        
     }
 
     public function upMoney($uid) {
