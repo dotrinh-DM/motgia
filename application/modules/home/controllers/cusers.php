@@ -396,6 +396,9 @@ class cusers extends CI_Controller {
         }
         $temp['title'] = 'Chi tiết hóa đơn';
         $temp['template'] = 'vusers/order_detail';
+        $temp['category'] = $this->category_model->getAll();
+        $temp['kq'] = getChildren($temp['category']);
+        $temp['procate'] = $this->category_model->getProCate();
         $this->load->view('layout/layout', $temp);
     }
 
@@ -410,6 +413,9 @@ class cusers extends CI_Controller {
 
         $temp['title'] = 'Chi tiết hóa đơn';
         $temp['template'] = 'vusers/order_history';
+        $temp['category'] = $this->category_model->getAll();
+        $temp['kq'] = getChildren($temp['category']);
+        $temp['procate'] = $this->category_model->getProCate();
         $this->load->view('layout/layout', $temp);
     }
 
