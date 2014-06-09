@@ -1055,3 +1055,10 @@ input[type=checkbox] {
     max-width: 16px !important;
     margin-right: 10px !important;
 }
+#list_pavilion tbody tr td a img{
+    width:100px;
+    height:100px;
+}
+#list_pavilion tbody tr td span.quantity{
+    color:#e41346;
+}
