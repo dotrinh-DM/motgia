@@ -9,10 +9,8 @@ class Cproducts extends CI_Controller {
 
     public function __construct() {
         parent::__construct();
-        $this->load->helper('form');
-        $this->load->helper(array('html', 'file','category'));
+        $this->load->helper(array('html', 'file','menu','form','url'));
         $this->load->library('session');
-        $this->load->helper('url');
         $this->load->model('Mproducts');
         $this->load->model('Includebaokim');
         $this->load->model('Baokimpayment');
@@ -32,6 +30,9 @@ class Cproducts extends CI_Controller {
         $temp['data_home'] = $this->Mproducts->getAllProducts();
         $temp['data_slide'] = $this->Mproducts->getDataSlide();
         $temp['template'] = 'home';
+        $temp['category'] = $this->category_model->getAll();
+        $temp['kq'] = getChildren($temp['category']);
+        $temp['procate'] = $this->category_model->getProCate();
         $this->load->view('layout/layout', $temp);
     }
 
@@ -101,6 +102,9 @@ class Cproducts extends CI_Controller {
             $_SESSION['cart'][$uid]["shopname"] = $uname;
             redirect('cart');
         }
+        $temp['category'] = $this->category_model->getAll();
+        $temp['kq'] = getChildren($temp['category']);
+        $temp['procate'] = $this->category_model->getProCate();
         $this->load->view('layout/layout', $temp);
     }
 
@@ -111,6 +115,9 @@ class Cproducts extends CI_Controller {
 //        $temp['sidebar_product'] = $this->Mproducts->getRandomProduct();
         $temp['data'] = $this->category_model->getAll();
         $temp['template'] = 'vproducts/upproducts';
+        $temp['category'] = $this->category_model->getAll();
+        $temp['kq'] = getChildren($temp['category']);
+        $temp['procate'] = $this->category_model->getProCate();
         $this->load->view('layout/layout', $temp);
     }
 
@@ -175,6 +182,9 @@ class Cproducts extends CI_Controller {
         $data['sidebar_product'] = $this->Mproducts->getRandomProduct();
         $data['title'] = 'Sửa sản phẩm';
         $data['template'] = 'vproducts/editproducts';
+        $data['category'] = $this->category_model->getAll();
+        $data['kq'] = getChildren($temp['category']);
+        $data['procate'] = $this->category_model->getProCate();
         $this->load->view('layout/layout', $data);
     }
 
@@ -316,6 +326,9 @@ class Cproducts extends CI_Controller {
         }
         $data['title'] = 'Thanh toán';
         $data['template'] = 'vproducts/payment';
+        $data['category'] = $this->category_model->getAll();
+        $data['kq'] = getChildren($temp['category']);
+        $data['procate'] = $this->category_model->getProCate();
         $this->load->view('layout/layout', $data);
     }
 
@@ -363,6 +376,9 @@ class Cproducts extends CI_Controller {
         }
         $data['title'] = 'Thanh toán';
         $data['template'] = 'vproducts/payment';
+        $data['category'] = $this->category_model->getAll();
+        $data['kq'] = getChildren($data['category']);
+        $data['procate'] = $this->category_model->getProCate();
         $this->load->view('layout/layout', $data);
     }
 
@@ -383,6 +399,9 @@ class Cproducts extends CI_Controller {
 
     public function view_cart() {
         $data['info'] = $this->Mlog->log(); //lấy thông tin đăng nhập
+        $data['category'] = $this->category_model->getAll();
+        $data['kq'] = getChildren($data['category']);
+        $data['procate'] = $this->category_model->getProCate();
         if ($this->session->userdata('guest'))
             $data['guest'] = $this->session->userdata('guest');
         if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {

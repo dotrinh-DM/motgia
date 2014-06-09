@@ -7,7 +7,7 @@ class Chome extends CI_Controller {
 
     public function __construct() {
         parent::__construct();
-        $this->load->helper(array('form','menu'));
+        $this->load->helper(array('form','menu','menu'));
         $this->load->helper('html');
         $this->load->library('session');
         $this->load->helper('url');
