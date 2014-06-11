@@ -40,7 +40,7 @@ class Mproducts extends CI_Model
             products.price as price,
             products.images as images,
             products.intro as intro,
-            shop.company as shopname", FALSE);
+            shop.company as company", FALSE);
 //        $this->db->order_by('productsID', 'DESC');
         $this->db->join('shop', 'shop.shopID = products.shopID');
         $this->db->limit(10, $start);
