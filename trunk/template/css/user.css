@@ -43,32 +43,46 @@
 }
 .detail_user ul{
     background: #fff;
-    box-shadow: 0px 0px 5px #cfcfcf;
+    /*box-shadow: 0px 0px 5px #cfcfcf;*/
     text-transform: none;
-    text-align: center;
-    color: #367397;
+    /*text-align: center;*/
+    /*color: #367397;*/
     position: absolute;
-    width: 248px;
+    width: 275px;
     z-index: 9999;
-    display: none;
+    /*display: none;*/
+
+    padding: 10px;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border: 1px solid;
+
 }
-.detail_user ul:before{
+.thongtin::before{
     position: absolute;
     content: "";
     border-left: 10px solid transparent;
     border-right: 10px solid transparent;
     border-bottom: 10px solid #fff;
-    top:-10px; left: 47%;
+    top:-10px; left: 26%;
 }
-.detail_user a{
-    color: #367397;
-    text-shadow:1px 0px 0px #367397;
+.detail_user ul li a{
+    color: #0E76BC;
+    font-family: arial;
+    margin: -26px -13px;
+    /*text-shadow:1px 0px 0px #367397;*/
+}
+.detail_user ul li a:hover{
+    background: white;    
+    text-decoration: underline;
+    color: red;
+    /*text-shadow:1px 0px 0px #367397;*/
 }
 .detail_user ul li{
     float: none;
     border-top: 1px solid #ebebeb;
     padding-left: 16px;
-    padding-right: 16px;
+    width: 258px
 }
 .user .detail_user ul li:first-child {
     background: none;
@@ -79,11 +93,77 @@
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
-    color: #272727;
+    /*color: #272727;*/
 }
-.detail_user ul li:hover, .detail_user ul li a:hover{
+.detail_user ul li button{
+    font-family: arial;
+    font-weight: bold;
+}
+.detail_user ul li button:hover{
+    color: #24748c;
+}
+.showshop{
+    height: 280px !important;
+    margin: 0px -274px;
+    border-bottom-right-radius: 0px;
+    border-top-left-radius: 5px;
+    /*display: none !important*/
+}
+/*.showshop li{
+    border:none !important
+}*/
+.showshop li:hover{
+    background: white;
+}
+.showshop li a{
+    height: 15px
+}
+.showshop li::before{
+    position: absolute;
+    content: "";
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    border-left: 10px solid #97B4AA;
+    top: 115px;
+    left: 102%;
+}
+.number_count{
+    background: #E32958;
+    position: absolute;
+    display: block;
+    width: 20px;
+    height: 18px;
+    font-size: 10px;
+    color: white;
+    font-weight: 700;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 16px;
+    z-index: 10000;
+
+}
+.thongtin shopmanager:hover .showshop{
+    display: block !important;
+    -webkit-animation-duration:0.4s;
+    -webkit-animation-delay:0.2s;
+    -webkit-animation-timing-function:ease;
+    -webkit-animation-fill-mode:both;
+    -webkit-animation-name:hover-x;
+    -moz-animation-duration:0.4s;
+    -moz-animation-delay:0.2s;
+    -moz-animation-timing-function:ease;
+    -moz-animation-fill-mode:both;
+    -moz-animation-name:hover-x;
+    animation-duration:0.4s;
+    animation-delay:0.2s;
+    animation-timing-function:ease;
+    animation-fill-mode:both;
+    animation-name:hover-x;
+    height: auto;
+}
+/*.detail_user ul li:hover, .detail_user ul li a:hover{
     background: #f5f5f5;
-}
+}*/
 #logout{
     background: none;
     border: 0 none;
