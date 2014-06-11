@@ -162,9 +162,9 @@ input[type=button], input[type=submit], .sub_menu_2, :before, a, img {
     font-family: 'OpenSans-Bold';
 }
 
-.user li:hover:first-child a {
+/*.user li:hover:first-child a {
     background-color: #16a085;
-}
+}*/
 
 /*** logo_formSearch ***/
 .logo_formSearch {
