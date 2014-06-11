@@ -24,10 +24,10 @@ class Mproducts extends CI_Model
             products.price as price,
             products.images as images,
             products.intro as intro,
-            user.firstname as fname,
-            user.lastname as lname", FALSE);
+            shop.company as company,
+            shop.shopID as shopID", FALSE);
 //        $this->db->order_by('productsID', 'DESC');
-        $this->db->join('user', 'user.userID = products.userID');
+        $this->db->join('shop', 'shop.shopID = products.shopID');
         $this->db->limit(10, 0);
         $query = $this->db->get("products");
         return $query->result();
@@ -40,10 +40,9 @@ class Mproducts extends CI_Model
             products.price as price,
             products.images as images,
             products.intro as intro,
-            user.firstname as fname,
-            user.lastname as lname", FALSE);
+            shop.company as shopname", FALSE);
 //        $this->db->order_by('productsID', 'DESC');
-        $this->db->join('user', 'user.userID=products.userID');
+        $this->db->join('shop', 'shop.shopID = products.shopID');
         $this->db->limit(10, $start);
         $query = $this->db->get("products");
         return $query->result();
@@ -67,7 +66,7 @@ class Mproducts extends CI_Model
         return $query->result();
     }
 
-    public function insertProducts($id, $danhmuc, $soluong, $tensanpham, $motangan, $dacdiemnb, $dieukiensd, $chitietsp, $images, $uid)
+    public function insertProducts($id, $danhmuc, $soluong, $tensanpham, $motangan, $dacdiemnb, $dieukiensd, $chitietsp, $images, $shopid)
     {
         $create_date = gmdate("Y-m-d H:i:s", time() + 3600 * (+7 + date("I")));
         $data = array(
@@ -82,7 +81,7 @@ class Mproducts extends CI_Model
             'condition' => $dieukiensd,
             'productinfo' => $chitietsp,
             'create_date' => $create_date,
-            'userID' => $uid,
+            'shopID' => $shopid,
             'categoriesID' => $danhmuc
         );
         $this->db->insert('products', $data);
@@ -113,7 +112,7 @@ class Mproducts extends CI_Model
         $this->db->update('products', $data);
     }
 
-    public function insertOrder($seller, $buyer, $note, $method)
+    public function insertOrder($shopID, $buyer, $note, $method)
     {
         $creat = gmdate("Y-m-d H:i:s", time() + 3600 * (+7 + date("I")));
         
@@ -127,7 +126,7 @@ class Mproducts extends CI_Model
         $id = $this->Musers->setID('tbl_order', 'orderID', 'ORD');
         $data2 = array(
             'orderID' => $id,
-            'sellerID' => $seller,
+            'shopID' => $shopID,
             'buyerID' => $buyer,
             'create_date' => $creat,
             'note' => $note,
@@ -185,7 +184,7 @@ class Mproducts extends CI_Model
         $this->db->select("*");
         $this->db->where('productsID', "$id");
         $query = $this->db->get('products');
-        return $query->result();
+        return $query->row_array();
     }
 
     public function getProductByCate($id, $cate)

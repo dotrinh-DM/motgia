@@ -34,7 +34,10 @@ class Mshop extends CI_Model {
             }
         }
     }
-
+    
+    public function getShopByShopID($shopid){
+       return $this->db->select('*')->where("shopID","$shopid")->get("shop")->row_array();
+    }
 }
 
 ?>

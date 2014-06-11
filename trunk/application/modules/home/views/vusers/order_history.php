@@ -207,18 +207,16 @@
                             <td style="width: 25%;border-right-color: white;text-align: right;">
                                 <b>
                                 <p>Mã đơn hàng : </p>
-                                <p>Họ tên : </p>
-                                <p>Email : </p>
+                                <p>Bên bán : </p>
                                 <p>SĐT : </p>
                                 <p>Địa chỉ : </p>
                                 </b>
                             </td>
                             <td>    
                                 <p><span style="color:red">' . $seller['orderID'] . '</span></p>
-                                <p>' . $seller['fullname'] . '</p>
-                                <p>' . $seller['selleremail'] . '</p>
-                                <p>' . $seller['sellerphone'] . '</p>
-                                <p>' . $seller['selleradd'] . '</p>
+                                <p><a href="#">' . $seller['company'] . '</a></p>
+                                <p>' . $seller['shopphone'] . '</p>
+                                <p>' . $seller['shopadd'] .' '.$seller['shopcity']. '</p>
                             </td>
                             <td style="width: 25%;border-right-color: white;text-align: right;">
                                 <b>

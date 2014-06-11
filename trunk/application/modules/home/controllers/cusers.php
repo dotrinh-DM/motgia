@@ -5,8 +5,6 @@ if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
 class cusers extends CI_Controller {
-    public static $info = 'Thongtin';
-
     public function __construct() {
         parent::__construct();
         $this->load->helper(array('form', 'html', 'url', 'file','menu'));
@@ -15,7 +13,6 @@ class cusers extends CI_Controller {
         $this->load->model("admin/category_model");
         $this->load->library('upload');
         $this->load->database();
-
     }
 
     public function index() {

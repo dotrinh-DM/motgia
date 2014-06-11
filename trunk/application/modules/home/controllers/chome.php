@@ -44,4 +44,13 @@ class Chome extends CI_Controller {
         redirect('trang-chu');
     }
 
+    public function listShop() {
+        $temp['category'] = $this->category_model->getAll();
+        $temp['kq'] = getChildren($temp['category']);
+        $temp['procate'] = $this->category_model->getProCate();
+        $temp['title'] = 'Danh sách gian hàng | Đăng sản phẩm | Thanh toán Trực tuyến';
+        $temp['template'] = 'vproducts/listShop';
+        $this->load->view('layout/layout', $temp);
+    }
+
 }
