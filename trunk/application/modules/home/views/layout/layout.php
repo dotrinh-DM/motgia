@@ -21,7 +21,7 @@
                     </center>
                 </div>
                 <div style="float: right;">
-                    <a href="#" class="close"><img src="<?php echo base_url()?>motgia/public/icons/del.png" style="width: 35px;margin: -14px -12px 0px 0px;float: right;"></a>
+                    <a href="#" class="close"><img src="<?php echo base_url()?>public/icons/del.png" style="width: 35px;margin: -14px -12px 0px 0px;float: right;"></a>
                 </div>
                 <div class="clear" id="contentmess" style="width: 100%;height: 70%;padding: 5px;text-align: center;font-size: 13pt;">
                 </div>
