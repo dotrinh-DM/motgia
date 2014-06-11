@@ -271,13 +271,47 @@ class Musers extends CI_Model {
     }
 
     //dem co bao nhieu hoa don chua xu ly cua thanh vien
-    public function getNumOrderStatus($UID) {
+    public function getNumOrderStatus($UID) {//lay so luong hoa don chua xu ly
         $this->db->select("status");
         $this->db->where(array('status' => 1, 'sellerID' => $UID));
         $qr = $this->db->get('tbl_order')->result();
         return count($qr);
     }
+    public function checkOwnShop($UID){//kiem tra thanh vien da dang ky gian hang hay chua?
+        $this->db->select("*");
+        $this->db->where("userID","$UID");
+        $qr = $this->db->get('shop')->row_array();
+        if (count($qr))
+            return $qr;
+        else
+            return FALSE;
+    }
 
+    public function getNumMessageUnread($UID) {//lay so luong tin nhan chua doc
+        $this->db->select("status");
+        $this->db->where(array('status' => 0, 'receiverID' => $UID));
+        $qr = $this->db->get('message')->result();
+        return count($qr);
+    }
+    public function getNumOrderHistory($UID) {//lay so luong tin nhan chua doc
+        $this->db->select("buyerID");
+        $this->db->where("buyerID", "$UID");
+        $qr = $this->db->get('tbl_order')->result();
+        return count($qr);
+    }
+    public function getNumProductsUnactive($UID) {//lay so luong san pham chua duyet
+        $this->db->select("status");
+        $this->db->where(array('status' => 0, 'userID' => $UID));
+        $qr = $this->db->get('products')->result();
+        return count($qr);
+    }
+    public function getNumProductsExpiration($UID) {//lay so luong san pham chua duyet
+        $this->db->select("status");
+        $this->db->where(array('status' => 2, 'userID' => $UID));
+        $qr = $this->db->get('products')->result();
+        return count($qr);
+    }
+    
     //lay tat ca hoa don da dat cua thanh vien
     public function getOrderByBuyerID($buyerid, $sum = 10000, $start = 0) {//đơn hàng đã đặt - dành cho người mua hàng
         $this->db->select("
@@ -315,13 +349,7 @@ class Musers extends CI_Model {
     }
 
     ///////////////////////////////////////////
-    
-    public function getNumMessageUnread($UID) {
-        $this->db->select("status");
-        $this->db->where(array('status' => 0, 'receiverID' => $UID));
-        $qr = $this->db->get('message')->result();
-        return $num = count($qr);
-    }
+
 
     //lay tat ca tin nhan cua thanh vien
     public function getMessageByUID($Uid, $sum = 10000, $start = 0) {
