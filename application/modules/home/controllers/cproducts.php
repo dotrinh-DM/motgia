@@ -56,7 +56,7 @@ class Cproducts extends CI_Controller {
                                 <a style="cursor: pointer" id="' . $value->productsID . '" class="btn_readmore">Đặt Mua</a>
 
                                 <span class="price">' . $value->price . 'K</span>
-                                <div style="margin:50px" class="clearfix"><a href="" style="color: #93B1CC"><b>' . $value->fname . ' ' . $value->lname . '</b></a></div>
+                                <div style="margin:50px" class="clearfix"><a href="" style="color: #93B1CC"><b>' . $value->company. '</b></a></div>
                             </div><!--End .module_item-->
                         </section><!--End .module-->
                           ';

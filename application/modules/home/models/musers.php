@@ -400,21 +400,23 @@ class Musers extends CI_Model {
 
     //chen khoa chinh $pri_key tai bang $table voi ky tu $name o dau va cac chu so dang sau tang dan
     public function setID($table, $pri_key, $name) {
-        $this->db->select("$pri_key");
-        $this->db->limit(1);
-        $this->db->order_by("$pri_key", "desc");
-        $arrr = $this->db->get("$table")->row_array();
-        if (!isset($arrr) && count($arrr) < 1) {
-            return $arrr = $name . '00001';
+       $max = $this->db->select("max(
+                                     CONVERT( 
+                                        TRIM( LEADING 0 FROM SUBSTRING(
+                                            $pri_key FROM 4 FOR LENGTH($pri_key)
+                                                    )
+                                                ), SIGNED INTEGER)
+                                            ) as abc", FALSE)
+               ->get($table)->row_array();//Lay chu so lon nhat cua khoa chinh trong bang
+        if (!isset($max) && count($max) < 1) {
+            return $id = $name . '00001';
             exit();
         }
-        $count = strlen($arrr[$pri_key]);
-        $str = (int) substr($arrr[$pri_key], strlen($name), $count);
-        $str++;
-        $id = $name . $str;
+        $max2 = (int)$max['abc'] + 1;
+        $id = $name . $max2;
         $leng = strlen($id);
         while ($leng <= 7) {
-            $ar1 = (int) substr($id, strlen($name), $leng);
+            $ar1 = substr($id, strlen($name), $leng);
             $ar2 = rtrim($id, $ar1);
             $id = $ar2 . '0' . $ar1;
             $leng++;
