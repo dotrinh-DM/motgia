@@ -50,7 +50,7 @@
     position: absolute;
     width: 275px;
     z-index: 9999;
-    /*display: none;*/
+    display: none;
 
     padding: 10px;
     border-bottom-right-radius: 5px;
