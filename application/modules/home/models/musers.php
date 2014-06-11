@@ -151,30 +151,41 @@ class Musers extends CI_Model {
     }
 
     //lay san pham tu userID
-    public function getProductByUID($Uid, $sum = 10000, $start = 0) {
+    public function getProductByUID($uid, $sum = 10000, $start = 0) {
+        $shopid= $this->getShopByUID($uid);
         $this->db->select("*");
         $this->db->select("DATE_FORMAT(create_date, '%d/%m/%Y') AS date_up", FALSE);
         $this->db->select("DATE_FORMAT(date_expiration, '%d/%m/%Y') AS date_expiration", FALSE);
         $this->db->From('products');
-        $this->db->where("userID", "$Uid");
+        $this->db->where("shopID", "$shopid");
         $this->db->limit($sum, $start);
         $query = $this->db->get();
         return $query->result();
     }
+    
+    public function getShopByUID($uid){
+       $shop = $this->db->select("*")
+                ->where("userID","$uid")
+                ->get("shop")
+                ->row_array();
+        return $shop['shopID'];
+    }
 
-    public function changeStatusPro($proid, $uid, $status) {
-        $this->db->where(array('productsID' => $proid, 'userID' => $uid));
+        public function changeStatusPro($proid, $uid, $status) {
+        $shopid= $this->getShopByUID($uid);
+        $this->db->where(array('productsID' => $proid, 'shopID' => $shopid));
         $this->db->update('products', array('status' => $status));
     }
 
     //lay tat ca hoa don da ban cua thanh vien
     public function getOrderByUID($Uid, $sum = 10000, $start = 0) {//đơn hàng đã nhận- dành cho chủ gian hàng
+        $shopid= $this->getShopByUID($Uid);
         $this->db->select("*")
                 ->select("DATE_FORMAT(create_date, '%d-%m-%Y, %H:%i %p') AS date_cr", FALSE)
                 ->select("DATE_FORMAT(create_date, '%d') AS date", FALSE)
                 ->select("DATE_FORMAT(create_date, '%m') AS month", FALSE)
                 ->select("DATE_FORMAT(create_date, '%Y') AS year", FALSE)
-                ->where("sellerID", "$Uid")
+                ->where("shopID", "$shopid")
                 ->order_by('date_cr', 'desc');
         $query = $this->db->get('tbl_order', $sum, $start);
         return $query->result();
@@ -252,28 +263,29 @@ class Musers extends CI_Model {
     public function getOrderDetail_History($oid) {// chi tiet hoa don mua boi thanh vien
         return $this->db->select("
             tbl_order.orderID as orderID,
-            tbl_order.sellerID as sellerID,
+            tbl_order.shopID as shopID,
             tbl_order.note as note,
             tbl_order.method as method,
             tbl_order.status as status, 
             tbl_order.statusID as statusID, 
-            user.email as selleremail,
-            user.phone as sellerphone, 
-            user.address as selleradd,
+            shop.company as company,
+            shop.phone as shopphone, 
+            shop.city as shopcity,
+            shop.address as shopadd,
             bill_status.userID as action_uid")
-                        ->select("CONCAT(user.firstname ,' ',user.lastname) as fullname", FALSE)
                         ->select("DATE_FORMAT(tbl_order.create_date, '%d-%m-%Y, %H:%i %p') AS date_cr", FALSE)
                         ->select("DATE_FORMAT(bill_status.action_date, '%d-%m-%Y, %H:%i %p') AS action_date", FALSE)
                         ->where("tbl_order.orderID", "$oid")
-                        ->join('user', 'user.userID = tbl_order.sellerID')//xem thông tin người mua
+                        ->join('shop', 'shop.shopID = tbl_order.shopID')//xem thông tin người ban
                         ->join('bill_status', 'bill_status.statusID = tbl_order.statusID')
                         ->get('tbl_order')->row_array();
     }
 
     //dem co bao nhieu hoa don chua xu ly cua thanh vien
     public function getNumOrderStatus($UID) {//lay so luong hoa don chua xu ly
+        $shopid = $this->getShopByUID($UID);
         $this->db->select("status");
-        $this->db->where(array('status' => 1, 'sellerID' => $UID));
+        $this->db->where(array('status' => 1, 'shopID' => $shopid));
         $qr = $this->db->get('tbl_order')->result();
         return count($qr);
     }
@@ -300,14 +312,16 @@ class Musers extends CI_Model {
         return count($qr);
     }
     public function getNumProductsUnactive($UID) {//lay so luong san pham chua duyet
+        $shopid= $this->getShopByUID($UID);
         $this->db->select("status");
-        $this->db->where(array('status' => 0, 'userID' => $UID));
+        $this->db->where(array('status' => 0, 'shopID' => $shopid));
         $qr = $this->db->get('products')->result();
         return count($qr);
     }
     public function getNumProductsExpiration($UID) {//lay so luong san pham chua duyet
+        $shopid= $this->getShopByUID($UID);
         $this->db->select("status");
-        $this->db->where(array('status' => 2, 'userID' => $UID));
+        $this->db->where(array('status' => 2, 'shopID' => $shopid));
         $qr = $this->db->get('products')->result();
         return count($qr);
     }
@@ -320,18 +334,16 @@ class Musers extends CI_Model {
             tbl_order.note as note,
             tbl_order.method as method,
             tbl_order.status as status, 
-            user.firstname as sellerfname,
-            user.lastname as sellerlname, 
-            user.email as selleremail,
-            user.phone as sellerphone, 
-            user.address as selleradd")
-                ->select("DATE_FORMAT(user.birthday, '%Y') AS selleryear", FALSE)
+            shop.company as company, 
+            shop.phone as shopphone, 
+            shop.address as shopadd,
+            shop.city as shopcity")
                 ->select("DATE_FORMAT(tbl_order.create_date, '%d-%m-%Y, %H:%i %p') AS date_cr", FALSE)
                 ->select("DATE_FORMAT(tbl_order.create_date, '%d') AS date", FALSE)
                 ->select("DATE_FORMAT(tbl_order.create_date, '%m') AS month", FALSE)
                 ->select("DATE_FORMAT(tbl_order.create_date, '%Y') AS year", FALSE)
                 ->where("tbl_order.buyerID", "$buyerid")
-                ->join('user', 'user.userID = tbl_order.sellerID')
+                ->join('shop', 'shop.shopID = tbl_order.shopID')
                 ->order_by('date_cr', 'desc');
         $query = $this->db->get('tbl_order', $sum, $start);
         return $query->result();

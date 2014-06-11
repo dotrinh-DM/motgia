@@ -9,12 +9,13 @@ class Cproducts extends CI_Controller {
 
     public function __construct() {
         parent::__construct();
-        $this->load->helper(array('html', 'file','menu','form','url'));
+        $this->load->helper(array('html', 'file', 'menu', 'form', 'url'));
         $this->load->library('session');
         $this->load->model('Mproducts');
         $this->load->model('Includebaokim');
         $this->load->model('Baokimpayment');
         $this->load->model('Mlog');
+        $this->load->model('Mshop');
         $this->load->model('Musers');
         $this->load->model("admin/category_model");
     }
@@ -82,15 +83,13 @@ class Cproducts extends CI_Controller {
         if ($this->input->post('order')) {
             $id = $this->input->post('proid');
             $sl = $this->input->post('soluong');
-            $uid2 = $this->Mproducts->getProductbyID($id);
-            foreach ($uid2 as $key => $value) {
-                $uid = $value->userID;
-                $proname = $value->name;
-            }
-            $uname2 = $this->Musers->getProfile($uid);
-            $uname = $uname2['fullname'];
-            if (isset($_SESSION['cart'][$uid][$id])) {
-                $sl = $_SESSION['cart'][$uid][$id]['soluong'] + 1;
+            $shopid2 = $this->Mproducts->getProductbyID($id);
+            $shopid = $shopid2['shopID'];
+            $proname = $shopid2['name'];
+            $company2 = $this->Mshop->getShopByShopID($shopid);
+            $company = $company2['company'];
+            if (isset($_SESSION['cart'][$shopid][$id])) {
+                $sl = $_SESSION['cart'][$shopid][$id]['soluong'] + 1;
             } else {
                 $sl = 1;
             }
@@ -98,8 +97,8 @@ class Cproducts extends CI_Controller {
                 "productname" => $proname,
                 "soluong" => $sl
             );
-            $_SESSION['cart'][$uid][$id] = $arr;
-            $_SESSION['cart'][$uid]["shopname"] = $uname;
+            $_SESSION['cart'][$shopid][$id] = $arr;
+            $_SESSION['cart'][$shopid]["shopname"] = $company;
             redirect('cart');
         }
         $temp['category'] = $this->category_model->getAll();
@@ -107,8 +106,6 @@ class Cproducts extends CI_Controller {
         $temp['procate'] = $this->category_model->getProCate();
         $this->load->view('layout/layout', $temp);
     }
-
-
 
     public function upProducts() {
         $temp['info'] = $this->Mlog->log();
@@ -292,8 +289,8 @@ class Cproducts extends CI_Controller {
                 $seller = $this->input->post('seller');
                 $proid = $this->input->post('proid');
                 $sl = $this->input->post('soluong');
-                $uname2 = $this->Musers->getProfile($seller);
-                $uname = $uname2['fullname'];
+                $uname2 = $this->Mshop->getShopByShopID($seller);
+                $uname = $uname2['company'];
                 if (isset($_SESSION['pay']))
                     unset($_SESSION['pay']);
                 $arr = array(
@@ -309,11 +306,11 @@ class Cproducts extends CI_Controller {
 
             if ($this->input->post('thanhtoan')) {
                 $note = $this->input->post('note');
-                foreach ($_SESSION['pay'] as $uid => $value) {
-                    if ($uid != 'method') {
+                foreach ($_SESSION['pay'] as $shopid => $value) {
+                    if ($shopid != 'method') {
                         $tong = 0;
-                        $orderid = $this->Mproducts->insertOrder($uid, $buyer, $note, 1);
-                        unset($_SESSION['cart'][$uid]);
+                        $orderid = $this->Mproducts->insertOrder($shopid, $buyer, $note, 1);
+                        unset($_SESSION['cart'][$shopid]);
                         foreach ($value as $proid => $value2) {
                             if ($proid != 'shopname') {
                                 $this->Mproducts->insertOrderDetail($orderid, $proid, $value2['soluong']);
@@ -326,7 +323,7 @@ class Cproducts extends CI_Controller {
                 $this->BaokimPay($tong, $orderid);
             }
         }
-        $data['title'] = 'Thanh toán';
+        $data['title'] = 'Thanh toán trực tuyến | Siêu thị motgia.tk';
         $data['template'] = 'vproducts/payment';
         $data['category'] = $this->category_model->getAll();
         $data['kq'] = getChildren($data['category']);
@@ -341,10 +338,10 @@ class Cproducts extends CI_Controller {
             $data['profile'] = $this->Musers->getProfile($buyer);
             if ($this->input->post('thanhtoan')) {
                 $note = $this->input->post('note');
-                foreach ($_SESSION['pay'] as $uid => $value) {
-                    if ($uid != 'method') {
-                        $orderid = $this->Mproducts->insertOrder($uid, $data['info']['userID'], $note, 0);
-                        unset($_SESSION['cart'][$uid]);
+                foreach ($_SESSION['pay'] as $shopid => $value) {
+                    if ($shopid != 'method') {
+                        $orderid = $this->Mproducts->insertOrder($shopid, $data['info']['userID'], $note, 0);
+                        unset($_SESSION['cart'][$shopid]);
                         foreach ($value as $proid => $value2) {
                             if ($proid != 'shopname') {
                                 $this->Mproducts->insertOrderDetail($orderid, $proid, $value2['soluong']);
@@ -376,7 +373,7 @@ class Cproducts extends CI_Controller {
                 redirect('cart');
             }
         }
-        $data['title'] = 'Thanh toán';
+        $data['title'] = 'Thanh toán tại nhà | Siêu thị motgia.tk';
         $data['template'] = 'vproducts/payment';
         $data['category'] = $this->category_model->getAll();
         $data['kq'] = getChildren($data['category']);
@@ -430,15 +427,13 @@ class Cproducts extends CI_Controller {
 
     public function addcart() {
         $id = $_POST['idpro'];
-        $uid2 = $this->Mproducts->getProductbyID($id);
-        foreach ($uid2 as $key => $value) {
-            $uid = $value->userID;
-            $proname = $value->name;
-        }
-        $uname2 = $this->Musers->getProfile($uid);
-        $uname = $uname2['firstname'] . ' ' . $uname2['lastname'];
-        if (isset($_SESSION['cart'][$uid][$id])) {
-            $ql = $_SESSION['cart'][$uid][$id]['soluong'] + 1;
+        $shopid2 = $this->Mproducts->getProductbyID($id);
+        $shopid = $shopid2['shopID'];
+        $proname = $shopid2['name'];
+        $company2 = $this->Mshop->getShopByShopID($shopid);
+        $company = $company2['company'];
+        if (isset($_SESSION['cart'][$shopid][$id])) {
+            $ql = $_SESSION['cart'][$shopid][$id]['soluong'] + 1;
         } else {
             $ql = 1;
         }
@@ -446,8 +441,8 @@ class Cproducts extends CI_Controller {
             "productname" => $proname,
             "soluong" => $ql
         );
-        $_SESSION['cart'][$uid][$id] = $arr;
-        $_SESSION['cart'][$uid]["shopname"] = $uname;
+        $_SESSION['cart'][$shopid][$id] = $arr;
+        $_SESSION['cart'][$shopid]["shopname"] = $company;
         $dem = 0;
 
         foreach ($_SESSION['cart'] as $key => $value) {

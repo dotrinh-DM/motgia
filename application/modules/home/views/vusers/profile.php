@@ -813,7 +813,7 @@
                     }
                 }
                 else
-                    echo 'Không có nội dung hiển thị';
+                    echo 'Rất tiếc! Không có nội dung hiển thị';
 
                 echo '</table>
                     <section class="pagination">
@@ -913,10 +913,9 @@
 
                         <td>
                             <?php
-                            echo '<p style="color:#7769AD"><b>' . $ord->sellerfname . ' ' . $ord->sellerlname . '</b></p>';
-                            echo '<p>Năm sinh: ' . $ord->selleryear . '</p>';
-                            echo '<p>Địa chỉ: ' . $ord->selleradd . '</p>';
-                            echo '<p>SĐT: ' . $ord->sellerphone . ' ... ';
+                            echo '<p style="color:#7769AD"><b>' . $ord->company . '</b></p>';
+                            echo '<p>Địa chỉ: ' . $ord->shopadd .' '.$ord->shopcity. '</p>';
+                            echo '<p>SĐT: ' . $ord->shopphone . ' ... ';
                             ?>
                             <a href="#">> <b>Chi tiết</b></a></p>
                         </td>
@@ -954,7 +953,7 @@
                 }
             }
             else
-                echo 'Không có nội dung hiển thị';
+                echo 'Rất tiếc! Không có nội dung hiển thị';
 
             echo '</table>
                     <section class="pagination">
@@ -1019,8 +1018,8 @@
                 ';
             ?>
             <div id="monney">
-                <span>Soạn tin nhắn theo cú pháp DV <dấu cách> MOTGIA <dấu cách> <?php echo $info['userID'] ?>
-                            Gửi 8085 (15.000đ/tin nhắn)
+                <span>Soạn tin nhắn theo cú pháp <b>DV</b> <span><</span>dấu cách<span>></span> <b>MOTGIA</b> <span><</span>dấu cách<span>></span> <b><?php echo $info['userID'] ?></b>
+                            Gửi <b>8085</b> (15.000đ/tin nhắn)
                             </span><br><br>
                             <span style="font-weight: bold;font-size: 10pt;color: #0DE928;">Lịch sử nạp tiền</span>
                             <table class="oder_table">

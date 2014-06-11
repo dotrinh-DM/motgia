@@ -85,6 +85,7 @@
         <a href="#">Sản phẩm nổi bật</a>
         <a href="#">Sản phẩm mới</a>
         <a href="#">Sản phẩm bán chạy</a>
+        <a href="<?php echo site_url('home/chome/listShop')?>">Danh sách gian hàng</a>
     </header><!--End .Nav_content-->
     <div id="content_index">
         <?php
@@ -103,7 +104,7 @@
                     <a style="cursor: pointer" id="<?php echo $value->productsID; ?>" class="btn_readmore">Đặt Mua</a>
                     
                     <span class="price"><?php echo $value->price ?>K</span>
-                    <div style="margin:50px" class="clearfix"><a href="" style="color: #93B1CC"><b><?php echo $value->fname.' '.$value->lname; ?></b></a></div>
+                    <div style="margin:50px" class="clearfix"><a href="" style="color: #93B1CC"><b><?php echo $value->company; ?></b></a></div>
                 </div><!--End .module_item-->
             </section><!--End .module-->
         <?php } ?> 

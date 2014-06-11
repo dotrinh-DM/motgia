@@ -158,8 +158,7 @@ function curPageName() {
 </div>
 
 <?php
-foreach ($data_detail as $value)
-    $images1 = json_decode($value->images);
+    $images1 = json_decode($data_detail['images']);
 ?>
 <section class="bg_shadow">
     <div class="wrap clearfix">
@@ -187,7 +186,6 @@ foreach ($data_detail as $value)
         <section class="product_detail">
             <div id="product_view">
                 <?php foreach ($images1 as $value22)
-                    
                     ?>
                 <a href="<?php echo base_url() . $images1[0]; ?>" class="jqzoom" rel='gal1'  title="triumph">
                     <img class="view" src="<?php echo base_url() . $images1[0]; ?>" alt=""  title="triumph"/>
@@ -211,26 +209,26 @@ foreach ($data_detail as $value)
                 </div>
             </div>
             <section id="product_content">
-                <h1><?php echo $value->name ?></h1>
+                <h1><?php echo $data_detail['name'] ?></h1>
                 <header class="longer_products">
                     <h6 class="icon_longer_products" style="height: 30px">Còn hàng</h6>
                 </header>
                 <div class="subdetail">
-                    <?php echo $value->intro ?>
+                    <?php echo $data_detail['intro'] ?>
                 </div>
 
                 <div class="price_3">
                     Giá:
-                    <span class="new_price"> <?php echo $value->price ?></span>
+                    <span class="new_price">100</span>
                 </div>
 
                 <div id="addCart">
                     <form action="" method="POST" id="form-action">
                         <label for="qty">Số lượng</label>
-                        <input type="hidden" name="seller" value="<?php echo $value->userID ?>"/>
-                        <input type="hidden" name="proid" value="<?php echo $value->productsID ?>"/>
-                        <input type="hidden" name="proname" value="<?php echo $value->name ?>"/>
-                        <input type="hidden" name="proprice" value="<?php echo $value->price ?>"/>
+                        <input type="hidden" name="seller" value="<?php echo $data_detail['shopID'] ?>"/>
+                        <input type="hidden" name="proid" value="<?php echo $data_detail['productsID'] ?>"/>
+                        <input type="hidden" name="proname" value="<?php echo $data_detail['name'] ?>"/>
+                        <input type="hidden" name="proprice" value="100000"/>
                         <input id="down" type="button" value="<"/>
                         <input id="qty" type="text" value="1" name="soluong"/>
                         <input id="up" type="button" value=">"/>
@@ -274,7 +272,7 @@ foreach ($data_detail as $value)
                                 <h6 class="title_detail_item">Đặc điểm nổi bật</h6>
                                 <ul>
                                     <li>
-                                        <?php echo $value->hightlight ?> 
+                                        <?php echo $data_detail['hightlight'] ?> 
                                     </li>
                                 </ul>
                             </div>
@@ -283,7 +281,7 @@ foreach ($data_detail as $value)
                                 <ul>
                                     <li>
 
-                                        <?php echo $value->condition ?>
+                                        <?php echo $data_detail['condition'] ?>
 
                                     </li>
                                 </ul>
@@ -292,7 +290,7 @@ foreach ($data_detail as $value)
                             <div class="detail_item_post">
                                 <header class="title_post_detail">Detail information</header>
                                 <p>
-                                    <?php echo $value->productinfo ?>
+                                    <?php echo $data_detail['productinfo'] ?>
                                 </p>
                             </div>
 

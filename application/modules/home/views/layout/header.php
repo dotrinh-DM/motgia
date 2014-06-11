@@ -45,7 +45,9 @@
                                             <a class="floatLeft" style="margin: 0px 37px;height: 20px" href="<?php echo base_url() ?>profile#money">Nạp tiền</a>
                                             <div  class="clearfix"></div>
                                             <span>(Cập nhật ngày : 15/06/2014 00:00 AM )</span>
-                                            <p style="margin: -5px 2px;color: black;font-weight: bold;">Gian hàng:</p>
+                                            <?php if(isset($shopper)&& count($shopper)) {
+                                            echo '<p style="margin: -5px 2px;color: black;font-weight: bold;line-height: 23px;width: 250px;">Gian hàng: '.$shopper['company'].'</p>';
+                                            }?>
                                         </div>
                                     </div>
                                     <div style="margin: 10px 0px -10px -26px;width: 113%;background-color: #DCF5F5;border-top: 2px solid #DCDCE2;">
@@ -55,11 +57,12 @@
                                     </div>
                                 </li>
                             </ul>
+                            <?php if(isset($shopper)&& count($shopper)) {?>
                             <ul  class="showshop">
                                 <div>
                                     <p style="margin: -10px 2px;color: black;height: 20px">Địa chỉ:</p>
-                                    <div style="height: 50px; overflow:hidden;padding: 9px">
-                                    <span style="margin: 0px 2px;color: black;height: 20px"><?php echo $shopper['address'].' '.$shopper['city']?></span>
+                                    <div style="height: 60px; overflow:hidden;padding-top: 20px;line-height: 20px">
+                                    <span style="color: black;height: 20px"><?php echo $shopper['address'].' '.$shopper['city']?></span>
                                     </div>
                                 </div>
                                 <li style="font-family:arial; margin-top: 10px">
@@ -84,6 +87,7 @@
                                     <button class="btn" style="box-shadow: 0px 0px 0px white;background-color: #76CAC0;margin: 13px 25px;padding: 6px;width: 100px;">Vào gian hàng</button>
                                 </li>
                             </ul>
+                            <?php } ?>
                             <!--                            <ul>
                                                             <li><h6 class="welcome">Xin chào ' . $info['fullname'] . ' !</h6></li>
                                                             <li><a href="' . base_url() . 'up-product">Đăng tin</a></li>
@@ -150,7 +154,7 @@
 </section>
 <section class="logo_formSearch">
     <div class="wrap clearfix">
-        <a href="#" id="logo" class="floatLeft"><img src="<?php echo base_url(); ?>/template/uploads/logo.png" alt=""/></a>
+        <a href="<?php echo base_url('trang-chu')?>" id="logo" class="floatLeft"><img src="<?php echo base_url(); ?>/template/uploads/logo.png" alt=""/></a>
 
         <form id="search">
             <input type="text" placeholder="search" class="txt-search"/>
