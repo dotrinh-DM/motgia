@@ -13,7 +13,7 @@
         <div id="boxes">
             <div style="top: 199.5px; left: 551.5px; display: none; border: 1px solid;border-radius: 14px;" id="dialog" class="window">
                 <div style="width: 45px;height: 45px;float: left;margin: -25px -15px;">
-                    <img src="http://localhost:7070/motgia/public/icons/pin_icon.png" style="width: 41px;">
+                    <img src="<?php echo base_url()?>public/icons/pin_icon.png" style="width: 41px;">
                 </div> 
                 <div style="float: left;margin-left: 20px;width: 310px;">
                     <center>
@@ -21,7 +21,7 @@
                     </center>
                 </div>
                 <div style="float: right;">
-                    <a href="#" class="close"><img src="http://localhost:7070/motgia/public/icons/del.png" style="width: 35px;margin: -14px -12px 0px 0px;float: right;"></a>
+                    <a href="#" class="close"><img src="<?php echo base_url()?>motgia/public/icons/del.png" style="width: 35px;margin: -14px -12px 0px 0px;float: right;"></a>
                 </div>
                 <div class="clear" id="contentmess" style="width: 100%;height: 70%;padding: 5px;text-align: center;font-size: 13pt;">
                 </div>
