@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 11, 2014 at 06:13 PM
+-- Generation Time: Jun 12, 2014 at 02:34 AM
 -- Server version: 5.6.14
 -- PHP Version: 5.5.6
 
@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS `bill_status` (
   `action_date` datetime NOT NULL,
   `userID` varchar(15) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`statusID`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=21 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=50 ;
 
 --
 -- Dumping data for table `bill_status`
@@ -48,7 +48,36 @@ INSERT INTO `bill_status` (`statusID`, `action_date`, `userID`) VALUES
 (11, '2014-06-07 15:35:50', 'UID00004'),
 (12, '2014-06-07 15:37:20', 'UID00004'),
 (13, '2014-06-09 00:59:28', 'UID00003'),
-(14, '2014-06-11 23:47:57', 'UID00004');
+(14, '2014-06-11 23:47:57', 'UID00004'),
+(21, '2014-06-12 00:18:54', 'UID00004'),
+(22, '2014-06-12 00:19:34', 'UID00004'),
+(23, '2014-06-12 00:19:57', 'UID00004'),
+(24, '2014-06-12 00:20:05', 'UID00004'),
+(25, '2014-06-12 00:20:27', 'UID00004'),
+(26, '2014-06-12 00:20:46', 'UID00004'),
+(27, '2014-06-12 00:21:08', 'UID00004'),
+(28, '2014-06-12 00:21:24', 'UID00004'),
+(29, '2014-06-12 01:05:32', 'UID00004'),
+(30, '2014-06-12 01:06:02', 'UID00004'),
+(31, '2014-06-12 01:08:48', 'UID00004'),
+(32, '2014-06-12 01:09:17', 'UID00004'),
+(33, '2014-06-12 01:09:46', 'UID00004'),
+(34, '2014-06-12 01:10:46', 'UID00004'),
+(35, '2014-06-12 01:10:49', 'UID00004'),
+(36, '2014-06-12 01:15:10', 'UID00004'),
+(37, '2014-06-12 01:15:30', 'UID00004'),
+(38, '2014-06-12 01:15:34', 'UID00004'),
+(39, '2014-06-12 01:27:25', 'UID00004'),
+(40, '2014-06-12 01:15:40', 'UID00004'),
+(41, '2014-06-12 01:16:12', 'UID00004'),
+(42, '2014-06-12 01:16:15', 'UID00004'),
+(43, '2014-06-12 01:49:15', ''),
+(44, '2014-06-12 01:24:58', 'UID00004'),
+(45, '2014-06-12 01:16:37', 'UID00004'),
+(46, '2014-06-12 01:16:40', 'UID00004'),
+(47, '2014-06-12 01:17:15', 'UID00004'),
+(48, '2014-06-12 01:17:18', 'UID00004'),
+(49, '2014-06-12 01:03:58', 'UID00003');
 
 -- --------------------------------------------------------
 
@@ -63,7 +92,7 @@ CREATE TABLE IF NOT EXISTS `captcha` (
   `word` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`captcha_id`),
   KEY `word` (`word`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=805 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=825 ;
 
 --
 -- Dumping data for table `captcha`
@@ -216,7 +245,27 @@ INSERT INTO `captcha` (`captcha_id`, `captcha_time`, `ip_address`, `word`) VALUE
 (801, 1402501918, '::1', 'GKD1mzmN'),
 (802, 1402501937, '::1', 'q07TSbef'),
 (803, 1402501986, '::1', 'orRgxY7q'),
-(804, 1402502001, '::1', 'zCqGq31v');
+(804, 1402502001, '::1', 'zCqGq31v'),
+(805, 1402507448, '::1', 'cCag3RX6'),
+(806, 1402507491, '::1', 'ACoezdUg'),
+(807, 1402507503, '::1', 'oN4wH32M'),
+(808, 1402507522, '::1', '9ZFEqLWN'),
+(809, 1402507529, '::1', '0oyY5FUK'),
+(810, 1402507639, '::1', 'UfX3xLhS'),
+(811, 1402507683, '::1', '9eakbKn7'),
+(812, 1402507709, '::1', 'HB6s7Bjj'),
+(813, 1402508408, '::1', 'SxZYcJA7'),
+(814, 1402509026, '::1', 'zpAdRd03'),
+(815, 1402509281, '::1', 'HwIlKw7d'),
+(816, 1402511787, '::1', 'cuUpByRC'),
+(817, 1402511792, '::1', 'PdhyOsHZ'),
+(818, 1402511825, '::1', 'VmcKSc0c'),
+(819, 1402511842, '::1', 'XeYElhFE'),
+(820, 1402511851, '::1', 'oLZEYc2i'),
+(821, 1402511871, '::1', '4SXxTE88'),
+(822, 1402511909, '::1', '8IwnE7fm'),
+(823, 1402511940, '::1', 'agqfwl8W'),
+(824, 1402511944, '::1', '9BbFAMOc');
 
 -- --------------------------------------------------------
 
@@ -262,7 +311,7 @@ CREATE TABLE IF NOT EXISTS `ci_sessions` (
 --
 
 INSERT INTO `ci_sessions` (`session_id`, `ip_address`, `user_agent`, `last_activity`, `user_data`) VALUES
-('9692843d4dfd6821bc8ea1551b332b00', '::1', 'Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11', 1402502766, 'a:1:{s:4:"user";a:4:{s:6:"userID";s:8:"UID00004";s:8:"fullname";s:13:"Tân Ông xã";s:5:"email";s:18:"tantanb2@gmail.com";s:9:"logged_in";b:1;}}');
+('519ea5019c58298d6396235fc3c455ef', '::1', 'Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11', 1402532950, 'a:2:{s:9:"user_data";s:0:"";s:4:"user";a:4:{s:6:"userID";s:8:"UID00004";s:8:"fullname";s:13:"Tân Ông xã";s:5:"email";s:18:"tantanb2@gmail.com";s:9:"logged_in";b:1;}}');
 
 -- --------------------------------------------------------
 
@@ -394,7 +443,7 @@ CREATE TABLE IF NOT EXISTS `order_detail` (
 --
 
 INSERT INTO `order_detail` (`orderID`, `productsID`, `quantity`) VALUES
-('ORD00001', 'PRO00006', 1),
+('ORD00', 'PRO00003', 1),
 ('ORD00001', 'PRO00008', 1),
 ('ORD00002', 'PRO00007', 1),
 ('ORD00003', 'PRO00007', 2),
@@ -409,9 +458,20 @@ INSERT INTO `order_detail` (`orderID`, `productsID`, `quantity`) VALUES
 ('ORD00008', 'PRO00016', 1),
 ('ORD00009', 'PRO00014', 1),
 ('ORD00009', 'PRO00020', 1),
-('ORD010', 'PRO00002', 3),
-('ORD010', 'PRO00008', 1),
-('ORD00011', 'PRO00004', 1);
+('ORD00010', 'PRO00001', 2),
+('ORD00001', 'PRO00002', 1),
+('ORD00001', 'PRO00004', 1),
+('ORD00002', 'PRO00002', 1),
+('ORD00002', 'PRO00004', 1),
+('ORD00002', 'PRO00008', 1),
+('ORD00003', 'PRO00003', 1),
+('ORD00003', 'PRO00009', 1),
+('ORD00004', 'PRO00007', 1),
+('ORD00005', 'PRO00010', 1),
+('ORD00006', 'PRO00001', 1),
+('ORD00007', 'PRO00003', 1),
+('ORD00008', 'PRO00005', 1),
+('ORD00009', 'PRO00010', 1);
 
 -- --------------------------------------------------------
 
@@ -433,7 +493,7 @@ CREATE TABLE IF NOT EXISTS `products` (
   `create_date` datetime NOT NULL,
   `shopID` varchar(15) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `date_expiration` date NOT NULL COMMENT 'ngày hết hạn',
-  `status` tinyint(1) NOT NULL COMMENT '0: chờ duyệt; 1: đang bán; 2:hết hạn',
+  `status` tinyint(1) NOT NULL COMMENT '0: ngừng bán; 1: đang bán; 2:hết hàng; 3:chờ duyệt; 4:hết hạn',
   PRIMARY KEY (`productsID`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
@@ -446,9 +506,9 @@ INSERT INTO `products` (`productsID`, `name`, `quantity`, `price`, `soldnumber`,
 ('PRO00002', 'Áo thun màu vàng nhạt', 3, 100000, 0, '["public\\/product_images\\/motgia53280fe0e1e00.png","public\\/product_images\\/motgia5315f2f47373e.png","public\\/product_images\\/motgia5315f2f473a91.PNG"]', '<p><span >r ridiculus mus. us, cur</span></p>', '<p><span >r ridiculus mus. Curabitur eu convallis erat. Integer suscipit euismod purus sed accumsan. Donec ac luctus quam. Nulla et nibh sit amet justo tristique consequat aliquam vel orci. Fusce eget elit at quam interdum egestas eget id metus. Sed velit lacus, euismod eu leo quis, condimentum sodales est. Pellentesque tortor est, posuere ut placerat eget, tempor id lacus. Sed at ante dapibus, cur</span></p>', '<p><span >r ridiculus mus. Curabitur eu convallis erat. Integer suscipit euismod purus sed accumsan. Donec ac luctus quam. Nulla et nibh sit amet justo tristique consequat aliquam vel orci. Fusce eget elit at quam interdum egestas eget id metus. Sed velit lacus, euismod eu leo quis, condimentum sodales est. Pellentesque tortor est, posuere ut placerat eget, tempor id lacus. Sed at ante dapibus, cur</span></p>', '<p><span >r ridiculus mus. Curabitur eu convallis erat. Integer suscipit euismod purus sed accumsan. Donec ac luctus quam. Nulla et nibh sit amet justo tristique consequat aliquam vel orci. Fusce eget elit at quam interdum egestas eget id metus. Sed velit lacus, euismod eu leo quis, condimentum sodales est. Pellentesque tortor est, posuere ut placerat eget, tempor id lacus. Sed at ante dapibus, cur</span></p>', '0000-00-00 00:00:00', 'SHO00003', '2014-04-09', 1),
 ('PRO00003', 'Quần Jeans nam', 3, 100000, 100, '["public\\/product_images\\/motgia53280f85369b2.jpg","public\\/product_images\\/motgia5315f9af7e73a.jpg","public\\/product_images\\/motgia5315f9af7eb66.PNG"]', '<p><span >r ridiculus mus. Curabitur eu convallis erat. Integer suscipit euismod purus sed accumsan. Donec ac luctus quam. Nulla et nibh sit amet justo tristique consequat aliquam vel orci. Fusce eget elit at quam interdum egestas eget id metus. Sed velit lacus, euismod eu leo quis, condimentum sodales est. Pellentesque tortor est, posuere ut placerat eget, tempor id lacus. Sed at ante dapibus, cur</span></p>', '', '', '', '0000-00-00 00:00:00', 'SHO00004', '2014-03-10', 2),
 ('PRO00004', 'Áo ba lỗ nam - xanh', 3, 100000, 7, '["public\\/product_images\\/motgia53281007a3ecc.JPG","public\\/product_images\\/motgia53167d93e2722.jpg",null]', '<p><span >r ridiculus mus. Curabitur eu convallis erat. Integer suscipit euismod purus sed accumsan. Donec ac luctus quam. Nulla et nibh sit amet justo tristique consequat aliquam vel orci. Fusce eget elit at quam interdum egestas eget id metus. Sed velit lacus, euismod eu leo quis, condimentum sodales est. Pellentesque tortor est, posuere ut placerat eget, tempor id lacus. Sed at ante dapibus, cur</span></p>', '', '', '', '0000-00-00 00:00:00', 'SHO00003', '2013-11-26', 0),
-('PRO00005', 'Sơ mi trắng nam', 3, 100000, 6, '["public\\/product_images\\/motgia53280bad9a66a.jpg","public\\/product_images\\/motgia53280bada3540.jpg","public\\/product_images\\/motgia53280bada3708.jpg"]', '<p><span >r ridiculus mus. Curabitur eu convallis erat. Integer suscipit euismod purus sed accumsan. Donec ac luctus quam. Nulla et nibh sit amet justo tristique consequat aliquam vel orci. Fusce eget elit at quam interdum egestas eget id metus. Sed velit lacus, euismod eu leo quis, condimentum sodales est. Pellentesque tortor est, posuere ut placerat eget, tempor id lacus. Sed at ante dapibus, cur</span></p>', '<p>fafasfsf</p>', '<p>mentum mauris pulvinar eu. Integer eget sapien id justo iaculi</p>\r\n<p>s aliquam ut id justo. Pellentesque adipiscing sit amet metus vitae</p>\r\n<p>mollis. Proin in mi sed quam iaculis molestie ac nec magna. Vivamus aliq</p>\r\n<p>uet dui sit amet nibh mattis tincidunt. Vivamus posuere tincidunt pulvi</p>\r\n<p>nar. Quisque quis auctor quam, nec consectetur ligula. Suspendisse potenti. S</p>\r\n<p>uspendisse rutrum sapien vel feugiat euismod.</p>\r\n<p>Quisque ornare auctor fringilla.&nbsp;</p>\r\n<p>Suspendisse sagittis commodo risus sed posuere.</p>', '<p>mentum mauris pulvinar eu. Integer eget sapien id justo iaculi</p>\r\n<p>s aliquam ut id justo. Pellentesque adipiscing sit amet metus vitae</p>\r\n<p>mollis. Proin in mi sed quam iaculis molestie ac nec magna. Vivamus aliq</p>\r\n<p>uet dui sit amet nibh mattis tincidunt. Vivamus posuere tincidunt pulvi</p>\r\n<p>nar. Quisque quis auctor quam, nec consectetur ligula. Suspendisse potenti. S</p>\r\n<p>uspendisse rutrum sapien vel feugiat euismod.</p>\r\n<p>Quisque ornare auctor fringilla.&nbsp;</p>\r\n<p>Suspendisse sagittis commodo risus sed posuere.</p>', '0000-00-00 00:00:00', 'SHO00001', '2014-01-07', 1),
+('PRO00005', 'Sơ mi trắng nam', 3, 100000, 6, '["public\\/product_images\\/motgia53280bad9a66a.jpg","public\\/product_images\\/motgia53280bada3540.jpg","public\\/product_images\\/motgia53280bada3708.jpg"]', '<p><span >r ridiculus mus. Curabitur eu convallis erat. Integer suscipit euismod purus sed accumsan. Donec ac luctus quam. Nulla et nibh sit amet justo tristique consequat aliquam vel orci. Fusce eget elit at quam interdum egestas eget id metus. Sed velit lacus, euismod eu leo quis, condimentum sodales est. Pellentesque tortor est, posuere ut placerat eget, tempor id lacus. Sed at ante dapibus, cur</span></p>', '<p>fafasfsf</p>', '<p>mentum mauris pulvinar eu. Integer eget sapien id justo iaculi</p>\r\n<p>s aliquam ut id justo. Pellentesque adipiscing sit amet metus vitae</p>\r\n<p>mollis. Proin in mi sed quam iaculis molestie ac nec magna. Vivamus aliq</p>\r\n<p>uet dui sit amet nibh mattis tincidunt. Vivamus posuere tincidunt pulvi</p>\r\n<p>nar. Quisque quis auctor quam, nec consectetur ligula. Suspendisse potenti. S</p>\r\n<p>uspendisse rutrum sapien vel feugiat euismod.</p>\r\n<p>Quisque ornare auctor fringilla.&nbsp;</p>\r\n<p>Suspendisse sagittis commodo risus sed posuere.</p>', '<p>mentum mauris pulvinar eu. Integer eget sapien id justo iaculi</p>\r\n<p>s aliquam ut id justo. Pellentesque adipiscing sit amet metus vitae</p>\r\n<p>mollis. Proin in mi sed quam iaculis molestie ac nec magna. Vivamus aliq</p>\r\n<p>uet dui sit amet nibh mattis tincidunt. Vivamus posuere tincidunt pulvi</p>\r\n<p>nar. Quisque quis auctor quam, nec consectetur ligula. Suspendisse potenti. S</p>\r\n<p>uspendisse rutrum sapien vel feugiat euismod.</p>\r\n<p>Quisque ornare auctor fringilla.&nbsp;</p>\r\n<p>Suspendisse sagittis commodo risus sed posuere.</p>', '0000-00-00 00:00:00', 'SHO00001', '2014-01-07', 3),
 ('PRO00006', 'iPhone 5s - white', 3, 100000, 4, '["public\\/product_images\\/motgia532811609eddc.jpg","public\\/product_images\\/motgia532811609efa6.jpg","public\\/product_images\\/motgia532811609f0e3.jpg"]', '<p><span >r ridiculus mus. Curabitur eu convallis erat. Integer suscipit euismod purus sed accumsan. Donec ac luctus quam. Nulla et nibh sit amet justo tristique consequat aliquam vel orci. Fusce eget elit at quam interdum egestas eget id metus. Sed velit lacus, euismod eu leo quis, condimentum sodales est. Pellentesque tortor est, posuere ut placerat eget, tempor id lacus. Sed at ante dapibus, cur</span></p>', '<p><span >r ridiculus mus. Curabitur eu convallis erat. Integer suscipit euismod purus sed accumsan. Donec ac luctus quam. Nulla et nibh sit amet justo tristique consequat aliquam vel orci. Fusce eget elit at quam interdum egestas eget id metus. Sed velit lacus, euismod eu leo quis, condimentum sodales est. Pellentesque tortor est, posuere ut placerat eget, tempor id lacus. Sed at ante dapibus, cur</span></p>', '<p><span >r ridiculus mus. Curabitur eu convallis erat. Integer suscipit euismod purus sed accumsan. Donec ac luctus quam. Nulla et nibh sit amet justo tristique consequat aliquam vel orci. Fusce eget elit at quam interdum egestas eget id metus. Sed velit lacus, euismod eu leo quis, condimentum sodales est. Pellentesque tortor est, posuere ut placerat eget, tempor id lacus. Sed at ante dapibus, cur</span></p>', '<p><span >r ridiculus mus. Curabitur eu convallis erat. Integer suscipit euismod purus sed accumsan. Donec ac luctus quam. Nulla et nibh sit amet justo tristique consequat aliquam vel orci. Fusce eget elit at quam interdum egestas eget id metus. Sed velit lacus, euismod eu leo quis, condimentum sodales est. Pellentesque tortor est, posuere ut placerat eget, tempor id lacus. Sed at ante dapibus, cur</span></p>', '0000-00-00 00:00:00', 'SHO00003', '2014-04-24', 0),
-('PRO00007', 'Váy Hồng đáng yêu', 100, 100000, 4, '["public\\/product_images\\/motgia5328137f8d202.jpg","public\\/product_images\\/motgia5328137f8d3a1.jpg","public\\/product_images\\/motgia5328137f8d624.jpg"]', '<p>rabitur eu convallis erat. Integer suscipit euismod purus sed accumsan. Donec ac luctus quam. Nulla et nibh sit amet justo tristique consequat aliquam vel orci. Fusce eget elit at quam interdum egestas eget id metus. Sed velit lacus, euismod eu leo quis, condimentum sodales est. Pellentesque tortor est, posuere ut placerat eget,&nbsp;</p>', '<p>rabitur eu convallis erat. Integer suscipit euismod purus sed accumsan. Donec ac luctus quam. Nulla et nibh sit amet justo tristique consequat aliquam vel orci. Fusce eget elit at quam interdum egestas eget id metus. Sed velit lacus, euismod eu leo quis, condimentum sodales est. Pellentesque tortor est, posuere ut placerat eget,&nbsp;</p>', '<p>rabitur eu convallis erat. Integer suscipit euismod purus sed accumsan. Donec ac luctus quam. Nulla et nibh sit amet justo tristique consequat aliquam vel orci. Fusce eget elit at quam interdum egestas eget id metus. Sed velit lacus, euismod eu leo quis, condimentum sodales est. Pellentesque tortor est, posuere ut placerat eget,&nbsp;</p>', '<p>rabitur eu convallis erat. Integer suscipit euismod purus sed accumsan. Donec ac luctus quam. Nulla et nibh sit amet justo tristique consequat aliquam vel orci. Fusce eget elit at quam interdum egestas eget id metus. Sed velit lacus, euismod eu leo quis, condimentum sodales est. Pellentesque tortor est, posuere ut placerat eget,&nbsp;</p>', '0000-00-00 00:00:00', 'SHO00001', '2014-04-25', 0),
+('PRO00007', 'Váy Hồng đáng yêu', 100, 100000, 4, '["public\\/product_images\\/motgia5328137f8d202.jpg","public\\/product_images\\/motgia5328137f8d3a1.jpg","public\\/product_images\\/motgia5328137f8d624.jpg"]', '<p>rabitur eu convallis erat. Integer suscipit euismod purus sed accumsan. Donec ac luctus quam. Nulla et nibh sit amet justo tristique consequat aliquam vel orci. Fusce eget elit at quam interdum egestas eget id metus. Sed velit lacus, euismod eu leo quis, condimentum sodales est. Pellentesque tortor est, posuere ut placerat eget,&nbsp;</p>', '<p>rabitur eu convallis erat. Integer suscipit euismod purus sed accumsan. Donec ac luctus quam. Nulla et nibh sit amet justo tristique consequat aliquam vel orci. Fusce eget elit at quam interdum egestas eget id metus. Sed velit lacus, euismod eu leo quis, condimentum sodales est. Pellentesque tortor est, posuere ut placerat eget,&nbsp;</p>', '<p>rabitur eu convallis erat. Integer suscipit euismod purus sed accumsan. Donec ac luctus quam. Nulla et nibh sit amet justo tristique consequat aliquam vel orci. Fusce eget elit at quam interdum egestas eget id metus. Sed velit lacus, euismod eu leo quis, condimentum sodales est. Pellentesque tortor est, posuere ut placerat eget,&nbsp;</p>', '<p>rabitur eu convallis erat. Integer suscipit euismod purus sed accumsan. Donec ac luctus quam. Nulla et nibh sit amet justo tristique consequat aliquam vel orci. Fusce eget elit at quam interdum egestas eget id metus. Sed velit lacus, euismod eu leo quis, condimentum sodales est. Pellentesque tortor est, posuere ut placerat eget,&nbsp;</p>', '0000-00-00 00:00:00', 'SHO00001', '2014-04-25', 4),
 ('PRO00008', 'Máy tính bảng Samsung', 12, 100000, 10, '["public\\/product_images\\/motgia532813c6737fd.jpg","public\\/product_images\\/motgia532813c673993.jpg","public\\/product_images\\/motgia532813c673ab2.jpg"]', '<p>rabitur eu convallis erat. Integer suscipit euismod purus sed accumsan. Donec ac luctus quam. Nulla et nibh sit amet justo tristique consequat aliquam vel orci. Fusce eget elit at quam interdum egestas eget id metus. Sed velit lacus, euismod eu leo quis, condimentum sodales est. Pellentesque tortor est, posuere ut placerat eget,&nbsp;</p>', '<p>rabitur eu convallis erat. Integer suscipit euismod purus sed accumsan. Donec ac luctus quam. Nulla et nibh sit amet justo tristique consequat aliquam vel orci. Fusce eget elit at quam interdum egestas eget id metus. Sed velit lacus, euismod eu leo quis, condimentum sodales est. Pellentesque tortor est, posuere ut placerat eget,&nbsp;</p>', '<p>rabitur eu convallis erat. Integer suscipit euismod purus sed accumsan. Donec ac luctus quam. Nulla et nibh sit amet justo tristique consequat aliquam vel orci. Fusce eget elit at quam interdum egestas eget id metus. Sed velit lacus, euismod eu leo quis, condimentum sodales est. Pellentesque tortor est, posuere ut placerat eget,&nbsp;</p>', '<p>rabitur eu convallis erat. Integer suscipit euismod purus sed accumsan. Donec ac luctus quam. Nulla et nibh sit amet justo tristique consequat aliquam vel orci. Fusce eget elit at quam interdum egestas eget id metus. Sed velit lacus, euismod eu leo quis, condimentum sodales est. Pellentesque tortor est, posuere ut placerat eget,&nbsp;</p>', '0000-00-00 00:00:00', 'SHO00003', '2014-04-17', 1),
 ('PRO00009', 'Áo thun TEES', 3, 100000, 0, '["public\\/product_images\\/motgia538b7f8e31f42.png","public\\/product_images\\/motgia5315f2f47373e.png","public\\/product_images\\/motgia5315f2f473a91.PNG"]', '<p><span >r ridiculus mus. Curabitur eu convallis erat. Integer suscipit euismod purus sed accumsan. Donec ac luctus quam. Nulla et nibh sit amet justo tristique consequat aliquam vel orci. Fusce eget elit at quam interdum egestas eget id metus. Sed velit lacus, euismod eu leo quis, condimentum sodales est. Pellentesque tortor est, posuere ut placerat eget, tempor id lacus. Sed at ante dapibus, cur</span></p>', '<p><span >r ridiculus mus. Curabitur eu convallis erat. Integer suscipit euismod purus sed accumsan. Donec ac luctus quam. Nulla et nibh sit amet justo tristique consequat aliquam vel orci. Fusce eget elit at quam interdum egestas eget id metus. Sed velit lacus, euismod eu leo quis, condimentum sodales est. Pellentesque tortor est, posuere ut placerat eget, tempor id lacus. Sed at ante dapibus, cur</span></p>', '<p><span >r ridiculus mus. Curabitur eu convallis erat. Integer suscipit euismod purus sed accumsan. Donec ac luctus quam. Nulla et nibh sit amet justo tristique consequat aliquam vel orci. Fusce eget elit at quam interdum egestas eget id metus. Sed velit lacus, euismod eu leo quis, condimentum sodales est. Pellentesque tortor est, posuere ut placerat eget, tempor id lacus. Sed at ante dapibus, cur</span></p>', '<p><span >r ridiculus mus. Curabitur eu convallis erat. Integer suscipit euismod purus sed accumsan. Donec ac luctus quam. Nulla et nibh sit amet justo tristique consequat aliquam vel orci. Fusce eget elit at quam interdum egestas eget id metus. Sed velit lacus, euismod eu leo quis, condimentum sodales est. Pellentesque tortor est, posuere ut placerat eget, tempor id lacus. Sed at ante dapibus, cur</span></p>', '0000-00-00 00:00:00', 'SHO00004', '2014-01-20', 1),
 ('PRO00010', 'Án Pull 100% cotton', 3, 100000, 0, '["public\\/product_images\\/motgia538b7e50c8bd5.jpg","public\\/product_images\\/motgia5315f2f47373e.png","public\\/product_images\\/motgia5315f2f473a91.PNG"]', '<p><span >r ridiculus mus. Curabitur eu convallis erat. Integer suscipit euismod purus sed accumsan. Donec ac luctus quam. Nulla et nibh sit amet justo tristique consequat aliquam vel orci. Fusce eget elit at quam interdum egestas eget id metus. Sed velit lacus, euismod eu leo quis, condimentum sodales est. Pellentesque tortor est, posuere ut placerat eget, tempor id lacus. Sed at ante dapibus, cur</span></p>', '<p><span >r ridiculus mus. Curabitur eu convallis erat. Integer suscipit euismod purus sed accumsan. Donec ac luctus quam. Nulla et nibh sit amet justo tristique consequat aliquam vel orci. Fusce eget elit at quam interdum egestas eget id metus. Sed velit lacus, euismod eu leo quis, condimentum sodales est. Pellentesque tortor est, posuere ut placerat eget, tempor id lacus. Sed at ante dapibus, cur</span></p>', '<p><span >r ridiculus mus. Curabitur eu convallis erat. Integer suscipit euismod purus sed accumsan. Donec ac luctus quam. Nulla et nibh sit amet justo tristique consequat aliquam vel orci. Fusce eget elit at quam interdum egestas eget id metus. Sed velit lacus, euismod eu leo quis, condimentum sodales est. Pellentesque tortor est, posuere ut placerat eget, tempor id lacus. Sed at ante dapibus, cur</span></p>', '<p><span >r ridiculus mus. Curabitur eu convallis erat. Integer suscipit euismod purus sed accumsan. Donec ac luctus quam. Nulla et nibh sit amet justo tristique consequat aliquam vel orci. Fusce eget elit at quam interdum egestas eget id metus. Sed velit lacus, euismod eu leo quis, condimentum sodales est. Pellentesque tortor est, posuere ut placerat eget, tempor id lacus. Sed at ante dapibus, cur</span></p>', '0000-00-00 00:00:00', 'SHO00002', '2014-04-02', 1),
@@ -467,8 +527,8 @@ INSERT INTO `products` (`productsID`, `name`, `quantity`, `price`, `soldnumber`,
 ('PRO00023', 'Sp23', 3, 100000, 6, '["public\\/product_images\\/motgia53280bad9a66a.jpg","public\\/product_images\\/motgia53280bada3540.jpg","public\\/product_images\\/motgia53280bada3708.jpg"]', '<p><span >r ridiculus mus. Curabitur eu convallis erat. Integer suscipit euismod purus sed accumsan. Donec ac luctus quam. Nulla et nibh sit amet justo tristique consequat aliquam vel orci. Fusce eget elit at quam interdum egestas eget id metus. Sed velit lacus, euismod eu leo quis, condimentum sodales est. Pellentesque tortor est, posuere ut placerat eget, tempor id lacus. Sed at ante dapibus, cur</span></p>', '<p>fafasfsf</p>', '<p>mentum mauris pulvinar eu. Integer eget sapien id justo iaculi</p>\r\n<p>s aliquam ut id justo. Pellentesque adipiscing sit amet metus vitae</p>\r\n<p>mollis. Proin in mi sed quam iaculis molestie ac nec magna. Vivamus aliq</p>\r\n<p>uet dui sit amet nibh mattis tincidunt. Vivamus posuere tincidunt pulvi</p>\r\n<p>nar. Quisque quis auctor quam, nec consectetur ligula. Suspendisse potenti. S</p>\r\n<p>uspendisse rutrum sapien vel feugiat euismod.</p>\r\n<p>Quisque ornare auctor fringilla.&nbsp;</p>\r\n<p>Suspendisse sagittis commodo risus sed posuere.</p>', '<p>mentum mauris pulvinar eu. Integer eget sapien id justo iaculi</p>\r\n<p>s aliquam ut id justo. Pellentesque adipiscing sit amet metus vitae</p>\r\n<p>mollis. Proin in mi sed quam iaculis molestie ac nec magna. Vivamus aliq</p>\r\n<p>uet dui sit amet nibh mattis tincidunt. Vivamus posuere tincidunt pulvi</p>\r\n<p>nar. Quisque quis auctor quam, nec consectetur ligula. Suspendisse potenti. S</p>\r\n<p>uspendisse rutrum sapien vel feugiat euismod.</p>\r\n<p>Quisque ornare auctor fringilla.&nbsp;</p>\r\n<p>Suspendisse sagittis commodo risus sed posuere.</p>', '0000-00-00 00:00:00', 'SHO00001', '2014-04-29', 0),
 ('PRO00024', 'Sp24', 3, 100000, 6, '["public\\/product_images\\/motgia53280bad9a66a.jpg","public\\/product_images\\/motgia53280bada3540.jpg","public\\/product_images\\/motgia53280bada3708.jpg"]', '<p><span >r ridiculus mus. Curabitur eu convallis erat. Integer suscipit euismod purus sed accumsan. Donec ac luctus quam. Nulla et nibh sit amet justo tristique consequat aliquam vel orci. Fusce eget elit at quam interdum egestas eget id metus. Sed velit lacus, euismod eu leo quis, condimentum sodales est. Pellentesque tortor est, posuere ut placerat eget, tempor id lacus. Sed at ante dapibus, cur</span></p>', '<p>fafasfsf</p>', '<p>mentum mauris pulvinar eu. Integer eget sapien id justo iaculi</p>\r\n<p>s aliquam ut id justo. Pellentesque adipiscing sit amet metus vitae</p>\r\n<p>mollis. Proin in mi sed quam iaculis molestie ac nec magna. Vivamus aliq</p>\r\n<p>uet dui sit amet nibh mattis tincidunt. Vivamus posuere tincidunt pulvi</p>\r\n<p>nar. Quisque quis auctor quam, nec consectetur ligula. Suspendisse potenti. S</p>\r\n<p>uspendisse rutrum sapien vel feugiat euismod.</p>\r\n<p>Quisque ornare auctor fringilla.&nbsp;</p>\r\n<p>Suspendisse sagittis commodo risus sed posuere.</p>', '<p>mentum mauris pulvinar eu. Integer eget sapien id justo iaculi</p>\r\n<p>s aliquam ut id justo. Pellentesque adipiscing sit amet metus vitae</p>\r\n<p>mollis. Proin in mi sed quam iaculis molestie ac nec magna. Vivamus aliq</p>\r\n<p>uet dui sit amet nibh mattis tincidunt. Vivamus posuere tincidunt pulvi</p>\r\n<p>nar. Quisque quis auctor quam, nec consectetur ligula. Suspendisse potenti. S</p>\r\n<p>uspendisse rutrum sapien vel feugiat euismod.</p>\r\n<p>Quisque ornare auctor fringilla.&nbsp;</p>\r\n<p>Suspendisse sagittis commodo risus sed posuere.</p>', '0000-00-00 00:00:00', 'SHO00004', '2014-02-10', 1),
 ('PRO00025', 'Sp25', 3, 100000, 6, '["public\\/product_images\\/motgia53280bad9a66a.jpg","public\\/product_images\\/motgia53280bada3540.jpg","public\\/product_images\\/motgia53280bada3708.jpg"]', '<p><span >r ridiculus mus. Curabitur eu convallis erat. Integer suscipit euismod purus sed accumsan. Donec ac luctus quam. Nulla et nibh sit amet justo tristique consequat aliquam vel orci. Fusce eget elit at quam interdum egestas eget id metus. Sed velit lacus, euismod eu leo quis, condimentum sodales est. Pellentesque tortor est, posuere ut placerat eget, tempor id lacus. Sed at ante dapibus, cur</span></p>', '<p>fafasfsf</p>', '<p>mentum mauris pulvinar eu. Integer eget sapien id justo iaculi</p>\r\n<p>s aliquam ut id justo. Pellentesque adipiscing sit amet metus vitae</p>\r\n<p>mollis. Proin in mi sed quam iaculis molestie ac nec magna. Vivamus aliq</p>\r\n<p>uet dui sit amet nibh mattis tincidunt. Vivamus posuere tincidunt pulvi</p>\r\n<p>nar. Quisque quis auctor quam, nec consectetur ligula. Suspendisse potenti. S</p>\r\n<p>uspendisse rutrum sapien vel feugiat euismod.</p>\r\n<p>Quisque ornare auctor fringilla.&nbsp;</p>\r\n<p>Suspendisse sagittis commodo risus sed posuere.</p>', '<p>mentum mauris pulvinar eu. Integer eget sapien id justo iaculi</p>\r\n<p>s aliquam ut id justo. Pellentesque adipiscing sit amet metus vitae</p>\r\n<p>mollis. Proin in mi sed quam iaculis molestie ac nec magna. Vivamus aliq</p>\r\n<p>uet dui sit amet nibh mattis tincidunt. Vivamus posuere tincidunt pulvi</p>\r\n<p>nar. Quisque quis auctor quam, nec consectetur ligula. Suspendisse potenti. S</p>\r\n<p>uspendisse rutrum sapien vel feugiat euismod.</p>\r\n<p>Quisque ornare auctor fringilla.&nbsp;</p>\r\n<p>Suspendisse sagittis commodo risus sed posuere.</p>', '0000-00-00 00:00:00', 'SHO00001', '2014-04-02', 0),
-('PRO00026', 'Sp26', 3, 100000, 6, '["public\\/product_images\\/motgia53280bad9a66a.jpg","public\\/product_images\\/motgia53280bada3540.jpg","public\\/product_images\\/motgia53280bada3708.jpg"]', '<p><span >r ridiculus mus. Curabitur eu convallis erat. Integer suscipit euismod purus sed accumsan. Donec ac luctus quam. Nulla et nibh sit amet justo tristique consequat aliquam vel orci. Fusce eget elit at quam interdum egestas eget id metus. Sed velit lacus, euismod eu leo quis, condimentum sodales est. Pellentesque tortor est, posuere ut placerat eget, tempor id lacus. Sed at ante dapibus, cur</span></p>', '<p>fafasfsf</p>', '<p>mentum mauris pulvinar eu. Integer eget sapien id justo iaculi</p>\r\n<p>s aliquam ut id justo. Pellentesque adipiscing sit amet metus vitae</p>\r\n<p>mollis. Proin in mi sed quam iaculis molestie ac nec magna. Vivamus aliq</p>\r\n<p>uet dui sit amet nibh mattis tincidunt. Vivamus posuere tincidunt pulvi</p>\r\n<p>nar. Quisque quis auctor quam, nec consectetur ligula. Suspendisse potenti. S</p>\r\n<p>uspendisse rutrum sapien vel feugiat euismod.</p>\r\n<p>Quisque ornare auctor fringilla.&nbsp;</p>\r\n<p>Suspendisse sagittis commodo risus sed posuere.</p>', '<p>mentum mauris pulvinar eu. Integer eget sapien id justo iaculi</p>\r\n<p>s aliquam ut id justo. Pellentesque adipiscing sit amet metus vitae</p>\r\n<p>mollis. Proin in mi sed quam iaculis molestie ac nec magna. Vivamus aliq</p>\r\n<p>uet dui sit amet nibh mattis tincidunt. Vivamus posuere tincidunt pulvi</p>\r\n<p>nar. Quisque quis auctor quam, nec consectetur ligula. Suspendisse potenti. S</p>\r\n<p>uspendisse rutrum sapien vel feugiat euismod.</p>\r\n<p>Quisque ornare auctor fringilla.&nbsp;</p>\r\n<p>Suspendisse sagittis commodo risus sed posuere.</p>', '0000-00-00 00:00:00', 'SHO00003', '2014-01-28', 0),
-('PRO00038', 'Smartosc', 222, 3, 0, '["public\\/product_images\\/img0538f7639f2017.jpg","public\\/product_images\\/img1538f763a013ab.jpg","public\\/product_images\\/img2538f763a02a77.jpg"]', 'fvcvbc', 'fvbcvbc', 'gcvbcv', 'bcvbcvb', '2014-06-04 12:05:42', 'SHO00001', '2014-06-10', 1);
+('PRO00041', 'Sp26', 3, 100000, 6, '["public\\/product_images\\/motgia53280bad9a66a.jpg","public\\/product_images\\/motgia53280bada3540.jpg","public\\/product_images\\/motgia53280bada3708.jpg"]', '<p><span >r ridiculus mus. Curabitur eu convallis erat. Integer suscipit euismod purus sed accumsan. Donec ac luctus quam. Nulla et nibh sit amet justo tristique consequat aliquam vel orci. Fusce eget elit at quam interdum egestas eget id metus. Sed velit lacus, euismod eu leo quis, condimentum sodales est. Pellentesque tortor est, posuere ut placerat eget, tempor id lacus. Sed at ante dapibus, cur</span></p>', '<p>fafasfsf</p>', '<p>mentum mauris pulvinar eu. Integer eget sapien id justo iaculi</p>\r\n<p>s aliquam ut id justo. Pellentesque adipiscing sit amet metus vitae</p>\r\n<p>mollis. Proin in mi sed quam iaculis molestie ac nec magna. Vivamus aliq</p>\r\n<p>uet dui sit amet nibh mattis tincidunt. Vivamus posuere tincidunt pulvi</p>\r\n<p>nar. Quisque quis auctor quam, nec consectetur ligula. Suspendisse potenti. S</p>\r\n<p>uspendisse rutrum sapien vel feugiat euismod.</p>\r\n<p>Quisque ornare auctor fringilla.&nbsp;</p>\r\n<p>Suspendisse sagittis commodo risus sed posuere.</p>', '<p>mentum mauris pulvinar eu. Integer eget sapien id justo iaculi</p>\r\n<p>s aliquam ut id justo. Pellentesque adipiscing sit amet metus vitae</p>\r\n<p>mollis. Proin in mi sed quam iaculis molestie ac nec magna. Vivamus aliq</p>\r\n<p>uet dui sit amet nibh mattis tincidunt. Vivamus posuere tincidunt pulvi</p>\r\n<p>nar. Quisque quis auctor quam, nec consectetur ligula. Suspendisse potenti. S</p>\r\n<p>uspendisse rutrum sapien vel feugiat euismod.</p>\r\n<p>Quisque ornare auctor fringilla.&nbsp;</p>\r\n<p>Suspendisse sagittis commodo risus sed posuere.</p>', '0000-00-00 00:00:00', 'SHO00003', '2014-01-28', 0),
+('PRO040', 'Smartosc', 222, 3, 0, '["public\\/product_images\\/img0538f7639f2017.jpg","public\\/product_images\\/img1538f763a013ab.jpg","public\\/product_images\\/img2538f763a02a77.jpg"]', 'fvcvbc', 'fvbcvbc', 'gcvbcv', 'bcvbcvb', '2014-06-04 12:05:42', 'SHO00001', '2014-06-10', 1);
 
 -- --------------------------------------------------------
 
@@ -494,7 +554,7 @@ CREATE TABLE IF NOT EXISTS `shop` (
 --
 
 INSERT INTO `shop` (`shopID`, `company`, `address`, `city`, `website`, `phone`, `create_date`, `userID`, `image`) VALUES
-('SHO00001', 'Trách Nhiệm Hữu Hạn Mười Một Thành Viên FITHOU', 'Định Công', 'Hà Nội', 'http://motgia.tk', 123456789, '2014-01-08', 'UID00004', ''),
+('SHO00001', 'Trách Nhiệm Hữu Hạn Mười Một Thành Viên FITHOU', 'Định Công', 'TP HCM', 'http://motgia.tk', 98765432, '2014-01-08', 'UID00004', ''),
 ('SHO00002', 'Công Ty Công Nghệ Và Thiết Bị Hàn Xẻng', 'ha loi', 'Hà Nội', 'http://4vn.eu', 1234567890, '2014-06-02', 'UID00002', 'public/gianhang/'),
 ('SHO00003', 'Của Hàng Đồ Lưu Niệm', '278 Lạch Tray\r\nNgô Quyền\r\n', 'Hải Phòng', 'http://quatangbaoloi.vn', 12345678, '2014-06-19', 'UID00003', NULL),
 ('SHO00004', 'Công Ty Thủ Công Mỹ Nghệ Hoa Lư', ' Hàng Gai, Hàng Bạc', 'Hà Nội', 'http://motgia.tk', 134256578, '2013-06-18', 'UID00001', NULL);
@@ -621,17 +681,16 @@ CREATE TABLE IF NOT EXISTS `tbl_order` (
 --
 
 INSERT INTO `tbl_order` (`orderID`, `shopID`, `buyerID`, `create_date`, `note`, `method`, `status`, `statusID`) VALUES
-('ORD00001', 'UID00003', 'GUEST025', '2014-06-06 03:19:06', 'sdfsdfsf', 0, 2, 3),
-('ORD00002', 'UID00003', 'UID00002', '2014-06-06 03:31:26', 'hết cmn hàng', 1, 2, 4),
-('ORD00003', 'UID00001', 'UID00003', '2014-06-06 16:21:42', 'chuyen den truong dinh', 0, 2, 6),
-('ORD00004', 'UID00002', 'UID00003', '2014-06-06 16:22:17', 'ko thich nua', 0, 2, 7),
-('ORD00005', 'UID00004', 'UID00003', '2014-06-06 16:22:28', 'hhehehehehee\n', 0, 1, 8),
-('ORD00006', 'UID00003', 'UID00003', '2014-06-06 16:22:40', 'sdfsdf', 0, 2, 9),
-('ORD00007', 'UID00003', 'UID00004', '2014-06-07 15:25:07', '', 1, 2, 10),
-('ORD00008', 'UID00001', 'UID00004', '2014-06-07 15:35:50', '', 1, 1, 11),
-('ORD00009', 'UID00002', 'UID00004', '2014-06-07 15:37:20', '', 1, 1, 12),
-('ORD010', 'UID00003', 'UID00003', '2014-06-09 00:59:28', '', 0, 1, 13),
-('ORD00011', 'SHO00003', 'UID00004', '2014-06-11 23:15:17', 'sdfsdf', 1, 0, 14);
+('ORD00001', 'SHO00003', 'UID00004', '2014-06-12 01:15:10', 'chan wa\nthe thoi', 0, 0, 36),
+('ORD00002', 'SHO00003', 'UID00004', '2014-06-12 01:15:30', 'chan wa\nthe thoi', 0, 0, 37),
+('ORD00003', 'SHO00004', 'UID00004', '2014-06-12 01:15:34', 'chan wa\nthe thoi', 0, 0, 38),
+('ORD00004', 'SHO00001', 'UID00004', '2014-06-12 01:15:37', 'chan wa\nthe thoi', 0, 0, 39),
+('ORD00005', 'SHO00002', 'UID00004', '2014-06-12 01:15:40', 'chan wa\nthe thoi', 0, 0, 40),
+('ORD00006', 'SHO00003', 'UID00004', '2014-06-12 01:16:12', 'chan wa\nthe thoi', 0, 0, 41),
+('ORD00007', 'SHO00004', 'UID00004', '2014-06-12 01:16:15', 'chan wa\nthe thoi', 0, 0, 42),
+('ORD00008', 'SHO00001', 'UID00004', '2014-06-12 01:16:17', 'thoi em oi', 0, 0, 43),
+('ORD00009', 'SHO00002', 'UID00004', '2014-06-12 01:16:20', 'chan wa\nthe thoi', 0, 0, 44),
+('ORD00010', 'SHO00003', 'UID00004', '2014-06-12 01:19:59', 'het me no hang roi', 0, 2, 49);
 
 -- --------------------------------------------------------
 
@@ -688,16 +747,13 @@ CREATE TABLE IF NOT EXISTS `user` (
 --
 
 INSERT INTO `user` (`userID`, `firstname`, `lastname`, `email`, `password`, `birthday`, `gender`, `coin`, `province`, `phone`, `address`, `status`, `create_date`, `levelID`) VALUES
-('UID00001', 'Trịnh', 'Thành Đô', 'thanhdo.trinh@yahoo.com', 'dukr6U5dbJcBUwe/Ea2yHY/3yLH7ppdvXxlLSjeGyDF67m/gUfTPnnQ9CVs+5swMMPTSYFZ32oDcab8V+H4WUw==', '0000-00-00', 0, 0, 'Bình Định', '841234567867', 'trên trời', 1, '2014-03-16 04:34:20', 3),
+('UID00001', 'Trịnh', 'Thành Đô', 'thanhdo.trinh@yahoo.com', 'dukr6U5dbJcBUwe/Ea2yHY/3yLH7ppdvXxlLSjeGyDF67m/gUfTPnnQ9CVs+5swMMPTSYFZ32oDcab8V+H4WUw==', '0000-00-00', 0, 0, 'Bình Định', '841234567867', 'trên trời', 1, '2014-03-16 04:34:20', 2),
 ('UID00002', 'Hải', 'Lê', 'haile.fithou@yahoo.com', 'WpYXm+mpMrghhUWkpasmvaNHUaG/bTLmIB0VHWMtAdcUPxsKLWVJhwZEk0gminhKNm8ZCiZ78lsO/6F1YJ+mMA==', '2014-07-01', 0, 0, 'Hà Nội', '0123456789', 'Linh Đàm', 1, '2014-03-19 15:01:31', 2),
 ('UID00003', 'Nguyễn', 'Tân Tân', 'ductan_nguyen92@yahoo.com', 'dukr6U5dbJcBUwe/Ea2yHY/3yLH7ppdvXxlLSjeGyDF67m/gUfTPnnQ9CVs+5swMMPTSYFZ32oDcab8V+H4WUw==', '2015-06-11', 0, 75000, 'Thái Bình', '01689338965', 'Trương Định Hà Nội', 1, '2014-03-20 00:34:01', 2),
 ('UID00004', 'Tân', 'Ông xã', 'tantanb2@gmail.com', 'EoviPDsgOMcAxFnFxLbdVHfi/tF8HOqUuiSt7Y2QCy3qZh3K4ExwYNeYyHTZSA8wUnGSpvGYokin9fplU9N0nw==', '1992-08-26', 0, 0, 'Thái Bình', '023456789', 'trương định hà lội', 1, '2014-05-07 00:31:32', 2),
 ('UID00005', 'Tân', 'Tân', 'ductan_nguyen28@yahoo.com', 'Ji07bgVrTP2dwuYsj7PeWQxqrx+3+8gXt2dz0qmCtd8hmQzVonBIBePfLk4mYoXEYEJAzjRhSpdOET8cdngwLw==', '1992-08-26', 0, 0, 'Thái Nguyên', '01689338965', 'Hoàng Mai - Hà Nội', 1, '2014-05-29 22:03:23', 0),
 ('UID00006', 'Đức', 'Tân', 'ductan_nguyen268@yahoo.com', 'S9HEeQDo9ntMsOBC8Eh1yz58UlX2/wMXY3T0Qj5OTQRxgOO09craSbvhaiWVVN89LJz7G77/ovxWdqTSphr8pg==', '1992-02-01', 0, 0, 'Bình Thuận', '01689338965', 'Hoàng Mai - Hà Nội', 1, '2014-05-30 15:19:50', 1),
-('UID00009', 'trinh', 'sdfsdf', 'thanhdo.trinh@gmail.com', 'jRABb3xRkJ0bgt6Dj6ZD/YRnuCofWi0hCABt8luu+66s+hsh8ZwZCd6UKJSVyyLpIB8gxaxHGJC8+K8aImIjCg==', '2014-06-27', 1, 0, 'Hà Nội', '09877', 'định công - hoàng mai - hà nội', 0, '2014-06-01 12:00:27', 1),
-('UID00011', 'trinh', 'do', '3s@sdfsdf.sdfsfd', 'Ad6AoxFxGj/JzK2szXMORkyPuKnnNBpuyGZ+JYv26V9lR0t+mca/dtdscZFGDWmTENcfhDieJsntDDEUCVEQqg==', '2014-06-29', 1, 0, 'Bình Phước', '00997983423', 'định công - hoàng mai - hà nội', 0, '2014-06-01 12:04:23', 1),
-('UID00012', 'trinh', 'sdfsdf', 'thanhdo.trinh@gmail.com', '3VO+TMRrhJTc9IsRSPAnpLUJVWpI1QF4qdP54PNZwLTm1x0nduDHMR8xqDAdNm1Z3BJCxaBguo66eKhI9NJAUw==', '2014-06-28', 1, 0, 'Bình Thuận', '0978787687', 'định công - hoàng mai - hà nội', 0, '2014-06-01 12:05:47', 1),
-('UID00013', 'trinh', 'sdfsdf', '3s@sdfsdf.sdfsfd', 'LuuS5ifXaZx3M7bW3x5vlLFmLhKuvoWIHsbaJr70Vh0v+CJZtFvTLOz0jqPUXOYyS1OL4ZNLBJByIFySW8xK9A==', '2014-06-06', 1, 0, 'Hải Phòng', '00997983423', '45345345345', 0, '2014-06-01 12:08:58', 3);
+('UID00009', 'trinh', 'Đô Trịnh', 'thanhdo.trinh@gmail.com', 'jRABb3xRkJ0bgt6Dj6ZD/YRnuCofWi0hCABt8luu+66s+hsh8ZwZCd6UKJSVyyLpIB8gxaxHGJC8+K8aImIjCg==', '2014-06-27', 1, 0, 'Hà Nội', '09877', 'định công - hoàng mai - hà nội', 0, '2014-06-01 12:00:27', 1);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
