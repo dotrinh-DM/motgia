@@ -97,7 +97,7 @@
                            <br><span>Nếu không muốn đợi lâu</span><br><a class="reloadpage" href="#">Bấm vào đây để quay lại</a>');
                         window.setTimeout(function() {
                             location.reload(true)
-                        }, 3000);
+                        }, 5000);
                     }
                 }
             });
