@@ -27,6 +27,10 @@ class Musers extends CI_Model {
         $query = $this->db->get();
         return $query->row_array();
     }
+    public function getCoin($uid){
+        $coin = $this->db->select("coin")->where('userID',$uid)->get("user")->row_array();
+        return $coin['coin'];
+    }
 
     public function insertUser($l_name = 0, $f_name = 0, $month = 0, $birthday = 0, $gender = 0, $phone = 0, $province = 0, $email = 0, $pass = 0, $adr = 0) {
         if ($this->input->post('Add')) {

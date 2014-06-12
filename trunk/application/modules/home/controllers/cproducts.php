@@ -134,6 +134,7 @@ class Cproducts extends CI_Controller {
         $temp['info'] = $this->Mlog->log();
         if ($temp['info']['logged_in']) {
             $userid = $temp['info']['userID'];
+            $temp['coin'] = $this->Musers->getCoin($userid);
             $temp['level'] = $this->Musers->getLevel($userid); //kiểm tra cấp độ người dùng để hiển thị nội dung tương ứng
             $temp['num_message'] = $this->Musers->getNumMessageUnread($userid); //Lay so luong tin nhan chua doc
             $temp['num_history'] = $this->Musers->getNumOrderHistory($userid); //Lay tat ca so luong hoa don da dat
@@ -211,18 +212,19 @@ class Cproducts extends CI_Controller {
     }
 
     public function editProducts($id) {
-        $temp['info'] = $this->Mproducts->log();
-        if ($temp['info']['logged_in']) {
-            $userid = $temp['info']['userID'];
-            $temp['level'] = $this->Musers->getLevel($userid); //kiểm tra cấp độ người dùng để hiển thị nội dung tương ứng
-            $temp['num_message'] = $this->Musers->getNumMessageUnread($userid); //Lay so luong tin nhan chua doc
-            $temp['num_history'] = $this->Musers->getNumOrderHistory($userid); //Lay tat ca so luong hoa don da dat
+        $data['info'] = $this->Mproducts->log();
+        if ($data['info']['logged_in']) {
+            $userid = $data['info']['userID'];
+            $data['coin'] = $this->Musers->getCoin($userid);
+            $data['level'] = $this->Musers->getLevel($userid); //kiểm tra cấp độ người dùng để hiển thị nội dung tương ứng
+            $data['num_message'] = $this->Musers->getNumMessageUnread($userid); //Lay so luong tin nhan chua doc
+            $data['num_history'] = $this->Musers->getNumOrderHistory($userid); //Lay tat ca so luong hoa don da dat
             $ckShop = $this->Musers->checkOwnShop($userid);
-            if ($ckShop != FALSE || $temp['level'] == 2) {
-                $temp['shopper'] = $this->Musers->checkOwnShop($userid);
-                $temp['num_order'] = $this->Musers->getNumOrderStatus($userid); //lay so luong hoa don chua xu ly
-                $temp['num_proUnactive'] = $this->Musers->getNumProductsUnactive($userid); //Lay so luong san pham chua kiem duyet
-                $temp['num_proExpiration'] = $this->Musers->getNumProductsExpiration($userid); //Lay so luong san pham het han
+            if ($ckShop != FALSE || $data['level'] == 2) {
+                $data['shopper'] = $this->Musers->checkOwnShop($userid);
+                $data['num_order'] = $this->Musers->getNumOrderStatus($userid); //lay so luong hoa don chua xu ly
+                $data['num_proUnactive'] = $this->Musers->getNumProductsUnactive($userid); //Lay so luong san pham chua kiem duyet
+                $data['num_proExpiration'] = $this->Musers->getNumProductsExpiration($userid); //Lay so luong san pham het han
             }
         }
         $data['cate'] = $this->Mproducts->getAllCategories();
@@ -240,6 +242,7 @@ class Cproducts extends CI_Controller {
         $temp['info'] = $this->Mproducts->log();
         if ($temp['info']['logged_in']) {
             $userid = $temp['info']['userID'];
+            $temp['coin'] = $this->Musers->getCoin($userid);
             $temp['level'] = $this->Musers->getLevel($userid); //kiểm tra cấp độ người dùng để hiển thị nội dung tương ứng
             $temp['num_message'] = $this->Musers->getNumMessageUnread($userid); //Lay so luong tin nhan chua doc
             $temp['num_history'] = $this->Musers->getNumOrderHistory($userid); //Lay tat ca so luong hoa don da dat
@@ -334,6 +337,7 @@ class Cproducts extends CI_Controller {
         $data['info'] = $this->Mlog->log();
         if ($data['info']['logged_in']) {
             $userid = $data['info']['userID'];
+            $data['coin'] = $this->Musers->getCoin($userid);
             $data['level'] = $this->Musers->getLevel($userid); //kiểm tra cấp độ người dùng để hiển thị nội dung tương ứng
             $data['num_message'] = $this->Musers->getNumMessageUnread($userid); //Lay so luong tin nhan chua doc
             $data['num_history'] = $this->Musers->getNumOrderHistory($userid); //Lay tat ca so luong hoa don da dat
@@ -411,6 +415,7 @@ class Cproducts extends CI_Controller {
         $data['info'] = $this->Mlog->log();
         if ($data['info']['logged_in']) {
             $userid = $data['info']['userID'];
+            $data['coin'] = $this->Musers->getCoin($userid);
             $data['level'] = $this->Musers->getLevel($userid); //kiểm tra cấp độ người dùng để hiển thị nội dung tương ứng
             $data['num_message'] = $this->Musers->getNumMessageUnread($userid); //Lay so luong tin nhan chua doc
             $data['num_history'] = $this->Musers->getNumOrderHistory($userid); //Lay tat ca so luong hoa don da dat
@@ -489,6 +494,7 @@ class Cproducts extends CI_Controller {
         $data['info'] = $this->Mlog->log(); //lấy thông tin đăng nhập
         if ($data['info']['logged_in'] == TRUE) {
             $userid = $data['info']['userID'];
+            $data['coin'] = $this->Musers->getCoin($userid);
             $data['level'] = $this->Musers->getLevel($userid); //kiểm tra cấp độ người dùng để hiển thị nội dung tương ứng
             $data['num_message'] = $this->Musers->getNumMessageUnread($userid); //Lay so luong tin nhan chua doc
             $data['num_history'] = $this->Musers->getNumOrderHistory($userid); //Lay tat ca so luong hoa don da dat
