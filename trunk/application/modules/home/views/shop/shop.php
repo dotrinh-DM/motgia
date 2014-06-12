@@ -313,7 +313,7 @@
                             }
                         }
                         else
-                            echo 'Không có nội dung hiển thị';
+                            echo '<div class="clear"></div><br>Không có nội dung hiển thị';
                         ?>
 
                     </table>
@@ -391,10 +391,10 @@
             <!--start Bill-->
             <div id="bill">
                 <ul class='proinfo'>
-                    <li class="active-pro"><a href="?allpro=1#products">Đơn hàng đã nhận</a></li>
-                    <li><a href="#tabs1-js">Đơn hàng mới nhận</a></li>
-                    <li><a href="#tabs1-css">Đơn hàng bị hủy</a></li>
-                    <li><a href="#tabs1-css">Đơn hàng đã xác nhận</a></li>
+                    <li class="<?php if (!isset($_GET['allorder'])) echo 'active-pro'; else if ($_GET['allorder'] && $_GET['allorder'] == 4) echo 'active-pro'; ?>"><a href="?allorder=4#bill">Đơn hàng đã nhận</a></li>
+                    <li class="<?php if (isset($_GET['allorder']) && $_GET['allorder'] && $_GET['allorder'] == 1) echo 'active-pro' ?>"><a href="?allorder=1#bill">Đơn hàng mới nhận</a></li>
+                    <li class="<?php if (isset($_GET['allorder']) && $_GET['allorder'] && $_GET['allorder'] == 'ko') echo 'active-pro' ?>"><a href="?allorder=ko#bill">Đơn hàng bị hủy</a></li>
+                    <li class="<?php if (isset($_GET['allorder']) && $_GET['allorder'] && $_GET['allorder'] == 2) echo 'active-pro' ?>"><a href="?allorder=2#bill">Đơn hàng xác nhận</a></li>
                 </ul>
                 <table class="oder_table">
                     <?php
@@ -493,16 +493,24 @@
                         }
                     }
                     else
-                        echo 'Rất tiếc! Không có nội dung hiển thị';
+                        echo '<div class="clear"></div><br>Rất tiếc! Không có nội dung hiển thị';
                     ?>
                 </table>
                 <section class="pagination">
                     <div>
                         <?php
+                        if (isset($_GET['allorder']))
+                                $ordok = $_GET['allorder'];
+                            else
+                                $ordok = 4;
 
                         function showpagingshop2($curent2, $i2) {
+                            if (isset($_GET['allorder']))
+                                $ordok = $_GET['allorder'];
+                            else
+                                $ordok = 4;
                             if ($curent2 != $i2)
-                                echo'<a href="' . base_url() . 'home/cshop?billpage=' . $i2 . '#bill">' . $i2 . '</a>';
+                                echo'<a href="' . base_url() . 'home/cshop?allorder='.$ordok.'&billpage=' . $i2 . '#bill">' . $i2 . '</a>';
                             else
                                 echo'<span class="active">' . $i2 . '</span>';
                         }
@@ -514,8 +522,8 @@
                             $next = $paging_order['page'] + 1;
                             $curent = ($paging_order['start'] / $paging_order['display']) + 1;
                             if ($curent != 1) {// neu la trang dau tien thi khong co nut prev
-                                echo '<a href="' . base_url() . 'home/cshop?billpage=' . $first . '#bill">first</a>';
-                                echo '<a href="' . base_url() . 'home/cshop?billpage=' . $prev . '#bill">prev</a>';
+                                echo '<a href="' . base_url() . 'home/cshop?allorder='.$ordok.'&billpage=' . $first . '#bill">first</a>';
+                                echo '<a href="' . base_url() . 'home/cshop?allorder='.$ordok.'&billpage=' . $prev . '#bill">prev</a>';
                                 if ($curent >= 6 && $total > 9) {
                                     echo '<span style="background=white; ">.....</span>';
                                 }
@@ -548,8 +556,8 @@
                             if ($curent != $total) {// neu la trang cuoi cung thi khong co nut next
                                 if ($curent <= ($total - 5) && $total > 9)
                                     echo '<span style="background=white; ">.....</span>';
-                                echo '<a href="' . base_url() . 'home/cshop?billpage=' . $next . '#bill">next</a>';
-                                echo '<a href="' . base_url() . 'home/cshop?billpage=' . $total . '#bill">last</a>';
+                                echo '<a href="' . base_url() . 'home/cshop?allorder='.$ordok.'&billpage=' . $next . '#bill">next</a>';
+                                echo '<a href="' . base_url() . 'home/cshop?allorder='.$ordok.'&billpage=' . $total . '#bill">last</a>';
                             }
                         }
                         ?>

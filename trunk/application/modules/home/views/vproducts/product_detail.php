@@ -306,9 +306,9 @@ function curPageName() {
                         <div class="detail_item">
                             <h6 class="title_detail_item">Thông tin Nhà cung cấp</h6>
                             <ul>
-                                <li>Address:11 Unity Street, #01-30,Robertson Walk, Singapore 237995</li>
-                                <li>Tel: 6235 6787</li>
-                                <li><a  href="#">Website: 123.com</a></li>
+                                <li>Địa chỉ: <?php echo $shopinfo['address'].', '.$shopinfo['city']?></li>
+                                <li>SĐT: <?php echo $shopinfo['phone']?></li>
+                                <li>Website: <a  href="<?php echo $shopinfo['website']?>"><?php echo $shopinfo['website']?></a></li>
                             </ul>
                         </div>
                         <div class="detail_item" style="width: 320px;height: 300px;">
@@ -360,6 +360,106 @@ function curPageName() {
         </section><!-- .End product_detail -->
 
     </section><!--End #primary-->
-    <?php $this->load->view('layout/sidebar');
-    ?>
+    <aside id="sidebar">
+                <div class="box_item">
+                    <h5>Thông tin gian hàng</h5>
+                    <div class="line"></div>
+                    <a href="#" class="img_box">
+                        <img src="<?php echo base_url().$shopinfo['image']; ?>" width="210px" height="190px"/>
+                    </a>
+                    <h6><a href="#"><?php echo $shopinfo['company']?></a></h6>
+                    <p>Địa chỉ: <?php echo $shopinfo['address'].', '.$shopinfo['city']?><br>
+                                SĐT: <?php echo $shopinfo['phone']?><br>
+                                Website: <a  href="<?php echo $shopinfo['website']?>"><?php echo $shopinfo['website']?></a><br>
+                            </p>
+                </div>
+                <div class="box_item">              
+                    <h5>Gian hàng nổi bật</h5>
+                    <div class="line"></div>
+                    <ul class="rank">
+                        <li>
+                            <span style="padding: 6px;" class="number special-1">1</span>
+                            <div class="info">           
+                                <a href="#">
+                                    <img src="uploads/product_2.png" alt="000"/>
+                                </a>
+
+                                <div class="name">
+                                    <a href="#">Lê Hải</a>
+                                    <div class="clear"></div>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                </div>                              
+                            </div>
+                        </li>
+                        <li>
+                            <span class="number special-2">2</span>
+                            <div class="info">           
+                                <a href="#">
+                                    <img src="uploads/product_2.png" alt="000"/>
+                                </a>
+
+                                <div class="name">
+                                    <a href="#">Lê Hải</a>
+                                    <div class="clear"></div>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                </div>                              
+                            </div>
+                        </li>
+                        <li>
+                            <span class="number special-3">3</span>
+                            <div class="info">           
+                                <a href="#">
+                                    <img src="uploads/product_2.png" alt="000"/>
+                                </a>
+
+                                <div class="name">
+                                    <a href="#">Lê Hải</a>
+                                    <div class="clear"></div>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                </div>                              
+                            </div>
+                        </li>
+                        <li>
+                            <span class="number ">4</span>
+                            <div class="info">           
+                                <a href="#">
+                                    <img src="uploads/product_2.png" alt="000"/>
+                                </a>
+
+                                <div class="name">
+                                    <a href="#">Lê Hải</a>
+                                    <div class="clear"></div>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                </div>                              
+                            </div>
+                        </li>
+                        <li>
+                            <span class="number ">5</span>
+                            <div class="info">           
+                                <a href="#">
+                                    <img src="uploads/product_2.png" alt="000"/>
+                                </a>
+
+                                <div class="name">
+                                    <a href="#">Lê Hải</a>
+                                    <div class="clear"></div>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                </div>                              
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="more floatRight"><a href="#">Xem thêm ></a></div>
+                </div>
+
+            </aside><!--End #sidebar--> 
     <div class="clear"></div>

@@ -26,7 +26,7 @@ class Chome extends CI_Controller {
             $temp['num_history'] = $this->Musers->getNumOrderHistory($userid); //Lay tat ca so luong hoa don da dat
             $temp['level']=  $this->Musers->getLevel($userid);
             $ckShop = $this->Musers->checkOwnShop($userid);
-            if ($ckShop != FALSE && $temp['level']==2) {
+            if ($ckShop != FALSE || $temp['level'] == 2) {
                 $temp['shopper'] = $this->Musers->checkOwnShop($userid);
                 $temp['num_order'] = $this->Musers->getNumOrderStatus($userid); //lay so luong hoa don chua xu ly
                 $temp['num_proUnactive'] = $this->Musers->getNumProductsUnactive($userid); //Lay so luong san pham chua kiem duyet

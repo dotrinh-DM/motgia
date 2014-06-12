@@ -178,13 +178,7 @@
                 <li class='tab active' ><a href="#profile">Thông tin người dùng</a></li>
                 <li class='tab'><a href="#messages"><?php echo (isset($num_message) && $num_message > 0) ? '<span>' . $num_message . '</span>' : ''; ?>Tin nhắn</a></li>
                 <?php
-                if ($level == 2) {
-                    echo '<li class="tab"><a href="#products">Quản lý sản phẩm</a></li>
-                        <li class="tab"><a href="#bill"';
-                    echo (isset($num_order) && $num_order > 0) ? 'tile="có ' . $num_order . ' đơn hàng chưa xử lý"><span>' . $num_order . '</span> ' : '>';
-                    echo 'Đơn hàng đã nhận</a></li>';
-                }
-                else
+                if (!isset($shopper) || $shopper == FALSE)
                     echo '<li class="tab"><a href="#upgrade">Mở gian hàng</a></li>';
                 ?>
                 <li class='tab'><a href="#history">Đơn hàng đã đặt</a></li>
@@ -198,6 +192,11 @@
                         <h6 class="title_detail_item">profile <span class="onclick">[ Sửa ]</span> </h6>
 
                         <table class="detail_profile"> 
+
+                            <tr>
+                                <td>Ảnh đại diện</td>
+                                <td><img src="<?php echo site_url('public/icons/hidden_user.png') ?>" width="80px"/></td>
+                            </tr>
                             <tr>
                                 <td style="width: 150px">Họ và tên</td>
                                 <td><?php echo $profile['firstname'] . ' ' . $profile['lastname']; ?></td> 
@@ -221,10 +220,6 @@
                             <tr>
                                 <td>Tỉnh/Thành phố</td>
                                 <td><?php echo $profile['province']; ?>,  Viet Nam</td>
-                            </tr>
-                            <tr>
-                                <td>Ảnh đại diện</td>
-                                <td><input ty</td>
                             </tr>
 
                         </table><!--End detail_profile -->
@@ -364,504 +359,195 @@
 
 
                 </div> <!--End #profile-->
-
-                <!--start Messages-->
-                <div id="messages">
-                    <h6 class="title_detail_item">Newsletters</h6>
-                    <div class="content_3 clearfix">
-                        <div class="col_2 detail_content_3">
-                            <form id="formSearch_mss" class="clearfix">
-                                <input type="text" class="txt-search" placeholder="search">
-                                <input type="button" class="btnsearch" >
-                            </form>
-                            <ul class="scroll border_left">
-                                <?php
-                                if (count($message_info))
-                                    foreach ($message_info as $key => $value) {
-                                        echo '
+            </div>
+            <!--start Messages-->
+            <div id="messages">
+                <h6 class="title_detail_item">Newsletters</h6>
+                <div class="content_3 clearfix">
+                    <div class="col_2 detail_content_3">
+                        <form id="formSearch_mss" class="clearfix">
+                            <input type="text" class="txt-search" placeholder="search">
+                            <input type="button" class="btnsearch" >
+                        </form>
+                        <ul class="scroll border_left">
+                            <?php
+                            if (count($message_info))
+                                foreach ($message_info as $key => $value) {
+                                    echo '
                                             <a title="' . $value->title . '" class="showmessage" id="' . $value->messageID . '" class="active">
                                             <li class="active' . $value->messageID . ' act">
                                                 <div class="listitem clearfix">
                                                     <figure class="img_post">
                                                         <img src="' . base_url() . 'public/icons/';
-                                        if ($value->LVsender == 0)
-                                            echo 'user_icon.png';
-                                        if ($value->LVsender == 1)
-                                            echo 'seller_icon.png';
-                                        if ($value->LVsender == 2)
-                                            echo 'system_icon.png';
-                                        echo '" alt="img-hot"/>
+                                    if ($value->LVsender == 0)
+                                        echo 'user_icon.png';
+                                    if ($value->LVsender == 1)
+                                        echo 'seller_icon.png';
+                                    if ($value->LVsender == 2)
+                                        echo 'system_icon.png';
+                                    echo '" alt="img-hot"/>
                                                     </figure>
                                                 <div class="listitem_ct">';
 
-                                        echo ($value->status == 0) ? '<b><span class="unread1' . $value->messageID . ' name_user">' . $value->ho_nguoi_gui . $value->ten_nguoi_gui . '</span>
+                                    echo ($value->status == 0) ? '<b><span class="unread1' . $value->messageID . ' name_user">' . $value->ho_nguoi_gui . $value->ten_nguoi_gui . '</span>
                                                     <span class="unread2' . $value->messageID . ' title_post2" title="' . $value->title . '">' . $value->title . '</span></b>' :
-                                                '<span class="name_user2">' . $value->ho_nguoi_gui . $value->ten_nguoi_gui . '</span>
+                                            '<span class="name_user2">' . $value->ho_nguoi_gui . $value->ten_nguoi_gui . '</span>
                                                     <span class="title_post">' . $value->title . '</span>';
-                                        echo '
+                                    echo '
                                                 </div>
                                                     <time>' . $value->date . '</time>
                                                 </div>
                                             </li></a>';
-                                    }
-                                else
-                                    echo 'khong co tin nhan hien thi';
-                                ?>
-                            </ul>
-                        </div>
-                        <div class="col_2 detail_content_3" style="padding: 28px 0px 0px 0px;">
-                            <div id="message_content">
-                                <!--noi dung tin nhan-->
-                            </div>
+                                }
+                            else
+                                echo 'khong co tin nhan hien thi';
+                            ?>
+                        </ul>
+                    </div>
+                    <div class="col_2 detail_content_3" style="padding: 28px 0px 0px 0px;">
+                        <div id="message_content">
+                            <!--noi dung tin nhan-->
                         </div>
                     </div>
-                </div><!--End #messages-->
+                </div>
+            </div><!--End #messages-->
 
-                <?php
-                if ($level != 2) {
-                    ?>
-                    <!--đăng ký gian hàng-->
-                    <div id="upgrade">
-                        <h6 class="title_detail_item">Mở gian hàng miễn phí</h6>
-                        <div class="change marginTop_30">
-                            <form enctype="multipart/form-data"  class="form" id="form_reg_shop" method="post" action="" style="margin-top: 40px">
-                                <b><span style="float: left;margin: -30px 163px;color: #5CB13B;">
-                                        <?php
-                                        if ($this->session->flashdata('success_reg_shop'))
-                                            echo ($this->session->flashdata('success_reg_shop'));
-                                        ?></span></b>
-                                <div class="position">
-                                    <label>Công ty<span>*</span></label>
-                                    <input class="nameshop" type="text" required="" name="name_shop" value="<?php // echo $profile['firstname'];               ?>"/>
+            <?php
+            if (!isset($shopper) || $shopper == FALSE) {
+                ?>
+                <!--đăng ký gian hàng-->
+                <div id="upgrade">
+                    <h6 class="title_detail_item">Mở gian hàng miễn phí</h6>
+                    <div class="change marginTop_30">
+                        <form enctype="multipart/form-data"  class="form" id="form_reg_shop" method="post" action="" style="margin-top: 40px">
+                            <b><span style="float: left;margin: -30px 163px;color: #5CB13B;">
+                                    <?php
+                                    if ($this->session->flashdata('success_reg_shop'))
+                                        echo ($this->session->flashdata('success_reg_shop'));
+                                    ?></span></b>
+                            <div class="position">
+                                <label>Công ty<span>*</span></label>
+                                <input class="nameshop" type="text" required="" name="name_shop" value="<?php // echo $profile['firstname'];                ?>"/>
+                                <span class="tooltip" style="right: 300px;">Không được để trống</span>
+                            </div>
+                            <div>
+
+                                <div>
+                                    <label>Địa chỉ<span>*</span></label>
+                                    <textarea class="addshop" type="text" required="" name="address_shop"><?php // echo $profile['address'];                ?></textarea>
                                     <span class="tooltip" style="right: 300px;">Không được để trống</span>
                                 </div>
-                                <div>
-
-                                    <div>
-                                        <label>Địa chỉ<span>*</span></label>
-                                        <textarea class="addshop" type="text" required="" name="address_shop"><?php // echo $profile['address'];               ?></textarea>
-                                        <span class="tooltip" style="right: 300px;">Không được để trống</span>
-                                    </div>
-                                    <label>Tỉnh/Thành phố<span>*</span></label>
-                                    <div class="select cityshop" style="width:auto">
-                                        <select required="" name="province_shop">
-                                            <option value="">--Chọn--</option>
-                                            <?php
-                                            $arr = array(
-                                                0 => 'Hà Nội', 1 => 'TP HCM', 2 => 'Cần Thơ', 3 => 'Đà Nẵng', 4 => 'Hải Phòng',
-                                                5 => 'An Giang', 6 => 'Bà Rịa - Vũng Tàu', 7 => 'Bắc Giang', 8 => 'Bắc Kạn',
-                                                9 => 'Bạc Liêu', 10 => 'Bắc Ninh', 11 => 'Bến Tre', 12 => 'Bình Định',
-                                                13 => 'Bình Dương', 14 => 'Bình Phước', 15 => 'Bình Thuận', 16 => 'Cà Mau',
-                                                17 => 'Cao Bằng', 18 => 'Đắk Lắk', 19 => 'Đắk Nông', 20 => 'Điện Biên',
-                                                21 => 'Đồng Nai', 22 => 'Đồng Tháp', 23 => 'Gia Lai', 24 => 'Hà Giang',
-                                                25 => 'Hà Nam', 26 => 'Hà Tĩnh', 27 => 'Hải Dương', 28 => 'Hậu Giang',
-                                                29 => 'Hòa Bình', 30 => 'Hưng Yên', 31 => 'Khánh Hòa', 32 => 'Kiên Giang',
-                                                33 => 'Kon Tum', 34 => 'Lai Châu', 35 => 'Lâm Đồng', 36 => 'Lạng Sơn',
-                                                37 => 'Lào Cai', 38 => 'Long An', 39 => 'Nam Định', 40 => 'Nghệ An',
-                                                41 => 'Ninh Bình', 42 => 'Ninh Thuận', 43 => 'Phú Thọ', 44 => 'Quảng Bình',
-                                                45 => 'Quảng Nam', 46 => 'Quảng Ngãi', 47 => 'Quảng Ninh', 48 => 'Quảng Trị',
-                                                49 => 'Sóc Trăng', 50 => 'Sơn La', 51 => 'Tây Ninh', 52 => 'Thái Bình',
-                                                53 => 'Thái Nguyên', 54 => 'Thanh Hóa', 55 => 'Thừa Thiên Huế', 56 => 'Tiền Giang',
-                                                57 => 'Trà Vinh', 58 => 'Tuyên Quang', 59 => 'Vĩnh Long', 60 => 'Vĩnh Phúc',
-                                                61 => 'Yên Bái', 62 => 'Phú Yên'
-                                            );
-                                            for ($i = 0; $i < 62; $i++) {
+                                <label>Tỉnh/Thành phố<span>*</span></label>
+                                <div class="select cityshop" style="width:auto">
+                                    <select required="" name="province_shop">
+                                        <option value="">--Chọn--</option>
+                                        <?php
+                                        $arr = array(
+                                            0 => 'Hà Nội', 1 => 'TP HCM', 2 => 'Cần Thơ', 3 => 'Đà Nẵng', 4 => 'Hải Phòng',
+                                            5 => 'An Giang', 6 => 'Bà Rịa - Vũng Tàu', 7 => 'Bắc Giang', 8 => 'Bắc Kạn',
+                                            9 => 'Bạc Liêu', 10 => 'Bắc Ninh', 11 => 'Bến Tre', 12 => 'Bình Định',
+                                            13 => 'Bình Dương', 14 => 'Bình Phước', 15 => 'Bình Thuận', 16 => 'Cà Mau',
+                                            17 => 'Cao Bằng', 18 => 'Đắk Lắk', 19 => 'Đắk Nông', 20 => 'Điện Biên',
+                                            21 => 'Đồng Nai', 22 => 'Đồng Tháp', 23 => 'Gia Lai', 24 => 'Hà Giang',
+                                            25 => 'Hà Nam', 26 => 'Hà Tĩnh', 27 => 'Hải Dương', 28 => 'Hậu Giang',
+                                            29 => 'Hòa Bình', 30 => 'Hưng Yên', 31 => 'Khánh Hòa', 32 => 'Kiên Giang',
+                                            33 => 'Kon Tum', 34 => 'Lai Châu', 35 => 'Lâm Đồng', 36 => 'Lạng Sơn',
+                                            37 => 'Lào Cai', 38 => 'Long An', 39 => 'Nam Định', 40 => 'Nghệ An',
+                                            41 => 'Ninh Bình', 42 => 'Ninh Thuận', 43 => 'Phú Thọ', 44 => 'Quảng Bình',
+                                            45 => 'Quảng Nam', 46 => 'Quảng Ngãi', 47 => 'Quảng Ninh', 48 => 'Quảng Trị',
+                                            49 => 'Sóc Trăng', 50 => 'Sơn La', 51 => 'Tây Ninh', 52 => 'Thái Bình',
+                                            53 => 'Thái Nguyên', 54 => 'Thanh Hóa', 55 => 'Thừa Thiên Huế', 56 => 'Tiền Giang',
+                                            57 => 'Trà Vinh', 58 => 'Tuyên Quang', 59 => 'Vĩnh Long', 60 => 'Vĩnh Phúc',
+                                            61 => 'Yên Bái', 62 => 'Phú Yên'
+                                        );
+                                        for ($i = 0; $i < 62; $i++) {
 //                                                if ($arr[$i] == $profile['province'])
 //                                                    echo '<option value="' . $arr[$i] . '" selected="selected">' . $arr[$i] . '</option>';
 //                                                else
-                                                echo '<option value="' . $arr[$i] . '">' . $arr[$i] . '</option>';
-                                            }
-                                            ?>
-                                        </select>
-                                    </div>
+                                            echo '<option value="' . $arr[$i] . '">' . $arr[$i] . '</option>';
+                                        }
+                                        ?>
+                                    </select>
                                 </div>
-                                <div style="margin-top: 15px">
-                                    <label>Website</label>
-                                    <input class="webshop" type="text" name="website_shop" value="<?php // echo $profile['address'];               ?>"/>
-                                </div>
-                                <div style="margin-top: 15px">
-                                    <label>Ảnh đại diện</label>
-                                    <input style="margin-left: 200px;" class="webshop" type="file" name="anh" title="Ảnh"/>
-                                </div>
-                                <br/>
-                                <div>
-                                    <label>Điện thoại<span>*</span></label>
-                                    <input type="text" class="h5-phone phoneshop" name="phone_shop" required="" value="<?php // echo $profile['phone'];               ?>"/>
-                                    <span class="tooltip" style="right: 300px;">Phải điền số</span>
+                            </div>
+                            <div style="margin-top: 15px">
+                                <label>Website</label>
+                                <input class="webshop" type="text" name="website_shop" value="<?php // echo $profile['address'];                ?>"/>
+                            </div>
+                            <div style="margin-top: 15px">
+                                <label>Ảnh đại diện</label>
+                                <input style="margin-left: 200px;" class="webshop" type="file" name="anh" title="Ảnh"/>
+                            </div>
+                            <br/>
+                            <div>
+                                <label>Điện thoại<span>*</span></label>
+                                <input type="text" class="h5-phone phoneshop" name="phone_shop" required="" value="<?php // echo $profile['phone'];                ?>"/>
+                                <span class="tooltip" style="right: 300px;">Phải điền số</span>
 
-                                </div>
-                                <div class="position">
-                                    <label>Mã xác nhận<span>*</span></label>
-                                    <input type="text" name="captcha" required="" placeholder="Không phân biệt chữ viết Hoa"/>
-                                    <span class="tooltip" style="right: 300px;">Không được để trống</span>
-                                </div>
-                                <div>
-                                    <label></label>
-                                    <div style="float: left"><span id="capt"><?php echo $captcha; ?></span></div>
-                                    <div><button class="recaptcha" style="border: none; background-color: white"><img src="<?php echo base_url(); ?>public/icons/refresh-icon.png" height="40px" width="40px"/></button></div>
-                                </div>
-                                <div style="padding-left: 165px;">
-                                    <br>
-                                    Các tư vấn viên sẽ liên lạc ngay sau khi bạn đăng ký (Trong giờ hành chính)<br>
-                                    Gian hàng đảm bảo được những lợi ích gì?<br>
-                                    - Được đảm bảo thanh toán mua bán trên Internet.<br>
-                                    - Được tư vấn bán hàng online hiệu quả hơn.<br>
-                                    - Được quảng cáo trên nhiều vị trí hấp dẫn của Motgia.tk<br>
-                                    - Được đăng tin miễn phí...<br>
-                                </div>
-                                <div class="clearfix"></div>
-                                <div class="type_checkbox" style="margin: 15px 165px;">
-                                    <input type="checkbox" name="check" id="checkbox" value="ok"/>
-                                    <label for="checkbox" style="color:#848282;">Tôi đã đọc và đồng ý <span style="color: #3498db;">Quy đinh</span> của website</label>
-                                </div>
-                                <div style="margin-top: -15px">
-                                    <label></label>
-                                    <input type="submit" id="ok_shop" name="ok_shop" value="Chấp nhận" style="background-color: #4B84B6;"/>
-                                    <input type="submit" id="re_shop" name="" value="Làm lại" style="background-color: #4B84B6;"/>
-                                </div>
-                            </form>
-                        </div>
+                            </div>
+                            <div class="position">
+                                <label>Mã xác nhận<span>*</span></label>
+                                <input type="text" name="captcha" required="" placeholder="Không phân biệt chữ viết Hoa"/>
+                                <span class="tooltip" style="right: 300px;">Không được để trống</span>
+                            </div>
+                            <div>
+                                <label></label>
+                                <div style="float: left"><span id="capt"><?php echo $captcha; ?></span></div>
+                                <div><button class="recaptcha" style="border: none; background-color: white"><img src="<?php echo base_url(); ?>public/icons/refresh-icon.png" height="40px" width="40px"/></button></div>
+                            </div>
+                            <div style="padding-left: 165px;">
+                                <br>
+                                Các tư vấn viên sẽ liên lạc ngay sau khi bạn đăng ký (Trong giờ hành chính)<br>
+                                Gian hàng đảm bảo được những lợi ích gì?<br>
+                                - Được đảm bảo thanh toán mua bán trên Internet.<br>
+                                - Được tư vấn bán hàng online hiệu quả hơn.<br>
+                                - Được quảng cáo trên nhiều vị trí hấp dẫn của Motgia.tk<br>
+                                - Được đăng tin miễn phí...<br>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="type_checkbox" style="margin: 15px 165px;">
+                                <input type="checkbox" name="check" id="checkbox" value="ok"/>
+                                <label for="checkbox" style="color:#848282;">Tôi đã đọc và đồng ý <span style="color: #3498db;">Quy đinh</span> của website</label>
+                            </div>
+                            <div style="margin-top: -15px">
+                                <label></label>
+                                <input type="submit" id="ok_shop" name="ok_shop" value="Chấp nhận" style="background-color: #4B84B6;"/>
+                                <input type="submit" id="re_shop" name="" value="Làm lại" style="background-color: #4B84B6;"/>
+                            </div>
+                        </form>
                     </div>
-                    <script type="text/javascript">
-                        jQuery(document).ready(function() {
-                            $("#form_reg_shop").submit(function(evt) {
-                                if ($("#form_reg_shop").h5Validate("allValid") === false) {
-                                    evt.preventDefault();
-                                }
-                            });
-                            $('#re_shop').live("click", function() {
-                                $('.nameshop').val('');
-                                $('.addshop').val('');
-                                $('.cityshop select').val('');
-                                $('.webshop').val('');
-                                $('.phoneshop').val('');
-                                return false;
-                            });
-                            $('.recaptcha').live("click", function()
-                            {
-                                $.ajax({
-                                    type: "POST",
-                                    url: "<?php echo site_url('home/cusers/re_captcha'); ?>",
-                                    //                        cache: false,
-                                    success: function(kq) {
-                                        $("#capt").html(kq);
-                                    }
-                                });
-                                return false;
-                            });
+                </div>
+                <script type="text/javascript">
+                    jQuery(document).ready(function() {
+                        $("#form_reg_shop").submit(function(evt) {
+                            if ($("#form_reg_shop").h5Validate("allValid") === false) {
+                                evt.preventDefault();
+                            }
                         });
-                    </script>
-                <?php } ?>
-            </div>
-            <!--start products-->
-            <?php
-            if ($level == 2) {//nếu không phải nhà cung cấp thì không hiển thị nội dung quản lý sản phẩm
-                //và nội dung quản lý đơn hàng   
-                echo '                   
-                <div id="products">
-                    <div style="
-                    border-bottom: 1px solid #DDD;
-                    height: 40px;
-                    margin-top: 15px;">
-                        <h6 class="title_detail_item" style="float:left">Tất cả sản phẩm</h6>
-                        <a href="' . base_url() . 'up-product" class="btn btn-warning" style="float:right; margin-top:-15px; background:#35C72F" >Thêm sản phẩm mới</a>
-                    </div>
-                    <table class="oder_table">';
-                if (isset($product) && count($product)) {
-                    echo '
-                        <tr>
-                            <th>#</th>
-                            <th>Hình</th>
-                            <th>Ngày đăng</th>
-                            <th>Tên sản phẩm</th>
-                            <th>Ngày hết hạn</th>
-                            <th>Đã bán</th>
-                            <th>Trạng thái</th>
-                            <th>Thao tác xử lý</th>
-                        </tr>';
-                    $i = $paging_product['start'];
-                    foreach ($product as $value => $pro) {
-                        $img = json_decode($pro->images);
-                        ?>
-                        <tr>
-                            <td><?php
-                                for ($i; $i < $paging_product['start'] + $paging_product['display']; $i++) {
-                                    echo $i + 1;
-                                    $i = $i + 1;
-                                    break;
+                        $('#re_shop').live("click", function() {
+                            $('.nameshop').val('');
+                            $('.addshop').val('');
+                            $('.cityshop select').val('');
+                            $('.webshop').val('');
+                            $('.phoneshop').val('');
+                            return false;
+                        });
+                        $('.recaptcha').live("click", function()
+                        {
+                            $.ajax({
+                                type: "POST",
+                                url: "<?php echo site_url('home/cusers/re_captcha'); ?>",
+                                //                        cache: false,
+                                success: function(kq) {
+                                    $("#capt").html(kq);
                                 }
-                                ?></td>
-                            <td><a href="#"><img src="<?php echo base_url() . $img[0]; ?>" alt="<?php echo $pro->name; ?>" height="50" width="50"/></a></td>
-                            <td><?php echo $pro->date_up; ?></td>
-                            <td><a href="#"><?php echo $pro->name; ?></a></td>
-                            <td><?php echo $pro->date_expiration; ?></td>
-                            <td><?php echo $pro->soldnumber; ?></td>
-                            <td style="width:161px">
-                                <input type="submit" class="edit_status_product" id="<?php echo $pro->productsID ?>" name="change_status" value="Edit" style="width: 30px;height: 32px;padding: 0px;float: right;margin-top: 0px;border-radius: 0px 5px 5px 0px;"/>
-                                <input type="hidden" value="<?php echo $pro->productsID ?>" name="proID"/>
-                                <select class="form-control floatLeft" id="status_product<?php echo $pro->productsID ?>" name="status_pro" style="width: 120px;">
-                                    <?php
-                                    if ($pro->status == 1)
-                                        echo'
-                                            <option value="1">Đang bán</option>
-                                            <option value="2">Hết hàng</option>
-                                            <option value="0">Ngừng bán</option>';
-                                    elseif ($pro->status == 0)
-                                        echo'
-                                            <option value="0">Ngừng bán</option>
-                                            <option value="1">Tiếp tục bán</option>';
-                                    elseif ($pro->status == 2)
-                                        echo'
-                                            <option value="2">Hết hàng</option>
-                                            <option value="1">Tiếp tục bán</option>';
-                                    ?>
-                                </select>
-                            </td>
-                            <td class="update">
-                                <ul>
-                                    <li><a href="#">Gia hạn</a></li>
-                                    <li><a href="#">Sửa</a></li>
-                                    <li><a href="#">Xóa</a></li>
-                                </ul>
+                            });
+                            return false;
+                        });
+                    });
+                </script>
+            <?php } ?>
 
-                            </td>
-
-                        </tr>
-                        <?php
-                    }
-                }
-                else
-                    echo 'Không có nội dung hiển thị';
-
-                echo '</table>
-                    <section class="pagination">
-                        <div>';
-
-                function showpaging($curent1, $i1) {
-                    if ($curent1 != $i1)
-                        echo'<a href="' . base_url() . 'profile?sppage=' . $i1 . '#products">' . $i1 . '</a>';
-                    else
-                        echo'<span class="active">' . $i1 . '</span>';
-                }
-
-                if ($paging_product['num_page'] > 1 && isset($product) && count($product)) {//neu can hien thi so trang
-                    $first = 1;
-                    $total = $paging_product['num_page'];
-                    $prev = $paging_product['page'] - 1;
-                    $next = $paging_product['page'] + 1;
-                    $curent = ($paging_product['start'] / $paging_product['display']) + 1;
-                    if ($curent != 1) {// neu la trang dau tien thi khong co nut prev
-                        echo '<a href="' . base_url() . 'profile?sppage=' . $first . '#products">first</a>';
-                        echo '<a href="' . base_url() . 'profile?sppage=' . $prev . '#products">prev</a>';
-                        if ($curent >= 6 && $total > 9) {
-                            echo '<span style="background=white; ">.....</span>';
-                        }
-                    }
-                    //hien thi so trang
-                    for ($i = 1; $i <= $paging_product['num_page']; $i++) {
-
-                        if ($total > 9) {//neu tong so trang lon hon 9
-                            if ($curent <= 5) {
-                                showpaging($curent, $i);
-                                if ($i == 9)
-                                    break;
-                            }
-                            elseif ($curent >= 6 && $curent <= ($total - 5)) {
-                                if ($i >= ($curent - 4) && $i <= $curent + 4) {
-                                    showpaging($curent, $i);
-                                    if ($i == $curent + 4)
-                                        break;
-                                }
-                            }
-                            elseif ($curent >= ($total - 4)) {
-                                if ($i >= ($total - 8))
-                                    showpaging($curent, $i);
-                            }
-                        }
-                        else {
-                            showpaging($curent, $i);
-                        }
-                    }
-                    if ($curent != $total) {// neu la trang cuoi cung thi khong co nut next
-                        if ($curent <= ($total - 5) && $total > 9)
-                            echo '<span style="background=white; ">.....</span>';
-                        echo '<a href="' . base_url() . 'profile?sppage=' . $next . '#products">next</a>';
-                        echo '<a href="' . base_url() . 'profile?sppage=' . $total . '#products">last</a>';
-                    }
-                }
-                echo '
-                        </div>
-                    </section><!-- #End pagination-->
-                    </div><!--End #products-->';
-
-
-                echo '
-            <!--start Bill-->
-            <div id="bill">
-                <h6 class="title_detail_item">order</h6>
-                <table class="oder_table">
-                    ';
-
-                if (isset($order) && count($order)) {
-                    echo '
-                        <tr>
-                        <th>#</th>
-                        <th>Người mua</th>
-                        <th>Thông tin đơn hàng</th>
-                        <th>Giá trị đơn hàng</th>
-                        <th><center>Trạng thái</center></th>
-                        <th><center>Thao tác</center></th>
-                    </tr>';
-                    $i = $paging_order['start'];
-                    foreach ($order as $key => $ord) {
-                        ?>
-                        <tr>
-                            <td><?php
-                                for ($i; $i < $paging_order['start'] + $paging_order['display']; $i++) {
-                                    echo $i + 1;
-                                    $i = $i + 1;
-                                    break;
-                                }
-                                ?>
-                            </td>
-
-                            <td><?php
-                                if (substr($ord->buyerID, 0, 3) == 'UID') {//đối với khách vãng lai
-                                    $this->load->model('Musers');
-                                    $userbuy = $this->Musers->getOrder_UserBuy($ord->orderID, $ord->buyerID);
-                                    echo '<p style="color:#7769AD"><b>' . $userbuy['fullname'] . '</b> (thành viên)</p>';
-                                    echo '<p>Năm sinh: ' . $userbuy['buyeryear'] . '</p>';
-                                    echo '<p>Địa chỉ: ' . $userbuy['buyeradd'] . '</p>';
-                                    echo '<p>SĐT: ' . $userbuy['buyerphone'] . ' ... ';
-                                } else if (substr($ord->buyerID, 0, 5) == 'GUEST') {//đối với khach hang vang lai
-                                    $this->load->model('Musers');
-                                    $userbuy = $this->Musers->getOrder_GuestBuy($ord->orderID, $ord->buyerID);
-                                    echo '<p style="color:#7769AD"><b>' . $userbuy['fullname'] . '</b> (khách vãng lai)</p>';
-                                    echo '<p>Email: ' . $userbuy['buyeremail'] . '</p>';
-                                    echo '<p>Địa chỉ: ' . $userbuy['buyeradd'] . '</p>';
-                                    echo '<p>SĐT: ' . $userbuy['buyerphone'] . ' ... ';
-                                }
-                                ?>
-                                <a href="#">> <b>Chi tiết</b></a></p>
-                            </td>
-                            <td>
-                                <p>Mã đơn hàng: <?php echo $ord->orderID; ?></p>
-                                <p>Ngày mua: <?php
-                                    $ts = mktime(0, 0, 0, $ord->date, $ord->month, $ord->year);
-                                    echo date("l", $ts) . ', ' . $ord->date_cr;
-                                    ?></p>
-                                <p>Hình thức thanh toán: <?php echo ($ord->method == 1) ? 'online' : 'tại nhà' ?></p>
-                                <a href="<?php echo site_url('home/cusers/orderdetail') . '?orderid=' . $ord->orderID . '&buyer=' . $ord->buyerID; ?>">> <b>Chi tiết</b></a>
-                            </td>
-                            <td><?php
-                                $this->load->model('Musers');
-                                echo '<p style="font-style: italic;color: #A8370B;"><b>' . number_format($this->Musers->getValueOrder($ord->orderID), 2, ', ', '.') . ' VNĐ</b></p>';
-                                ?></td>
-                            <td><span class="bg_gray" style="float: left">
-                                    <?php
-                                    if ($ord->status == 0)
-                                        echo 'Đã hủy';
-                                    else if ($ord->status == 1)
-                                        echo 'Đang chờ xác nhận';
-                                    else if ($ord->status == 2)
-                                        echo 'Đã xác nhận';
-                                    else if ($ord->status == 3)
-                                        echo 'Đã thanh toán';
-                                    ?></span></td>
-                            <td>
-                                <?php
-                                if ($ord->status == 1)
-                                    echo '<form action="" method="post">
-                                <input type="hidden" class="orderid' . $ord->orderID . '" value="' . $ord->orderID . '"/>
-                                <input type="hidden" class="statusid' . $ord->orderID . '" value="' . $ord->statusID . '"/>
-                            <input type="submit" class="btn btn-primary btn-lg btn-block" style="
-                            width: 75px; float:left;
-                            font-size: 9pt;
-                            padding: 5px;
-                            margin-top: 0px;
-                            border-radius: 3px;
-                            background-color: #CEB711; 
-                            " value="Xác nhận" name="confirm_order" onclick="return confirm(' . "'" . 'Bạn muốn xác nhận đơn hàng này và gửi tin nhắn hệ thống đến tài khoản khách hàng?' . "'" . ');"/>
-                            <input type="submit" id="' . $ord->orderID . '" class="btn btn-primary btn-lg btn-block cancel_order" style="
-                            width: 50px; float:right;
-                            font-size: 9pt;
-                            padding: 5px;
-                            margin-top: 0px;
-                            border-radius: 3px;
-                            background-color: #CEB711; 
-                            " value="Hủy" name="deny_order");"/></form>';
-                                ?>
-                            </td>
-                        </tr>
-                        <?php
-                    }
-                }
-                else
-                    echo 'Rất tiếc! Không có nội dung hiển thị';
-
-                echo '</table>
-                    <section class="pagination">
-                        <div>';
-
-                function showpaging2($curent2, $i2) {
-                    if ($curent2 != $i2)
-                        echo'<a href="' . base_url() . 'profile?billpage=' . $i2 . '#bill">' . $i2 . '</a>';
-                    else
-                        echo'<span class="active">' . $i2 . '</span>';
-                }
-
-                if ($paging_order['num_page'] > 1 && isset($ord) && count($ord)) {//neu can hien thi so trang
-                    $first = 1;
-                    $total = $paging_order['num_page'];
-                    $prev = $paging_order['page'] - 1;
-                    $next = $paging_order['page'] + 1;
-                    $curent = ($paging_order['start'] / $paging_order['display']) + 1;
-                    if ($curent != 1) {// neu la trang dau tien thi khong co nut prev
-                        echo '<a href="' . base_url() . 'profile?billpage=' . $first . '#bill">first</a>';
-                        echo '<a href="' . base_url() . 'profile?billpage=' . $prev . '#bill">prev</a>';
-                        if ($curent >= 6 && $total > 9) {
-                            echo '<span style="background=white; ">.....</span>';
-                        }
-                    }
-                    //hien thi so trang
-                    for ($i = 1; $i <= $paging_order['num_page']; $i++) {
-
-                        if ($total > 9) {//neu tong so trang lon hon 9
-                            if ($curent <= 5) {
-                                showpaging2($curent, $i);
-                                if ($i == 9)
-                                    break;
-                            }
-                            elseif ($curent >= 6 && $curent <= ($total - 5)) {
-                                if ($i >= ($curent - 4) && $i <= $curent + 4) {
-                                    showpaging2($curent, $i);
-                                    if ($i == $curent + 4)
-                                        break;
-                                }
-                            }
-                            elseif ($curent >= ($total - 4)) {
-                                if ($i >= ($total - 8))
-                                    showpaging2($curent, $i);
-                            }
-                        }
-                        else {
-                            showpaging2($curent, $i);
-                        }
-                    }
-                    if ($curent != $total) {// neu la trang cuoi cung thi khong co nut next
-                        if ($curent <= ($total - 5) && $total > 9)
-                            echo '<span style="background=white; ">.....</span>';
-                        echo '<a href="' . base_url() . 'profile?billpage=' . $next . '#bill">next</a>';
-                        echo '<a href="' . base_url() . 'profile?billpage=' . $total . '#bill">last</a>';
-                    }
-                }
-
-                echo '</div>
-                    </section><!-- #End pagination-->
-                    </div><!----End #bill-->
-                ';
-            }
-            ?>
 
             <!--start History-->
             <?php
@@ -898,7 +584,7 @@
                         <td>
                             <?php
                             echo '<p style="color:#7769AD"><b>' . $ord->company . '</b></p>';
-                            echo '<p>Địa chỉ: ' . $ord->shopadd .' '.$ord->shopcity. '</p>';
+                            echo '<p>Địa chỉ: ' . $ord->shopadd . ' ' . $ord->shopcity . '</p>';
                             echo '<p>SĐT: ' . $ord->shopphone . ' ... ';
                             ?>
                             <a href="#">> <b>Chi tiết</b></a></p>
@@ -911,7 +597,7 @@
                                 echo date("l", $ts) . ', ' . $ord->date_cr;
                                 ?>
                             </p>
-                            <p>Hình thức thanh toán: online</p>
+                            <p>Hình thức thanh toán: <?php echo ($ord->method==0)? 'Tại nhà':'Trực tuyến' ?></p>
                             <a href="<?php echo site_url('home/cusers/historydetail') . '?orderid=' . $ord->orderID; ?>">> <b>Chi tiết</b></a>
                         </td>
                         <td>
@@ -945,7 +631,7 @@
 
             function showpaging3($curent3, $i3) {
                 if ($curent3 != $i3)
-                    echo'<a href="' . base_url() . 'profile?hspage=' . $i3 . '#bill">' . $i3 . '</a>';
+                    echo'<a href="' . base_url() . 'profile?hspage=' . $i3 . '#history">' . $i3 . '</a>';
                 else
                     echo'<span class="active">' . $i3 . '</span>';
             }
@@ -957,8 +643,8 @@
                 $next = $paging_order_buy['page'] + 1;
                 $curent = ($paging_order_buy['start'] / $paging_order_buy['display']) + 1;
                 if ($curent != 1) {// neu la trang dau tien thi khong co nut prev
-                    echo '<a href="' . base_url() . 'profile?hspage=' . $first . '#bill">first</a>';
-                    echo '<a href="' . base_url() . 'profile?hspage=' . $prev . '#bill">prev</a>';
+                    echo '<a href="' . base_url() . 'profile?hspage=' . $first . '#history">first</a>';
+                    echo '<a href="' . base_url() . 'profile?hspage=' . $prev . '#history">prev</a>';
                     if ($curent >= 6 && $total > 9) {
                         echo '<span style="background=white; ">.....</span>';
                     }
@@ -991,8 +677,8 @@
                 if ($curent != $total) {// neu la trang cuoi cung thi khong co nut next
                     if ($curent <= ($total - 5) && $total > 9)
                         echo '<span style="background=white; ">.....</span>';
-                    echo '<a href="' . base_url() . 'profile?hspage=' . $next . '#bill">next</a>';
-                    echo '<a href="' . base_url() . 'profile?hspage=' . $total . '#bill">last</a>';
+                    echo '<a href="' . base_url() . 'profile?hspage=' . $next . '#history">next</a>';
+                    echo '<a href="' . base_url() . 'profile?hspage=' . $total . '#history">last</a>';
                 }
             }
 
@@ -1003,25 +689,25 @@
             ?>
             <div id="monney">
                 <span>Soạn tin nhắn theo cú pháp <b>DV</b> <span><</span>dấu cách<span>></span> <b>MOTGIA</b> <span><</span>dấu cách<span>></span> <b><?php echo $info['userID'] ?></b>
-                            Gửi <b>8085</b> (15.000đ/tin nhắn)
-                            </span><br><br>
-                            <span style="font-weight: bold;font-size: 10pt;color: #0DE928;">Lịch sử nạp tiền</span>
-                            <table class="oder_table">
-                                <thead>
-                                <th>No.</th>
-                                <th>Ngày nạp</th>
-                                <th>Cú pháp thực hiện</th>
-                                <th>Số điện thoại nạp</th>
-                                <th>Số tiền nạp</th>
-                                </thead>
-                                <?php
-                                $i = 0;
-                                $tong = 0;
-                                if (count($money)) {
-                                    foreach ($money as $key => $value) {
-                                        $i++;
-                                        $tong += $value->money;
-                                        echo '
+                    Gửi <b>8085</b> (15.000đ/tin nhắn)
+                </span><br><br>
+                <span style="font-weight: bold;font-size: 10pt;color: #0DE928;">Lịch sử nạp tiền</span>
+                <table class="oder_table">
+                    <thead>
+                    <th>No.</th>
+                    <th>Ngày nạp</th>
+                    <th>Cú pháp thực hiện</th>
+                    <th>Số điện thoại nạp</th>
+                    <th>Số tiền nạp</th>
+                    </thead>
+                    <?php
+                    $i = 0;
+                    $tong = 0;
+                    if (count($money)) {
+                        foreach ($money as $key => $value) {
+                            $i++;
+                            $tong += $value->money;
+                            echo '
                                             <tr>
                                                 <td>' . $i . '</td>
                                                 <td>' . $value->date_cr . '</td>
@@ -1030,17 +716,16 @@
                                                 <td>' . number_format($value->money, 2, ', ', '.') . '</td>
                                             </tr>
                                             ';
-                                    }
-                                }
-                                ?>
-                                <tfoot>
-                                    <tr>
-                                        <td colspan="4" style="float: right"><span>Tổng số tiền đã nạp : </span></td>
-                                        <td><?php echo number_format($tong, 2, ', ', '.')?></td>
-                                    </tr>
-                                </tfoot>
-                            </table>
-                            </div>
-                            </div>
-                            </div> <!--End #tabs-->
-                            </div><!-- End Primary -->
+                        }
+                    }
+                    ?>
+                    <tfoot>
+                        <tr>
+                            <td colspan="4" style="float: right"><span>Tổng số tiền đã nạp : </span></td>
+                            <td><?php echo number_format($tong, 2, ', ', '.') ?></td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div> <!--End #tabs-->
+    </div><!-- End Primary -->

@@ -213,6 +213,21 @@ class Mproducts extends CI_Model
         return $query->row_array();
     }
 
+    public function rateIn($id,$total,$value,$ip){
+        $data = array(
+            'id'=>$id
+        );
+    }
+    public function rateUot(){
+        
+    }
+    public function checkRateID($id){
+        $ck = $this->db->select("count(*) as num")->where("id","$id")->row_array();
+        if($ck['num'] > 0)
+            return FALSE;
+        else            
+            return TRUE;
+    }
 }
 
 ?>

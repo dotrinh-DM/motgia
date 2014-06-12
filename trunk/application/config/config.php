@@ -14,7 +14,7 @@
 | path to your installation.
 |
 */
-$config['base_url']	= 'http://localhost/motgia/';
+$config['base_url']	= 'http://localhost:7070/motgia/';
 
 
 /*
@@ -27,7 +27,11 @@ $config['base_url']	= 'http://localhost/motgia/';
 | variable so that it is blank.
 |
 */
+
+//$config['index_page'] = 'index.php';
+
 $config['index_page'] = '';
+
 
 /*
 |--------------------------------------------------------------------------
