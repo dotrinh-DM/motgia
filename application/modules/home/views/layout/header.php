@@ -46,7 +46,7 @@
                                             <div  class="clearfix"></div>
                                             <span>(Cập nhật ngày : 15/06/2014 00:00 AM )</span>
                                             <?php
-                                            if (isset($shopper) && count($shopper))
+                                            if (isset($shopper) && $shopper!=FALSE)
                                                 echo '<p style="margin: -5px 2px;color: black;font-weight: bold;line-height: 23px;width: 250px;">Gian hàng: ' . $shopper['company'] . '</p>';
                                             else {
                                                 echo '<a href="' . site_url('profile#upgrade') . '" style="margin: -7px -10px;width: 131px;">Đăng ký gian hàng</a>';
@@ -61,7 +61,7 @@
                                     </div>
                                 </li>
                             </ul>
-                            <?php if (isset($shopper) && count($shopper)) { ?>
+                            <?php if (isset($shopper) && $shopper!=FALSE) { ?>
                                 <ul  class="showshop">
                                     <div style="float: right;width: 185px;">
                                         <p style="margin: -10px 2px;color: black;height: 20px">Địa chỉ:</p>
@@ -73,18 +73,18 @@
                                     <div class="clear"></div>
                                     <li style="font-family:arial; margin-top: 10px">
 
-                                        <p><a href="#" style="margin: 0px -26px;">Thông tin gian hàng</a></p>
-                                        <p><a href="#" style="margin: 20px -26px;">Đơn hàng mới
+                                        <p><a href="<?php echo site_url('home/cshop')?>" style="margin: 0px -26px;">Thông tin gian hàng</a></p>
+                                        <p><a href="<?php echo site_url('home/cshop?allorder=1#bill')?>" style="margin: 20px -26px;">Đơn hàng mới
                                                 <?php
                                                 echo (isset($num_order) && $num_order > 0) ? '<spanc class="number_count" style="top: 45px;right: 145px">' . $num_order . '</span>' : '';
                                                 ?>
                                             </a></p>
-                                        <p><a href="#" style="margin: 20px -26px;">Sản phẩm quá hạn
+                                        <p><a href="<?php echo site_url('home/cshop?allpro=4#products')?>" style="margin: 20px -26px;">Sản phẩm quá hạn
                                                 <?php
                                                 echo (isset($num_proExpiration) && $num_proExpiration > 0) ? '<spanc class="number_count" style="top: 81px;right: 122px">' . $num_proExpiration . '</span>' : '';
                                                 ?>
                                             </a></p>
-                                        <p><a href="#" style="margin: 20px -26px;">Sản phẩm chờ duyệt
+                                        <p><a href="<?php echo site_url('home/cshop?allpro=3#products')?>" style="margin: 20px -26px;">Sản phẩm chờ duyệt
                                                 <?php
                                                 echo (isset($num_proUnactive) && $num_proUnactive > 0) ? '<spanc class="number_count" style="top: 115px;right: 115px">' . $num_proUnactive . '</span>' : '';
                                                 ?>

@@ -168,6 +168,7 @@ class Musers extends CI_Model {
                 ->where("userID","$uid")
                 ->get("shop")
                 ->row_array();
+       if (count($shop))
         return $shop['shopID'];
     }
 
@@ -314,14 +315,14 @@ class Musers extends CI_Model {
     public function getNumProductsUnactive($UID) {//lay so luong san pham chua duyet
         $shopid= $this->getShopByUID($UID);
         $this->db->select("status");
-        $this->db->where(array('status' => 0, 'shopID' => $shopid));
+        $this->db->where(array('status' => 3, 'shopID' => $shopid));
         $qr = $this->db->get('products')->result();
         return count($qr);
     }
     public function getNumProductsExpiration($UID) {//lay so luong san pham chua duyet
         $shopid= $this->getShopByUID($UID);
         $this->db->select("status");
-        $this->db->where(array('status' => 2, 'shopID' => $shopid));
+        $this->db->where(array('status' => 4, 'shopID' => $shopid));
         $qr = $this->db->get('products')->result();
         return count($qr);
     }

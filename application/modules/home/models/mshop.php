@@ -82,6 +82,18 @@ class Mshop extends CI_Model {
         return $query->result();
     }
     
+    public function getShopByProID($id){
+        $shopid1 = $this->db->select("shopID")->where("productsID",$id)->get('products')->row_array();
+        $shopid = $shopid1['shopID'];
+        return $this->db->select("*")
+                ->where("shopID","$shopid")
+                ->get("shop")
+                ->row_array();
+    }
+    public function getHotShop(){
+        
+    }
+
     public function getShopByUID($uid){
        $shop = $this->db->select("*")
                 ->where("userID","$uid")
@@ -89,6 +101,40 @@ class Mshop extends CI_Model {
                 ->row_array();
         return $shop['shopID'];
     }
+    
+    public function getOrderByUID($Uid, $where) {//kiem tra so ban ghi theo dieu kien
+        $shopid= $this->getShopByUID($Uid);
+        $this->db->select("count(*) as numberc")
+                ->where(array("shopID"=> $shopid, "status"=>$where));
+        $query = $this->db->get('tbl_order')->row_array();
+        return $query['numberc'];
+    }
+     public function getOrderByUID_where($Uid, $sum = 10000, $start = 0,$where) {//don hang theo tinh trang yeu cau
+        $shopid= $this->getShopByUID($Uid);
+        $this->db->select("*")
+                ->select("DATE_FORMAT(create_date, '%d-%m-%Y, %H:%i %p') AS date_cr", FALSE)
+                ->select("DATE_FORMAT(create_date, '%d') AS date", FALSE)
+                ->select("DATE_FORMAT(create_date, '%m') AS month", FALSE)
+                ->select("DATE_FORMAT(create_date, '%Y') AS year", FALSE)
+                ->where(array("shopID"=> $shopid,"status"=>$where))
+                ->order_by('date_cr', 'desc');
+        $query = $this->db->get('tbl_order', $sum, $start);
+        return $query->result();
+    }
+     public function getAllOrderByUID($Uid, $sum = 10000, $start = 0) {//don hang theo tinh trang yeu cau
+        $shopid= $this->getShopByUID($Uid);
+        $this->db->select("*")
+                ->select("DATE_FORMAT(create_date, '%d-%m-%Y, %H:%i %p') AS date_cr", FALSE)
+                ->select("DATE_FORMAT(create_date, '%d') AS date", FALSE)
+                ->select("DATE_FORMAT(create_date, '%m') AS month", FALSE)
+                ->select("DATE_FORMAT(create_date, '%Y') AS year", FALSE)
+                ->where("shopID", "$shopid")
+                ->order_by('date_cr', 'desc');
+        $query = $this->db->get('tbl_order', $sum, $start);
+        return $query->result();
+    }
+     
+    
 }
 
 ?>

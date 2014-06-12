@@ -24,7 +24,7 @@ class cshop extends CI_Controller {
             $temp['num_history'] = $this->Musers->getNumOrderHistory($userid); //Lay tat ca so luong hoa don da dat
             $temp['level'] = $this->Musers->getLevel($userid);
             $ckShop = $this->Musers->checkOwnShop($userid);
-            if ($ckShop != FALSE && $temp['level'] == 2) {
+            if ($ckShop != FALSE || $temp['level'] == 2) {
                 $temp['shopper'] = $this->Musers->checkOwnShop($userid);
                 $temp['num_order'] = $this->Musers->getNumOrderStatus($userid); //lay so luong hoa don chua xu ly
                 $temp['num_proUnactive'] = $this->Musers->getNumProductsUnactive($userid); //Lay so luong san pham chua kiem duyet
@@ -85,7 +85,23 @@ class cshop extends CI_Controller {
                 $billpage = $_GET['billpage'];
                 $billstart = (isset($_GET['billpage']) && (int) $_GET['billpage'] > 0) ? ($_GET['billpage'] - 1) * $display : 0; //nhan bien truyen vao tu url
             }
-            $record2 = count($this->Musers->getOrderByUID($userid)); //tong so ban ghi
+            
+             $whereord = 4;
+            if (isset($_GET['allorder']))
+                $whereord = $_GET['allorder'];
+            if ($whereord == 4){
+                $temp['order'] = $this->Mshop->getAllOrderByUID($userid, $display, $billstart);
+                $record2 = count($this->Mshop->getAllOrderByUID($userid, 1000, 0));
+            }
+            else if($whereord != 'ko'){
+                $temp['order'] = $this->Mshop->getOrderByUID_where($userid, $display, $billstart,$whereord);
+                $record2 = $this->Mshop->getOrderByUID($userid,$whereord);
+            }
+            else{
+                $temp['order'] = $this->Mshop->getOrderByUID_where($userid, $display, $billstart,0);
+                $record2 = $this->Mshop->getOrderByUID($userid,0);
+            }
+            
             if ($record2 > $display)//neu ban ghi nho hon quy dinh thi khong can phan trang
                 $num_page2 = ceil($record2 / $display); //tong so trang
             else
@@ -100,8 +116,9 @@ class cshop extends CI_Controller {
                     $url = 'profile#bill';
                 redirect($url);
             }//end- xu ly don hang
-
-            $temp['order'] = $this->Musers->getOrderByUID($userid, $display, $billstart);
+            
+            
+//            $temp['order'] = $this->Musers->getOrderByUID($userid, $display, $billstart);
             $temp['paging_order'] = array('num_page' => $num_page2, 'page' => $billpage, 'start' => $billstart, 'display' => $display);
             /////////////////////////////////////end- quan ly don hang
             //
