@@ -20,6 +20,7 @@ class cshop extends CI_Controller {
         $temp['info'] = $this->Mlog->log();
         if ($temp['info']['logged_in'] == TRUE) {
             $userid = $temp['info']['userID'];
+            $temp['coin'] = $this->Musers->getCoin($userid);
             $temp['num_message'] = $this->Musers->getNumMessageUnread($userid); //Lay so luong tin nhan chua doc
             $temp['num_history'] = $this->Musers->getNumOrderHistory($userid); //Lay tat ca so luong hoa don da dat
             $temp['level'] = $this->Musers->getLevel($userid);
