@@ -22,7 +22,7 @@ class Cproducts extends CI_Controller {
 
     public function index() {
         $temp['info'] = $this->Mlog->log();
-        if (count($temp['info'])) {
+        if ($temp['info']['logged_in'] == TRUE) {
             $userid = $temp['info']['userID'];
             $temp['level'] = $this->Musers->getLevel($userid); //kiểm tra cấp độ người dùng để hiển thị nội dung tương ứng
             $temp['num_message'] = $this->Musers->getNumMessageUnread($userid); //Lay so luong tin nhan chua doc
@@ -132,16 +132,18 @@ class Cproducts extends CI_Controller {
 
     public function upProducts() {
         $temp['info'] = $this->Mlog->log();
-        $userid = $temp['info']['userID'];
-        $temp['level'] = $this->Musers->getLevel($userid); //kiểm tra cấp độ người dùng để hiển thị nội dung tương ứng
-        $temp['num_message'] = $this->Musers->getNumMessageUnread($userid); //Lay so luong tin nhan chua doc
-        $temp['num_history'] = $this->Musers->getNumOrderHistory($userid); //Lay tat ca so luong hoa don da dat
-        $ckShop = $this->Musers->checkOwnShop($userid);
-        if ($ckShop != FALSE || $temp['level'] == 2) {
-            $temp['shopper'] = $this->Musers->checkOwnShop($userid);
-            $temp['num_order'] = $this->Musers->getNumOrderStatus($userid); //lay so luong hoa don chua xu ly
-            $temp['num_proUnactive'] = $this->Musers->getNumProductsUnactive($userid); //Lay so luong san pham chua kiem duyet
-            $temp['num_proExpiration'] = $this->Musers->getNumProductsExpiration($userid); //Lay so luong san pham het han
+        if ($temp['info']['logged_in']) {
+            $userid = $temp['info']['userID'];
+            $temp['level'] = $this->Musers->getLevel($userid); //kiểm tra cấp độ người dùng để hiển thị nội dung tương ứng
+            $temp['num_message'] = $this->Musers->getNumMessageUnread($userid); //Lay so luong tin nhan chua doc
+            $temp['num_history'] = $this->Musers->getNumOrderHistory($userid); //Lay tat ca so luong hoa don da dat
+            $ckShop = $this->Musers->checkOwnShop($userid);
+            if ($ckShop != FALSE || $temp['level'] == 2) {
+                $temp['shopper'] = $this->Musers->checkOwnShop($userid);
+                $temp['num_order'] = $this->Musers->getNumOrderStatus($userid); //lay so luong hoa don chua xu ly
+                $temp['num_proUnactive'] = $this->Musers->getNumProductsUnactive($userid); //Lay so luong san pham chua kiem duyet
+                $temp['num_proExpiration'] = $this->Musers->getNumProductsExpiration($userid); //Lay so luong san pham het han
+            }
         }
         $temp['title'] = 'Đăng sản phẩm';
         $temp['cate'] = $this->Mproducts->getAllCategories();
@@ -210,16 +212,18 @@ class Cproducts extends CI_Controller {
 
     public function editProducts($id) {
         $temp['info'] = $this->Mproducts->log();
-        $userid = $temp['info']['userID'];
-        $temp['level'] = $this->Musers->getLevel($userid); //kiểm tra cấp độ người dùng để hiển thị nội dung tương ứng
-        $temp['num_message'] = $this->Musers->getNumMessageUnread($userid); //Lay so luong tin nhan chua doc
-        $temp['num_history'] = $this->Musers->getNumOrderHistory($userid); //Lay tat ca so luong hoa don da dat
-        $ckShop = $this->Musers->checkOwnShop($userid);
-        if ($ckShop != FALSE || $temp['level'] == 2) {
-            $temp['shopper'] = $this->Musers->checkOwnShop($userid);
-            $temp['num_order'] = $this->Musers->getNumOrderStatus($userid); //lay so luong hoa don chua xu ly
-            $temp['num_proUnactive'] = $this->Musers->getNumProductsUnactive($userid); //Lay so luong san pham chua kiem duyet
-            $temp['num_proExpiration'] = $this->Musers->getNumProductsExpiration($userid); //Lay so luong san pham het han
+        if ($temp['info']['logged_in']) {
+            $userid = $temp['info']['userID'];
+            $temp['level'] = $this->Musers->getLevel($userid); //kiểm tra cấp độ người dùng để hiển thị nội dung tương ứng
+            $temp['num_message'] = $this->Musers->getNumMessageUnread($userid); //Lay so luong tin nhan chua doc
+            $temp['num_history'] = $this->Musers->getNumOrderHistory($userid); //Lay tat ca so luong hoa don da dat
+            $ckShop = $this->Musers->checkOwnShop($userid);
+            if ($ckShop != FALSE || $temp['level'] == 2) {
+                $temp['shopper'] = $this->Musers->checkOwnShop($userid);
+                $temp['num_order'] = $this->Musers->getNumOrderStatus($userid); //lay so luong hoa don chua xu ly
+                $temp['num_proUnactive'] = $this->Musers->getNumProductsUnactive($userid); //Lay so luong san pham chua kiem duyet
+                $temp['num_proExpiration'] = $this->Musers->getNumProductsExpiration($userid); //Lay so luong san pham het han
+            }
         }
         $data['cate'] = $this->Mproducts->getAllCategories();
         $data['edit'] = $this->Mproducts->editProducts($id);
@@ -234,16 +238,18 @@ class Cproducts extends CI_Controller {
 
     public function updateProducts() {
         $temp['info'] = $this->Mproducts->log();
-        $userid = $temp['info']['userID'];
-        $temp['level'] = $this->Musers->getLevel($userid); //kiểm tra cấp độ người dùng để hiển thị nội dung tương ứng
-        $temp['num_message'] = $this->Musers->getNumMessageUnread($userid); //Lay so luong tin nhan chua doc
-        $temp['num_history'] = $this->Musers->getNumOrderHistory($userid); //Lay tat ca so luong hoa don da dat
-        $ckShop = $this->Musers->checkOwnShop($userid);
-        if ($ckShop != FALSE || $temp['level'] == 2) {
-            $temp['shopper'] = $this->Musers->checkOwnShop($userid);
-            $temp['num_order'] = $this->Musers->getNumOrderStatus($userid); //lay so luong hoa don chua xu ly
-            $temp['num_proUnactive'] = $this->Musers->getNumProductsUnactive($userid); //Lay so luong san pham chua kiem duyet
-            $temp['num_proExpiration'] = $this->Musers->getNumProductsExpiration($userid); //Lay so luong san pham het han
+        if ($temp['info']['logged_in']) {
+            $userid = $temp['info']['userID'];
+            $temp['level'] = $this->Musers->getLevel($userid); //kiểm tra cấp độ người dùng để hiển thị nội dung tương ứng
+            $temp['num_message'] = $this->Musers->getNumMessageUnread($userid); //Lay so luong tin nhan chua doc
+            $temp['num_history'] = $this->Musers->getNumOrderHistory($userid); //Lay tat ca so luong hoa don da dat
+            $ckShop = $this->Musers->checkOwnShop($userid);
+            if ($ckShop != FALSE || $temp['level'] == 2) {
+                $temp['shopper'] = $this->Musers->checkOwnShop($userid);
+                $temp['num_order'] = $this->Musers->getNumOrderStatus($userid); //lay so luong hoa don chua xu ly
+                $temp['num_proUnactive'] = $this->Musers->getNumProductsUnactive($userid); //Lay so luong san pham chua kiem duyet
+                $temp['num_proExpiration'] = $this->Musers->getNumProductsExpiration($userid); //Lay so luong san pham het han
+            }
         }
         $id = $this->input->post('idhidden');
         $a = $this->Mproducts->editProducts($id);
@@ -326,16 +332,18 @@ class Cproducts extends CI_Controller {
 
     public function payonline() {
         $data['info'] = $this->Mlog->log();
-        $userid = $data['info']['userID'];
-        $data['level'] = $this->Musers->getLevel($userid); //kiểm tra cấp độ người dùng để hiển thị nội dung tương ứng
-        $data['num_message'] = $this->Musers->getNumMessageUnread($userid); //Lay so luong tin nhan chua doc
-        $data['num_history'] = $this->Musers->getNumOrderHistory($userid); //Lay tat ca so luong hoa don da dat
-        $ckShop = $this->Musers->checkOwnShop($userid);
-        if ($ckShop != FALSE || $temp['level'] == 2) {
-            $data['shopper'] = $this->Musers->checkOwnShop($userid);
-            $data['num_order'] = $this->Musers->getNumOrderStatus($userid); //lay so luong hoa don chua xu ly
-            $data['num_proUnactive'] = $this->Musers->getNumProductsUnactive($userid); //Lay so luong san pham chua kiem duyet
-            $data['num_proExpiration'] = $this->Musers->getNumProductsExpiration($userid); //Lay so luong san pham het han
+        if ($data['info']['logged_in']) {
+            $userid = $data['info']['userID'];
+            $data['level'] = $this->Musers->getLevel($userid); //kiểm tra cấp độ người dùng để hiển thị nội dung tương ứng
+            $data['num_message'] = $this->Musers->getNumMessageUnread($userid); //Lay so luong tin nhan chua doc
+            $data['num_history'] = $this->Musers->getNumOrderHistory($userid); //Lay tat ca so luong hoa don da dat
+            $ckShop = $this->Musers->checkOwnShop($userid);
+            if ($ckShop != FALSE || $data['level'] == 2) {
+                $data['shopper'] = $this->Musers->checkOwnShop($userid);
+                $data['num_order'] = $this->Musers->getNumOrderStatus($userid); //lay so luong hoa don chua xu ly
+                $data['num_proUnactive'] = $this->Musers->getNumProductsUnactive($userid); //Lay so luong san pham chua kiem duyet
+                $data['num_proExpiration'] = $this->Musers->getNumProductsExpiration($userid); //Lay so luong san pham het han
+            }
         }
         if ($data['info'] != FALSE) {
             $buyer = $data['info']['userID'];
@@ -401,16 +409,18 @@ class Cproducts extends CI_Controller {
 
     public function payhome() {
         $data['info'] = $this->Mlog->log();
-        $userid = $data['info']['userID'];
-        $data['level'] = $this->Musers->getLevel($userid); //kiểm tra cấp độ người dùng để hiển thị nội dung tương ứng
-        $data['num_message'] = $this->Musers->getNumMessageUnread($userid); //Lay so luong tin nhan chua doc
-        $data['num_history'] = $this->Musers->getNumOrderHistory($userid); //Lay tat ca so luong hoa don da dat
-        $ckShop = $this->Musers->checkOwnShop($userid);
-        if ($ckShop != FALSE || $temp['level'] == 2) {
-            $data['shopper'] = $this->Musers->checkOwnShop($userid);
-            $data['num_order'] = $this->Musers->getNumOrderStatus($userid); //lay so luong hoa don chua xu ly
-            $data['num_proUnactive'] = $this->Musers->getNumProductsUnactive($userid); //Lay so luong san pham chua kiem duyet
-            $data['num_proExpiration'] = $this->Musers->getNumProductsExpiration($userid); //Lay so luong san pham het han
+        if ($data['info']['logged_in']) {
+            $userid = $data['info']['userID'];
+            $data['level'] = $this->Musers->getLevel($userid); //kiểm tra cấp độ người dùng để hiển thị nội dung tương ứng
+            $data['num_message'] = $this->Musers->getNumMessageUnread($userid); //Lay so luong tin nhan chua doc
+            $data['num_history'] = $this->Musers->getNumOrderHistory($userid); //Lay tat ca so luong hoa don da dat
+            $ckShop = $this->Musers->checkOwnShop($userid);
+            if ($ckShop != FALSE || $data['level'] == 2) {
+                $data['shopper'] = $this->Musers->checkOwnShop($userid);
+                $data['num_order'] = $this->Musers->getNumOrderStatus($userid); //lay so luong hoa don chua xu ly
+                $data['num_proUnactive'] = $this->Musers->getNumProductsUnactive($userid); //Lay so luong san pham chua kiem duyet
+                $data['num_proExpiration'] = $this->Musers->getNumProductsExpiration($userid); //Lay so luong san pham het han
+            }
         }
         if ($data['info'] != FALSE) {//trường hợp đã đăng nhập
             $buyer = $data['info']['userID'];
@@ -477,16 +487,18 @@ class Cproducts extends CI_Controller {
 
     public function view_cart() {
         $data['info'] = $this->Mlog->log(); //lấy thông tin đăng nhập
-        $userid = $data['info']['userID'];
-        $data['level'] = $this->Musers->getLevel($userid); //kiểm tra cấp độ người dùng để hiển thị nội dung tương ứng
-        $data['num_message'] = $this->Musers->getNumMessageUnread($userid); //Lay so luong tin nhan chua doc
-        $data['num_history'] = $this->Musers->getNumOrderHistory($userid); //Lay tat ca so luong hoa don da dat
-        $ckShop = $this->Musers->checkOwnShop($userid);
-        if ($ckShop != FALSE || $temp['level'] == 2) {
-            $data['shopper'] = $this->Musers->checkOwnShop($userid);
-            $data['num_order'] = $this->Musers->getNumOrderStatus($userid); //lay so luong hoa don chua xu ly
-            $data['num_proUnactive'] = $this->Musers->getNumProductsUnactive($userid); //Lay so luong san pham chua kiem duyet
-            $data['num_proExpiration'] = $this->Musers->getNumProductsExpiration($userid); //Lay so luong san pham het han
+        if ($data['info']['logged_in'] == TRUE) {
+            $userid = $data['info']['userID'];
+            $data['level'] = $this->Musers->getLevel($userid); //kiểm tra cấp độ người dùng để hiển thị nội dung tương ứng
+            $data['num_message'] = $this->Musers->getNumMessageUnread($userid); //Lay so luong tin nhan chua doc
+            $data['num_history'] = $this->Musers->getNumOrderHistory($userid); //Lay tat ca so luong hoa don da dat
+            $ckShop = $this->Musers->checkOwnShop($userid);
+            if ($ckShop != FALSE || $data['level'] == 2) {
+                $data['shopper'] = $this->Musers->checkOwnShop($userid);
+                $data['num_order'] = $this->Musers->getNumOrderStatus($userid); //lay so luong hoa don chua xu ly
+                $data['num_proUnactive'] = $this->Musers->getNumProductsUnactive($userid); //Lay so luong san pham chua kiem duyet
+                $data['num_proExpiration'] = $this->Musers->getNumProductsExpiration($userid); //Lay so luong san pham het han
+            }
         }
         $data['category'] = $this->category_model->getAll();
         $data['kq'] = getChildren($data['category']);
@@ -565,18 +577,6 @@ class Cproducts extends CI_Controller {
     }
 
     public function vd() {
-//        if ($this->input->post('paymenthome')) {
-//            $payinfo = $this->input->post('payhome');
-////            if (isset($_SESSION['pay']))
-////                unset($_SESSION['pay']);
-////            foreach ($payinfo as $uid => $value) {
-////                foreach ($value as $proid => $soluong) {
-////                    $_SESSION['pay'][$uid] = $_SESSION['cart'][$uid];
-////                }
-////            }
-////            redirect('thanh-toan-tai-nha');
-//            var_dump($payinfo);
-//        }
         $this->load->view('vd');
     }
 

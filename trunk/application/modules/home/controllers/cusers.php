@@ -52,7 +52,7 @@ class cusers extends CI_Controller {
     }
 
     public function addGuest() {
-        if (isset($_POST['fullname'], $_POST['mail'], $_POST['phone'], $_POST['province'], $_POST['address'])) {
+        if (isset($_POST['fullname'], $_POST['mail'], $_POST['phone'], $_POST['province'], $_POST['address'])){
             if ($_POST['fullname'] == '' || $_POST['mail'] == '' || $_POST['phone'] == '' || $_POST['province'] == '' || $_POST['address'] == '') {
                 echo 'Vui lòng nhập đầy đủ thông tin';
                 exit();
