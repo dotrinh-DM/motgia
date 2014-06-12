@@ -19,163 +19,50 @@
     </div>
 </section>
 <section id="content" class="wrap">
-<div id="list_pavilion">
-    <table class="table">
-        <thead>
+    <div id="list_pavilion">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>No.</th>
+                    <th>Logo</th>
+                    <th>Thông tin gian hàng</th>
+                    <th>Liên hệ</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                if (isset($listshop) && count($listshop)) { $i=1;
+                    foreach ($listshop as $key => $value) {
+                        echo'
             <tr>
-                <th>#</th>
-                <th>Logo</th>
-                <th>Thông tin gian hàng</th>
-                <th>Liên hệ</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>1</td>
-                <td><a href="#"><img src="uploads/product_1.png"/></a></td>
+                <td>'.$i.'</td>
+                <td><a href="#"><img src="'.site_url('public/icons/shop_icon.png').'"/></a></td>
                 <td>
-                    <h5><a href="#">Công Ty Công Nghệ Và Thiết Bị Hàn</a></h5>
-                    <p class="adress">Địa chỉ:15/7 Canh Nông 2, Quang Trung, TP.Hải Duơng (Hải Dương)</p>
-                    <p>Có <span class="quantity">6.461 </span>sản phẩm trong Thời trang nam</p>
+                    <h5><a href="#">'.$value['company'].'</a></h5>
+                    <p class="adress">'.$value['address'].', '.$value['city'].'</p>
+                    <p>Có <span class="quantity">'.$value['num_pro'].' </span>sản phẩm trong Thời trang nam</p>
                     <p>Đánh giá:<span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span></p>
 
 
                 </td>
-                <td>
-                    <p>Điện thoại : 19006235</p>
+                <td><br>
+                    <p>Điện thoại : '.$value['phone'].'</p>
                     <p>Fax : 04-36473147</p>
-                    <a href="#">kellyyangshop.com</a>
+                    <a href="'.$value['website'].'">'.$value['website'].'</a>
                 </td>
                 <td>
-                    <img src="images/ok.png"/>
+                    <img src="'.site_url('template/images/ok.png').'"/>
                 </td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td><a href="#"><img src="uploads/product_1.png"/></a></td>
-                <td>
-                    <h5><a href="#">Công Ty Công Nghệ Và Thiết Bị Hàn</a></h5>
-                    <p class="adress">Địa chỉ:15/7 Canh Nông 2, Quang Trung, TP.Hải Duơng (Hải Dương)</p>
-                    <p>Có <span class="quantity">6.461 </span>sản phẩm trong Thời trang nam</p>
-                    <p>Đánh giá:<span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span></p>
+            </tr>'; $i++;
+                    }
+                }
+                ?>
+            </tbody>
+        </table>
 
-
-                </td>
-                <td>
-                    <p>Điện thoại : 19006235</p>
-                    <p>Fax : 04-36473147</p>
-                    <a href="#">kellyyangshop.com</a>
-                </td>
-                <td>
-                    <img src="images/ok.png"/>
-                </td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td><a href="#"><img src="uploads/product_1.png"/></a></td>
-                <td>
-                    <h5><a href="#">Công Ty Công Nghệ Và Thiết Bị Hàn</a></h5>
-                    <p class="adress">Địa chỉ:15/7 Canh Nông 2, Quang Trung, TP.Hải Duơng (Hải Dương)</p>
-                    <p>Có <span class="quantity">6.461 </span>sản phẩm trong Thời trang nam</p>
-                    <p>Đánh giá:<span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span></p>
-
-
-                </td>
-                <td>
-                    <p>Điện thoại : 19006235</p>
-                    <p>Fax : 04-36473147</p>
-                    <a href="#">kellyyangshop.com</a>
-                </td>
-                <td>
-
-                </td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td><a href="#"><img src="uploads/product_1.png"/></a></td>
-                <td>
-                    <h5><a href="#">Công Ty Công Nghệ Và Thiết Bị Hàn</a></h5>
-                    <p class="adress">Địa chỉ:15/7 Canh Nông 2, Quang Trung, TP.Hải Duơng (Hải Dương)</p>
-                    <p>Có <span class="quantity">6.461 </span>sản phẩm trong Thời trang nam</p>
-                    <p>Đánh giá:<span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span></p>
-
-
-                </td>
-                <td>
-                    <p>Điện thoại : 19006235</p>
-                    <p>Fax : 04-36473147</p>
-                    <a href="#">kellyyangshop.com</a>
-                </td>
-                <td>
-                    <img src="images/ok.png"/>
-                </td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td><a href="#"><img src="uploads/product_1.png"/></a></td>
-                <td>
-                    <h5><a href="#">Công Ty Công Nghệ Và Thiết Bị Hàn</a></h5>
-                    <p class="adress">Địa chỉ:15/7 Canh Nông 2, Quang Trung, TP.Hải Duơng (Hải Dương)</p>
-                    <p>Có <span class="quantity">6.461 </span>sản phẩm trong Thời trang nam</p>
-                    <p>Đánh giá:<span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span></p>
-
-
-                </td>
-                <td>
-                    <p>Điện thoại : 19006235</p>
-                    <p>Fax : 04-36473147</p>
-                    <a href="#">kellyyangshop.com</a>
-                </td>
-                <td>
-                    <img src="images/ok.png"/>
-                </td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td><a href="#"><img src="uploads/product_1.png"/></a></td>
-                <td>
-                    <h5><a href="#">Công Ty Công Nghệ Và Thiết Bị Hàn</a></h5>
-                    <p class="adress">Địa chỉ:15/7 Canh Nông 2, Quang Trung, TP.Hải Duơng (Hải Dương)</p>
-                    <p>Có <span class="quantity">6.461 </span>sản phẩm trong Thời trang nam</p>
-                    <p>Đánh giá:<span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span></p>
-
-
-                </td>
-                <td>
-                    <p>Điện thoại : 19006235</p>
-                    <p>Fax : 04-36473147</p>
-                    <a href="#">kellyyangshop.com</a>
-                </td>
-                <td>
-                    <img src="images/ok.png"/>
-                </td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td><a href="#"><img src="uploads/product_1.png"/></a></td>
-                <td>
-                    <h5><a href="#">Công Ty Công Nghệ Và Thiết Bị Hàn</a></h5>
-                    <p class="adress">Địa chỉ:15/7 Canh Nông 2, Quang Trung, TP.Hải Duơng (Hải Dương)</p>
-                    <p>Có <span class="quantity">6.461 </span>sản phẩm trong Thời trang nam</p>
-                    <p>Đánh giá:<span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span></p>
-
-
-                </td>
-                <td>
-                    <p>Điện thoại : 19006235</p>
-                    <p>Fax : 04-36473147</p>
-                    <a href="#">kellyyangshop.com</a>
-                </td>
-                <td>
-                    <img src="images/ok.png"/>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-
-    <div class="clear"></div>
-</div>
-        <div class="text_center" id="more10" >
+        <div class="clear"></div>
+    </div>
+    <div class="text_center" id="more10" >
         <button class="btn_showmore" id="10">Xem thêm</button>
     </div>

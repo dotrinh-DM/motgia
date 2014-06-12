@@ -698,7 +698,7 @@
                     <th>Ngày nạp</th>
                     <th>Cú pháp thực hiện</th>
                     <th>Số điện thoại nạp</th>
-                    <th>Số tiền nạp</th>
+                    <th>Số tiền nạp (VNĐ)</th>
                     </thead>
                     <?php
                     $i = 0;
@@ -721,8 +721,8 @@
                     ?>
                     <tfoot>
                         <tr>
-                            <td colspan="4" style="float: right"><span>Tổng số tiền đã nạp : </span></td>
-                            <td><?php echo number_format($tong, 2, ', ', '.') ?></td>
+                            <td colspan="4"><b><span style="float:right">Tổng số tiền đã nạp : </span></b></td>
+                            <td><b style="color: red"><?php echo number_format($tong, 2, ', ', '.') ?>  VNĐ</b></td>
                         </tr>
                     </tfoot>
                 </table>

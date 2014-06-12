@@ -158,7 +158,7 @@ function curPageName() {
 </div>
 
 <?php
-    $images1 = json_decode($data_detail['images']);
+$images1 = json_decode($data_detail['images']);
 ?>
 <section class="bg_shadow">
     <div class="wrap clearfix">
@@ -186,6 +186,7 @@ function curPageName() {
         <section class="product_detail">
             <div id="product_view">
                 <?php foreach ($images1 as $value22)
+                    
                     ?>
                 <a href="<?php echo base_url() . $images1[0]; ?>" class="jqzoom" rel='gal1'  title="triumph">
                     <img class="view" src="<?php echo base_url() . $images1[0]; ?>" alt=""  title="triumph"/>
@@ -214,7 +215,7 @@ function curPageName() {
                     <h6 class="icon_longer_products" style="height: 30px">Còn hàng</h6>
                 </header>
                 <div class="subdetail">
-                    <?php echo $data_detail['intro'] ?>
+<?php echo $data_detail['intro'] ?>
                 </div>
 
                 <div class="price_3">
@@ -272,7 +273,7 @@ function curPageName() {
                                 <h6 class="title_detail_item">Đặc điểm nổi bật</h6>
                                 <ul>
                                     <li>
-                                        <?php echo $data_detail['hightlight'] ?> 
+<?php echo $data_detail['hightlight'] ?> 
                                     </li>
                                 </ul>
                             </div>
@@ -281,7 +282,7 @@ function curPageName() {
                                 <ul>
                                     <li>
 
-                                        <?php echo $data_detail['condition'] ?>
+<?php echo $data_detail['condition'] ?>
 
                                     </li>
                                 </ul>
@@ -290,7 +291,7 @@ function curPageName() {
                             <div class="detail_item_post">
                                 <header class="title_post_detail">Detail information</header>
                                 <p>
-                                    <?php echo $data_detail['productinfo'] ?>
+<?php echo $data_detail['productinfo'] ?>
                                 </p>
                             </div>
 
@@ -306,9 +307,9 @@ function curPageName() {
                         <div class="detail_item">
                             <h6 class="title_detail_item">Thông tin Nhà cung cấp</h6>
                             <ul>
-                                <li>Địa chỉ: <?php echo $shopinfo['address'].', '.$shopinfo['city']?></li>
-                                <li>SĐT: <?php echo $shopinfo['phone']?></li>
-                                <li>Website: <a  href="<?php echo $shopinfo['website']?>"><?php echo $shopinfo['website']?></a></li>
+                                <li>Địa chỉ: <?php echo $shopinfo['address'] . ', ' . $shopinfo['city'] ?></li>
+                                <li>SĐT: <?php echo $shopinfo['phone'] ?></li>
+                                <li>Website: <a  href="<?php echo $shopinfo['website'] ?>"><?php echo $shopinfo['website'] ?></a></li>
                             </ul>
                         </div>
                         <div class="detail_item" style="width: 320px;height: 300px;">
@@ -358,108 +359,52 @@ function curPageName() {
             </div>
 
         </section><!-- .End product_detail -->
+    </section>    <!--End #primary-->
 
-    </section><!--End #primary-->
     <aside id="sidebar">
-                <div class="box_item">
-                    <h5>Thông tin gian hàng</h5>
-                    <div class="line"></div>
-                    <a href="#" class="img_box">
-                        <img src="<?php echo base_url().$shopinfo['image']; ?>" width="210px" height="190px"/>
-                    </a>
-                    <h6><a href="#"><?php echo $shopinfo['company']?></a></h6>
-                    <p>Địa chỉ: <?php echo $shopinfo['address'].', '.$shopinfo['city']?><br>
-                                SĐT: <?php echo $shopinfo['phone']?><br>
-                                Website: <a  href="<?php echo $shopinfo['website']?>"><?php echo $shopinfo['website']?></a><br>
-                            </p>
-                </div>
-                <div class="box_item">              
-                    <h5>Gian hàng nổi bật</h5>
-                    <div class="line"></div>
-                    <ul class="rank">
-                        <li>
-                            <span style="padding: 6px;" class="number special-1">1</span>
-                            <div class="info">           
+        <div class="box_item">
+            <h5 style="font-weight: bold;color: #3D5F43;">Thông tin gian hàng</h5>
+            <div class="line"></div>
+            <a href="#" class="img_box">
+                <img src="<?php echo base_url() . $shopinfo['image']; ?>" width="210px" height="190px"/>
+            </a>
+            <h6><a href="#"><?php echo $shopinfo['company'] ?></a></h6>
+            <p>Địa chỉ: <?php echo $shopinfo['address'] . ', ' . $shopinfo['city'] ?><br>
+                SĐT: <?php echo $shopinfo['phone'] ?><br>
+                Website: <a  href="<?php echo $shopinfo['website'] ?>"><?php echo $shopinfo['website'] ?></a><br>
+            </p>
+        </div>
+        <div class="box_item">              
+            <h5 style="font-weight: bold;color: #3D5F43;">Gian hàng nổi bật</h5>
+            <div class="line"></div>
+            <ul class="rank">
+                <?php
+                if (isset($listshop) && count($listshop)) {
+                    $i = 1;
+                    foreach ($listshop as $key => $value) {
+                        echo '
+                               <li>
+                            <span style="padding: 6px; margin-top:10px" class="number special-' . $i . '">' . $i . '</span>
+                            <div class="info" style="width:168px">           
                                 <a href="#">
-                                    <img src="uploads/product_2.png" alt="000"/>
+                                    <img src="' . site_url($value['image']) . '" alt="000"/>
                                 </a>
-
-                                <div class="name">
-                                    <a href="#">Lê Hải</a>
+                                <div class="name" style="width:95px">
+                                    <div style="height: 52px;overflow: hidden;"><a href="#" style="font-size:10px">' . $value['company'] . '</a></div>
                                     <div class="clear"></div>
                                     <span class="glyphicon glyphicon-star"></span>
                                     <span class="glyphicon glyphicon-star"></span>
                                     <span class="glyphicon glyphicon-star"></span>
                                 </div>                              
                             </div>
-                        </li>
-                        <li>
-                            <span class="number special-2">2</span>
-                            <div class="info">           
-                                <a href="#">
-                                    <img src="uploads/product_2.png" alt="000"/>
-                                </a>
-
-                                <div class="name">
-                                    <a href="#">Lê Hải</a>
-                                    <div class="clear"></div>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                </div>                              
-                            </div>
-                        </li>
-                        <li>
-                            <span class="number special-3">3</span>
-                            <div class="info">           
-                                <a href="#">
-                                    <img src="uploads/product_2.png" alt="000"/>
-                                </a>
-
-                                <div class="name">
-                                    <a href="#">Lê Hải</a>
-                                    <div class="clear"></div>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                </div>                              
-                            </div>
-                        </li>
-                        <li>
-                            <span class="number ">4</span>
-                            <div class="info">           
-                                <a href="#">
-                                    <img src="uploads/product_2.png" alt="000"/>
-                                </a>
-
-                                <div class="name">
-                                    <a href="#">Lê Hải</a>
-                                    <div class="clear"></div>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                </div>                              
-                            </div>
-                        </li>
-                        <li>
-                            <span class="number ">5</span>
-                            <div class="info">           
-                                <a href="#">
-                                    <img src="uploads/product_2.png" alt="000"/>
-                                </a>
-
-                                <div class="name">
-                                    <a href="#">Lê Hải</a>
-                                    <div class="clear"></div>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                </div>                              
-                            </div>
-                        </li>
-                    </ul>
-                    <div class="more floatRight"><a href="#">Xem thêm ></a></div>
-                </div>
-
-            </aside><!--End #sidebar--> 
+                        </li>';
+                        $i++;
+                    }
+                }
+                ?>
+            </ul>
+            <div class="more floatRight"><a href="<?php echo site_url('home/cshop/listshop')?>">Xem thêm ></a></div>
+        </div>
+    </aside>    <!--End #sidebar--> 
     <div class="clear"></div>
+    </section>
