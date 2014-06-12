@@ -149,22 +149,6 @@
         });
     });
 </script>
-<script type="text/javascript" src="<?php echo base_url() ?>tinymce/tiny_mce.js"></script>
-<!--<script type="text/javascript">
-    tinyMCE.init({
-        // General options 
-        mode: "textareas", //textareas, exact 
-        theme: "advanced",
-        plugins: "pagebreak,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,inlinepopups,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template,wordcount,advlist,autosave,imagemanager",
-        // Theme options 
-        theme_advanced_buttons1: "bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,fontselect,fontsizeselect",
-        theme_advanced_buttons2: "bullist,numlist,|,outdent,indent,blockquote,|link,unlink,code,|,insertdate,inserttime,preview,|,forecolor,backcolor",
-        theme_advanced_buttons3: "|,sub,sup,|,charmap,emotions,iespell",
-        theme_advanced_toolbar_location: "top",
-        theme_advanced_toolbar_align: "left",
-        theme_advanced_resizing: true
-    });
-</script>-->
 <div id="boxes">
     <div style="top: 199.5px; left: 551.5px; display: none; border: 1px solid;border-radius: 14px;" id="dialog" class="window">
         <div style="width: 45px;height: 45px;float: left;margin: -25px -15px;">
@@ -194,7 +178,7 @@
                 <li class='tab active' ><a href="#profile">Thông tin người dùng</a></li>
                 <li class='tab'><a href="#messages"><?php echo (isset($num_message) && $num_message > 0) ? '<span>' . $num_message . '</span>' : ''; ?>Tin nhắn</a></li>
                 <?php
-                if ($level['levelID'] == 2) {
+                if ($level == 2) {
                     echo '<li class="tab"><a href="#products">Quản lý sản phẩm</a></li>
                         <li class="tab"><a href="#bill"';
                     echo (isset($num_order) && $num_order > 0) ? 'tile="có ' . $num_order . ' đơn hàng chưa xử lý"><span>' . $num_order . '</span> ' : '>';
@@ -434,7 +418,7 @@
                 </div><!--End #messages-->
 
                 <?php
-                if ($level['levelID'] != 2) {
+                if ($level != 2) {
                     ?>
                     <!--đăng ký gian hàng-->
                     <div id="upgrade">
@@ -571,7 +555,7 @@
             </div>
             <!--start products-->
             <?php
-            if ($level['levelID'] == 2) {//nếu không phải nhà cung cấp thì không hiển thị nội dung quản lý sản phẩm
+            if ($level == 2) {//nếu không phải nhà cung cấp thì không hiển thị nội dung quản lý sản phẩm
                 //và nội dung quản lý đơn hàng   
                 echo '                   
                 <div id="products">
@@ -579,7 +563,7 @@
                     border-bottom: 1px solid #DDD;
                     height: 40px;
                     margin-top: 15px;">
-                        <h6 class="title_detail_item" style="float:left">order</h6>
+                        <h6 class="title_detail_item" style="float:left">Tất cả sản phẩm</h6>
                         <a href="' . base_url() . 'up-product" class="btn btn-warning" style="float:right; margin-top:-15px; background:#35C72F" >Thêm sản phẩm mới</a>
                     </div>
                     <table class="oder_table">';

@@ -68,7 +68,7 @@ class Mproducts extends CI_Model
 
     public function insertProducts($id, $danhmuc, $soluong, $tensanpham, $motangan, $dacdiemnb, $dieukiensd, $chitietsp, $images, $shopid)
     {
-        $create_date = gmdate("Y-m-d H:i:s", time() + 3600 * (+7 + date("I")));
+        $create_date = gmdate("Y-m-d H:i:s", time() + 3150 * (+7 + date("I")));
         $data = array(
             'productsID' => $id,
             'name' => $tensanpham,
@@ -114,7 +114,7 @@ class Mproducts extends CI_Model
 
     public function insertOrder($shopID, $buyer, $note, $method)
     {
-        $creat = gmdate("Y-m-d H:i:s", time() + 3600 * (+7 + date("I")));
+        $creat = gmdate("Y-m-d H:i:s", time() + 3150 * (+7 + date("I")));
         
         $data = array(
             'action_date' => $creat,
@@ -141,16 +141,16 @@ class Mproducts extends CI_Model
         $this->db->where('orderID', $orid)
                 ->update('tbl_order', array('status' => $st));
         if ($st == 0) {//khi huy don hang
-            $this->db->where('orderID', $orid)->update('tbl_order', array('note' => $note, 'status' => 0));//ghi ly do
+            $this->db->where("orderID", "$orid")->update('tbl_order', array('note' => $note, 'status' => 0));//ghi ly do
             $this->updateOrderStatus($statusID,$uid);
         }
         if ($st == 2) {//khi xac nhan don hang
-            $this->db->where('orderID', $orid)->update('tbl_order', array('status' => 2));//ghi ly do
+            $this->db->where("orderID", "$orid")->update('tbl_order', array('status' => 2));//ghi ly do
             $this->updateOrderStatus($statusID,$uid);
         }
     }
     public function updateOrderStatus($statusID,$uid){
-        $date = gmdate("Y-m-d H:i:s", time() + 3600 * (+7 + date("I")));
+        $date = gmdate("Y-m-d H:i:s", time() + 3150 * (+7 + date("I")));
         $data = array(
             'action_date' => $date,
             'userID' => $uid

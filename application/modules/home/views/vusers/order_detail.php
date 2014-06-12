@@ -1,3 +1,5 @@
+<?php if($info['logged_in']==TRUE){?>
+
 <section class="bg_shadow">
     <div class="wrap clearfix">
         <div class="title floatLeft">
@@ -244,25 +246,32 @@
             $('.headermess').empty();
             $('#contentmess').empty();
             $('.headermess').fadeIn(1000).html('Hủy đơn hàng');
-            $('#contentmess').append('</br><form action="" method="post">\n\
+            $('#contentmess').append('</br><form action="<?php echo site_url('home/cusers/cancel_order') ?>" method="post">\n\
+                        <input type="hidden" name="statusID" value="'+$('.statusid').val()+'"/>\n\
+                        <input type="hidden" name="orderID" value="<?php echo $_GET['orderid'] ?>"/>\n\
+                        <input type="hidden" name="buyerID" value="<?php echo $_GET['buyer'] ?>"/>\n\
                         <textarea id="note" name="note" placeholder="lý do hủy" required="" style="font-size: 11pt;margin-top: -10px;height: 80px;" class="validationValid"></textarea>\n\
                         <input type="submit" class="btn order_ok" value="ok" style="margin-top: -8px;width: 80px;padding: 10px;"/></form>');
             popupshow();
             return false;
         });
-        $('.order_ok').live("click", function(e) {
-            var orderID = '<?php echo $_GET['orderid'] ?>';
-            var statusID = $('.statusid').val();
-            var note = $("#note").val();
-            $.ajax({
-                type: "POST",
-                url: "<?php echo site_url('home/cusers/cancel_order') ?>",
-                data: {"oid": orderID, "statusID": statusID, "note": note},
-                success: function(html) {
-                    location.reload(true);
-                }
-            });
-        });
+//        $('.order_ok').live("click", function(e) {
+//            var orderID = '<?php echo $_GET['orderid'] ?>';
+//            var statusID = $('.statusid').val();
+//            var note = $("#note").val();
+//            $.ajax({
+//                type: "POST",
+//                url: "<?php echo site_url('home/cusers/cancel_order') ?>",
+//                data: {"oid": orderID, "statusID": statusID, "note": note},
+//                success: function(html) {
+//                    location.reload(true);
+//                }
+//            });
+//        });
 
     });
 </script>
+
+<?php }
+else    redirect('trang-chu');
+?>

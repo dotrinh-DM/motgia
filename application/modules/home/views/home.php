@@ -85,7 +85,7 @@
         <a href="#">Sản phẩm nổi bật</a>
         <a href="#">Sản phẩm mới</a>
         <a href="#">Sản phẩm bán chạy</a>
-        <a href="<?php echo site_url('home/chome/listShop')?>">Danh sách gian hàng</a>
+        <a href="<?php echo site_url('home/cshop/listShop')?>">Danh sách gian hàng</a>
     </header><!--End .Nav_content-->
     <div id="content_index">
         <?php

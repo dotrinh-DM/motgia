@@ -78,7 +78,7 @@
                         }
                     } else {
                         popupshow();
-                        sec = 3;
+                        sec = 5;
                         var timer = setInterval(function() {
                             $('.clockmess').text(sec--);
                             if (sec == -2) {
@@ -87,20 +87,24 @@
                                 $('#mask').hide();
                                 $('.window').hide();
                                 clearInterval(timer);
-                                sec = 3;
+                                sec = 5;
                             }
                         }, 1000);
                         $('.headermess').fadeIn(1000).html('Đăng nhập thành công!'); //nếu thành công thì báo thành công
                         $('#contentmess').append('<span>Chào mừng trở lại ghé thăm siêu thị!</span>\n\
                            <span>Chúc bạn một ngày tốt lành!</span></br>\n\
-                           <b><span class="clockmess" style="font-size: 33pt;">3</span></b><span class="deltex">s</span>');
+                           <b><span class="clockmess" style="font-size: 33pt;">5</span></b><span class="deltex">s</span>\n\
+                           <br><span>Nếu không muốn đợi lâu</span><br><a class="reloadpage" href="#">Bấm vào đây để quay lại</a>');
                         window.setTimeout(function() {
                             location.reload(true)
                         }, 3000);
                     }
-                },
+                }
             });
             event.preventDefault(); //Prevent the default subm
+        });
+        $('.reloadpage').live("click", function (){
+        location.reload(true);
         });
     });
 </script>

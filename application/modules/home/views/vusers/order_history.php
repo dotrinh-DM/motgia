@@ -1,3 +1,4 @@
+<?php if($info['logged_in']==TRUE){?>
 <script>
     $(document).ready(function() {
         function popupshow(param) {
@@ -321,3 +322,6 @@
                 <div class="marginBottom_15"></div>
                 </div>
                 </section>
+<?php }
+else    redirect('trang-chu');
+?>
