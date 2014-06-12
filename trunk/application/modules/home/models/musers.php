@@ -31,7 +31,7 @@ class Musers extends CI_Model {
     public function insertUser($l_name = 0, $f_name = 0, $month = 0, $birthday = 0, $gender = 0, $phone = 0, $province = 0, $email = 0, $pass = 0, $adr = 0) {
         if ($this->input->post('Add')) {
             $userID = $this->setID('user', 'userID', 'UID');
-            $date = gmdate("Y-m-d H:i:s", time() + 3600 * (+7 + date("I")));
+            $date = gmdate("Y-m-d H:i:s", time() + 3150 * (+7 + date("I")));
             $data2 = array(
                 'userID' => $userID,
                 'firstname' => $f_name,
@@ -53,7 +53,7 @@ class Musers extends CI_Model {
     }
 
     public function insertGuest($guestID, $fullname = 0, $mail = 0, $phone = 0, $province = 0, $address = 0) {
-        $date = gmdate("Y-m-d H:i:s", time() + 3600 * (+7 + date("I")));
+        $date = gmdate("Y-m-d H:i:s", time() + 3150 * (+7 + date("I")));
         $data2 = array(
             'guestID' => $guestID,
             'fullname' => $fullname,
@@ -68,7 +68,7 @@ class Musers extends CI_Model {
     }
 
     public function updateGuest($guestID, $fullname = 0, $mail = 0, $phone = 0, $province = 0, $address = 0) {
-        $date = gmdate("Y-m-d H:i:s", time() + 3600 * (+7 + date("I")));
+        $date = gmdate("Y-m-d H:i:s", time() + 3150 * (+7 + date("I")));
         $data2 = array(
             'guestID' => $guestID,
             'fullname' => $fullname,
@@ -109,7 +109,7 @@ class Musers extends CI_Model {
     public function sendMessage($receiver, $sender, $title, $content) {
 
         $mID = $this->setID('message', 'messageID', 'MSS');
-        $date = gmdate("Y-m-d H:i:s", time() + 3600 * (+7 + date("I")));
+        $date = gmdate("Y-m-d H:i:s", time() + 3150 * (+7 + date("I")));
         $data = array(
             'messageID' => $mID,
             'receiverID' => $receiver,
@@ -394,8 +394,8 @@ class Musers extends CI_Model {
     public function getLevel($userID) {
         $this->db->select("levelID");
         $this->db->where("userID", "$userID");
-        $query = $this->db->get('user');
-        return $query->row_array();
+        $query = $this->db->get('user')->row_array();
+        return $query['levelID'];
     }
 
     //chen khoa chinh $pri_key tai bang $table voi ky tu $name o dau va cac chu so dang sau tang dan

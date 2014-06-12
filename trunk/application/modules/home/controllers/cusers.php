@@ -226,7 +226,7 @@ class cusers extends CI_Controller {
 
 
         //////////////////////////////Quan ly san pham
-        if ($temp['level']['levelID'] == 2) {// chuc nang chi danh cho nha cung cap
+        if ($temp['level'] == 2) {// chuc nang chi danh cho nha cung cap
             ///////////////////////////bat dau chuc nang quan ly san pham
             if (isset($_GET['sppage']) && (int) $_GET['sppage'] > 0) {
                 $sppage = $_GET['sppage'];
@@ -305,10 +305,14 @@ class cusers extends CI_Controller {
 
     public function cancel_order() {
         $info = $this->Mlog->log();
-        $oid = $_POST['oid'];
-        $statusid = $_POST['statusID'];
-        $note = $_POST['note'];
+        $oid = $this->input->post('orderID');
+        $buyer = $this->input->post('buyerID');
+        $statusid = $this->input->post('statusID');
+        $note = $this->input->post('note');
         $this->Mproducts->confirmOrder($oid, '0', $statusid, $info['userID'], $note);
+        $url2 = 'home/cusers/orderdetail?orderid='.$oid.'&buyer='.$buyer;
+        $url = site_url($url2);
+        header("location: $url");
     }
 
     public function changeStatusProduct() {

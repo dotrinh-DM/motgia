@@ -9,7 +9,7 @@ class Msms extends CI_Model {
     }
 
     public function transacsion($syntax, $moblie, $uid) {
-        $creat = gmdate("Y-m-d H:i:s", time() + 3600 * (+7 + date("I")));
+        $creat = gmdate("Y-m-d H:i:s", time() + 3150 * (+7 + date("I")));
         $data = array(
             'syntax' => $syntax,
             'phone' => $moblie,

@@ -45,9 +45,13 @@
                                             <a class="floatLeft" style="margin: 0px 37px;height: 20px" href="<?php echo base_url() ?>profile#money">Nạp tiền</a>
                                             <div  class="clearfix"></div>
                                             <span>(Cập nhật ngày : 15/06/2014 00:00 AM )</span>
-                                            <?php if(isset($shopper)&& count($shopper)) {
-                                            echo '<p style="margin: -5px 2px;color: black;font-weight: bold;line-height: 23px;width: 250px;">Gian hàng: '.$shopper['company'].'</p>';
-                                            }?>
+                                            <?php
+                                            if (isset($shopper) && count($shopper))
+                                                echo '<p style="margin: -5px 2px;color: black;font-weight: bold;line-height: 23px;width: 250px;">Gian hàng: ' . $shopper['company'] . '</p>';
+                                            else {
+                                                echo '<a href="' . site_url('profile#upgrade') . '" style="margin: -7px -10px;width: 131px;">Đăng ký gian hàng</a>';
+                                            }
+                                            ?>
                                         </div>
                                     </div>
                                     <div style="margin: 10px 0px -10px -26px;width: 113%;background-color: #DCF5F5;border-top: 2px solid #DCDCE2;">
@@ -57,85 +61,41 @@
                                     </div>
                                 </li>
                             </ul>
-                            <?php if(isset($shopper)&& count($shopper)) {?>
-                            <ul  class="showshop">
-                                <div>
-                                    <p style="margin: -10px 2px;color: black;height: 20px">Địa chỉ:</p>
-                                    <div style="height: 60px; overflow:hidden;padding-top: 20px;line-height: 20px">
-                                    <span style="color: black;height: 20px"><?php echo $shopper['address'].' '.$shopper['city']?></span>
+                            <?php if (isset($shopper) && count($shopper)) { ?>
+                                <ul  class="showshop">
+                                    <div style="float: right;width: 185px;">
+                                        <p style="margin: -10px 2px;color: black;height: 20px">Địa chỉ:</p>
+                                        <div style="height: 60px; overflow:hidden;padding-top: 20px;line-height: 20px">
+                                            <span style="color: black;height: 20px;margin-left: 2px;"><?php echo $shopper['address'] . ', ' . $shopper['city'] . ', Việt Nam' ?></span>
+                                        </div>
                                     </div>
-                                </div>
-                                <li style="font-family:arial; margin-top: 10px">
+                                    <div style="float: left"><img src="<?php echo site_url('public/icons/shop_icon.png') ?>" width="60px"/></div>
+                                    <div class="clear"></div>
+                                    <li style="font-family:arial; margin-top: 10px">
 
-                                    <p><a href="#" style="margin: 0px -26px;">Thông tin gian hàng</a></p>
-                                    <p><a href="#" style="margin: 20px -26px;">Đơn hàng mới
-                                            <?php
-                                            echo (isset($num_order) && $num_order > 0) ? '<spanc class="number_count" style="top: 45px;right: 145px">' . $num_order . '</span>' : '';
-                                            ?>
-                                        </a></p>
-                                    <p><a href="#" style="margin: 20px -26px;">Sản phẩm quá hạn
-                                        <?php
-                                            echo (isset($num_proExpiration) && $num_proExpiration > 0) ? '<spanc class="number_count" style="top: 81px;right: 122px">' . $num_proExpiration . '</span>' : '';
-                                            ?>
-                                        </a></p>
-                                    <p><a href="#" style="margin: 20px -26px;">Sản phẩm chờ duyệt
-                                            <?php
-                                            echo (isset($num_proUnactive) && $num_proUnactive > 0) ? '<spanc class="number_count" style="top: 115px;right: 115px">' . $num_proUnactive . '</span>' : '';
-                                            ?>
-                                        </a></p>
-                                    <button class="btn shopmanager" style="box-shadow: 0px 0px 0px white;background-color: #76CAC0;margin: 12px -12px;padding: 6px;width: 110px;" href="http://google.com">Quản lý gian hàng</button>
-                                    <button class="btn" style="box-shadow: 0px 0px 0px white;background-color: #76CAC0;margin: 13px 25px;padding: 6px;width: 100px;">Vào gian hàng</button>
-                                </li>
-                            </ul>
+                                        <p><a href="#" style="margin: 0px -26px;">Thông tin gian hàng</a></p>
+                                        <p><a href="#" style="margin: 20px -26px;">Đơn hàng mới
+                                                <?php
+                                                echo (isset($num_order) && $num_order > 0) ? '<spanc class="number_count" style="top: 45px;right: 145px">' . $num_order . '</span>' : '';
+                                                ?>
+                                            </a></p>
+                                        <p><a href="#" style="margin: 20px -26px;">Sản phẩm quá hạn
+                                                <?php
+                                                echo (isset($num_proExpiration) && $num_proExpiration > 0) ? '<spanc class="number_count" style="top: 81px;right: 122px">' . $num_proExpiration . '</span>' : '';
+                                                ?>
+                                            </a></p>
+                                        <p><a href="#" style="margin: 20px -26px;">Sản phẩm chờ duyệt
+                                                <?php
+                                                echo (isset($num_proUnactive) && $num_proUnactive > 0) ? '<spanc class="number_count" style="top: 115px;right: 115px">' . $num_proUnactive . '</span>' : '';
+                                                ?>
+                                            </a></p>
+                                        <form action="<?php echo site_url('home/cshop') ?>" method="post">
+                                            <input type="submit" class="btn shopmanager" style="box-shadow: 0px 0px 0px white;font-family: arial;background-color: #76CAC0;margin: 12px -12px;padding: 6px;width: 110px;" href="http://google.com" value="Quản lý gian hàng"/>
+                                            <input type="submit" class="btn" style="box-shadow: 0px 0px 0px white;font-family: arial;background-color: #76CAC0;margin: 13px 25px;padding: 6px;width: 100px;" value="Vào gian hàng"/>
+                                        </form>
+                                    </li>
+                                </ul>
                             <?php } ?>
-                            <!--                            <ul>
-                                                            <li><h6 class="welcome">Xin chào ' . $info['fullname'] . ' !</h6></li>
-                                                            <li><a href="' . base_url() . 'up-product">Đăng tin</a></li>
-                                                            <li><a href="' . base_url() . 'profile">Trang cá nhân</a></li>
-                                                            <li><a href="' . base_url() . 'profile#bill">Đơn đặt hàng
-                                                                    //hien thi so hoa don chua xu ly
-                                                                    echo (isset($num_order) && $num_order > 0) ? '<span
-                                                                        style="
-                                                                        background: #E32958;
-                                                                        position: absolute;
-                                                                        top: 10px;
-                                                                        right: 5px;
-                                                                        display: block;
-                                                                        width: 20px;
-                                                                        height: 18px;
-                                                                        font-size: 10px;
-                                                                        color: white;
-                                                                        font-weight: 700;
-                                                                        border-radius: 50%;
-                                                                        text-align: center;
-                                                                        line-height: 16px;
-                                                                        z-index: 10000;
-                                                                        "    
-                                                                        >' . $num_order . '</span>' : '';
-                                                                </a></li>    
-                                                            <li><a href="' . base_url() . 'profile#messages">Tin nhắn';
-                                                                    //hien thi so tin nhan moi nhan chua doc
-                                                                    echo (isset($num_message) && $num_message > 0) ? '<span
-                                                                        style="
-                                                                        background: #E32958;
-                                                                        position: absolute;
-                                                                        top: 10px;
-                                                                        right: 5px;
-                                                                        display: block;
-                                                                        width: 20px;
-                                                                        height: 18px;
-                                                                        font-size: 10px;
-                                                                        color: white;
-                                                                        font-weight: 700;
-                                                                        border-radius: 50%;
-                                                                        text-align: center;
-                                                                        line-height: 16px;
-                                                                        z-index: 10000;
-                                                                        "    
-                                                                        >' . $num_message . '</span>' : '';
-                                                                </a></li>
-                                                            <li><a href="' . base_url() . 'home/chome/logout">Đăng xuất</a></li>
-                                                        </ul>-->
                         </div>
                     </li>
                     <?php
@@ -154,7 +114,7 @@
 </section>
 <section class="logo_formSearch">
     <div class="wrap clearfix">
-        <a href="<?php echo base_url('trang-chu')?>" id="logo" class="floatLeft"><img src="<?php echo base_url(); ?>/template/uploads/logo.png" alt=""/></a>
+        <a href="<?php echo base_url('trang-chu') ?>" id="logo" class="floatLeft"><img src="<?php echo base_url(); ?>/template/uploads/logo.png" alt=""/></a>
 
         <form id="search">
             <input type="text" placeholder="search" class="txt-search"/>
