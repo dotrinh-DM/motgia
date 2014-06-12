@@ -52,7 +52,7 @@ class cusers extends CI_Controller {
     }
 
     public function addGuest() {
-        if (isset($_POST['fullname'], $_POST['mail'], $_POST['phone'], $_POST['province'], $_POST['address'])){
+        if (isset($_POST['fullname'], $_POST['mail'], $_POST['phone'], $_POST['province'], $_POST['address'])) {
             if ($_POST['fullname'] == '' || $_POST['mail'] == '' || $_POST['phone'] == '' || $_POST['province'] == '' || $_POST['address'] == '') {
                 echo 'Vui lòng nhập đầy đủ thông tin';
                 exit();
@@ -167,7 +167,7 @@ class cusers extends CI_Controller {
             $temp['num_proExpiration'] = $this->Musers->getNumProductsExpiration($userid); //Lay so luong san pham het han
         }
         //sua thong tin ca nhan
-        if (!isset($temp['shopper']) || $temp['shopper']==FALSE) {
+        if (!isset($temp['shopper']) || $temp['shopper'] == FALSE) {
             $this->load->model('Captcha_model');
             $cap = $this->Captcha_model->createCaptcha();
             $temp['captcha'] = $cap['image'];
@@ -251,8 +251,7 @@ class cusers extends CI_Controller {
 //
 //            $temp['product'] = $this->Musers->getProductByUID($userid, $display, $spstart);
 //            $temp['paging_product'] = array('num_page' => $num_page1, 'page' => $sppage, 'start' => $spstart, 'display' => $display);
-
-            //////////////////////////////////////Quản lý đơn hàng
+        //////////////////////////////////////Quản lý đơn hàng
 //            if (isset($_GET['billpage']) && (int) $_GET['billpage'] > 0) {
 //                $billpage = $_GET['billpage'];
 //                $billstart = (isset($_GET['billpage']) && (int) $_GET['billpage'] > 0) ? ($_GET['billpage'] - 1) * $display : 0; //nhan bien truyen vao tu url
@@ -262,8 +261,7 @@ class cusers extends CI_Controller {
 //                $num_page2 = ceil($record2 / $display); //tong so trang
 //            else
 //                $num_page2 = 1;
-
-            /////////////////////////////xu ly don hang
+        /////////////////////////////xu ly don hang
 //            if ($this->input->post('confirm_order')) {
 //                $this->Mproducts->confirmOrder($this->input->post('orderid'), '2', $this->input->post('statusid'), $userid, '');
 //                if (isset($_GET['billpage']))
@@ -393,8 +391,8 @@ class cusers extends CI_Controller {
 
     public function orderdetail() {
         $temp['info'] = $this->Mlog->log();
-        if($temp['info']['logged_in']!= TRUE)
-            redirect ('trang-chu');
+        if ($temp['info']['logged_in'] != TRUE)
+            redirect('trang-chu');
         $userid = $temp['info']['userID'];
         $temp['coin'] = $this->Musers->getCoin($userid);
         $temp['level'] = $this->Musers->getLevel($userid); //kiểm tra cấp độ người dùng để hiển thị nội dung tương ứng
@@ -430,6 +428,8 @@ class cusers extends CI_Controller {
 
     public function historydetail() {
         $temp['info'] = $this->Mlog->log();
+        if ($temp['info']['logged_in'] != TRUE)
+            redirect('trang-chu');
         $userid = $temp['info']['userID'];
         $temp['coin'] = $this->Musers->getCoin($userid);
         $temp['level'] = $this->Musers->getLevel($userid); //kiểm tra cấp độ người dùng để hiển thị nội dung tương ứng
