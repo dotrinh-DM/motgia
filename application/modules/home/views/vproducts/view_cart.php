@@ -10,8 +10,6 @@
                 evt.preventDefault();
             }
         });
-
-
         $('#loginform3').submit(function(event) { //Trigger on form submit
             $('.logintitle').html('Đăng nhập');
             var postForm = {//Fetch form data

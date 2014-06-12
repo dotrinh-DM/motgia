@@ -401,10 +401,11 @@ class Musers extends CI_Model {
 
     //chen khoa chinh $pri_key tai bang $table voi ky tu $name o dau va cac chu so dang sau tang dan
     public function setID($table, $pri_key, $name) {
+       $lengn = strlen($name) +1;
        $max = $this->db->select("max(
                                      CONVERT( 
                                         TRIM( LEADING 0 FROM SUBSTRING(
-                                            $pri_key FROM 4 FOR LENGTH($pri_key)
+                                            $pri_key FROM $lengn FOR LENGTH($pri_key)
                                                     )
                                                 ), SIGNED INTEGER)
                                             ) as abc", FALSE)

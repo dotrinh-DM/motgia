@@ -2,7 +2,7 @@
 function generateMenu($trees,$procate, $data_category)
 {
 
-    echo '<ul>';
+    echo '<ul class="sub_menu">';
     foreach ($trees as $category)
     {
         $quantity = '';
