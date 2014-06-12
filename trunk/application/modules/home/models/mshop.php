@@ -34,7 +34,14 @@ class Mshop extends CI_Model {
             }
         }
     }
-    
+    public function getListShop(){
+        return $this->db->select("*")
+                ->select("count(products.productsID) as num_pro")
+                ->join('products', 'products.shopID = shop.shopID')
+                ->group_by("shop.shopID")
+                ->get('shop')->result_array();
+    }
+
     public function getShopByShopID($shopid){
        return $this->db->select('*')->where("shopID","$shopid")->get("shop")->row_array();
     }

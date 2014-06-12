@@ -92,19 +92,19 @@
         foreach ($data_home as $value) {
             $img = json_decode($value->images);
             ?>
-            <section class="module">
+        <section class="module" style="height: 205px">
                 <div class="module_item clearfix">
-                    <a href="<?php echo site_url("san-pham/$value->productsID"); ?>" class="img_module">
+                    <a href="<?php echo site_url("san-pham/$value->productsID"); ?>" style="height: 185px" class="img_module">
                         <img src="<?php echo base_url() . $img[0]; ?>" alt="<?php echo $value->name ?>"/>
                     </a>
                     <div class="reduced">
                         <header class="title_item" style="height: 25px;"><a href="<?php echo site_url("san-pham/$value->productsID"); ?>"><?php echo $value->name ?></a></header>
-                        <div style="height: 47px;overflow: hidden;"><span><?php echo substr($value->intro, 0, strrpos($value->intro, ' ')); ?></span> ...</div>
+                        <div style="height: 50px;overflow: hidden;"><span><?php echo substr($value->intro, 0, strrpos($value->intro, ' ')); ?></span> ...</div>
                     </div><!--End .reduced-->
                     <a style="cursor: pointer" id="<?php echo $value->productsID; ?>" class="btn_readmore">Đặt Mua</a>
                     
                     <span class="price"><?php echo $value->price ?>K</span>
-                    <div style="margin:50px" class="clearfix"><a href="" style="color: #93B1CC"><b><?php echo $value->company; ?></b></a></div>
+                    <div style="width: 185px;margin: 55px 0px;overflow: hidden;" class="clearfix"><a href="#" style="color: #848CEC"><b><?php echo $value->company; ?></b></a></div>
                 </div><!--End .module_item-->
             </section><!--End .module-->
         <?php } ?> 

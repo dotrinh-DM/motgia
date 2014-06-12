@@ -54,19 +54,19 @@ class Cproducts extends CI_Controller {
                 foreach ($temp as $value) {
                     $img = json_decode($value->images);
                     echo '
-                         <section class="module">
+                         <section class="module"  style="height: 205px">
                             <div class="module_item clearfix">
-                                <a href="' . site_url("home/cproducts/showDetailProducts/$value->productsID") . '" class="img_module">
+                                <a style="height: 185px"  href="' . site_url("home/cproducts/showDetailProducts/$value->productsID") . '" class="img_module">
                                     <img src="' . base_url() . $img[0] . '" alt="' . $value->name . '"/>
                                 </a>
                                 <div class="reduced">
                                     <header class="title_item" style="height: 25px;"><a href="' . site_url("home/cproducts/showDetailProducts/$value->productsID") . '">' . $value->name . '</a></header>
-                                    <div style="height: 47px;overflow: hidden;"><span>' . substr($value->intro, 0, strrpos($value->intro, ' ')) . '</span> ...</div>
+                                    <div style="height: 50px;overflow: hidden;"><span>' . substr($value->intro, 0, strrpos($value->intro, ' ')) . '</span> ...</div>
                                 </div><!--End .reduced-->
                                 <a style="cursor: pointer" id="' . $value->productsID . '" class="btn_readmore">Đặt Mua</a>
 
                                 <span class="price">' . $value->price . 'K</span>
-                                <div style="margin:50px" class="clearfix"><a href="" style="color: #93B1CC"><b>' . $value->company . '</b></a></div>
+                                <div style="width: 185px;margin: 55px 0px;overflow: hidden;" class="clearfix"><a href="" style="color: #93B1CC"><b>' . $value->company . '</b></a></div>
                             </div><!--End .module_item-->
                         </section><!--End .module-->
                           ';
@@ -97,6 +97,7 @@ class Cproducts extends CI_Controller {
                 $temp['num_proExpiration'] = $this->Musers->getNumProductsExpiration($userid); //Lay so luong san pham het han
             }
         }
+        $temp['listshop']=  $this->Mshop->getListShop();
         $temp['shopinfo'] = $this->Mshop->getShopByProID($id); //lấy thông tin gian hàng qua mã sản phẩm
         $temp['hotshop'] = $this->Mshop->getHotShop();
         $temp['title'] = 'Chi tiết sản phẩm';

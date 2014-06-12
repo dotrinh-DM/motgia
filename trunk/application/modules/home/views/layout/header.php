@@ -11,7 +11,7 @@
                 if ($info['logged_in'] == 1) {
                     ?>
                     <li class="price_user">
-                        <span><a href="">100000 VND</a></span>
+                        <span><a href="<?php echo site_url('profile#monney')?>"><?php echo number_format($coin, 0, ',', '. ')?> VNĐ</a></span>
                     </li>
 
                     <li>
@@ -34,7 +34,7 @@
                                                     echo (isset($num_history) && $num_history > 0) ? '<spanc class="number_count" style="top: 59px;right: 25px">' . $num_history . '</span>' : '';
                                                     ?>
                                                 </a></p>
-                                            <p><a href="<?php echo base_url() ?>profile#message">Tin nhắn
+                                            <p><a href="<?php echo base_url() ?>profile#messages">Tin nhắn mới
                                                     <?php
                                                     echo (isset($num_message) && $num_message > 0) ? '<spanc class="number_count" style="top: 82px;right: 70px">' . $num_message . '</span>' : '';
                                                     ?>
@@ -42,7 +42,7 @@
                                         </div>
                                         <div class="clear" style="margin-left:-15px; color: black; font-family:arial; width:300px;height:100px">
                                             <span class="floatLeft" style="height: 20px">Số dư tài khoản: &zwnj;</span><span class="floatLeft" style="font-weight:bold; color: red;height: 20px"> <?php echo number_format($coin, 0, ',', '. ')?> VNĐ</span>
-                                            <a class="floatLeft" style="margin: -1px 36px;height: 20px" href="<?php echo base_url() ?>profile#money">Nạp tiền</a>
+                                            <a class="floatLeft" style="margin: 0px 30px 0px 0px;float: right;height: 20px;" href="<?php echo base_url() ?>profile#money">Nạp tiền</a>
                                             <div  class="clearfix"></div>
                                             <span>(Cập nhật ngày : 15/06/2014 00:00 AM )</span>
                                             <?php
