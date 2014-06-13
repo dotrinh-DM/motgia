@@ -13,6 +13,7 @@ class Chome extends CI_Controller {
         $this->load->library('session');
         $this->load->helper('url');
         $this->load->model(array('Mproducts', 'Musers', 'Mlog', 'category_model'));
+//        $this->output->cache(10);
     }
 
     public function index() {

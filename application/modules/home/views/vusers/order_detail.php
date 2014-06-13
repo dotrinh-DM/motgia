@@ -255,20 +255,6 @@
             popupshow();
             return false;
         });
-//        $('.order_ok').live("click", function(e) {
-//            var orderID = '<?php echo $_GET['orderid'] ?>';
-//            var statusID = $('.statusid').val();
-//            var note = $("#note").val();
-//            $.ajax({
-//                type: "POST",
-//                url: "<?php echo site_url('home/cusers/cancel_order') ?>",
-//                data: {"oid": orderID, "statusID": statusID, "note": note},
-//                success: function(html) {
-//                    location.reload(true);
-//                }
-//            });
-//        });
-
     });
 </script>
 

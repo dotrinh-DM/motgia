@@ -11,6 +11,7 @@ class sms extends CI_Controller {
         $this->load->helper(array('form', 'html', 'url', 'file','menu'));
         $this->load->model('Msms');
         $this->load->database();
+//        $this->output->cache(10);
     }
 
     public function index() {

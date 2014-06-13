@@ -14,6 +14,7 @@ class cusers extends CI_Controller {
         $this->load->model("admin/category_model");
         $this->load->library('upload');
         $this->load->database();
+//        $this->output->cache(10);
     }
 
     public function index() {
@@ -234,52 +235,6 @@ class cusers extends CI_Controller {
 
         $hsstart = 0;
         $hspage = 1;
-
-//
-//        //////////////////////////////Quan ly san pham
-//        if ($temp['level'] == 2) {// chuc nang chi danh cho nha cung cap
-//            ///////////////////////////bat dau chuc nang quan ly san pham
-//            if (isset($_GET['sppage']) && (int) $_GET['sppage'] > 0) {
-//                $sppage = $_GET['sppage'];
-//                $spstart = (isset($_GET['sppage']) && (int) $_GET['sppage'] > 0) ? ($_GET['sppage'] - 1) * $display : 0; //nhan bien truyen vao tu url
-//            }
-//            $record1 = count($this->Musers->getProductByUID($userid)); //tong so ban ghi
-//            if ($record1 > $display)//neu so ban ghi nho hon quy dinh thi khong can phan trang
-//                $num_page1 = ceil($record1 / $display); //tong so trang
-//            else
-//                $num_page1 = 1;
-//
-//            $temp['product'] = $this->Musers->getProductByUID($userid, $display, $spstart);
-//            $temp['paging_product'] = array('num_page' => $num_page1, 'page' => $sppage, 'start' => $spstart, 'display' => $display);
-        //////////////////////////////////////Quản lý đơn hàng
-//            if (isset($_GET['billpage']) && (int) $_GET['billpage'] > 0) {
-//                $billpage = $_GET['billpage'];
-//                $billstart = (isset($_GET['billpage']) && (int) $_GET['billpage'] > 0) ? ($_GET['billpage'] - 1) * $display : 0; //nhan bien truyen vao tu url
-//            }
-//            $record2 = count($this->Musers->getOrderByUID($userid)); //tong so ban ghi
-//            if ($record2 > $display)//neu ban ghi nho hon quy dinh thi khong can phan trang
-//                $num_page2 = ceil($record2 / $display); //tong so trang
-//            else
-//                $num_page2 = 1;
-        /////////////////////////////xu ly don hang
-//            if ($this->input->post('confirm_order')) {
-//                $this->Mproducts->confirmOrder($this->input->post('orderid'), '2', $this->input->post('statusid'), $userid, '');
-//                if (isset($_GET['billpage']))
-//                    $url = 'profile?billpage=' . $_GET['billpage'] . '#bill';
-//                else
-//                    $url = 'profile#bill';
-//                redirect($url);
-//            }
-//
-//            //end- xu ly don hang
-//
-//            $temp['num_order'] = $this->Musers->getNumOrderStatus($userid); //Lấy số hóa đơn chưa xử lý
-//            $temp['order'] = $this->Musers->getOrderByUID($userid, $display, $billstart);
-//            $temp['paging_order'] = array('num_page' => $num_page2, 'page' => $billpage, 'start' => $billstart, 'display' => $display);
-//        }/////////////////////////////////////end- quan ly don hang
-//        //
-        //
-        /////////////////////////////////////////lich su mua hang
         if (isset($_GET['hspage']) && (int) $_GET['hspage'] > 0) {
             $hspage = $_GET['hspage'];
             $hsstart = (isset($_GET['hspage']) && (int) $_GET['hspage'] > 0) ? ($_GET['hspage'] - 1) * $display : 0; //nhan bien truyen vao tu url
