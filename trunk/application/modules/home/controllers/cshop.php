@@ -14,6 +14,7 @@ class cshop extends CI_Controller {
         $this->load->model("admin/category_model");
         $this->load->library('upload');
         $this->load->database();
+//        $this->output->cache(10);
     }
 
     public function index() {
@@ -107,11 +108,7 @@ class cshop extends CI_Controller {
             /////////////////////////////xu ly don hang
             if ($this->input->post('confirm_order')) {
                 $this->Mproducts->confirmOrder($this->input->post('orderid'), '2', $this->input->post('statusid'), $userid, '');
-                if (isset($_GET['billpage']))
-                    $url = 'profile?billpage=' . $_GET['billpage'] . '#bill';
-                else
-                    $url = 'profile#bill';
-                redirect($url);
+                redirect('home/cshop?allorder=4#bill');
             }//end- xu ly don hang
 //            $temp['order'] = $this->Musers->getOrderByUID($userid, $display, $billstart);
             $temp['paging_order'] = array('num_page' => $num_page2, 'page' => $billpage, 'start' => $billstart, 'display' => $display);

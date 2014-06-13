@@ -18,6 +18,7 @@ class Cproducts extends CI_Controller {
         $this->load->model('Mshop');
         $this->load->model('Musers');
         $this->load->model("admin/category_model");
+//        $this->output->cache(10);
     }
 
     public function index() {
@@ -86,6 +87,7 @@ class Cproducts extends CI_Controller {
         $temp['info'] = $this->Mlog->log();
         if ($temp['info']['logged_in'] == TRUE) {
             $userid = $temp['info']['userID'];
+            $temp['coin'] = $this->Musers->getCoin($userid);
             $temp['level'] = $this->Musers->getLevel($userid); //kiểm tra cấp độ người dùng để hiển thị nội dung tương ứng
             $temp['num_message'] = $this->Musers->getNumMessageUnread($userid); //Lay so luong tin nhan chua doc
             $temp['num_history'] = $this->Musers->getNumOrderHistory($userid); //Lay tat ca so luong hoa don da dat
@@ -129,6 +131,7 @@ class Cproducts extends CI_Controller {
         $temp['kq'] = getChildren($temp['category']);
         $temp['procate'] = $this->category_model->getProCate();
         $this->load->view('layout/layout', $temp);
+        $this->output->cache(5);
     }
 
     public function upProducts() {

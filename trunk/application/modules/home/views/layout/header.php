@@ -42,7 +42,7 @@
                                         </div>
                                         <div class="clear" style="margin-left:-15px; color: black; font-family:arial; width:300px;height:100px">
                                             <span class="floatLeft" style="height: 20px">Số dư tài khoản: &zwnj;</span><span class="floatLeft" style="font-weight:bold; color: red;height: 20px"> <?php echo number_format($coin, 0, ',', '. ')?> VNĐ</span>
-                                            <a class="floatLeft" style="margin: 0px 30px 0px 0px;float: right;height: 20px;" href="<?php echo base_url() ?>profile#money">Nạp tiền</a>
+                                            <a class="floatLeft" style="margin: 0px 30px 0px 0px;float: right;height: 20px;" href="<?php echo base_url() ?>profile#monney">Nạp tiền</a>
                                             <div  class="clearfix"></div>
                                             <span>(Cập nhật ngày : 15/06/2014 00:00 AM )</span>
                                             <?php

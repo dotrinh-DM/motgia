@@ -74,25 +74,14 @@
             var oid = $(this).attr('id');
             $('#contentmess').empty();
             $('.headermess').fadeIn(1000).html('Hủy đơn hàng');
-            $('#contentmess').append('</br><form action="" method="post">\n\
+            $('#contentmess').append('</br><form action="<?php echo site_url('home/cusers/cancel_order') ?>" method="post">\n\
+                        <input type="hidden" name="buyerID" value="'+$('.buyerid'+oid).val()+'"/>\n\
+                        <input type="hidden" name="statusID" value="'+$('.statusid'+oid).val()+'"/>\n\
+                        <input type="hidden" name="orderID" value="'+oid+'"/>\n\
                         <textarea id="note" name="note" placeholder="lý do hủy" required="" style="font-size: 11pt;margin-top: -10px;height: 80px;" class="validationValid"></textarea>\n\
-                        <input type="submit" id="' + oid + '" class="btn order_ok" value="ok" style="margin-top: -8px;width: 80px;padding: 10px;"/></form>');
+                        <input type="submit" class="btn order_ok" value="ok" style="margin-top: -8px;width: 80px;padding: 10px;"/></form>');
             popupshow();
             return false;
-        });
-
-        $('.order_ok').live("click", function(e) {
-            var orderID = $(this).attr('id');
-            var statusID = $('.statusid' + orderID).val();
-            var note = $("#note").val();
-            $.ajax({
-                type: "POST",
-                url: "<?php echo site_url('home/cusers/cancel_order') ?>",
-                data: {"oid": orderID, "statusID": statusID, "note": note},
-                success: function(html) {
-                    location.reload(true);
-                }
-            });
         });
     });
 </script>
@@ -468,8 +457,8 @@
                                     <?php
                                     if ($ord->status == 1)
                                         echo '<form action="" method="post">
-                                <input type="hidden" class="orderid' . $ord->orderID . '" value="' . $ord->orderID . '"/>
-                                <input type="hidden" class="statusid' . $ord->orderID . '" value="' . $ord->statusID . '"/>
+                                <input type="hidden" name="buyerid" class="buyerid' . $ord->orderID . '" value="' . $ord->buyerID . '"/>
+                                <input type="hidden" name="statusid" class="statusid' . $ord->orderID . '" value="' . $ord->statusID . '"/>
                             <input type="submit" class="btn btn-primary btn-lg btn-block" style="
                             width: 75px; float:left;
                             font-size: 9pt;
