@@ -74,19 +74,20 @@
                                     <li style="font-family:arial; margin-top: 10px">
 
                                         <p><a href="<?php echo site_url('home/cshop')?>" style="margin: 0px -26px;">Thông tin gian hàng</a></p>
-                                        <p><a href="<?php echo site_url('home/cshop?allorder=1#bill')?>" style="margin: 20px -26px;">Đơn hàng mới
+                                        <p><a href="<?php echo site_url('home/cshop?allorder=1#bill')?>" style="margin: 15px -26px;">Đơn hàng mới
                                                 <?php
-                                                echo (isset($num_order) && $num_order > 0) ? '<spanc class="number_count" style="top: 45px;right: 145px">' . $num_order . '</span>' : '';
+                                                echo (isset($num_order) && $num_order > 0) ? '<spanc class="number_count" style="top: 40px;right: 145px">' . $num_order . '</span>' : '';
                                                 ?>
                                             </a></p>
-                                        <p><a href="<?php echo site_url('home/cshop?allpro=4#products')?>" style="margin: 20px -26px;">Sản phẩm quá hạn
+                                            <p><a href="<?php echo site_url('dang-ky')?>" style="margin: 15px -26px;">Đăng sản phẩm</a></p>
+                                        <p><a href="<?php echo site_url('home/cshop?allpro=4#products')?>" style="margin: 15px -26px;">Sản phẩm quá hạn
                                                 <?php
-                                                echo (isset($num_proExpiration) && $num_proExpiration > 0) ? '<spanc class="number_count" style="top: 81px;right: 122px">' . $num_proExpiration . '</span>' : '';
+                                                echo (isset($num_proExpiration) && $num_proExpiration > 0) ? '<spanc class="number_count" style="top: 100px;right: 122px">' . $num_proExpiration . '</span>' : '';
                                                 ?>
                                             </a></p>
-                                        <p><a href="<?php echo site_url('home/cshop?allpro=3#products')?>" style="margin: 20px -26px;">Sản phẩm chờ duyệt
+                                        <p><a href="<?php echo site_url('home/cshop?allpro=3#products')?>" style="margin: 15px -26px;">Sản phẩm chờ duyệt
                                                 <?php
-                                                echo (isset($num_proUnactive) && $num_proUnactive > 0) ? '<spanc class="number_count" style="top: 115px;right: 115px">' . $num_proUnactive . '</span>' : '';
+                                                echo (isset($num_proUnactive) && $num_proUnactive > 0) ? '<spanc class="number_count" style="top: 130px;right: 115px">' . $num_proUnactive . '</span>' : '';
                                                 ?>
                                             </a></p>
                                         <form action="<?php echo site_url('home/cshop') ?>" method="post">
@@ -107,6 +108,13 @@
                     echo '</li>';
                 }
             }
+            else {
+                    echo '
+                        <li><a href="' . base_url() . 'dang-ky">Đăng ký</a></li>
+                        <li><a href="#">Đăng nhập</a>';
+                    $this->load->view('vusers/login');
+                    echo '</li>';
+                }
             ?>
         </ul>
     </header>
