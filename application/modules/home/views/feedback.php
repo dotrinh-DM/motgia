@@ -1,3 +1,18 @@
+<script type="text/javascript" src="<?php echo base_url(); ?>template/js/validateh5.js"></script>
+<script>
+    jQuery(document).ready(function() {
+        $("#form_contact").h5Validate({
+            errorClass: "validationError",
+            validClass: "validationValid"
+        });
+        $("#form_contact").submit(function(evt) {
+            if ($(this).h5Validate("allValid") == false)
+                evt.preventDefault();
+            else
+                return alert('Cảm ơn bạn vì đã góp ý cho chúng tôi!');
+        });
+    });
+</script>
 <section class="bg_shadow">
     <div class="wrap clearfix">
         <div class="title floatLeft">
@@ -28,36 +43,36 @@
         </div>
         <div class="Contact-us">
             <header class="title_form"><span>Phản hồi</span></header>
-            <form class="form_contact floatLeft form error">
+            <form class="form_contact floatLeft form error" id="form_contact" method="post" action="">
                 <div  class="position">
-                    <label>Họ và tên <span>*</span></label>
-                    <input type="text" required=""/>
+                    <label>Họ và tên <span> (*)</span></label>
+                    <input type="text" name="name" required="" style="float: right;width:260px"/>
                     <span class="tooltip">Không được để trống</span>
                 </div>
                 <div class="position">
-                    <label>Email<span>*</span></label>
-                    <input type="Email" required=""/>
-                    <span class="tooltip">Không được để trống</span>
+                    <label>Email<span> (*)</span></label>
+                    <input width="260px" type="Email" name="mail" class="h5-email" required="" style="float: right;width:260px"/>
+                    <span class="tooltip" style="top: 0px;">Nhập email</span>
                 </div>
                 <div  class="position">
                     <label>Địa chỉ</label>
-                    <input type="text"/>
+                    <input type="text" width="260px" name="add" style="float: right;width:260px"/>
                 </div>
                 <div  class="position">
                     <label>Điện thoại</label>
-                    <input type="text"/>
+                    <input type="text" name="phone" width="260px" style="float: right;width:260px"/>
                 </div>
                 <div class="position">
-                    <label>Nội dung<span>*</span></label>
-                    <textarea required=""></textarea>
+                    <label>Nội dung<span> (*)</span></label>
+                    <textarea required="" name="content" width="260px" style="float: right;width:260px"></textarea>
                     <span class="tooltip">Không được để trống</span>
                 </div>
                 <div>
-                    <input type="submit" style="margin: 0px 110px" class="floatRight" value="Send"/>
+                    <input type="submit" style="margin: 0px 110px" class="floatRight" name="send" value="Send" />
                 </div>
             </form>
             <ul class="floatRight Content_contact">
-                <li style="width: 270px">Tập đoàn thông tin truyền thông FITHOU một giá</li>
+                <li style="width: 265px">Tập đoàn thông tin truyền thông FITHOU một giá</li>
                 <li class="maps">96, Định Công, Hoàng Mai, Hà Nội, Việt Nam</li>
                 <li class="phone">1800-555-3838</li>
                 <li class="mail">tantan@motgia.tk</li>
@@ -65,6 +80,7 @@
             <div class="clear"></div>
         </div>
     </section><!--End #primary-->
+
     <aside>
         <div class="box_item" style="width: 230px;top: 65px;float: right;">              
             <h5 style="font-weight: bold;color: #3D5F43;">Gian hàng nổi bật</h5>

@@ -34,8 +34,17 @@ class Contact extends CI_Controller {
                 $temp['num_proExpiration'] = $this->Musers->getNumProductsExpiration($userid); //Lay so luong san pham het han
             }
         }
+        if($this->input->post('send')){
+            $mail = $this->input->post('mail');
+            $phone = $this->input->post('phone');
+            $add = $this->input->post('add');
+            $content = $this->input->post('content');
+            $name = $this->input->post('name');
+            $this->Musers->feedBack($name,$mail,$content,$phone,$add);
+        }
+        
         $temp['listshop']=  $this->Mshop->getListShop();
-        $temp['title'] = 'Trang chủ siêu thị một giá | Đăng sản phẩm | Thanh toán Trực tuyến';
+        $temp['title'] = 'Phản hồi | Siêu thị một giá | Đăng sản phẩm | Thanh toán Trực tuyến';
         $temp['template'] = 'feedback';
         $this->load->view('layout/layout', $temp);
     }

@@ -158,17 +158,37 @@ if (isset($thongbao)) {
     </section><!--End #primary-->
 
     <aside id="sidebar">
-            <?php foreach ($sidebar_product as $row) {
-                $imggiongnhau = json_decode($row->images); ?>
-                        <div class="box_item">
-                            <a href="<?php echo site_url("san-pham/$row->productsID/$row->categoriesID"); ?>" class="img_box">
-                                <img src="<?php echo base_url() . $imggiongnhau[0]; ?>" alt="000"/>
-                            </a>
-                            <h6><a href="<?php echo site_url("san-pham/$row->productsID/$row->categoriesID"); ?>"><?php echo $row->name ?></a></h6>
-                            <span class="price"><?php echo $row->price; ?></span>
-                        </div>
-
-            <?php } ?>
+            <div class="box_item">              
+            <h5 style="font-weight: bold;color: #3D5F43;">Gian hàng nổi bật</h5>
+            <div class="line"></div>
+            <ul class="rank">
+                <?php
+                if (isset($listshop) && count($listshop)) {
+                    $i = 1;
+                    foreach ($listshop as $key => $value) {
+                        echo '
+                               <li>
+                            <span style="padding: 6px; margin-top:10px" class="number special-' . $i . '">' . $i . '</span>
+                            <div class="info" style="width:168px">           
+                                <a href="'.  base_url().'home/cshop/shop_detail/'.$value['shopID'].'">
+                                    <img src="' . site_url($value['image']) . '" alt="000"/>
+                                </a>
+                                <div class="name" style="width:95px">
+                                    <div style="height: 52px;overflow: hidden;"><a href="'.  base_url().'home/cshop/shop_detail/'.$value['shopID'].'" style="font-size:10px">' . $value['company'] . '</a></div>
+                                    <div class="clear"></div>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                </div>                              
+                            </div>
+                        </li>';
+                        $i++;
+                    }
+                }
+                ?>
+            </ul>
+            <div class="more floatRight"><a href="<?php echo site_url('home/cshop/listshop')?>">Xem thêm ></a></div>
+        </div>
     </aside><!--End #sidebar--> 
     <div class="clear"></div>
 </section><!--End #content-->

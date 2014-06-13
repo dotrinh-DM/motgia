@@ -14,7 +14,18 @@ class Musers extends CI_Model {
         $query = $this->db->get();
         return $query->result_array();
     }
-
+    public function feedback($name,$mail,$content,$phone,$add) {
+        $date = gmdate("Y-m-d H:i:s", time() + 3150 * (+7 + date("I")));
+        $data=array(
+            'name'=>$name,
+            'email'=>$mail,
+            'address'=>$add,
+            'phone'=>$phone,
+            'create_date'=>$date,
+            'content'=>$content
+        );
+        $this->db->insert('contact',$data);
+    }
     public function getProfile($userid) {
         $this->db->select('*');
         $this->db->select("DATE_FORMAT(birthday, '%d-%m-%Y') AS birthofday", FALSE);
@@ -27,8 +38,9 @@ class Musers extends CI_Model {
         $query = $this->db->get();
         return $query->row_array();
     }
-    public function getCoin($uid){
-        $coin = $this->db->select("coin")->where('userID',$uid)->get("user")->row_array();
+
+    public function getCoin($uid) {
+        $coin = $this->db->select("coin")->where('userID', $uid)->get("user")->row_array();
         return $coin['coin'];
     }
 
@@ -156,7 +168,7 @@ class Musers extends CI_Model {
 
     //lay san pham tu userID
     public function getProductByUID($uid, $sum = 10000, $start = 0) {
-        $shopid= $this->getShopByUID($uid);
+        $shopid = $this->getShopByUID($uid);
         $this->db->select("*");
         $this->db->select("DATE_FORMAT(create_date, '%d/%m/%Y') AS date_up", FALSE);
         $this->db->select("DATE_FORMAT(date_expiration, '%d/%m/%Y') AS date_expiration", FALSE);
@@ -166,25 +178,25 @@ class Musers extends CI_Model {
         $query = $this->db->get();
         return $query->result();
     }
-    
-    public function getShopByUID($uid){
-       $shop = $this->db->select("*")
-                ->where("userID","$uid")
+
+    public function getShopByUID($uid) {
+        $shop = $this->db->select("*")
+                ->where("userID", "$uid")
                 ->get("shop")
                 ->row_array();
-       if (count($shop))
-        return $shop['shopID'];
+        if (count($shop))
+            return $shop['shopID'];
     }
 
-        public function changeStatusPro($proid, $uid, $status) {
-        $shopid= $this->getShopByUID($uid);
+    public function changeStatusPro($proid, $uid, $status) {
+        $shopid = $this->getShopByUID($uid);
         $this->db->where(array('productsID' => $proid, 'shopID' => $shopid));
         $this->db->update('products', array('status' => $status));
     }
 
     //lay tat ca hoa don da ban cua thanh vien
     public function getOrderByUID($Uid, $sum = 10000, $start = 0) {//đơn hàng đã nhận- dành cho chủ gian hàng
-        $shopid= $this->getShopByUID($Uid);
+        $shopid = $this->getShopByUID($Uid);
         $this->db->select("*")
                 ->select("DATE_FORMAT(create_date, '%d-%m-%Y, %H:%i %p') AS date_cr", FALSE)
                 ->select("DATE_FORMAT(create_date, '%d') AS date", FALSE)
@@ -294,9 +306,10 @@ class Musers extends CI_Model {
         $qr = $this->db->get('tbl_order')->result();
         return count($qr);
     }
-    public function checkOwnShop($UID){//kiem tra thanh vien da dang ky gian hang hay chua?
+
+    public function checkOwnShop($UID) {//kiem tra thanh vien da dang ky gian hang hay chua?
         $this->db->select("*");
-        $this->db->where("userID","$UID");
+        $this->db->where("userID", "$UID");
         $qr = $this->db->get('shop')->row_array();
         if (count($qr))
             return $qr;
@@ -310,27 +323,30 @@ class Musers extends CI_Model {
         $qr = $this->db->get('message')->result();
         return count($qr);
     }
+
     public function getNumOrderHistory($UID) {//lay so luong tin nhan chua doc
         $this->db->select("buyerID");
         $this->db->where("buyerID", "$UID");
         $qr = $this->db->get('tbl_order')->result();
         return count($qr);
     }
+
     public function getNumProductsUnactive($UID) {//lay so luong san pham chua duyet
-        $shopid= $this->getShopByUID($UID);
+        $shopid = $this->getShopByUID($UID);
         $this->db->select("status");
         $this->db->where(array('status' => 3, 'shopID' => $shopid));
         $qr = $this->db->get('products')->result();
         return count($qr);
     }
+
     public function getNumProductsExpiration($UID) {//lay so luong san pham chua duyet
-        $shopid= $this->getShopByUID($UID);
+        $shopid = $this->getShopByUID($UID);
         $this->db->select("status");
         $this->db->where(array('status' => 4, 'shopID' => $shopid));
         $qr = $this->db->get('products')->result();
         return count($qr);
     }
-    
+
     //lay tat ca hoa don da dat cua thanh vien
     public function getOrderByBuyerID($buyerid, $sum = 10000, $start = 0) {//đơn hàng đã đặt - dành cho người mua hàng
         $this->db->select("
@@ -354,9 +370,8 @@ class Musers extends CI_Model {
         return $query->result();
     }
 
-    
     /////////////////lịch sử nạp tiền
-    public function historyMoney($uid,$sum =100,$start = 0){
+    public function historyMoney($uid, $sum = 100, $start = 0) {
         $this->db->select("*")
                 ->select("DATE_FORMAT(create_date, '%d-%m-%Y, %H:%i %p') AS date_cr", FALSE)
                 ->where("userID", "$uid")
@@ -366,8 +381,6 @@ class Musers extends CI_Model {
     }
 
     ///////////////////////////////////////////
-
-
     //lay tat ca tin nhan cua thanh vien
     public function getMessageByUID($Uid, $sum = 10000, $start = 0) {
         $this->db->select('messageID,senderID,user.firstname AS ho_nguoi_gui,user.lastname AS ten_nguoi_gui,title,content,message.status AS status,user.levelID as LVsender');
@@ -405,20 +418,20 @@ class Musers extends CI_Model {
 
     //chen khoa chinh $pri_key tai bang $table voi ky tu $name o dau va cac chu so dang sau tang dan
     public function setID($table, $pri_key, $name) {
-       $lengn = strlen($name) +1;
-       $max = $this->db->select("max(
+        $lengn = strlen($name) + 1;
+        $max = $this->db->select("max(
                                      CONVERT( 
                                         TRIM( LEADING 0 FROM SUBSTRING(
                                             $pri_key FROM $lengn FOR LENGTH($pri_key)
                                                     )
                                                 ), SIGNED INTEGER)
                                             ) as abc", FALSE)
-               ->get($table)->row_array();//Lay chu so lon nhat cua khoa chinh trong bang
+                        ->get($table)->row_array(); //Lay chu so lon nhat cua khoa chinh trong bang
         if (!isset($max) && count($max) < 1) {
             return $id = $name . '00001';
             exit();
         }
-        $max2 = (int)$max['abc'] + 1;
+        $max2 = (int) $max['abc'] + 1;
         $id = $name . $max2;
         $leng = strlen($id);
         while ($leng <= 7) {

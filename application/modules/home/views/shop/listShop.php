@@ -6,14 +6,12 @@
         </div>
         <div class="clearfix breadcrumbs floatRight">
             <div class="fl" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
-                <a title="Trang nhất" href="/" itemprop="url">
+                <a title="Trang nhất" href="<?php echo site_url('trang-chu');?>" itemprop="url">
                     <span itemprop="title">Trang chủ</span>
                 </a> /
             </div>
             <div itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb" class="fl">
-                <a class="highlight" href="/" title="Kiến thức SEO" itemprop="url">
                     <span itemprop="title">danh sách gian hàng</span>
-                </a>
             </div>
         </div>
     </div>
@@ -37,9 +35,9 @@
                         echo'
             <tr>
                 <td>'.$i.'</td>
-                <td><a href="#"><img src="'.site_url('public/icons/shop_icon.png').'"/></a></td>
+                <td><a href="'.  site_url('home/cshop/shop_detail').'/'.$value['shopID'].'"><img src="'.site_url('public/icons/shop_icon.png').'"/></a></td>
                 <td>
-                    <h5><a href="#">'.$value['company'].'</a></h5>
+                    <h5><a href="'.  site_url('home/cshop/shop_detail').'/'.$value['shopID'].'">'.$value['company'].'</a></h5>
                     <p class="adress">'.$value['address'].', '.$value['city'].'</p>
                     <p>Có <span class="quantity">'.$value['num_pro'].' </span>sản phẩm trong Thời trang nam</p>
                     <p>Đánh giá:<span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span></p>

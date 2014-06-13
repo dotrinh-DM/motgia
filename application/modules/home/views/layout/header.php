@@ -90,10 +90,10 @@
                                                 echo (isset($num_proUnactive) && $num_proUnactive > 0) ? '<spanc class="number_count" style="top: 130px;right: 115px">' . $num_proUnactive . '</span>' : '';
                                                 ?>
                                             </a></p>
-                                        <form action="<?php echo site_url('home/cshop') ?>" method="post">
-                                            <input type="submit" class="btn shopmanager" style="box-shadow: 0px 0px 0px white;font-family: arial;background-color: #76CAC0;margin: 12px -12px;padding: 6px;width: 110px;" href="http://google.com" value="Quản lý gian hàng"/>
-                                            <input type="submit" class="btn" style="box-shadow: 0px 0px 0px white;font-family: arial;background-color: #76CAC0;margin: 13px 25px;padding: 6px;width: 100px;" value="Vào gian hàng"/>
-                                        </form>
+                                        <!--<form action="<?php echo site_url('home/cshop') ?>" method="post">-->
+                                            <button class="btn shopmanager" style="box-shadow: 0px 0px 0px white;font-family: arial;background-color: #76CAC0;margin: 12px -12px;padding: 6px;width: 110px;" onclick="location.href='<?php echo site_url('home/cshop')?>'">Quản lý gian hàng</button>
+                                            <button class="btn" style="box-shadow: 0px 0px 0px white;font-family: arial;background-color: #76CAC0;margin: 13px 25px;padding: 6px;width: 100px;" onclick="location.href='<?php echo site_url('home/cshop').'/shop_detail/'.$shopper['shopID']?>'">Vào gian hàng</button>
+                                        
                                     </li>
                                 </ul>
                             <?php } ?>

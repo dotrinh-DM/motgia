@@ -259,7 +259,7 @@
                     echo '
                         
                           <div class="seller">
-                            <h3 style="text-align: left;font-size: 18px;">Gian hàng: <a href="#">' . $value['shopname'] . '</a></h3>
+                            <h3 style="text-align: left;font-size: 18px;">Gian hàng: <a href="' . base_url() . 'home/cshop/shop_detail/' . $userid . '">' . $value['shopname'] . '</a></h3>
                             <a title="Xóa sản phẩm của gian hàng" href="' . site_url("home/cproducts/delCart/$userid") . '" style="float: right;margin: -55px 18px;" onclick="return confirm(' . "'" . 'Bạn có muốn xóa toàn bộ sản phẩm này từ gian hàng này?' . "'" . ');">Xóa</a>
                           </div>
                           <table>
@@ -293,7 +293,7 @@
                             echo base_url() . $image[0];
                             echo '" alt="" height="60" width="60"></td>
                                         <td style="text-align: left;padding:10px">
-                                            <a href="#">' . $value2['productname'] . '</a>
+                                            <a href="' . base_url() . 'san-pham/' . $productid . '">' . $value2['productname'] . '</a>
                                             <br>
                                         </td>
                                         <td>
@@ -324,9 +324,11 @@
                                         <input type="hidden" id="hidden_total" value="' . $tong . '"/>
                                 </td></tr>
                             </tfoot>
-                        </table>
-                        
-                                <div class="col">
+                        </table>';
+                    if (isset($shopper) && $shopper['shopID'] == $userid)
+                        echo '<button class="btn disabled" style="margin-left: 563px;background-color: red;">Rất tiếc! Bạn không thể mua sản phẩm của chính mình</button>';
+                    else
+                        echo '<div class="col">
                                     <div class="payment">
                                         
                                         <div class="pay">
