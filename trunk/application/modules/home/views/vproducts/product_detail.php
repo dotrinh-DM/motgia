@@ -105,7 +105,6 @@ function curPageName() {
             alwaysOn: false
         });
 
-
         $('#loginform').submit(function(event) { //Trigger on form submit
             $('.logintitle').html('Đăng nhập');
             var postForm = {//Fetch form data
@@ -219,17 +218,19 @@ $images1 = json_decode($data_detail['images']);
                 </div>
 
                 <div class="price_3">
-                    Giá:
-                    <span class="new_price">100</span>
+                    <b>Giá:</b>
+                    <span class="new_price">100k</span>
                 </div>
-
+                <?php if(isset($shopper) && $shopper['shopID'] == $data_detail['shopID']){?><!--Bạn không thể tự mua hàng của mình-->
+                <br><br><span>Xin chào <?php echo $info['fullname']?>!</span><br>
+                <span>Bạn là người đăng sản phẩm này</span>
+                <button class="btn"  onclick="location.href='<?php echo site_url('home/cshop').'/shop_detail/'.$shopper['shopID']?>'">Quản lý sản phẩm</button>
+                <?php } else{?>
                 <div id="addCart">
                     <form action="" method="POST" id="form-action">
                         <label for="qty">Số lượng</label>
                         <input type="hidden" name="seller" value="<?php echo $data_detail['shopID'] ?>"/>
-                        <input type="hidden" name="proid" value="<?php echo $data_detail['productsID'] ?>"/>
                         <input type="hidden" name="proname" value="<?php echo $data_detail['name'] ?>"/>
-                        <input type="hidden" name="proprice" value="100000"/>
                         <input id="down" type="button" value="<"/>
                         <input id="qty" type="text" value="1" name="soluong"/>
                         <input id="up" type="button" value=">"/>
@@ -238,7 +239,7 @@ $images1 = json_decode($data_detail['images']);
                         <img src="http://developer.baokim.vn/uploads/baokim_btn/thanhtoanantoan-l.png" alt="Thanh toán an toàn với Bảo Kim !" border="0" title="Thanh toán trực tuyến an toàn qua Cổng thanh toán trực tuyến BảoKim.vn" >
                     </form>
                 </div>
-
+                <?php }?>
                 <div class="social_02 marginTop_30">
                     <div id="fb-root"></div>
                     <script>(function(d, s, id) {
@@ -365,10 +366,10 @@ $images1 = json_decode($data_detail['images']);
         <div class="box_item">
             <h5 style="font-weight: bold;color: #3D5F43;">Thông tin gian hàng</h5>
             <div class="line"></div>
-            <a href="#" class="img_box">
+            <a href="<?php echo base_url()?>home/cshop/shop_detail/<?php echo $shopinfo['shopID']?>" class="img_box">
                 <img src="<?php echo base_url() . $shopinfo['image']; ?>" width="210px" height="190px"/>
             </a>
-            <h6><a href="#"><?php echo $shopinfo['company'] ?></a></h6>
+            <h6><a href="<?php echo base_url()?>home/cshop/shop_detail/<?php echo $shopinfo['shopID']?>"><?php echo $shopinfo['company'] ?></a></h6>
             <p>Địa chỉ: <?php echo $shopinfo['address'] . ', ' . $shopinfo['city'] ?><br>
                 SĐT: <?php echo $shopinfo['phone'] ?><br>
                 Website: <a  href="<?php echo $shopinfo['website'] ?>"><?php echo $shopinfo['website'] ?></a><br>
@@ -386,11 +387,11 @@ $images1 = json_decode($data_detail['images']);
                                <li>
                             <span style="padding: 6px; margin-top:10px" class="number special-' . $i . '">' . $i . '</span>
                             <div class="info" style="width:168px">           
-                                <a href="#">
+                                <a href="'.  base_url().'home/cshop/shop_detail/'.$value['shopID'].'">
                                     <img src="' . site_url($value['image']) . '" alt="000"/>
                                 </a>
                                 <div class="name" style="width:95px">
-                                    <div style="height: 52px;overflow: hidden;"><a href="#" style="font-size:10px">' . $value['company'] . '</a></div>
+                                    <div style="height: 52px;overflow: hidden;"><a href="'.  base_url().'home/cshop/shop_detail/'.$value['shopID'].'" style="font-size:10px">' . $value['company'] . '</a></div>
                                     <div class="clear"></div>
                                     <span class="glyphicon glyphicon-star"></span>
                                     <span class="glyphicon glyphicon-star"></span>

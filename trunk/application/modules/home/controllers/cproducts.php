@@ -107,11 +107,9 @@ class Cproducts extends CI_Controller {
         $temp['data_detail'] = $this->Mproducts->getProductById($id);
 
         if ($this->input->post('order')) {
-            $id = $this->input->post('proid');
             $sl = $this->input->post('soluong');
-            $shopid2 = $this->Mproducts->getProductbyID($id);
-            $shopid = $shopid2['shopID'];
-            $proname = $shopid2['name'];
+            $shopid = $this->input->post('seller');
+            $proname = $this->input->post('proname');
             $company2 = $this->Mshop->getShopByShopID($shopid);
             $company = $company2['company'];
             if (isset($_SESSION['cart'][$shopid][$id])) {
@@ -131,7 +129,6 @@ class Cproducts extends CI_Controller {
         $temp['kq'] = getChildren($temp['category']);
         $temp['procate'] = $this->category_model->getProCate();
         $this->load->view('layout/layout', $temp);
-        $this->output->cache(5);
     }
 
     public function upProducts() {
@@ -150,6 +147,7 @@ class Cproducts extends CI_Controller {
                 $temp['num_proExpiration'] = $this->Musers->getNumProductsExpiration($userid); //Lay so luong san pham het han
             }
         }
+        $temp['listshop']=  $this->Mshop->getListShop();
         $temp['title'] = 'Đăng sản phẩm';
         $temp['cate'] = $this->Mproducts->getAllCategories();
 //        $temp['sidebar_product'] = $this->Mproducts->getRandomProduct();
