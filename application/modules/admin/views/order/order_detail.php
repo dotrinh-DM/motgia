@@ -1,4 +1,6 @@
+<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>template/css/style.css" />
 <?php if($info['logged_in']==TRUE){?>
+
 <section class="bg_shadow">
     <div class="wrap clearfix">
         <div class="title floatLeft">

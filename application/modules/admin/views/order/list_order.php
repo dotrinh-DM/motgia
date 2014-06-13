@@ -3,12 +3,12 @@
     <tr>
         <th class="head0 nosort"><input type="checkbox" class="checkall"/></th>
         <th>Mã hóa đơn</th>
-        <th>Mã người bán</th>
-        <th>Mã người mua</th>
+
         <th style="width: 20%">Ngày tạo</th>
         <th>Chú ý</th>
         <th>Phương thức</th>
         <th>Trạng thái</th>
+        <th>Chi tiết</th>
         <th>Sửa</th>
         <th>Xóa</th>
     </tr>
@@ -24,8 +24,7 @@
                 <span class="center"><input type="checkbox"/></span>
             </td>
             <td><?php echo $value->orderID; ?></td>
-            <td><?php echo $value->sellerID; ?></td>
-            <td><?php echo $value->buyerID; ?></td>
+
             <td><?php echo $value->create_date; ?></td>
             <td><?php echo $value->note; ?></td>
             <td><?php if ($value->status == 0) echo 'Online'; elseif ($value->status == 1) echo 'Tại nhà'; ?></td>
@@ -34,7 +33,9 @@
             else {
                 echo 'OK';
             }
-            ?></td>
+            ?>
+            </td>
+            <td><a href="<?php echo site_url("admin/order_controller/getDetail/") . '?orderid=' . $value->orderID. '&buyer=' . $value->buyerID; ?>">Chi tiết</a></td>
             <td><a href="<?php echo site_url("admin/user_controller/edituser/") . '/' . $value->orderID; ?>">Sửa</a>
             </td>
             <td><a href="<?php echo site_url("admin/user_controller/deluser/") . '/' . $value->orderID; ?>">Xóa</a></td>
