@@ -805,7 +805,7 @@ select option {
     width: 460px;
     float: left;
     display: inline;
-    margin-right: 20px;
+    margin-right: 10px;
     box-shadow: 0px 0px 6px #e7e7e7;
     margin-bottom: 20px;
     position: relative;
@@ -1000,4 +1000,21 @@ select option {
 }
 #list_pavilion tbody tr td span.quantity{
     color:#e41346;
+}
+/*******pavilion****/
+#list_pavilion{
+    margin-top:20px;
+}
+#avatar_img{
+   box-shadow: 0px 0px 6px #e7e7e7;
+}
+#avatar_img h4{
+    margin-top:20px;
+}
+#text span.quantity{
+    color:#e32958;
+}
+#text{
+    margin-left: 20px;
+    width:500px;
 }
