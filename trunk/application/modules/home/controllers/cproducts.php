@@ -9,7 +9,7 @@ class Cproducts extends CI_Controller {
 
     public function __construct() {
         parent::__construct();
-        $this->load->helper(array('html', 'file', 'menu', 'form', 'url'));
+        $this->load->helper(array('html', 'file', 'menu', 'form', 'url','category'));
         $this->load->library('session');
         $this->load->model('Mproducts');
         $this->load->model('Includebaokim');

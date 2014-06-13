@@ -89,6 +89,10 @@ class cusers extends CI_Controller {
     }
 
     public function signup() {
+        $temp['info'] = $this->Mlog->log(); //hien thi ten nguoi dung tren header
+        if($temp['info']['logged_in']==TRUE){
+            redirect('trang-chu');
+        }
         $this->load->helper(array('captcha'));
         $this->load->model('captcha_model');
         $cap = $this->captcha_model->createCaptcha();
@@ -134,6 +138,9 @@ class cusers extends CI_Controller {
         $temp['Data'] = $cap['image'];
         $temp['title'] = 'Đăng ký thành viên siêu thị một giá motgia.tk';
         $temp['template'] = 'vusers/signup';
+        $temp['category'] = $this->category_model->getAll();
+        $temp['kq'] = getChildren($temp['category']);
+        $temp['procate'] = $this->category_model->getProCate();
         $this->load->view('layout/layout', $temp);
     }
 
