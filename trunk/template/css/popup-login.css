@@ -16,7 +16,7 @@
     }
     #boxes .window
     {
-        position: absolute;
+        position: fixed;
         left: 0;
         top: 0;
         width: 440px;
@@ -27,6 +27,7 @@
     }
     #boxes #dialog
     {
+        z-index: 10001;
         width: 375px;
         height: 203px;
         padding: 10px;
