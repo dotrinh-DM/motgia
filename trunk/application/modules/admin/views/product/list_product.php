@@ -23,7 +23,7 @@
                 <td class="aligncenter">
                     <span class="center"><input type="checkbox"/></span>
                 </td>
-                <td><?php echo $value['name'] ?></td>
+                <td><a href="<?php echo site_url("admin/product_controller/getDetailShop/") . '/' . $value['productsID']; ?>"><?php echo $value['name'] ?></a></td>
                 <td><?php echo $value['quantity'] ?></td>
                 <td><?php echo $value['price'] ?></td>
 
