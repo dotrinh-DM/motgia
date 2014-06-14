@@ -144,7 +144,7 @@
             <th colspan="2"><center>Thông tin người nhận</center></th>
             </thead>
             <?php
-            if (isset($buyer) && count($buyer)) {
+            if (isset($buyer) && count($buyer) && isset($shopinfo) && count($shopinfo)) {
                 echo '
                         <tr>
                             <td style="width: 25%;border-right-color: white;text-align: right;">
@@ -156,10 +156,10 @@
                                 </b>
                             </td>
                             <td>
-                                <p>' . $buyer['company'] . '</p>
-                                <p><a href="' . $buyer['shopwebsite'] . '">' . $buyer['shopwebsite'] . '</a></p>
-                                <p>0' . $buyer['shopphone'] . '</p>
-                                <p>' . $buyer['shopadd'] . '</p>
+                                <p>' . $shopinfo['company'] . '</p>
+                                <p><a href="' . $shopinfo['shopwebsite'] . '">' . $shopinfo['shopwebsite'] . '</a></p>
+                                <p>0' . $shopinfo['shopphone'] . '</p>
+                                <p>' . $shopinfo['shopadd'] . '</p>
                             </td>
                             <td style="width: 25%;border-right-color: white;text-align: right;">
                                 <b>
