@@ -13,7 +13,7 @@ function generateMenu($trees,$procate, $data_category)
             $quantity = ' (' . count_product($list_cate, $procate) . ')';
         }
         echo '<li> ';
-        echo "<a href='" . site_url('home/home_controller/productInCates/' . $category->categoryID) . "'>" .' '. $category->category_name .$quantity. '</a>';
+        echo "<a href='" . site_url('home/category_controller/productInCates/' . $category->categoryID) . "'>" .' '. $category->category_name .$quantity. '</a>';
         if (isset($category->children) and count($category->children) > 0)
         {
             generateMenu($category->children, $procate, $data_category);
