@@ -19,7 +19,7 @@ class User_controller extends CI_Controller {
     }
 
     public function addUser() {
-        $temp['link'] = ' <a href="' . site_url('admin/user_controller') . '">Thành viên / </a>Thêm thành viên';
+        $temp['link'] = ' <a href="' . site_url('admin/adminhome/manageUser') . '">Thành viên / </a>Thêm thành viên';
         $temp['info'] = $this->session->userdata('admin');
         $temp['title'] = 'Thêm thành viên';
         $temp['template'] = 'user/add_user';
@@ -52,6 +52,7 @@ class User_controller extends CI_Controller {
     }
 
     public function edituser($id) {
+        $temp['link'] = ' <a href="' . site_url('admin/adminhome/manageUser') . '">Thành viên / </a>Sửa thông tin thành viên';
         $temp['info'] = $this->session->userdata('admin');
         $temp['title'] = 'Sửa thành viên';
         $temp['data'] = $this->user_model->getUserId($id);

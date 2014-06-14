@@ -5,7 +5,7 @@
         <th>Mã hóa đơn</th>
 
         <th style="width: 20%">Ngày tạo</th>
-        <th>Chú ý</th>
+        <th>Ghi chú</th>
         <th>Phương thức</th>
         <th>Trạng thái</th>
         <th>Chi tiết</th>
@@ -14,7 +14,6 @@
     </tr>
     </thead>
     <tbody>
-
     <?php
     foreach ($data as $key => $value) {
         ;
@@ -27,11 +26,12 @@
 
             <td><?php echo $value->create_date; ?></td>
             <td><?php echo $value->note; ?></td>
-            <td><?php if ($value->status == 0) echo 'Online'; elseif ($value->status == 1) echo 'Tại nhà'; ?></td>
-            <td><?php if ($value->status == 0) echo 'Chưa xử lý';
-            elseif ($value->status == 1) echo 'Đã xử lý';
+            <td><?php echo ($value->method == 1) ?'Online':'Tại nhà'; ?></td>
+            <td><?php if ($value->status == 0) echo 'Đã hủy';
+            elseif ($value->status == 1) echo 'Đang chờ xác nhận';
+            elseif ($value->status == 2) echo 'Đã xác nhận';
             else {
-                echo 'OK';
+                echo 'Đã thanh toán';
             }
             ?>
             </td>
