@@ -179,5 +179,8 @@ class cshop extends CI_Controller {
         $temp['template'] = 'shop/shop_detail';
         $this->load->view('layout/layout', $temp);
     }
+    public function confirmPay(){
+        
+    }
 
 }

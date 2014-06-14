@@ -6,17 +6,17 @@
         </div>
         <div class="clearfix breadcrumbs floatRight">
             <div class="fl" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
-                <a title="Trang nhất" href="<?php echo site_url('trang-chu')?>" itemprop="url">
+                <a title="Trang nhất" href="<?php echo site_url('trang-chu') ?>" itemprop="url">
                     <span itemprop="title">Trang chủ/</span>
                 </a>
             </div>
             <div itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb" class="fl">
-                <a class="highlight" href="<?php echo site_url('home/cshop/listshop')?>" title="Danh sách gian hàng" itemprop="url">
+                <a class="highlight" href="<?php echo site_url('home/cshop/listshop') ?>" title="Danh sách gian hàng" itemprop="url">
                     <span itemprop="title">gian hàng/</span>
                 </a>
             </div>
             <div itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb" class="fl">
-                    <span itemprop="title"><?php echo $shop_detail['company']?></span>
+                <span itemprop="title"><?php echo $shop_detail['company'] ?></span>
             </div>
         </div>
     </div>
@@ -37,7 +37,9 @@
             <p>Fax : 04-36473147</p>
             <a href="#"><?php echo $shop_detail['website'] ?></a><br><br>
             <p>Đánh giá:<span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span></p>
-            <?php if(isset($shopper) && $shopper['shopID'] == $shop_detail['shopID']){?><p><button class="btn" onclick="location.href='<?php echo site_url('home/cshop')?>'">Quản trị gian hàng</button></p><?php }?>
+            <?php if (isset($shopper) && $shopper['shopID'] == $shop_detail['shopID']) { ?>
+                <p><button class="btn" onclick="location.href = '<?php echo site_url('home/cshop') ?>'">Quản trị gian hàng</button></p>
+            <?php } ?>
         </div>
     </div>
 
@@ -47,23 +49,58 @@
     <div class='panel-container'>
         <div id="tabs1-html">
             <?php
-            if (isset($product) && count($product)) {
-                foreach ($product as $key => $value) {
-                    $img = json_decode($value['images']);
-                    echo '
+            if (isset($shopper) && $shopper['shopID'] == $shop_detail['shopID']) {
+                if (isset($product) && count($product)) {
+                    foreach ($product as $key => $value) {
+                        $img = json_decode($value['images']);
+                        echo '
                         <section class="module">
                             <div class="module_item clearfix">
-                                <a href="'.  base_url().'san-pham/'.$value['productsID'].'" class="img_module">
-                                    <img src="'.  base_url().$img[0].'" alt="000"/>
+                                <a href="' . base_url() . 'san-pham/' . $value['productsID'] . '" class="img_module">
+                                    <img src="' . base_url() . $img[0] . '" alt="000"/>
                                 </a>
                                 <div class="reduced">
-                                    <header class="title_item"><a href="'.  base_url().'san-pham/'.$value['productsID'].'">'.$value['name'].'</a></header>
-                                    <div style="height: 55px;overflow: hidden;">'.$value['intro'].'</div>
+                                    <header class="title_item"><a href="' . base_url() . 'san-pham/' . $value['productsID'] . '">' . $value['name'] . '</a></header>
+                                    <div style="height: 55px;overflow: hidden;">' . $value['intro'] . '</div>
                                 </div><!--End .reduced-->
-                                <a href="'.  base_url().'san-pham/'.$value['productsID'].'" class="btn_readmore">Chi tiết</a>
+                                <a href="' . base_url() . 'san-pham/' . $value['productsID'] . '" class="btn_readmore" style="top:30px">Chi tiết</a>
+                                <span style="margin: 0px -97px;"><b>';
+                        if ($value['status'] == 0)
+                            echo 'Ngừng bán';
+                        elseif ($value['status'] == 1)
+                            echo 'Đang bán';
+                        elseif ($value['status'] == 2)
+                            echo 'Hết hàng';
+                        elseif ($value['status'] == 3)
+                            echo 'Chưa duyệt';
+                        else
+                            echo 'Hết hạn';
+                        echo '</b></span>
                                 <span class="price">100K</span>
                             </div><!--End .module_item-->
                         </section><!--End .module-->';
+                    }
+                }
+            }
+            else {
+                if (isset($product) && count($product)) {
+                    foreach ($product as $key => $value) {
+                        $img = json_decode($value['images']);
+                        echo '
+                        <section class="module">
+                            <div class="module_item clearfix">
+                                <a href="' . base_url() . 'san-pham/' . $value['productsID'] . '" class="img_module">
+                                    <img src="' . base_url() . $img[0] . '" alt="000"/>
+                                </a>
+                                <div class="reduced">
+                                    <header class="title_item"><a href="' . base_url() . 'san-pham/' . $value['productsID'] . '">' . $value['name'] . '</a></header>
+                                    <div style="height: 55px;overflow: hidden;">' . $value['intro'] . '</div>
+                                </div><!--End .reduced-->
+                                <a href="' . base_url() . 'san-pham/' . $value['productsID'] . '" class="btn_readmore">Chi tiết</a>
+                                <span class="price">100K</span>
+                            </div><!--End .module_item-->
+                        </section><!--End .module-->';
+                    }
                 }
             }
             ?>
