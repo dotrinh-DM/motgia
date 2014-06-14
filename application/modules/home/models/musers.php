@@ -239,6 +239,18 @@ class Musers extends CI_Model {
                         ->get('tbl_order')->row_array();
     }
 
+    public function getShopInfo($oid){
+        return $this->db->select("
+            shop.company as company,
+            shop.phone as shopphone,
+            shop.address as shopadd,
+            shop.city as shopcity,
+            shop.website as shopwebsite,")
+                        ->where("tbl_order.orderID", "$oid")
+                        ->join('shop', 'shop.shopID = tbl_order.shopID')
+                        ->get('tbl_order')->row_array();
+    }
+
     public function getOrder_GuestBuy($oid, $buyid) {//chi tiet hoa don mua boi khach vang lai
         return $this->db->select("
             tbl_order.orderID as orderID,
@@ -247,11 +259,7 @@ class Musers extends CI_Model {
             tbl_order.method as method,
             tbl_order.status as status,
             tbl_order.statusID as statusID,
-             shop.company as company,
-            shop.phone as shopphone,
-            shop.address as shopadd,
-            shop.city as shopcity,
-            shop.website as shopwebsite,
+           
             guest.fullname as fullname,
             guest.mail as buyeremail,
             guest.phone as buyerphone,
@@ -262,7 +270,7 @@ class Musers extends CI_Model {
                         ->where("tbl_order.orderID", "$oid")
                         ->where("tbl_order.buyerID", "$buyid")
                         ->join('guest', 'guest.guestID = tbl_order.buyerID')//xem thông tin khách hàng vãng lai
-                        ->join('shop', 'shop.shopID = tbl_order.shopID')
+//                        ->join('shop', 'shop.shopID = tbl_order.shopID')
                         ->join('bill_status', 'bill_status.statusID = tbl_order.statusID')
                         ->get('tbl_order')->row_array();
     }

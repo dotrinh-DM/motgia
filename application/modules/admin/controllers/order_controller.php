@@ -35,6 +35,7 @@ class Order_controller extends CI_Controller {
         $temp['title'] = 'Chi tiết hóa đơn :: Admin';
         $temp['info'] = $this->session->userdata('admin');
         if (isset($_GET['orderid'], $_GET['buyer'])) {
+            $temp['shopinfo']=$this->Musers->getShopInfo($_GET['orderid']);
             $temp['detail'] = $this->Musers->getOrderDetail($_GET['orderid']);
             if (substr($_GET['buyer'], 0, 3) == 'UID')
                 $temp['buyer'] = $this->Musers->getOrder_UserBuy($_GET['orderid'], $_GET['buyer']);

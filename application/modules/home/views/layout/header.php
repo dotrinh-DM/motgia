@@ -2,7 +2,7 @@
     <header class="top_Nav wrap clearfix">
         <ul class="Top_menu floatLeft">
             <li><a href="#">Giới thiệu</a></li>
-            <li><a href="<?php site_url('home/contact')?>">Liên hệ</a></li>
+            <li><a href="<?php echo site_url('home/contact')?>">Liên hệ</a></li>
         </ul>
         <!--End .Top_menu-->
         <ul class="user clearfix floatRight">

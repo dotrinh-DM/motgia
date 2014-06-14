@@ -438,6 +438,9 @@ class cusers extends CI_Controller {
     }
 
     public function active() {
+         $temp['category'] = $this->category_model->getAll();
+        $temp['kq'] = getChildren($temp['category']);
+        $temp['procate'] = $this->category_model->getProCate();
         if ($_GET['key']) {
             $email = $this->encrypt->decode($_GET['key']); //gia ma key nhan tu url
             if ($this->Musers->checkMail($email) === FALSE) {//neu ma trung voi email thi tien hanh
