@@ -1,19 +1,3 @@
-<!--<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>-->
-<!--<script>-->
-<!--    $(document).ready(function(){-->
-<!--        $("#cha").click(function (){-->
-<!--            $("select[name='danhmuc']").prop("disabled",true);-->
-<!--        });-->
-<!---->
-<!--        $("#goc").live("click",function (){-->
-<!--            $("select[name='danhmuc']").prop("disabled",true);-->
-<!--        });-->
-<!---->
-<!--        $("#con").click(function (){-->
-<!--            $("select[name='danhmuc']").prop("disabled",false);-->
-<!--        });-->
-<!--    });-->
-<!--</script>-->
 <div style="margin-left: 300px;">
     <form id="form1" name="form1" method="post"
           action="<?php echo site_url('admin/category_controller/insertCategory'); ?> ">
