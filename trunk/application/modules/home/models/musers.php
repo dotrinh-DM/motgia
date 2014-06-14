@@ -14,18 +14,20 @@ class Musers extends CI_Model {
         $query = $this->db->get();
         return $query->result_array();
     }
-    public function feedback($name,$mail,$content,$phone,$add) {
+
+    public function feedback($name, $mail, $content, $phone, $add) {
         $date = gmdate("Y-m-d H:i:s", time() + 3150 * (+7 + date("I")));
-        $data=array(
-            'name'=>$name,
-            'email'=>$mail,
-            'address'=>$add,
-            'phone'=>$phone,
-            'create_date'=>$date,
-            'content'=>$content
+        $data = array(
+            'name' => $name,
+            'email' => $mail,
+            'address' => $add,
+            'phone' => $phone,
+            'create_date' => $date,
+            'content' => $content
         );
-        $this->db->insert('contact',$data);
+        $this->db->insert('contact', $data);
     }
+
     public function getProfile($userid) {
         $this->db->select('*');
         $this->db->select("DATE_FORMAT(birthday, '%d-%m-%Y') AS birthofday", FALSE);
@@ -216,6 +218,11 @@ class Musers extends CI_Model {
             tbl_order.method as method,
             tbl_order.status as status, 
             tbl_order.statusID as statusID, 
+            shop.company as company,
+            shop.phone as shopphone,
+            shop.address as shopadd,
+            shop.city as shopcity,
+            shop.website as shopwebsite,
             user.email as buyeremail,
             user.phone as buyerphone, 
             user.address as buyeradd,
@@ -227,6 +234,7 @@ class Musers extends CI_Model {
                         ->where("tbl_order.orderID", "$oid")
                         ->where("tbl_order.buyerID", "$buyid")
                         ->join('user', 'user.userID = tbl_order.buyerID')//xem thông tin người mua
+                        ->join('shop', 'shop.shopID = tbl_order.shopID')
                         ->join('bill_status', 'bill_status.statusID = tbl_order.statusID')
                         ->get('tbl_order')->row_array();
     }
@@ -239,6 +247,11 @@ class Musers extends CI_Model {
             tbl_order.method as method,
             tbl_order.status as status,
             tbl_order.statusID as statusID,
+             shop.company as company,
+            shop.phone as shopphone,
+            shop.address as shopadd,
+            shop.city as shopcity,
+            shop.website as shopwebsite,
             guest.fullname as fullname,
             guest.mail as buyeremail,
             guest.phone as buyerphone,
@@ -249,6 +262,7 @@ class Musers extends CI_Model {
                         ->where("tbl_order.orderID", "$oid")
                         ->where("tbl_order.buyerID", "$buyid")
                         ->join('guest', 'guest.guestID = tbl_order.buyerID')//xem thông tin khách hàng vãng lai
+                        ->join('shop', 'shop.shopID = tbl_order.shopID')
                         ->join('bill_status', 'bill_status.statusID = tbl_order.statusID')
                         ->get('tbl_order')->row_array();
     }

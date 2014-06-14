@@ -140,7 +140,7 @@
         <div class="marginTop_30"></div>
         <table class="oder_table">
             <thead>
-            <th colspan="2"><center>Thông tin người mua</center></th>
+            <th colspan="2"><center>Thông tin gian hàng</center></th>
             <th colspan="2"><center>Thông tin người nhận</center></th>
             </thead>
             <?php
@@ -149,17 +149,17 @@
                         <tr>
                             <td style="width: 25%;border-right-color: white;text-align: right;">
                                 <b>
-                                <p>Họ tên : </p>
-                                <p>Email : </p>
+                                <p>Bên bán : </p>
+                                <p>Website : </p>
                                 <p>SĐT : </p>
                                 <p>Địa chỉ : </p>
                                 </b>
                             </td>
                             <td>
-                                <p>' . $buyer['fullname'] . '</p>
-                                <p>' . $buyer['buyeremail'] . '</p>
-                                <p>' . $buyer['buyerphone'] . '</p>
-                                <p>' . $buyer['buyeradd'] . '</p>
+                                <p>' . $buyer['company'] . '</p>
+                                <p><a href="' . $buyer['shopwebsite'] . '">' . $buyer['shopwebsite'] . '</a></p>
+                                <p>0' . $buyer['shopphone'] . '</p>
+                                <p>' . $buyer['shopadd'] . '</p>
                             </td>
                             <td style="width: 25%;border-right-color: white;text-align: right;">
                                 <b>

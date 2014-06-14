@@ -23,6 +23,7 @@ class Database_controller extends CI_Controller
      */
     public function index()
     {
+        $data['link'] = 'Database';
         $data['title'] = 'Quản lý hóa đơn :: Admin';
         $data['info'] = $this->session->userdata('admin');
         $data['data'] = $this->order_model->getAll();
@@ -35,6 +36,7 @@ class Database_controller extends CI_Controller
      */
     public function backup()
     {
+        $data['link'] = 'Backup Database';
         $data['title'] = 'Sao lưu :: Admin';
         $data['info'] = $this->session->userdata('admin');
         $data['template'] = 'database/backup';
@@ -43,6 +45,7 @@ class Database_controller extends CI_Controller
 
     public function restore()
     {
+        $data['link'] = 'Restore Database';
         $data['title'] = 'Phục hồi dữ liệu:: Admin';
         $data['info'] = $this->session->userdata('admin');
         $data['template'] = 'database/restore';
