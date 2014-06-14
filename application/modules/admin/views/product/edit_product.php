@@ -131,7 +131,7 @@
                     <a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Remove</a>
                 </div>
             </div>
-            <img src="<?php echo base_url().$arr_img[0]; ?>" style="width: 150px;height: 150px;" />
+            <img src="<?php echo base_url().$arr_img[0]; ?>" style="width: 150px;height: 150px;margin-left: 300px;" />
         </div>
         <div class="par">
             <label>Ảnh 2</label>
@@ -147,7 +147,7 @@
                     <a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Remove</a>
                 </div>
             </div>
-            <img src="<?php echo base_url().$arr_img[2]; ?>" style="width: 150px;height: 150px;" />
+            <img src="<?php echo base_url().$arr_img[2]; ?>" style="width: 150px;height: 150px;margin-left: 300px;" />
         </div>
         <div class="par">
             <label>Ảnh 3</label>
@@ -164,7 +164,7 @@
                     <a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Remove</a>
                 </div>
             </div>
-            <img src="<?php echo base_url().$arr_img[2]; ?>" style="width: 150px;height: 150px;" />
+            <img src="<?php echo base_url().$arr_img[2]; ?>" style="width: 150px;height: 150px;margin-left: 300px;" />
         </div>
 
         <p>
@@ -209,7 +209,7 @@
                     }
                 }
                 ?>
-                <input type="checkbox" name='danhmuc[]' <?php echo $checked ?> value="<?php echo $value->categoryID ?>"/><?php echo $value->category_name ?> <br/>
+                <input style="margin-left: 300px;" type="checkbox" name='danhmuc[]' <?php echo $checked ?> value="<?php echo $value->categoryID ?>"/><?php echo $value->category_name ?> <br/>
             <?php
 
             }

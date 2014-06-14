@@ -4,19 +4,30 @@ session_start();
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
-class Chome extends CI_Controller {
+class Chome extends CI_Controller
+{
 
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->load->helper(array('form', 'menu', 'menu'));
         $this->load->helper('html');
         $this->load->library('session');
         $this->load->helper('url');
         $this->load->model(array('Mproducts', 'Musers', 'Mlog', 'category_model'));
-//        $this->output->cache(10);
+        $this->load->helper('cookie');
     }
-
-    public function index() {
+    public function delcookie()
+    {
+//        var_dump($_COOKIE);
+        delete_cookie('hello');
+    }
+    public function index()
+    {
+        if (!isset($_COOKIE['hello']) || $_COOKIE['hello'] != 'visit')
+        {
+            set_cookie('hello', 'visit', time() + 3600);
+        }
         $temp['category'] = $this->category_model->getAll();
         $temp['kq'] = getChildren($temp['category']);
         $temp['procate'] = $this->category_model->getProCate();
@@ -26,7 +37,7 @@ class Chome extends CI_Controller {
             $temp['coin'] = $this->Musers->getCoin($userid);
             $temp['num_message'] = $this->Musers->getNumMessageUnread($userid); //Lay so luong tin nhan chua doc
             $temp['num_history'] = $this->Musers->getNumOrderHistory($userid); //Lay tat ca so luong hoa don da dat
-            $temp['level']=  $this->Musers->getLevel($userid);
+            $temp['level'] = $this->Musers->getLevel($userid);
             $ckShop = $this->Musers->checkOwnShop($userid);
             if ($ckShop != FALSE || $temp['level'] == 2) {
                 $temp['shopper'] = $this->Musers->checkOwnShop($userid);
@@ -42,7 +53,8 @@ class Chome extends CI_Controller {
         $this->load->view('layout/layout', $temp);
     }
 
-    public function logout() {
+    public function logout()
+    {
         $this->session->unset_userdata('user');
         redirect('trang-chu');
     }

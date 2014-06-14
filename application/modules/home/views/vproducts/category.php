@@ -85,6 +85,6 @@
             </section><!--End .module-->
         <?php } ?> 
     </div>
-    <div class="text_center" id="more10" >
-        <button class="btn_showmore" id="10">Xem thêm</button>
-    </div>
+<!--    <div class="text_center" id="more10" >-->
+<!--        <button class="btn_showmore" id="10">Xem thêm</button>-->
+<!--    </div>-->
