@@ -23,7 +23,7 @@ class Product_model extends CI_Model {
 
     public function getAll()
     {
-        $this->db->select("*")->where('status != 1');
+        $this->db->select("*");
         $this->db->from($this->tbl_product);
         $this->db->order_by('productsID', 'DESC');
         $query = $this->db->get();

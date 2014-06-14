@@ -104,11 +104,6 @@
             <span class="field"><input type="text" name="txtname" class="input-large" value="<?php echo $pro->name; ?>"/></span>
         </p>
 
-        <p>
-            <label> Giá </label>
-            <span class="field"><input type="text" name="txtprice" class="input-large" value="<?php echo $pro->price; ?>"/></span>
-        </p>
-
 
         <p>
             <label> Số lượng </label>

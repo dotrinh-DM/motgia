@@ -43,14 +43,15 @@ class Product_controller extends CI_Controller {
 
     public function getInput($link_json)
     {
-        $ck = $this->session->userdata('user');
-        $shopid = $this->product_model->getShopByUID($ck['userID']);
-        $date = gmdate("Y-m-d H:i:s", time() + 3600 * (+7 + date("I")));
+        $user_data = $this->session->userdata('admin');
+        $shopid = $this->product_model->getShopByUID($user_data['userID']);
+//        var_dump($shopid); die;
+        $date = gmdate("Y-m-d H:i:s", time() + 3150 * (+7 + date("I")));
         $masp = $this->musers->setID('products', 'productsID', 'PRO');
         $data = array(
             'productsID' => $masp,
             'name' => $this->input->post('txtname'),
-            'price' => $this->input->post('txtprice'),
+            'price' => 100000,
             'quantity' => $this->input->post('soluong'),
             'create_date' => $date,
             'soldnumber' => 0,
@@ -161,7 +162,6 @@ class Product_controller extends CI_Controller {
         $link_json = json_encode($arr);
         $data = array(
             'name' => $this->input->post('txtname'),
-            'price' => $this->input->post('txtprice'),
             'quantity' => $this->input->post('soluong'),
             'images' => $link_json,
             'intro' => $this->input->post('txtdes'),
