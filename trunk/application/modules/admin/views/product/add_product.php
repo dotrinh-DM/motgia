@@ -103,12 +103,6 @@
         </p>
 
         <p>
-            <label> Giá </label>
-            <span class="field"><input type="text" name="txtprice" class="input-large" placeholder="Email"/></span>
-        </p>
-
-
-        <p>
             <label> Số lượng </label>
             <span class="field"><input type="text" name="soluong" class="input-large" placeholder="Firstame"/></span>
         </p>
