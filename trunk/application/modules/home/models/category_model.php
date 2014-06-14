@@ -34,7 +34,7 @@ class Category_model extends CI_Model
                                 products AS a
                             INNER JOIN tbl_category_product as b
                              ON a.productsID = b.productsID
-                            AND b.categoryID IN ($id_category)")->result();
+                            AND b.categoryID IN ($id_category) GROUP BY a.productsID")->result();
     }
 
     public function getProCate()
