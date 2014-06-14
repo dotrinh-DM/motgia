@@ -66,13 +66,13 @@
                 </header>
                 <div class="info_wrap">
                     <div>
-                        <a href="#" class="floatLeft"><img src="images/yahoo2.png" alt=""></a>
+                        <a href="#" class="floatLeft"><img src="<?php echo site_url('template/images/yahoo2.png')?>" alt=""></a>
                         <span class="name floatLeft">Ms.Tu Anh</span>
                         <span class="floatLeft">0902.11.88.92</span>
                         <div class="clear"></div>
                     </div>
                     <div>
-                        <a href="#" class="floatLeft"><img src="images/facebook.png" alt=""></a>
+                        <a href="#" class="floatLeft"><img src="<?php echo site_url('template/images/facebook.png')?>" alt=""></a>
                         <span class="name floatLeft">Ms.Tu Anh</span>
                         <span class="floatLeft">0902.11.88.92</span>
                         <div class="clear"></div>
