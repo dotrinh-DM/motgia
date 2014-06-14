@@ -325,9 +325,9 @@
                                             break;
                                         }
                                         ?></td>
-                                    <td><a href="#"><img src="<?php echo base_url() . $img[0]; ?>" alt="<?php echo $pro->name; ?>" height="50" width="50"/></a></td>
+                                    <td><a href="<?php echo site_url('san-pham').'/'.$pro->productsID?>"><img src="<?php echo base_url() . $img[0]; ?>" alt="<?php echo $pro->name; ?>" height="50" width="50"/></a></td>
                                     <td><?php echo $pro->date_up; ?></td>
-                                    <td><a href="#"><?php echo $pro->name; ?></a></td>
+                                    <td><a href="<?php echo site_url('san-pham').'/'.$pro->productsID?>"><?php echo $pro->name; ?></a></td>
                                     <td><?php echo $pro->date_expiration; ?></td>
                                     <td><?php echo $pro->soldnumber; ?></td>
                                     <td style="width:161px">
@@ -357,7 +357,7 @@
                                     </td>
                                     <td class="update">
                                         <ul>
-                                            <li><a href="#" class="gia_han" id="<?php echo $pro->productsID ?>">Gia hạn</a></li>
+                                            <?php if($pro->status == 4){?><li><a href="#" class="gia_han" id="<?php echo $pro->productsID ?>">Gia hạn</a></li><?php }?>
                                             <li><a href="#">Sửa</a></li>
                                         </ul>
 

@@ -1,4 +1,5 @@
        <div id="footer" class="bg_back"> 
+           
             <footer class="wrap">
                 <div class="col floatLeft">
                     <div class="footerlink">
@@ -57,5 +58,30 @@
                     </div><!-- .End social-->
                     <div class="clear"></div>
                 </div>
+                <div class="help">
+                <header  class="_show">
+                    <h5>Hỗ trợ trực tuyến</h5>
+                    <div class="line"></div>
+                    <div class="clear"></div>
+                </header>
+                <div class="info_wrap">
+                    <div>
+                        <a href="#" class="floatLeft"><img src="images/yahoo2.png" alt=""></a>
+                        <span class="name floatLeft">Ms.Tu Anh</span>
+                        <span class="floatLeft">0902.11.88.92</span>
+                        <div class="clear"></div>
+                    </div>
+                    <div>
+                        <a href="#" class="floatLeft"><img src="images/facebook.png" alt=""></a>
+                        <span class="name floatLeft">Ms.Tu Anh</span>
+                        <span class="floatLeft">0902.11.88.92</span>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+            </div>
+            <script type="text/javascript">
+                    $("._show").click(function() {
+            $(".info_wrap").toggle(500)
+            });</script>
             </footer><!-- .End wrap-->
         </div><!-- #End footer -->

@@ -211,7 +211,7 @@ $images1 = json_decode($data_detail['images']);
             <section id="product_content">
                 <h1><?php echo $data_detail['name'] ?></h1>
                 <header class="longer_products">
-                    <h6 class="icon_longer_products" style="height: 30px">Còn hàng</h6>
+                    <h6 class="icon_longer_products" style="height: 30px;font-size: 20px;font-weight: bold;color: #DD5B42;"><?php echo ($data_detail['status']==2)?'Hết hàng':'Còn hàng'?></h6>
                 </header>
                 <div class="subdetail">
 <?php echo $data_detail['intro'] ?>
