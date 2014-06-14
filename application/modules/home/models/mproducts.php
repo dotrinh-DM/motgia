@@ -27,8 +27,12 @@ class Mproducts extends CI_Model
             shop.company as company,
             shop.shopID as shopID", FALSE);
 //        $this->db->order_by('productsID', 'DESC');
+        $this->db->where("status != 0");
+        $this->db->where("status != 3");
+        $this->db->where("status != 4");
         $this->db->join('shop', 'shop.shopID = products.shopID');
         $this->db->limit(10, 0);
+        $this->db->order_by('products.create_date', 'DESC');
         $query = $this->db->get("products");
         return $query->result();
     }
@@ -44,6 +48,7 @@ class Mproducts extends CI_Model
 //        $this->db->order_by('productsID', 'DESC');
         $this->db->join('shop', 'shop.shopID = products.shopID');
         $this->db->limit(10, $start);
+        $this->db->order_by('products.create_date', 'DESC');
         $query = $this->db->get("products");
         return $query->result();
     }
@@ -68,7 +73,7 @@ class Mproducts extends CI_Model
 
     public function insertProducts($proid, $tensanpham, $soluong, $motangan, $dacdiemnb, $dieukiensd, $chitietsp, $images, $shopid)
     {
-        $create_date = gmdate("Y-m-d H:i:s", time() + 3150 * (+7 + date("I")));
+        $create_date = gmdate("Y-m-d", time() + 3150 * (+7 + date("I")));
         $data = array(
             'productsID' => $proid,
             'name' => $tensanpham,

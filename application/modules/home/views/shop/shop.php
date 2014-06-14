@@ -75,13 +75,85 @@
             $('#contentmess').empty();
             $('.headermess').fadeIn(1000).html('Hủy đơn hàng');
             $('#contentmess').append('</br><form action="<?php echo site_url('home/cusers/cancel_order') ?>" method="post">\n\
-                        <input type="hidden" name="buyerID" value="'+$('.buyerid'+oid).val()+'"/>\n\
-                        <input type="hidden" name="statusID" value="'+$('.statusid'+oid).val()+'"/>\n\
-                        <input type="hidden" name="orderID" value="'+oid+'"/>\n\
+                        <input type="hidden" name="buyerID" value="' + $('.buyerid' + oid).val() + '"/>\n\
+                        <input type="hidden" name="statusID" value="' + $('.statusid' + oid).val() + '"/>\n\
+                        <input type="hidden" name="orderID" value="' + oid + '"/>\n\
                         <textarea id="note" name="note" placeholder="lý do hủy" required="" style="font-size: 11pt;margin-top: -10px;height: 80px;" class="validationValid"></textarea>\n\
                         <input type="submit" class="btn order_ok" value="ok" style="margin-top: -8px;width: 80px;padding: 10px;"/></form>');
             popupshow();
             return false;
+        });
+        $('.gia_han').live("click", "submit", function(e) {//Hiện cửa sổ ghi lý do hủy$('.headermess').empty();
+            var proid = $(this).attr('id');
+            $('#contentmess').empty();
+            $('.headermess').fadeIn(1000).html('Gia hạn sản phẩm');
+            $('#contentmess').append('</br><form action="<?php echo site_url('home/cusers/cancel_order') ?>" method="post" style="margin-top: -23px;font-family: serif;">\n\
+                        <input type="hidden" name="proID" value="' + proid + '"/>\n\
+                        <center><table>\n\
+                            <tr>\n\
+                                <td style="float:right">Chọn số ngày :&nbsp;</td>\n\
+                                <td><div class="num_day">\n\
+                                <select class="selectday" style="border: 1px solid;font-size: 15px;height: 26px;padding: 0px;">\n\
+                                <option selected="" value="1">30 ngày</option>\n\
+                                <option value="2">100 ngày</option>\n\
+                                <option value="3">1 năm</option>\n\
+                                </select></div>\n\
+                                </td>\n\
+                            </tr>\n\
+                            <tr>\n\
+                                <td style="float:right">Số dư tài khoản :&nbsp;</td>\n\
+                                <td style="color:red"><span class="num_coin"><?php echo number_format($coin, 0, ', ', '.') ?></span> đ</td>\n\
+                            </tr>\n\
+                            <tr>\n\
+                                <td  style="float:right">Số tiền phải trả :&nbsp;</td>\n\
+                                <td style="color:red"><span class="num_pay">10.000</span> đ</td>\n\
+                            </tr>\n\
+                        </table></center>\n\
+                        <div><span class="pay_erorr" style="color: red;font-size: 15px;"><span></div>\n\
+                        <input type="submit" class="btn pay_ok" value="Chấp nhận" style="margin-top: 5px;width: 80px;padding: 10px;"/></form>');
+            popupshow();
+            var pay = $('.num_pay').html();
+            var coin = '<?php echo $coin / 1000 ?>';
+            if (parseInt(pay) > coin)
+                $('.pay_erorr').append("Tài khoản của bạn không đủ để thực hiện giao dịch");
+            else {
+                $.ajax({
+                    type: "POST",
+                    url: "<?php echo site_url('home/cshop/confirmPay'); ?>",
+                    data: "start=" + ID,
+                    cache: false,
+                    success: function(html) {
+                        $("#content_index").append(html);
+                        $("#more" + ID).remove();
+                    }
+                });
+            }
+            return false;
+        });
+        $('.pay_ok').live("click", "submit", function(e) {
+            var pay = $('.num_pay').html();
+            var coin = '<?php echo $coin / 1000 ?>';
+            if (parseInt(pay) > coin)
+                alert('Bạn không đủ tiền để thực hiện giao dịch');
+            else
+                $('.pay_erorr').empty();
+            return false;
+        });
+        $('.selectday').live("change", "submit", function(e) {
+            var coin = '<?php echo $coin / 1000 ?>';
+            $('.num_pay').empty();
+            var value = $(this).val();
+            if (value == 1)
+                $('.num_pay').html('10.000');
+            if (value == 2)
+                $('.num_pay').html('30.000');
+            if (value == 3)
+                $('.num_pay').html('80.000');
+            var pay = $('.num_pay').html();
+            if (parseInt(pay) > coin)
+                $('.pay_erorr').append("Tài khoản của bạn không đủ để thực hiện giao dịch");
+            else
+                $('.pay_erorr').empty();
         });
     });
 </script>
@@ -291,7 +363,7 @@
                                     </td>
                                     <td class="update">
                                         <ul>
-                                            <li><a href="#">Gia hạn</a></li>
+                                            <li><a href="#" class="gia_han" id="<?php echo $pro->productsID?>">Gia hạn</a></li>
                                             <li><a href="#">Sửa</a></li>
                                         </ul>
 
@@ -489,9 +561,9 @@
                     <div>
                         <?php
                         if (isset($_GET['allorder']))
-                                $ordok = $_GET['allorder'];
-                            else
-                                $ordok = 4;
+                            $ordok = $_GET['allorder'];
+                        else
+                            $ordok = 4;
 
                         function showpagingshop2($curent2, $i2) {
                             if (isset($_GET['allorder']))
@@ -499,7 +571,7 @@
                             else
                                 $ordok = 4;
                             if ($curent2 != $i2)
-                                echo'<a href="' . base_url() . 'home/cshop?allorder='.$ordok.'&billpage=' . $i2 . '#bill">' . $i2 . '</a>';
+                                echo'<a href="' . base_url() . 'home/cshop?allorder=' . $ordok . '&billpage=' . $i2 . '#bill">' . $i2 . '</a>';
                             else
                                 echo'<span class="active">' . $i2 . '</span>';
                         }
@@ -511,8 +583,8 @@
                             $next = $paging_order['page'] + 1;
                             $curent = ($paging_order['start'] / $paging_order['display']) + 1;
                             if ($curent != 1) {// neu la trang dau tien thi khong co nut prev
-                                echo '<a href="' . base_url() . 'home/cshop?allorder='.$ordok.'&billpage=' . $first . '#bill">first</a>';
-                                echo '<a href="' . base_url() . 'home/cshop?allorder='.$ordok.'&billpage=' . $prev . '#bill">prev</a>';
+                                echo '<a href="' . base_url() . 'home/cshop?allorder=' . $ordok . '&billpage=' . $first . '#bill">first</a>';
+                                echo '<a href="' . base_url() . 'home/cshop?allorder=' . $ordok . '&billpage=' . $prev . '#bill">prev</a>';
                                 if ($curent >= 6 && $total > 9) {
                                     echo '<span style="background=white; ">.....</span>';
                                 }
@@ -545,8 +617,8 @@
                             if ($curent != $total) {// neu la trang cuoi cung thi khong co nut next
                                 if ($curent <= ($total - 5) && $total > 9)
                                     echo '<span style="background=white; ">.....</span>';
-                                echo '<a href="' . base_url() . 'home/cshop?allorder='.$ordok.'&billpage=' . $next . '#bill">next</a>';
-                                echo '<a href="' . base_url() . 'home/cshop?allorder='.$ordok.'&billpage=' . $total . '#bill">last</a>';
+                                echo '<a href="' . base_url() . 'home/cshop?allorder=' . $ordok . '&billpage=' . $next . '#bill">next</a>';
+                                echo '<a href="' . base_url() . 'home/cshop?allorder=' . $ordok . '&billpage=' . $total . '#bill">last</a>';
                             }
                         }
                         ?>

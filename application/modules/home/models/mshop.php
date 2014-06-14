@@ -109,6 +109,7 @@ class Mshop extends CI_Model {
         $this->db->select("DATE_FORMAT(date_expiration, '%d/%m/%Y') AS date_expiration", FALSE);
         $this->db->where("shopID", "$shopid");
         $this->db->limit($sum, $start);
+        $this->db->order_by('create_date', 'DESC');
         $query = $this->db->get('products');
         return $query->result();
     }
