@@ -79,7 +79,7 @@
                                                 echo (isset($num_order) && $num_order > 0) ? '<spanc class="number_count" style="top: 40px;right: 145px">' . $num_order . '</span>' : '';
                                                 ?>
                                             </a></p>
-                                            <p><a href="<?php echo site_url('dang-ky')?>" style="margin: 15px -26px;">Đăng sản phẩm</a></p>
+                                            <p><a href="<?php echo site_url('up-product')?>" style="margin: 15px -26px;">Đăng sản phẩm</a></p>
                                         <p><a href="<?php echo site_url('home/cshop?allpro=4#products')?>" style="margin: 15px -26px;">Sản phẩm quá hạn
                                                 <?php
                                                 echo (isset($num_proExpiration) && $num_proExpiration > 0) ? '<spanc class="number_count" style="top: 100px;right: 122px">' . $num_proExpiration . '</span>' : '';

@@ -82,7 +82,7 @@ class Mproducts extends CI_Model
             'productinfo' => $chitietsp,
             'create_date' => $create_date,
             'shopID' => $shopid,
-            'categoriesID' => $danhmuc
+            'status'=> 3
         );
         $this->db->insert('products', $data);
     }
