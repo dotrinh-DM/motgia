@@ -19,6 +19,7 @@ class Adminhome extends CI_Controller
 
     public function index()
     {
+        $temp['link'] = '';
         $temp['info'] = $this->session->userdata('admin');
         $temp['title'] = 'Trang quản trị';
         $temp['template'] = 'product/dashboard';
@@ -34,6 +35,7 @@ class Adminhome extends CI_Controller
 
     public function manageUser()
     {
+        $temp['link'] = ' <a href="' . site_url('admin/user_controller') . '">Thành viên / </a>';
         $temp['info'] = $this->session->userdata('admin');
         $temp['title'] = 'Quản lý thành viên';
         $temp['template'] = 'user/list_user';

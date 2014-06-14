@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="<?php echo base_url(); ?>public/adminstyle/css/style.default.css" type="text/css"/>
     <link rel="stylesheet" href="<?php echo base_url(); ?>public/adminstyle/prettify/prettify.css" type="text/css"/>
     <script type="text/javascript" src="<?php echo base_url(); ?>public/adminstyle/prettify/prettify.js"></script>
+    <script type="text/javascript" src="<?php echo base_url(); ?>template/js/jquery-1.8.2.min.js"></script>
     <script type="text/javascript" src="<?php echo base_url(); ?>public/adminstyle/js/jquery-1.9.1.min.js"></script>
     <script type="text/javascript" src="<?php echo base_url(); ?>public/adminstyle/js/jquery-migrate-1.1.1.min.js"></script>
     <script type="text/javascript" src="<?php echo base_url(); ?>public/adminstyle/js/jquery-ui-1.9.2.min.js"></script>

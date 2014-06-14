@@ -1,10 +1,11 @@
-<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php
 
-class Product_controller extends CI_Controller
-{
+if (!defined('BASEPATH'))
+    exit('No direct script access allowed');
 
-    public function __construct()
-    {
+class Product_controller extends CI_Controller {
+
+    public function __construct() {
         parent::__construct();
         $this->load->helper(array('form', 'url', 'province', 'html', 'category'));
         $this->load->model("product_model");
@@ -18,8 +19,8 @@ class Product_controller extends CI_Controller
         }
     }
 
-    public function index()
-    {
+    public function index() {
+        $temp['link'] = ' Sản phẩm';
         $temp['info'] = $this->session->userdata('admin');
         $temp['title'] = 'Quản lý sản phẩm';
         $temp['template'] = 'product/list_product';
@@ -27,18 +28,16 @@ class Product_controller extends CI_Controller
         $this->load->view('layout_admin/layout', $temp);
     }
 
-    public function addProduct()
-    {
+    public function addProduct() {
+        $temp['link'] = ' <a href="' . site_url('admin/product_controller') . '">Sản phẩm</a>' . ' / Thêm sản phẩm';
         $temp['info'] = $this->session->userdata('admin');
         $temp['title'] = 'Thêm sản phẩm';
         $temp['template'] = 'product/add_product';
         $temp['data'] = $this->category_model->getAll();
         $this->load->view('layout_admin/layout', $temp);
-
     }
 
-    public function getInput($link_json)
-    {
+    public function getInput($link_json) {
         $date = gmdate("Y-m-d H:i:s", time() + 3600 * (+7 + date("I")));
         $masp = $this->musers->setID('products', 'productsID', 'PRO');
         $data = array(
@@ -59,8 +58,7 @@ class Product_controller extends CI_Controller
         return $data;
     }
 
-    public function insertProducts()
-    {
+    public function insertProducts() {
         $raw_name = 'img';
         $link = 'public/product_images/';
         $link_img_insert = array();
@@ -84,15 +82,13 @@ class Product_controller extends CI_Controller
         }
 
         redirect('admin/product_controller');
-
     }
 
     /*
      * Ham nay de upload tung anh len server, ca single va multi
      */
 
-    public function uploadImages($name, $link)
-    {
+    public function uploadImages($name, $link) {
 
         $config['upload_path'] = $link;
         $config['allowed_types'] = 'gif|jpg|jpeg|png';
@@ -111,8 +107,7 @@ class Product_controller extends CI_Controller
      * @param string $id
      * load gia dien cho nguoi dung dua san pham
      */
-    public function editproduct($id)
-    {
+    public function editproduct($id) {
         $temp['info'] = $this->session->userdata('admin');
         $temp['title'] = 'Sủa sản phẩm';
         $temp['template'] = 'product/edit_product';
@@ -122,21 +117,18 @@ class Product_controller extends CI_Controller
         $this->load->view('layout_admin/layout', $temp);
     }
 
-    public function updateProducts()
-    {
+    public function updateProducts() {
         $idhidden = $this->input->post('idproduct');
         $images11 = $this->product_model->getImages($idhidden);
         $images22 = json_decode($images11[0]->images);
         $raw_name = 'img';
         $link = 'public/product_images/';
         $arr = array();
-        for ($i = 0; $i < 3; $i++)
-        {
-            if($_FILES['img' . $i]['name'] != '')
-            {
-                $tam = $this->uploadImages($raw_name.$i,$link);
+        for ($i = 0; $i < 3; $i++) {
+            if ($_FILES['img' . $i]['name'] != '') {
+                $tam = $this->uploadImages($raw_name . $i, $link);
                 $arr[$i] = $link . $tam['file_name'];
-            }else{
+            } else {
                 $arr[$i] = $images22[$i];
             }
         }
@@ -164,7 +156,24 @@ class Product_controller extends CI_Controller
 //        var_dump($data); die();
         $this->product_model->updateProduct($idhidden, $data);
         redirect('admin/product_controller');
+    }
 
+    public function UnconfirmPro() {
+        $temp['link'] = ' <a href="' . site_url('admin/product_controller') . '">Sản phẩm</a>' . ' / Duyệt sản phẩm';
+        $temp['info'] = $this->session->userdata('admin');
+        $temp['title'] = 'Duyệt sản phẩm';
+        $temp['template'] = 'product/confirm_product';
+        $temp['data'] = $this->product_model->UnconfirmProduct();
+        $this->load->view('layout_admin/layout', $temp);
+    }
+
+    public function confirmProduct() {
+        if($_POST['proid']){
+            if ($this->product_model->confirmProduct($_POST['proid']) == TRUE)
+                echo 'Đã duyệt';
+            else 
+                echo 'Thất bại';
+        }
     }
 
     /**
@@ -172,12 +181,12 @@ class Product_controller extends CI_Controller
      * @param string $id
      * Xoa san pham theo id
      */
-    public function del($id)
-    {
+    public function del($id) {
         $this->product_model->delProCate($id);
         $this->product_model->del($id);
         redirect('admin/product_controller');
     }
+
 }
 
 ?>

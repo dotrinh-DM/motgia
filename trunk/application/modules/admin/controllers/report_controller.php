@@ -2,8 +2,7 @@
 
 class Report_controller extends CI_Controller {
 
-    public function __construct()
-    {
+    public function __construct() {
         parent::__construct();
         $this->load->model('report_model');
         $this->load->helper(array('form', 'url', 'province', 'html', 'category'));
@@ -19,8 +18,8 @@ class Report_controller extends CI_Controller {
     /**
      * Load giao dien cho nguoi dung chon ngay bao cao
      */
-    public function product()
-    {
+    public function product() {
+        $data['link'] = ' Báo cáo sản phẩm';
         $data['info'] = $this->session->userdata('admin');
         $data['title'] = 'Báo cáo sản phẩm';
         $data['template'] = 'report/product';
@@ -30,19 +29,16 @@ class Report_controller extends CI_Controller {
     /**
      * Thống kê theo sản phẩm và theo danh muc SP
      */
-    public function view()
-    {
+    public function view() {
+        $temp['link'] = ' Báo cáo sản phẩm';
         $data['title'] = 'Quản lý báo cáo :: Admin';
         $data['info'] = $this->session->userdata('admin');
         $from = $this->input->post('fromdate');
         $to = $this->input->post('todate');
         $type = $this->input->post('type');
-        if ($type == 'product')
-        {
+        if ($type == 'product') {
             $data['product'] = $this->report_model->viewByproduct($from, $to);
-        }
-        else
-        {
+        } else {
             $data['category'] = $this->report_model->viewBycategory($from, $to);
         }
         $data['template'] = 'report/product';

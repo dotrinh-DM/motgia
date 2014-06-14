@@ -5,8 +5,9 @@
         <li><a href="http://localhost/motgia/home/chome" target="_blank"><span class="icon-picture"></span>Visit now!</a></li>
         <li class="dropdown"><a href=""><span class="icon-th-list"></span> Sản phẩm</a>
             <ul>
-                <li><a href="<?php echo site_url('admin/product_controller/addProduct'); ?>"> Thêm </a></li>
-                <li><a href="<?php echo site_url('admin/product_controller'); ?>"> Quản lý</a></li>
+                <li><a href="<?php echo site_url('admin/product_controller/UnconfirmPro'); ?>"> Duyệt sản phẩm </a></li>
+                <li><a href="<?php echo site_url('admin/product_controller/addProduct'); ?>"> Thêm sản phẩm</a></li>
+                <li><a href="<?php echo site_url('admin/product_controller'); ?>"> Danh sách sản phẩm</a></li>
                 <li><a href="<?php echo site_url('admin/report_controller/product'); ?>"> Báo cáo sản phẩm</a></li>
             </ul>
         </li>
