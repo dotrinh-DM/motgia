@@ -2,7 +2,7 @@
     <header class="top_Nav wrap clearfix">
         <ul class="Top_menu floatLeft">
             <li><a href="#">Giới thiệu</a></li>
-            <li><a href="<?php echo site_url('home/contact')?>">Liên hệ</a></li>
+            <li><a href="<?php echo site_url('home/contact') ?>">Liên hệ</a></li>
         </ul>
         <!--End .Top_menu-->
         <ul class="user clearfix floatRight">
@@ -11,7 +11,7 @@
                 if ($info['logged_in'] == 1) {
                     ?>
                     <li class="price_user">
-                        <span><a href="<?php echo site_url('profile#monney')?>"><?php echo number_format($coin, 0, ',', '. ')?> VNĐ</a></span>
+                        <span><a href="<?php echo site_url('profile#monney') ?>"><?php echo number_format($coin, 0, ',', '. ') ?> VNĐ</a></span>
                     </li>
 
                     <li>
@@ -41,12 +41,12 @@
                                                 </a></p>
                                         </div>
                                         <div class="clear" style="margin-left:-15px; color: black; font-family:arial; width:300px;height:100px">
-                                            <span class="floatLeft" style="height: 20px">Số dư tài khoản: &zwnj;</span><span class="floatLeft" style="font-weight:bold; color: red;height: 20px"> <?php echo number_format($coin, 0, ',', '. ')?> VNĐ</span>
+                                            <span class="floatLeft" style="height: 20px">Số dư tài khoản: &zwnj;</span><span class="floatLeft" style="font-weight:bold; color: red;height: 20px"> <?php echo number_format($coin, 0, ',', '. ') ?> VNĐ</span>
                                             <a class="floatLeft" style="margin: 0px 30px 0px 0px;float: right;height: 20px;" href="<?php echo base_url() ?>profile#monney">Nạp tiền</a>
                                             <div  class="clearfix"></div>
                                             <span>(Cập nhật ngày : 15/06/2014 00:00 AM )</span>
                                             <?php
-                                            if (isset($shopper) && $shopper!=FALSE)
+                                            if (isset($shopper) && $shopper != FALSE)
                                                 echo '<p style="margin: -5px 2px;color: black;font-weight: bold;line-height: 23px;width: 250px;">Gian hàng: ' . $shopper['company'] . '</p>';
                                             else {
                                                 echo '<a href="' . site_url('profile#upgrade') . '" style="margin: -7px -10px;width: 131px;">Đăng ký gian hàng</a>';
@@ -61,7 +61,7 @@
                                     </div>
                                 </li>
                             </ul>
-                            <?php if (isset($shopper) && $shopper!=FALSE) { ?>
+                            <?php if (isset($shopper) && $shopper != FALSE) { ?>
                                 <ul  class="showshop">
                                     <div style="float: right;width: 185px;">
                                         <p style="margin: -10px 2px;color: black;height: 20px">Địa chỉ:</p>
@@ -73,27 +73,27 @@
                                     <div class="clear"></div>
                                     <li style="font-family:arial; margin-top: 10px">
 
-                                        <p><a href="<?php echo site_url('home/cshop')?>" style="margin: 0px -26px;">Thông tin gian hàng</a></p>
-                                        <p><a href="<?php echo site_url('home/cshop?allorder=1#bill')?>" style="margin: 15px -26px;">Đơn hàng mới
+                                        <p><a href="<?php echo site_url('home/cshop') ?>" style="margin: 0px -26px;">Thông tin gian hàng</a></p>
+                                        <p><a href="<?php echo site_url('home/cshop?allorder=1#bill') ?>" style="margin: 15px -26px;">Đơn hàng mới
                                                 <?php
                                                 echo (isset($num_order) && $num_order > 0) ? '<spanc class="number_count" style="top: 40px;right: 145px">' . $num_order . '</span>' : '';
                                                 ?>
                                             </a></p>
-                                            <p><a href="<?php echo site_url('up-product')?>" style="margin: 15px -26px;">Đăng sản phẩm</a></p>
-                                        <p><a href="<?php echo site_url('home/cshop?allpro=4#products')?>" style="margin: 15px -26px;">Sản phẩm quá hạn
+                                        <p><a href="<?php echo site_url('up-product') ?>" style="margin: 15px -26px;">Đăng sản phẩm</a></p>
+                                        <p><a href="<?php echo site_url('home/cshop?allpro=4#products') ?>" style="margin: 15px -26px;">Sản phẩm quá hạn
                                                 <?php
                                                 echo (isset($num_proExpiration) && $num_proExpiration > 0) ? '<spanc class="number_count" style="top: 100px;right: 122px">' . $num_proExpiration . '</span>' : '';
                                                 ?>
                                             </a></p>
-                                        <p><a href="<?php echo site_url('home/cshop?allpro=3#products')?>" style="margin: 15px -26px;">Sản phẩm chờ duyệt
+                                        <p><a href="<?php echo site_url('home/cshop?allpro=3#products') ?>" style="margin: 15px -26px;">Sản phẩm chờ duyệt
                                                 <?php
                                                 echo (isset($num_proUnactive) && $num_proUnactive > 0) ? '<spanc class="number_count" style="top: 130px;right: 115px">' . $num_proUnactive . '</span>' : '';
                                                 ?>
                                             </a></p>
                                         <!--<form action="<?php echo site_url('home/cshop') ?>" method="post">-->
-                                            <button class="btn shopmanager" style="box-shadow: 0px 0px 0px white;font-family: arial;background-color: #76CAC0;margin: 12px -12px;padding: 6px;width: 110px;" onclick="location.href='<?php echo site_url('home/cshop')?>'">Quản lý gian hàng</button>
-                                            <button class="btn" style="box-shadow: 0px 0px 0px white;font-family: arial;background-color: #76CAC0;margin: 13px 25px;padding: 6px;width: 100px;" onclick="location.href='<?php echo site_url('home/cshop').'/shop_detail/'.$shopper['shopID']?>'">Vào gian hàng</button>
-                                        
+                                        <button class="btn shopmanager" style="box-shadow: 0px 0px 0px white;font-family: arial;background-color: #76CAC0;margin: 12px -12px;padding: 6px;width: 110px;" onclick="location.href = '<?php echo site_url('home/cshop') ?>'">Quản lý gian hàng</button>
+                                        <button class="btn" style="box-shadow: 0px 0px 0px white;font-family: arial;background-color: #76CAC0;margin: 13px 25px;padding: 6px;width: 100px;" onclick="location.href = '<?php echo site_url('home/cshop') . '/shop_detail/' . $shopper['shopID'] ?>'">Vào gian hàng</button>
+
                                     </li>
                                 </ul>
                             <?php } ?>
@@ -107,14 +107,13 @@
                     $this->load->view('vusers/login');
                     echo '</li>';
                 }
-            }
-            else {
-                    echo '
+            } else {
+                echo '
                         <li><a href="' . base_url() . 'dang-ky">Đăng ký</a></li>
                         <li><a href="#">Đăng nhập</a>';
-                    $this->load->view('vusers/login');
-                    echo '</li>';
-                }
+                $this->load->view('vusers/login');
+                echo '</li>';
+            }
             ?>
         </ul>
     </header>
@@ -125,7 +124,7 @@
         <a href="<?php echo base_url('trang-chu') ?>" id="logo" class="floatLeft"><img src="<?php echo base_url(); ?>/template/uploads/logo.png" alt=""/></a>
 
         <form id="search">
-            <input type="text" placeholder="search" class="txt-search"/>
+            <input type="text" placeholder="Tìm kiếm sản phẩm" class="txt-search"/>
             <input type="button" id="btnSearch" class="btnsearch"/>
         </form>
         <section class="cart">
@@ -153,3 +152,24 @@
     </div>
     <!--End navigation-->
 </nav><!--End Nav-->
+<script type="text/javascript">
+                                $(function() {
+                                    //More Button
+                                    $('.btnsearch').live("click", function() {
+                                        var ID = $('.txt-search').val();
+                                        if (ID != '') {
+                                            location.href = '<?php echo site_url('home/cproducts/result') ?>?key=' + ID + '';
+                                        }
+                                        return false;
+                                    });
+                                    $('.txt-search').live("keypress", function(e) {
+                                        if (e.keyCode == '13') {
+                                            var ID = $('.txt-search').val();
+                                            if (ID != '') {
+                                                location.href = '<?php echo site_url('home/cproducts/result') ?>?key=' + ID + '';
+                                            }
+                                            return false;
+                                        }
+                                    });
+                                });
+</script>>
