@@ -14,31 +14,29 @@
         <script type="text/javascript">
 
             jQuery(document).ready(function() {
-                //
-                jQuery('#da-slider').cslider({
-                    autoplay: true,
+            //
+            jQuery('#da-slider').cslider({
+            autoplay: true,
                     bgincrement: 450
-                });
-                //
-                $(".form").h5Validate({
-                    errorClass: "validationError",
-                    validClass: "validationValid"
-                });
-
-                // Prevent form submission when errors
-                $(".form").submit(function(evt) {
-                    if ($(".form").h5Validate("allValid") === false) {
-                        evt.preventDefault();
-                    }
-                });
-                $('#tab-container').easytabs();
-                ${'.help').find('h4').click(function(){ 
-                  $('this').css("bottom","0px");     
-                },function(){
-                   $('this').css("bottom","0px");  
-                });
             });
-        </script>	
+                    //
+                    $(".form").h5Validate({
+            errorClass: "validationError",
+                    validClass: "validationValid"
+            });
+                    // Prevent form submission when errors
+                    $(".form").submit(function(evt) {
+            if ($(".form").h5Validate("allValid") === false) {
+            evt.preventDefault();
+            }
+            });
+                    $('#tab-container').easytabs();
+                    ${'.help').find('h4').click(function(){
+            $('this').css("bottom", "0px");
+            }, function(){
+            $('this').css("bottom", "0px");
+            });
+            });</script>	
         <script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
         <script src="js/scroll-jquery.js"></script>
     </head>
@@ -623,7 +621,7 @@
             </div>
         </section>
         <section id="content" class="wrap">
-          
+
             <div id="list_pavilion" class="clearfix">
                 <div id="avatar_img" class="floatLeft">
                     <div id="avt"><img src="uploads/product_1.png"/></div>
@@ -827,8 +825,8 @@
                 </div><!-- .End social-->
                 <div class="clear"></div>
             </div>
-              <div class="help">
-                <header>
+            <div class="help">
+                <header  class="_show">
                     <h5>Hỗ trợ trực tuyến</h5>
                     <div class="line"></div>
                     <div class="clear"></div>
@@ -848,23 +846,27 @@
                     </div>
                 </div>
             </div>
+            <script type="text/javascript">
+                    $("._show").click(function() {
+            $(".info_wrap").toggle(500)
+            });</script>
         </footer><!-- .End wrap-->
     </div><!-- #End footer -->
     <script src="js/idangerous.swiper-2.0.min.js"></script>
     <script src="js/idangerous.swiper.3dflow-2.0.js"></script>
     <script>
-        var mySwiper = new Swiper('.swiper-container', {
+                    var mySwiper = new Swiper('.swiper-container', {
             slidesPerView: 3,
-            loop: true,
-            //Enable 3D Flow
-            tdFlow: {
-                rotate: 30,
-                stretch: 10,
-                depth: 150,
-                modifier: 1,
-                shadows: true
+                    loop: true,
+                    //Enable 3D Flow
+                    tdFlow: {
+            rotate: 30,
+                    stretch: 10,
+                    depth: 150,
+                    modifier: 1,
+                    shadows: true
             }
-        })
+            })
     </script>
 </body>
 </html>
