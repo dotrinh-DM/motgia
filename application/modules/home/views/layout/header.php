@@ -147,7 +147,7 @@
 <nav id="nav">
     <div class="center" id="droppdown">
         <ul>
-            <li><a href="<?php echo site_url('home/chome/'); ?>">Home</a></li>
+            <li><a href="<?php echo site_url('home/chome/'); ?>">Trang chủ</a></li>
         </ul>
         <?php generateMenu($kq, $procate, $category); ?>
     </div>
