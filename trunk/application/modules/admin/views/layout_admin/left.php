@@ -34,5 +34,10 @@
                 <li><a href="<?php echo site_url('admin/database_controller/restore'); ?>"> Phục hồi</a></li>
             </ul>
         </li>
+        <li class="dropdown"><a href=""><span class="icon-th-list"></span> Quản lý góp ý</a>
+            <ul>
+                <li><a href="<?php echo site_url('admin/contact_controller'); ?>"> Danh sách </a></li>
+            </ul>
+        </li>
     </ul>
 </div><!--leftmenu-->
