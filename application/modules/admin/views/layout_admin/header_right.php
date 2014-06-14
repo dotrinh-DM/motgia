@@ -62,8 +62,7 @@
     </ul>
     <!--skins-->
     <ul class="breadcrumb">
-        <li><a href="dashboard.html">Home</a> <span class="divider">/</span></li>
-        <li class="active">Dashboard</li>
+        <li><a href="<?php echo site_url('admin/adminhome')?>">Trang chủ</a><span class="divider">/<?php echo $link?></span></li>
     </ul>
 </div>
 

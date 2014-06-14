@@ -19,6 +19,7 @@ class Category_controller extends CI_Controller
 
     public function index()
     {
+        $temp['link']=  ' <a href="'.site_url('admin/category_controller').'">Danh mục</a>';
         $temp['info'] = $this->session->userdata('admin');
         $temp['title'] = 'Danh mục';
         $temp['data'] = $this->category_model->getAll();
@@ -28,6 +29,7 @@ class Category_controller extends CI_Controller
 
     public function addForm()
     {
+        $temp['link']=  ' <a href="'.site_url('admin/category_controller').'">Danh mục / Thêm danh mục';
         $temp['info'] = $this->session->userdata('admin');
         $temp['title'] = 'Thêm danh mục';
         $temp['template'] = 'category/add_category';
