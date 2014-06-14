@@ -61,11 +61,12 @@ class Mshop extends CI_Model {
                         ->group_by("shop.shopID")
                         ->get('shop')->row_array();
     }
-    public function getProductByShopID($shopid){
-       return $this->db->select("*")
-                ->where("shopID","$shopid")
-                ->get('products')
-                ->result_array();
+
+    public function getProductByShopID($shopid) {
+        return $this->db->select("*")
+                        ->where("shopID", "$shopid")
+                        ->get('products')
+                        ->result_array();
     }
 
     public function updateShopInfo($shopid, $company, $phone, $web, $add, $city, $userid) {
@@ -77,6 +78,17 @@ class Mshop extends CI_Model {
             'phone' => $phone,
         );
         $this->db->where(array('shopID' => $shopid, 'userID' => $userid))->update('shop', $data);
+    }
+
+    public function expirationProduct($uid, $proid, $day, $coin) {
+        $this->db->where('userID', $uid)->update('user', array('coin' => $coin));
+        $ck1 = $this->db->affected_rows();
+        $this->db->where('productsID', $proid)->update('products', array('date_expiration' => $day, 'status' => 1));
+        $ck2 = $this->db->affected_rows();
+        if($ck1>0 && $ck2>0)
+            return TRUE;
+        else
+            return FALSE;
     }
 
     public function getProductByUID_Where($uid, $sum = 10000, $start = 0, $where) {

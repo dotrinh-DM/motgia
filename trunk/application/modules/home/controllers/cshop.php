@@ -149,12 +149,13 @@ class cshop extends CI_Controller {
                 $temp['num_proExpiration'] = $this->Musers->getNumProductsExpiration($userid); //Lay so luong san pham het han
             }
         }
-        $temp['listshop']=  $this->Mshop->getListShop();
+        $temp['listshop'] = $this->Mshop->getListShop();
         $temp['title'] = 'Danh sách gian hàng | Đăng sản phẩm | Thanh toán Trực tuyến';
         $temp['template'] = 'shop/listShop';
         $this->load->view('layout/layout', $temp);
     }
-    public function shop_detail($shopID){
+
+    public function shop_detail($shopID) {
         $temp['category'] = $this->category_model->getAll();
         $temp['kq'] = getChildren($temp['category']);
         $temp['procate'] = $this->category_model->getProCate();
@@ -173,14 +174,43 @@ class cshop extends CI_Controller {
                 $temp['num_proExpiration'] = $this->Musers->getNumProductsExpiration($userid); //Lay so luong san pham het han
             }
         }
-        $temp['shop_detail']=  $this->Mshop->getShopByshopID($shopID);
+        $temp['shop_detail'] = $this->Mshop->getShopByshopID($shopID);
         $temp['product'] = $this->Mshop->getProductByShopID($shopID);
         $temp['title'] = 'Thăm gian hàng | Đăng sản phẩm | Thanh toán Trực tuyến';
         $temp['template'] = 'shop/shop_detail';
         $this->load->view('layout/layout', $temp);
     }
-    public function confirmPay(){
-        
+
+    public function confirmPay() {
+        $info = $this->Mlog->log();
+        $uid = $info['userID'];
+        $proid = $this->input->post('proid');
+        $day2 = $this->input->post('day');
+        $coin = $this->Musers->getCoin($uid);
+        $now = gmdate("Y-m-d", time() + 3150 * (+7 + date("I")));
+        if ($day2 == 1) {
+            $new_date = strtotime('+30 day', strtotime($now));
+            $day = date('Y-m-d', $new_date);
+            $pay_coin = $coin - 10000;
+        }
+        if ($day2 == 2) {
+            $new_date = strtotime('+100 day', strtotime($now));
+            $day = date('Y-m-d', $new_date);
+            $pay_coin = $coin - 30000;
+        }
+        if ($day2 == 3) {
+            $new_date = strtotime('+1 year', strtotime($now));
+            $day = date('Y-m-d', $new_date);
+            $pay_coin = $coin - 80000;
+        }
+        $ck = $this->Mshop->expirationProduct($uid, $proid, $day, $pay_coin);
+        if ($ck == TRUE) {
+            $this->session->set_flashdata('giahan_alert', 'Đã gia hạn sản phẩm thành công!');
+            redirect('home/cshop?allpro=1#products');
+        } else {
+            $this->session->set_flashdata('giahan_alert', 'Gia hạn sản phẩm thất bại!');
+            redirect('home/cshop?allpro=1#products');
+        }
     }
 
 }

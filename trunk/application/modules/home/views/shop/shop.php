@@ -6,6 +6,11 @@
 <script type="text/javascript" src="<?php echo base_url(); ?>template/js/validateh5.js"></script>
 <script type="text/javascript">
     jQuery(document).ready(function() {
+    var ale = '<?php if ($this->session->flashdata('giahan_alert'))
+            echo $this->session->flashdata('giahan_alert');?>';    
+    if(ale != '')
+        alert('<?php if ($this->session->flashdata('giahan_alert'))
+            echo $this->session->flashdata('giahan_alert');?>');
         function popupshow(param) {
             var id = '#dialog';
             //Get the screen height and width
@@ -87,13 +92,13 @@
             var proid = $(this).attr('id');
             $('#contentmess').empty();
             $('.headermess').fadeIn(1000).html('Gia hạn sản phẩm');
-            $('#contentmess').append('</br><form action="<?php echo site_url('home/cusers/cancel_order') ?>" method="post" style="margin-top: -23px;font-family: serif;">\n\
-                        <input type="hidden" name="proID" value="' + proid + '"/>\n\
+            $('#contentmess').append('</br><form action="<?php echo site_url('home/cshop/confirmPay') ?>" method="post" style="margin-top: -23px;font-family: serif;">\n\
                         <center><table>\n\
+                            <input type="hidden" name="proid" value="' + proid + '"/>\n\
                             <tr>\n\
                                 <td style="float:right">Chọn số ngày :&nbsp;</td>\n\
                                 <td><div class="num_day">\n\
-                                <select class="selectday" style="border: 1px solid;font-size: 15px;height: 26px;padding: 0px;">\n\
+                                <select name="day" class="selectday" style="border: 1px solid;font-size: 15px;height: 26px;padding: 0px;">\n\
                                 <option selected="" value="1">30 ngày</option>\n\
                                 <option value="2">100 ngày</option>\n\
                                 <option value="3">1 năm</option>\n\
@@ -116,18 +121,7 @@
             var coin = '<?php echo $coin / 1000 ?>';
             if (parseInt(pay) > coin)
                 $('.pay_erorr').append("Tài khoản của bạn không đủ để thực hiện giao dịch");
-            else {
-                $.ajax({
-                    type: "POST",
-                    url: "<?php echo site_url('home/cshop/confirmPay'); ?>",
-                    data: "start=" + ID,
-                    cache: false,
-                    success: function(html) {
-                        $("#content_index").append(html);
-                        $("#more" + ID).remove();
-                    }
-                });
-            }
+
             return false;
         });
         $('.pay_ok').live("click", "submit", function(e) {
@@ -136,7 +130,7 @@
             if (parseInt(pay) > coin)
                 alert('Bạn không đủ tiền để thực hiện giao dịch');
             else
-                $('.pay_erorr').empty();
+                exit();
             return false;
         });
         $('.selectday').live("change", "submit", function(e) {
@@ -186,7 +180,7 @@
                 <li class='tab active' ><a href="#shopinfo">Thông tin gian hàng</a></li>
                 <li class="tab"><a href="#products">Quản lý sản phẩm</a></li>
                 <li class="tab"><a href="#bill"
-                    <?php echo (isset($num_order) && $num_order > 0) ? 'tile="có ' . $num_order . ' đơn hàng chưa xử lý"><span>' . $num_order . '</span> ' : '>'; ?>
+<?php echo (isset($num_order) && $num_order > 0) ? 'tile="có ' . $num_order . ' đơn hàng chưa xử lý"><span>' . $num_order . '</span> ' : '>'; ?>
                                    Đơn hàng đã nhận</a></li>
                 <li class='tab'><a href="#monney">Nạp tiền</a></li>
             </ul>
@@ -363,7 +357,7 @@
                                     </td>
                                     <td class="update">
                                         <ul>
-                                            <li><a href="#" class="gia_han" id="<?php echo $pro->productsID?>">Gia hạn</a></li>
+                                            <li><a href="#" class="gia_han" id="<?php echo $pro->productsID ?>">Gia hạn</a></li>
                                             <li><a href="#">Sửa</a></li>
                                         </ul>
 
