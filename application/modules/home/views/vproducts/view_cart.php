@@ -1,6 +1,12 @@
 <script type="text/javascript" src="<?php echo base_url(); ?>template/js/validateh5.js"></script>
 <script type="text/javascript">
     jQuery(document).ready(function() {
+        var ale = '<?php if ($this->session->flashdata('order_alert'))
+            echo $this->session->flashdata('order_alert');?>';    
+    if(ale != '')
+        alert('<?php if ($this->session->flashdata('order_alert'))
+            echo $this->session->flashdata('order_alert');?>');
+    
         $(".formcart").h5Validate({
             errorClass: "validationError",
             validClass: "validationValid"

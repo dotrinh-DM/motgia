@@ -465,6 +465,7 @@ class Cproducts extends CI_Controller
                         }
                     }
                 }
+                $this->session->set_flashdata('order_alert', 'Bạn đã đặt hàng thành công!');
                 unset($_SESSION['pay']);
                 redirect('cart');
             }
