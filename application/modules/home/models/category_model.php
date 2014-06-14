@@ -21,6 +21,22 @@ class Category_model extends CI_Model
         return $this->db->query("select * from $this->_tbl_cate")->result();
     }
 
+    public function getProIncate($id_category)
+    {
+        return $this->db->query("
+                            SELECT
+                                a.productsID,
+                                a.name,
+                                a.price,
+                                a.images,
+                                a.intro
+                            FROM
+                                products AS a
+                            INNER JOIN tbl_category_product as b
+                             ON a.productsID = b.productsID
+                            AND b.categoryID IN ($id_category)")->result();
+    }
+
     public function getProCate()
     {
         return $this->db->query('select * from tbl_category_product')->result();
