@@ -58,7 +58,7 @@
                     </div><!-- .End social-->
                     <div class="clear"></div>
                 </div>
-                <div class="help">
+                <div class="help" style="background-color: #F3F0D1;z-index: 100;">
                 <header  class="_show">
                     <h5>Hỗ trợ trực tuyến</h5>
                     <div class="line"></div>
@@ -66,15 +66,21 @@
                 </header>
                 <div class="info_wrap">
                     <div>
-                        <a href="#" class="floatLeft"><img src="<?php echo site_url('template/images/yahoo2.png')?>" alt=""></a>
-                        <span class="name floatLeft">Ms.Tu Anh</span>
+                        <a href="http://facebook.com/tantana5" class="floatLeft"><img src="<?php echo site_url('template/images/facebook.png')?>" alt=""></a>
+                        <span class="name floatLeft">Mr.TânTân</span>
+                        <span class="floatLeft">01689.338.965</span>
+                        <div class="clear"></div>
+                    </div>
+                    <div>
+                        <a href="http://facebook.com/hailedesign" class="floatLeft"><img src="<?php echo site_url('template/images/facebook.png')?>" alt=""></a>
+                        <span class="name floatLeft">Mr.Thành Đô</span>
                         <span class="floatLeft">0902.11.88.92</span>
                         <div class="clear"></div>
                     </div>
                     <div>
-                        <a href="#" class="floatLeft"><img src="<?php echo site_url('template/images/facebook.png')?>" alt=""></a>
-                        <span class="name floatLeft">Ms.Tu Anh</span>
-                        <span class="floatLeft">0902.11.88.92</span>
+                        <a href="http://facebook.com/trinhthanhdo" class="floatLeft"><img src="<?php echo site_url('template/images/facebook.png')?>" alt=""></a>
+                        <span class="name floatLeft">Ms.Lee Hải</span>
+                        <span class="floatLeft">0966.11.58.59</span>
                         <div class="clear"></div>
                     </div>
                 </div>
