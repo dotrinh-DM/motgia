@@ -5,11 +5,13 @@ session_start();
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
-class Cproducts extends CI_Controller {
+class Cproducts extends CI_Controller
+{
 
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
-        $this->load->helper(array('html', 'file', 'menu', 'form', 'url','category'));
+        $this->load->helper(array('html', 'file', 'menu', 'form', 'url', 'category'));
         $this->load->library('session');
         $this->load->model('Mproducts');
         $this->load->model('Includebaokim');
@@ -21,7 +23,8 @@ class Cproducts extends CI_Controller {
 //        $this->output->cache(10);
     }
 
-    public function index() {
+    public function index()
+    {
         $temp['info'] = $this->Mlog->log();
         if ($temp['info']['logged_in'] == TRUE) {
             $userid = $temp['info']['userID'];
@@ -48,7 +51,8 @@ class Cproducts extends CI_Controller {
         $this->load->view('layout/layout', $temp);
     }
 
-    public function show_more() {
+    public function show_more()
+    {
         if (isset($_POST['start'])) {
             $start = $_POST['start'];
             if ($temp = $this->Mproducts->show_more($start)) {
@@ -83,7 +87,8 @@ class Cproducts extends CI_Controller {
         }
     }
 
-    public function showDetailProducts($id) {
+    public function showDetailProducts($id)
+    {
         $temp['info'] = $this->Mlog->log();
         if ($temp['info']['logged_in'] == TRUE) {
             $userid = $temp['info']['userID'];
@@ -99,7 +104,7 @@ class Cproducts extends CI_Controller {
                 $temp['num_proExpiration'] = $this->Musers->getNumProductsExpiration($userid); //Lay so luong san pham het han
             }
         }
-        $temp['listshop']=  $this->Mshop->getListShop();
+        $temp['listshop'] = $this->Mshop->getListShop();
         $temp['shopinfo'] = $this->Mshop->getShopByProID($id); //lấy thông tin gian hàng qua mã sản phẩm
         $temp['hotshop'] = $this->Mshop->getHotShop();
         $temp['title'] = 'Chi tiết sản phẩm';
@@ -131,7 +136,8 @@ class Cproducts extends CI_Controller {
         $this->load->view('layout/layout', $temp);
     }
 
-    public function upProducts() {
+    public function upProducts()
+    {
         $temp['info'] = $this->Mlog->log();
         if ($temp['info']['logged_in']) {
             $userid = $temp['info']['userID'];
@@ -145,9 +151,14 @@ class Cproducts extends CI_Controller {
                 $temp['num_order'] = $this->Musers->getNumOrderStatus($userid); //lay so luong hoa don chua xu ly
                 $temp['num_proUnactive'] = $this->Musers->getNumProductsUnactive($userid); //Lay so luong san pham chua kiem duyet
                 $temp['num_proExpiration'] = $this->Musers->getNumProductsExpiration($userid); //Lay so luong san pham het han
+            } else {
+                redirect('profile#upgrade');
             }
         }
-        $temp['listshop']=  $this->Mshop->getListShop();
+        else{
+            redirect('trang-chu');
+        }
+        $temp['listshop'] = $this->Mshop->getListShop();
         $temp['title'] = 'Đăng sản phẩm';
         $temp['cate'] = $this->Mproducts->getAllCategories();
 //        $temp['sidebar_product'] = $this->Mproducts->getRandomProduct();
@@ -159,7 +170,8 @@ class Cproducts extends CI_Controller {
         $this->load->view('layout/layout', $temp);
     }
 
-    public function insertProducts() {
+    public function insertProducts()
+    {
         $this->load->library('form_validation');
         $this->form_validation->set_rules('soluong', 'Số lượng bắt buộc và phải là số', 'required|numeric|integer');
         $this->form_validation->set_rules('tensanpham', 'Tên sản phẩm bắt buộc', 'required');
@@ -168,10 +180,7 @@ class Cproducts extends CI_Controller {
             $this->upProducts();
         } else {
             $url = array();
-            $allowed = array('image/jpg',
-                'image/x-png',
-                'image/png',
-                'image/jpeg');
+            $allowed = array('image/jpg', 'image/x-png', 'image/png', 'image/jpeg');
             for ($i = 1; $i < 4; $i++) {
                 $link_tai_anh_goc = "./public/product_images/";
                 $tmp = $_FILES['img' . $i]['tmp_name']; //luu ten cua file vao bien tmp
@@ -195,7 +204,7 @@ class Cproducts extends CI_Controller {
                 }
             }
             $temp = $this->Mlog->log();
-            $uid = $temp['userID'];
+            $shopid = $this->Mshop->getShopByUID($temp['userID']);
             $images = json_encode($url);
             $danhmuc = $this->input->post('danhmuc');
             $soluong = $this->input->post('soluong');
@@ -205,15 +214,22 @@ class Cproducts extends CI_Controller {
             $dieukiensd = $this->input->post('dieukiensd');
             $chitietsp = $this->input->post('chitietsp');
             $proid = $this->Musers->setID('products', 'productsID', 'PRO');
-            var_dump($proid);
-            die();
-            $kq = $this->Mproducts->insertProducts($proid, $danhmuc, $soluong, $tensanpham, $motangan, $dacdiemnb, $dieukiensd, $chitietsp, $images, $uid);
+            $danhmuc = $this->input->post('danhmuc');
+            foreach ($danhmuc as $row) {
+                $category_product = array(
+                    'productsID' => $proid,
+                    'categoryID' => $row
+                );
+                $this->Mproducts->insertCatePro($category_product);
+            }
+            $kq = $this->Mproducts->insertProducts($proid, $tensanpham, $soluong, $motangan, $dacdiemnb, $dieukiensd, $chitietsp, $images, $shopid);
             $this->session->set_flashdata('addproduct_alert', 'Đã Thêm sản phẩm Thành Công');
             redirect('up-product');
         }
     }
 
-    public function editProducts($id) {
+    public function editProducts($id)
+    {
         $data['info'] = $this->Mproducts->log();
         if ($data['info']['logged_in']) {
             $userid = $data['info']['userID'];
@@ -240,7 +256,8 @@ class Cproducts extends CI_Controller {
         $this->load->view('layout/layout', $data);
     }
 
-    public function updateProducts() {
+    public function updateProducts()
+    {
         $temp['info'] = $this->Mproducts->log();
         if ($temp['info']['logged_in']) {
             $userid = $temp['info']['userID'];
@@ -314,7 +331,8 @@ class Cproducts extends CI_Controller {
         $this->load->view('layout/layout', $data);
     }
 
-    public function odernow() {//nut cho vao gio tren trang chi tiet san pham
+    public function odernow()
+    { //nut cho vao gio tren trang chi tiet san pham
         if ($this->input->post('order')) {
             $proname = $this->input->post('proname');
             $seller = $this->input->post('seller');
@@ -335,7 +353,8 @@ class Cproducts extends CI_Controller {
         }
     }
 
-    public function payonline() {
+    public function payonline()
+    {
         $data['info'] = $this->Mlog->log();
         if ($data['info']['logged_in']) {
             $userid = $data['info']['userID'];
@@ -355,17 +374,17 @@ class Cproducts extends CI_Controller {
             $buyer = $data['info']['userID'];
             $data['profile'] = $this->Musers->getProfile($buyer); //lấy thông tin cá nhân
 
-            if ($this->input->post('payonline')) {// nut thanh toan truc tuyen tren trang viewcart
+            if ($this->input->post('payonline')) { // nut thanh toan truc tuyen tren trang viewcart
                 $payinfo = $this->input->post('payonline');
                 if (isset($_SESSION['pay']))
                     unset($_SESSION['pay']);
-                foreach ($payinfo as $uid => $value) {//lay ma nguoi ban
+                foreach ($payinfo as $uid => $value) { //lay ma nguoi ban
                     $_SESSION['pay'][$uid] = $_SESSION['cart'][$uid];
                     $_SESSION['pay']['method'] = 1; //hinh thuc thanh toan tai nha
                 }
             }
 
-            if ($this->input->post('paynow')) {//nut mua ngay tren trang chi tiet san pham
+            if ($this->input->post('paynow')) { //nut mua ngay tren trang chi tiet san pham
                 $proprice = $this->input->post('price');
                 $proname = $this->input->post('proname');
                 $seller = $this->input->post('seller');
@@ -413,7 +432,8 @@ class Cproducts extends CI_Controller {
         $this->load->view('layout/layout', $data);
     }
 
-    public function payhome() {
+    public function payhome()
+    {
         $data['info'] = $this->Mlog->log();
         if ($data['info']['logged_in']) {
             $userid = $data['info']['userID'];
@@ -429,7 +449,7 @@ class Cproducts extends CI_Controller {
                 $data['num_proExpiration'] = $this->Musers->getNumProductsExpiration($userid); //Lay so luong san pham het han
             }
         }
-        if ($data['info'] != FALSE) {//trường hợp đã đăng nhập
+        if ($data['info'] != FALSE) { //trường hợp đã đăng nhập
             $buyer = $data['info']['userID'];
             $data['profile'] = $this->Musers->getProfile($buyer);
             if ($this->input->post('thanhtoan')) {
@@ -448,8 +468,9 @@ class Cproducts extends CI_Controller {
                 unset($_SESSION['pay']);
                 redirect('cart');
             }
-        }//lấy thông tin cá nhân
-        if ($this->session->userdata('guest')) {//trường hợp chưa đăng nhập
+        }
+        //lấy thông tin cá nhân
+        if ($this->session->userdata('guest')) { //trường hợp chưa đăng nhập
             $data['guest'] = $this->session->userdata('guest');
             if ($this->input->post('thanhtoan')) {
                 $note = $this->input->post('note');
@@ -477,7 +498,8 @@ class Cproducts extends CI_Controller {
         $this->load->view('layout/layout', $data);
     }
 
-    public function BaokimPay($total_amount = 100000, $order_id = 'tantan') {
+    public function BaokimPay($total_amount = 100000, $order_id = 'tantan')
+    {
         $this->Includebaokim->load_bk();
         $business = "ductan_nguyen92@yahoo.com";
         $description = "";
@@ -492,7 +514,8 @@ class Cproducts extends CI_Controller {
         header("location: $request_url"); //Chuyến đến trang bảo kim
     }
 
-    public function view_cart() {
+    public function view_cart()
+    {
         $data['info'] = $this->Mlog->log(); //lấy thông tin đăng nhập
         if ($data['info']['logged_in'] == TRUE) {
             $userid = $data['info']['userID'];
@@ -535,7 +558,8 @@ class Cproducts extends CI_Controller {
         }
     }
 
-    public function addcart() {
+    public function addcart()
+    {
         $id = $_POST['idpro'];
         $shopid2 = $this->Mproducts->getProductbyID($id);
         $shopid = $shopid2['shopID'];
@@ -562,7 +586,8 @@ class Cproducts extends CI_Controller {
         echo $dem;
     }
 
-    public function updateCart() {
+    public function updateCart()
+    {
         if (isset($_POST['soluong'], $_POST['userid'], $_POST['proid'])) {
             $userid = $_POST['userid'];
             $productid = $_POST['proid'];
@@ -571,7 +596,8 @@ class Cproducts extends CI_Controller {
         }
     }
 
-    public function delCart($uid, $proid) {
+    public function delCart($uid, $proid)
+    {
         unset($_SESSION['cart']["$uid"]["$proid"]);
         if ($proid == '' || count($_SESSION['cart'][$uid]) < 2) //neu so san pham cua gian hang >1 (tinh ca "shopname" nen phai la <2) thi xoa tung sp
             unset($_SESSION['cart']["$uid"]);
@@ -580,15 +606,18 @@ class Cproducts extends CI_Controller {
         redirect('cart');
     }
 
-    public function cancel_order() {
-        
+    public function cancel_order()
+    {
+
     }
 
-    public function vd() {
+    public function vd()
+    {
         $this->load->view('vd');
     }
 
-    public function vd2() {
+    public function vd2()
+    {
         $uid = 'UID0009';
         $id = 72;
         $proname = 'ao ngan';
@@ -602,7 +631,8 @@ class Cproducts extends CI_Controller {
         $this->load->view('vd');
     }
 
-    public function rate() {
+    public function rate()
+    {
         $id_sent = preg_replace("/[^0-9]/", "", $_REQUEST['id']);
         $vote_sent = preg_replace("/[^0-9]/", "", $_REQUEST['stars']);
         $ip = $_SERVER['REMOTE_ADDR'];
