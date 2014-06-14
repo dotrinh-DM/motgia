@@ -150,9 +150,7 @@
 
         .dialog {
             width: 900px;
-            height: 400px;
             margin: 0 auto;
-            padding: 40px;
             background-color: #fff;
             border: 1px solid #ccc;
             color: #333;
@@ -165,8 +163,8 @@
 
 
         <div class="dialog"><img src="<?php echo base_url() . 'public/Welcome.jpg'; ?>" alt="Welcome"
-                                 style="width: 380px;"/><br/><br/>
-            <center><a href="<?php echo site_url('home/chome'); ?>">Close [X]</a></center>
+                                 /><br/><br/>
+            <center style="margin-top: -50px;"><a href="<?php echo site_url('home/chome'); ?>">Close [X]</a></center>
         </div>
     </div>
 <?php
