@@ -1018,3 +1018,27 @@ select option {
     margin-left: 20px;
     width:500px;
 }
+.help {
+    background:#ffffff;
+position: fixed;
+bottom: -13%;
+right:20px;
+width: 180px;
+margin-left: 10px;
+border: 1px solid #e7e7e7;
+ box-shadow: 0px 0px 6px #e7e7e7;
+padding: 10px;
+color:#1b1b1b;
+font-size: 12px;
+cursor: pointer;
+}
+.help h5{
+    color:#16a085;
+    font-weight: bold;
+}
+.help .info_wrap{
+    margin-top:10px;
+}
+.help .info_wrap span{
+    margin-left:10px;
+}
