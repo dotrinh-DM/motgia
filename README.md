@@ -23,6 +23,9 @@ Sẽ cập nhật...
 * Ngôn ngữ: PHP5, JS, jQuery, HTML5, CSS3,...
 * CSDL: Mysql.
 * Source Control: svn, git.
+* WYSIWYG.
+* Captcha
+* Multilanguage.
 * [Codeigniter] - Sử dụng The web framework
 * [Baokim](https://www.baokim.vn/trang-chu) - Thanh toán online
 
