@@ -4,6 +4,9 @@ Dự án nhằm cung cấp cho người dùng một nơi bán hàng đồng giá
 Dự án được xây dựng dựa trên mã nguồn mở Codeigniter. 
 Dự án này do Trịnh Thành Đô (dev), Nguyễn Tân (dev), Lê Hải (designer) cùng nhau làm với mục đích học tập và báo cáo đồ án tốt nghiệp.
 
+# Ảnh Demo
+![alt text](https://github.com/dotrinhdev/motgia/blob/master/template/images/homepage.png "Homepage")
+
 ## Getting Started
 
 Nếu bạn có kinh nghiệm về codeigniter thì chắc chắn dễ dàng cài đặt mã nguồn.
