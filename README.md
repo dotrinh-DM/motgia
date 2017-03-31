@@ -4,33 +4,40 @@ Dự án nhằm cung cấp cho người dùng một nơi bán hàng đồng giá
 Dự án được xây dựng dựa trên mã nguồn mở Codeigniter. 
 Dự án này do Trịnh Thành Đô (dev), Nguyễn Tân (dev), Lê Hải (designer) cùng nhau làm với mục đích học tập và báo cáo đồ án tốt nghiệp.
 
-# Ảnh Demo
+## Ảnh Demo
 ![alt text](https://github.com/dotrinhdev/motgia/blob/master/template/images/homepage.png "Homepage")
 
 ## Getting Started
 
 Nếu bạn có kinh nghiệm về codeigniter thì chắc chắn dễ dàng cài đặt mã nguồn.
 
-### Prerequisites
+## Prerequisites
 
 * XAMPP, MAMP,..
 * Internet.
 * Chrome, Firefox.
 * Bank Account.
 
-### Installing
+## Installing
 
 Sẽ cập nhật...
 
 ## Built With
+* OS: centOS 6.8 Version.
 * Ngôn ngữ: PHP5, JS, jQuery, HTML5, CSS3,...
 * CSDL: Mysql.
-* Source Control: svn, git.
+* Source Control: SVN & Git.
 * WYSIWYG.
 * Captcha
 * Multilanguage.
 * [Codeigniter] - Sử dụng The web framework
 * [Baokim](https://www.baokim.vn/trang-chu) - Thanh toán online
+* Google API
+* Facebook SDK - Social Networking
+* Lightbox
+* CloudFront
+* Open Graph Protocol
+* Responsive Design
 
 ## Acknowledgments
 
