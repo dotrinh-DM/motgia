@@ -54,7 +54,7 @@ Sẽ cập nhật...
 
 # Authors
 
-* Do Trinh - *Initial work* - https://github.com/dotrinhdev
+* Do Trinh - *Initial work* - https://github.com/dotrinh-pm
 
 # License
 
